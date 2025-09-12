@@ -6,6 +6,7 @@ export default function Home() {
     <div>
       <HeroReact></HeroReact>
       <FooterReact></FooterReact>
+      
     </div>
   );
 }
