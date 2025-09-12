@@ -29,28 +29,24 @@ const HeroReact = () => {
           >
             <div className="block w-5 absolute left-5 top-1/3 transform -translate-x-1/2 -translate-y-1/2 z-50">
               <span
-                className={`block absolute h-0.5 w-7 text-white bg-current transform transition duration-300 ease-in-out ${
-                  toggle ? "rotate-45" : "-translate-y-2"
-                }`}
+                className={`block absolute h-0.5 w-7 text-white bg-current transform transition duration-300 ease-in-out ${toggle ? "rotate-45" : "-translate-y-2"
+                  }`}
               ></span>
               <span
-                className={`block absolute h-0.5 w-7 text-white bg-current transform transition duration-300 ease-in-out ${
-                  toggle && "opacity-0"
-                }`}
+                className={`block absolute h-0.5 w-7 text-white bg-current transform transition duration-300 ease-in-out ${toggle && "opacity-0"
+                  }`}
               ></span>
               <span
-                className={`block absolute h-0.5 w-7 text-white bg-current transform transition duration-300 ease-in-out ${
-                  toggle ? "-rotate-45" : "translate-y-2"
-                }`}
+                className={`block absolute h-0.5 w-7 text-white bg-current transform transition duration-300 ease-in-out ${toggle ? "-rotate-45" : "translate-y-2"
+                  }`}
               ></span>
             </div>
           </button>
 
           {/* মোবাইল মেনু - ডাইনামিকভাবে navLinks অ্যারে থেকে তৈরি করা হয়েছে */}
           <div
-            className={`border-[2px] z-30 border-orange-600 bg-[#050C24] rounded-xl absolute top-[70px] left-5 block sm:hidden p-0.5 ${
-              toggle ? "visible" : "invisible"
-            }`}
+            className={`border-[2px] z-30 border-orange-600 bg-[#050C24] rounded-xl absolute top-[70px] left-5 block sm:hidden p-0.5 ${toggle ? "visible" : "invisible"
+              }`}
           >
             <div className="p-3 rounded-xl min-w-[180px] text-center flex justify-center items-center flex-col gap-3">
               {navLinks.map((link) => (
@@ -78,22 +74,24 @@ const HeroReact = () => {
               Login
             </button>
           </div>
-          <svg
-            className="w-10 h-10 hover:text-orange-600 text-white cursor-pointer hidden sm:block"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="1"
-              d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-            />
-          </svg>
+          <Link href={'/cart'}>
+            <svg
+              className="w-10 h-10 hover:text-orange-600 text-white cursor-pointer hidden sm:block"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1"
+                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+              />
+            </svg>
+          </Link>
           <button className="block sm:hidden bg-transparent border border-orange-600 py-1.5 px-5 rounded-md h-max text-white hover:bg-orange-600">
             Login
           </button>
@@ -108,7 +106,7 @@ const HeroReact = () => {
             {title}
           </h1>
           <div className="flex justify-center mt-2 flex-col gap-5 sm:gap-7 items-center">
-          
+
             <div className="flex justify-center min-w-[100px] sm:min-w-[360px] !max-w-[200px] sm:max-w-[360px]">
               <div className="flex bg-white py-2.5 pl-2 pr-1 rounded-l-lg items-center gap-1.5 w-full max-w-[280px] sm:max-w-xl">
                 <svg
