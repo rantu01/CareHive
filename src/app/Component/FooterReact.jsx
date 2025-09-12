@@ -25,6 +25,7 @@ const Logo = () => {
       />
     </svg>
   );
+  
 };
 const Twitter = () => {
   return (
