@@ -1,11 +1,14 @@
-import HeroReact from "./Component/HeroReact";
-import FooterReact from "./Component/FooterReact";
+
+import Navbar from "./Component/Navbar";
+import Hero from "./Component/Hero";
+import Footer from "./Component/Footer";
 
 export default function Home() {
   return (
     <div>
-      <HeroReact></HeroReact>
-      <FooterReact></FooterReact>
+      <Navbar></Navbar>
+      <Hero></Hero>
+      <Footer></Footer>
       
     </div>
   );
