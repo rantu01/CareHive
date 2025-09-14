@@ -1,6 +1,8 @@
 import clientPromise from "../../lib/mongodb";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic"; // ⬅️ This prevents Next.js from trying to pre-render
+
 export async function GET() {
   try {
     const client = await clientPromise;
