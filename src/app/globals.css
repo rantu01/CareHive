@@ -1,2 +1,15 @@
 @import "tailwindcss";
 
+:root {
+  /* Calm Blue */
+  --color-calm-blue: #4682B4;
+
+  /* Black */
+  --color-black: #000000;
+
+  /* White */
+  --color-white: #FFFFFF;
+
+  /* Light Green */
+  --color-light-green: #90EE90;
+}
