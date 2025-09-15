@@ -188,7 +188,7 @@ const BmiCalculator = () => {
 
           {/* Advice */}
           <div className="mt-6 p-4 bg-gray-50 border rounded-lg text-sm text-gray-700">
-            <p className="font-medium">Advice:</p>
+            <p className="font-medium"></p>
             <p>{advice}</p>
           </div>
         </div>

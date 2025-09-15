@@ -7,7 +7,7 @@ const page = () => {
         <div>
             <Navbar></Navbar>
             <div className='pt-30'>
-                Welcome to wellness page
+                Welcome to health and wellness
                 <BmiCalculator></BmiCalculator>
             </div>
         </div>
