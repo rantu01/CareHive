@@ -78,14 +78,19 @@ const BmiCalculator = () => {
     return `${(value / 40) * 100}%`;
   };
 
+  // Shadow only for main container
+  const mainBoxShadow = { boxShadow: "0 10px 25px -5px #4682B4" };
+
   return (
-    <div className="max-w-2xl w-full mx-auto mt-12 p-8 bg-white rounded-3xl shadow-2xl border border-gray-600 mb-12">
+    <div
+      className="max-w-2xl w-full mx-auto mt-12 p-8 bg-white rounded-3xl mb-12"
+      style={mainBoxShadow}
+    >
       {/* Animated Title */}
       <h2
         className={`text-xl font-medium text-center mb-10 transition-all duration-1000 text-gray-400 ${
           titleVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-6"
         }`}
-       
       >
         BMI Measurement & Guidance
       </h2>
@@ -94,14 +99,12 @@ const BmiCalculator = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         {/* Height */}
         <div>
-          <label className="block text-sm font-medium mb-2 text-gray-600" >
-            Height
-          </label>
+          <label className="block text-sm font-medium mb-2 text-gray-600">Height</label>
           <div className="flex items-center gap-3">
             <select
               value={heightUnit}
               onChange={(e) => setHeightUnit(e.target.value)}
-              className="px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-[#4682B4] outline-none transition w-28"
+              className="px-4 py-2 border rounded-lg outline-none transition w-28"
             >
               <option value="cm">cm</option>
               <option value="ft">ft/in</option>
@@ -111,7 +114,7 @@ const BmiCalculator = () => {
                 type="number"
                 value={heightCm}
                 onChange={(e) => setHeightCm(e.target.value)}
-                className="flex-1 px-2 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-[#4682B4] outline-none transition"
+                className="flex-1 px-2 py-2 border rounded-lg outline-none transition"
                 placeholder="Enter height in cm"
               />
             ) : (
@@ -120,14 +123,14 @@ const BmiCalculator = () => {
                   type="number"
                   value={heightFt}
                   onChange={(e) => setHeightFt(e.target.value)}
-                  className="w-1/2 px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-[#4682B4] outline-none transition"
+                  className="w-1/2 px-4 py-2 border rounded-lg outline-none transition"
                   placeholder="ft"
                 />
                 <input
                   type="number"
                   value={heightIn}
                   onChange={(e) => setHeightIn(e.target.value)}
-                  className="w-1/2 px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-[#4682B4] outline-none transition"
+                  className="w-1/2 px-4 py-2 border rounded-lg outline-none transition"
                   placeholder="in"
                 />
               </div>
@@ -137,14 +140,12 @@ const BmiCalculator = () => {
 
         {/* Weight */}
         <div>
-          <label className="block text-sm font-medium mb-2 text-gray-600" >
-            Weight
-          </label>
+          <label className="block text-sm font-medium mb-2 text-gray-600">Weight</label>
           <div className="flex items-center gap-3">
             <select
               value={weightUnit}
               onChange={(e) => setWeightUnit(e.target.value)}
-              className="px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-[#4682B4] outline-none transition w-28"
+              className="px-4 py-2 border rounded-lg outline-none transition w-28"
             >
               <option value="kg">kg</option>
               <option value="lbs">lbs</option>
@@ -153,7 +154,7 @@ const BmiCalculator = () => {
               type="number"
               value={weight}
               onChange={(e) => setWeight(e.target.value)}
-              className="flex-1 px-2 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-[#4682B4] outline-none transition"
+              className="flex-1 px-2 py-2 border rounded-lg outline-none transition"
               placeholder={`Enter weight in ${weightUnit}`}
             />
           </div>
@@ -173,7 +174,7 @@ const BmiCalculator = () => {
         <div className="space-y-6">
           {/* BMI & Category */}
           <div className="text-center">
-            <p className="text-xl  font-semibold text-gray-600" >
+            <p className="text-xl font-semibold text-gray-600">
               Your BMI: <span style={{ color: "var(--color-calm-blue)" }}>{bmi}</span>
             </p>
             <p

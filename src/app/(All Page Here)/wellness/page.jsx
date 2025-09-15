@@ -17,7 +17,7 @@ const page = () => {
 
                 {/* Description */}
                 <p
-                    className="mt-4 text-sm md:text-xl max-w-6xl mx-auto animate-fadeIn text-gray-700"
+                    className="mt-4 text-sm md:text-lg max-w-6xl mx-auto animate-fadeIn text-gray-600"
                    
                 >
                     CareHive is a unified digital platform designed to support your overall health and wellness. 
