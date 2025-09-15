@@ -10,6 +10,7 @@ const BmiCalculator = () => {
   const [weight, setWeight] = useState("");
   const [bmi, setBmi] = useState(null);
   const [category, setCategory] = useState("");
+  const [advice, setAdvice] = useState("");
 
   const calculateBMI = () => {
     let heightInMeters = 0;
@@ -40,12 +41,16 @@ const BmiCalculator = () => {
 
     if (bmiValue < 18.5) {
       setCategory("Underweight");
+      setAdvice("You are under the normal BMI range. Consider a balanced diet with more calories and consult a nutritionist.");
     } else if (bmiValue >= 18.5 && bmiValue < 24.9) {
       setCategory("Normal weight");
+      setAdvice("Great! You are in a healthy range. Maintain your lifestyle with balanced food and regular exercise.");
     } else if (bmiValue >= 25 && bmiValue < 29.9) {
       setCategory("Overweight");
+      setAdvice("You are above the normal BMI range. Focus on a balanced diet, increase physical activity, and monitor your weight regularly.");
     } else {
       setCategory("Obese");
+      setAdvice("Your BMI is in the obese range. It's important to consult a healthcare professional and follow a weight management plan.");
     }
   };
 
@@ -56,6 +61,13 @@ const BmiCalculator = () => {
     if (category === "Overweight") return "bg-yellow-100 text-yellow-700";
     if (category === "Obese") return "bg-red-100 text-red-700";
     return "";
+  };
+
+  // Progress bar position (0–40 BMI range shown)
+  const getProgressPosition = () => {
+    if (!bmi) return "0%";
+    const value = Math.min(Number(bmi), 40); // cap at 40
+    return `${(value / 40) * 100}%`;
   };
 
   return (
@@ -139,15 +151,46 @@ const BmiCalculator = () => {
 
       {/* Result */}
       {bmi && (
-        <div className="mt-6 text-center">
-          <p className="text-lg font-semibold">
-            Your BMI: <span className="text-blue-600">{bmi}</span>
-          </p>
-          <p
-            className={`inline-block mt-2 px-4 py-1 rounded-full text-sm font-medium ${getCategoryColor()}`}
-          >
-            {category}
-          </p>
+        <div className="mt-6">
+          <div className="text-center">
+            <p className="text-lg font-semibold">
+              Your BMI: <span className="text-blue-600">{bmi}</span>
+            </p>
+            <p
+              className={`inline-block mt-2 px-4 py-1 rounded-full text-sm font-medium ${getCategoryColor()}`}
+            >
+              {category}
+            </p>
+          </div>
+
+          {/* Progress Bar */}
+          <div className="mt-6">
+            <div className="relative w-full h-4 bg-gray-200 rounded-full">
+              <div className="absolute left-0 top-0 h-4 w-1/4 bg-blue-300 rounded-l-full"></div>
+              <div className="absolute left-1/4 top-0 h-4 w-1/4 bg-green-300"></div>
+              <div className="absolute left-1/2 top-0 h-4 w-1/4 bg-yellow-300"></div>
+              <div className="absolute left-3/4 top-0 h-4 w-1/4 bg-red-300 rounded-r-full"></div>
+
+              {/* Marker */}
+              <div
+                className="absolute top-1/2 w-2 h-6 bg-black rounded-full -translate-y-1/2"
+                style={{ left: getProgressPosition() }}
+              ></div>
+            </div>
+            <div className="flex justify-between text-xs text-gray-500 mt-1">
+              <span>0</span>
+              <span>10</span>
+              <span>20</span>
+              <span>30</span>
+              <span>40+</span>
+            </div>
+          </div>
+
+          {/* Advice */}
+          <div className="mt-6 p-4 bg-gray-50 border rounded-lg text-sm text-gray-700">
+            <p className="font-medium">Advice:</p>
+            <p>{advice}</p>
+          </div>
         </div>
       )}
     </div>
