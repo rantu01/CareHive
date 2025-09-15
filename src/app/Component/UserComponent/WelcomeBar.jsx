@@ -2,14 +2,19 @@ import React from 'react';
 
 const WelcomeBar = ({ name }) => {
     return (
-        <div>
+        <div className="flex justify-between items-center">
             <div>
-                <div>
-                    <h1>Welcome back, {name}</h1>
-                    <p>Here's your health report for today</p>
-                </div>
-                <button>Update</button>
+                <h1 className="text-black font-bold text-xl">
+                    Welcome back, {name}!
+                </h1>
+                <p className="text-gray-500 text-sm">
+                    Here’s your health overview for today
+                </p>
             </div>
+
+            <button className="px-4 py-2 rounded text-white font-medium bg-[var(--dashboard-blue)] cursor-pointer">
+                Update 
+            </button>
         </div>
     );
 };
