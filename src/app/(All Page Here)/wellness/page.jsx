@@ -8,7 +8,7 @@ const page = () => {
             <Navbar></Navbar>
             <div className='pt-30'>
                 Welcome to health and wellness
-                e you can tack your calirioes, bmi and more
+                e you can tack your calorioes, bmi and more
                 <BmiCalculator></BmiCalculator>
             </div>
         </div>
