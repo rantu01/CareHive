@@ -79,7 +79,7 @@ const BmiCalculator = () => {
   };
 
   // Shadow only for main container
-  const mainBoxShadow = { boxShadow: "0 10px 25px -5px #4682B4" };
+  const mainBoxShadow = { boxShadow: "0 10px 25px -5px #9CA3AF" };
 
   return (
     <div
