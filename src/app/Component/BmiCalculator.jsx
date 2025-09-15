@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const BmiCalculator = () => {
   const [heightUnit, setHeightUnit] = useState("cm");
@@ -11,173 +11,189 @@ const BmiCalculator = () => {
   const [bmi, setBmi] = useState(null);
   const [category, setCategory] = useState("");
   const [advice, setAdvice] = useState("");
+  const [titleVisible, setTitleVisible] = useState(false);
+
+  useEffect(() => {
+    setTitleVisible(true); // Animate title on mount
+  }, []);
 
   const calculateBMI = () => {
     let heightInMeters = 0;
     let weightInKg = 0;
 
-    // Convert height
     if (heightUnit === "cm") {
       if (!heightCm) return;
       heightInMeters = heightCm / 100;
     } else {
       if (!heightFt) return;
       const totalInches = Number(heightFt) * 12 + Number(heightIn || 0);
-      heightInMeters = totalInches * 0.0254; // inches to meters
+      heightInMeters = totalInches * 0.0254;
     }
 
-    // Convert weight
     if (weightUnit === "kg") {
       if (!weight) return;
       weightInKg = Number(weight);
     } else {
       if (!weight) return;
-      weightInKg = Number(weight) * 0.453592; // lbs to kg
+      weightInKg = Number(weight) * 0.453592;
     }
 
-    // BMI Calculation
     const bmiValue = (weightInKg / (heightInMeters * heightInMeters)).toFixed(1);
     setBmi(bmiValue);
 
     if (bmiValue < 18.5) {
       setCategory("Underweight");
-      setAdvice("You are under the normal BMI range. Consider a balanced diet with more calories and consult a nutritionist.");
+      setAdvice(
+        "You are under the normal BMI range. Consider a balanced diet with more calories and consult a nutritionist."
+      );
     } else if (bmiValue >= 18.5 && bmiValue < 24.9) {
       setCategory("Normal weight");
-      setAdvice("Great! You are in a healthy range. Maintain your lifestyle with balanced food and regular exercise.");
+      setAdvice(
+        "Great! You are in a healthy range. Maintain your lifestyle with balanced food and regular exercise."
+      );
     } else if (bmiValue >= 25 && bmiValue < 29.9) {
       setCategory("Overweight");
-      setAdvice("You are above the normal BMI range. Focus on a balanced diet, increase physical activity, and monitor your weight regularly.");
+      setAdvice(
+        "You are above the normal BMI range. Focus on a balanced diet, increase physical activity, and monitor your weight regularly."
+      );
     } else {
       setCategory("Obese");
-      setAdvice("Your BMI is in the obese range. It's important to consult a healthcare professional and follow a weight management plan.");
+      setAdvice(
+        "Your BMI is in the obese range. It's important to consult a healthcare professional and follow a weight management plan."
+      );
     }
   };
 
-  // Helper for result color
   const getCategoryColor = () => {
-    if (category === "Underweight") return "bg-blue-100 text-blue-700";
-    if (category === "Normal weight") return "bg-green-100 text-green-700";
-    if (category === "Overweight") return "bg-yellow-100 text-yellow-700";
-    if (category === "Obese") return "bg-red-100 text-red-700";
+    if (category === "Underweight") return "bg-[#4682B4]/20 text-[#4682B4]";
+    if (category === "Normal weight") return "bg-[#4682B4]/30 text-[#4682B4]";
+    if (category === "Overweight") return "bg-yellow-200 text-[#4682B4]";
+    if (category === "Obese") return "bg-red-200 text-[#4682B4]";
     return "";
   };
 
-  // Progress bar position (0–40 BMI range shown)
   const getProgressPosition = () => {
     if (!bmi) return "0%";
-    const value = Math.min(Number(bmi), 40); // cap at 40
+    const value = Math.min(Number(bmi), 40);
     return `${(value / 40) * 100}%`;
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow-2xl rounded-2xl border border-gray-100">
-      <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
-        BMI Calculator
+    <div className="max-w-2xl w-full mx-auto mt-12 p-8 bg-white rounded-3xl shadow-2xl border border-gray-200">
+      {/* Animated Title */}
+      <h2
+        className={`text-3xl font-extrabold text-center mb-10 transition-all duration-1000 ${
+          titleVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-6"
+        }`}
+        style={{ color: "var(--color-calm-blue)" }}
+      >
+        Wellness BMI Calculator
       </h2>
 
-      {/* Height Section */}
-      <div className="mb-4">
-        <label className="block text-sm font-medium mb-1">Height</label>
-        <div className="flex items-center gap-2">
-          <select
-            value={heightUnit}
-            onChange={(e) => setHeightUnit(e.target.value)}
-            className="px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300 outline-none"
-          >
-            <option value="cm">cm</option>
-            <option value="ft">ft/in</option>
-          </select>
+      {/* Input Section */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
+        {/* Height */}
+        <div>
+          <label className="block text-sm font-medium mb-2" style={{ color: "var(--color-black)" }}>
+            Height
+          </label>
+          <div className="flex items-center gap-3">
+            <select
+              value={heightUnit}
+              onChange={(e) => setHeightUnit(e.target.value)}
+              className="px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-[#4682B4] outline-none transition w-28"
+            >
+              <option value="cm">cm</option>
+              <option value="ft">ft/in</option>
+            </select>
+            {heightUnit === "cm" ? (
+              <input
+                type="number"
+                value={heightCm}
+                onChange={(e) => setHeightCm(e.target.value)}
+                className="flex-1 px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-[#4682B4] outline-none transition"
+                placeholder="Enter height in cm"
+              />
+            ) : (
+              <div className="flex gap-2 flex-1">
+                <input
+                  type="number"
+                  value={heightFt}
+                  onChange={(e) => setHeightFt(e.target.value)}
+                  className="w-1/2 px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-[#4682B4] outline-none transition"
+                  placeholder="ft"
+                />
+                <input
+                  type="number"
+                  value={heightIn}
+                  onChange={(e) => setHeightIn(e.target.value)}
+                  className="w-1/2 px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-[#4682B4] outline-none transition"
+                  placeholder="in"
+                />
+              </div>
+            )}
+          </div>
+        </div>
 
-          {heightUnit === "cm" ? (
+        {/* Weight */}
+        <div>
+          <label className="block text-sm font-medium mb-2" style={{ color: "var(--color-black)" }}>
+            Weight
+          </label>
+          <div className="flex items-center gap-3">
+            <select
+              value={weightUnit}
+              onChange={(e) => setWeightUnit(e.target.value)}
+              className="px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-[#4682B4] outline-none transition w-28"
+            >
+              <option value="kg">kg</option>
+              <option value="lbs">lbs</option>
+            </select>
             <input
               type="number"
-              value={heightCm}
-              onChange={(e) => setHeightCm(e.target.value)}
-              className="flex-1 px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300 outline-none"
-              placeholder="Enter height in cm"
+              value={weight}
+              onChange={(e) => setWeight(e.target.value)}
+              className="flex-1 px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-[#4682B4] outline-none transition"
+              placeholder={`Enter weight in ${weightUnit}`}
             />
-          ) : (
-            <div className="flex gap-2 flex-1">
-              <input
-                type="number"
-                value={heightFt}
-                onChange={(e) => setHeightFt(e.target.value)}
-                className="w-1/2 px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300 outline-none"
-                placeholder="ft"
-              />
-              <input
-                type="number"
-                value={heightIn}
-                onChange={(e) => setHeightIn(e.target.value)}
-                className="w-1/2 px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300 outline-none"
-                placeholder="in"
-              />
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Weight Section */}
-      <div className="mb-4">
-        <label className="block text-sm font-medium mb-1">Weight</label>
-        <div className="flex items-center gap-2">
-          <select
-            value={weightUnit}
-            onChange={(e) => setWeightUnit(e.target.value)}
-            className="px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300 outline-none"
-          >
-            <option value="kg">kg</option>
-            <option value="lbs">lbs</option>
-          </select>
-
-          <input
-            type="number"
-            value={weight}
-            onChange={(e) => setWeight(e.target.value)}
-            className="flex-1 px-3 py-2 border rounded-lg focus:ring focus:ring-blue-300 outline-none"
-            placeholder={`Enter weight in ${weightUnit}`}
-          />
+          </div>
         </div>
       </div>
 
       {/* Calculate Button */}
       <button
         onClick={calculateBMI}
-        className="w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white py-2 rounded-lg font-semibold hover:opacity-90 transition"
+        className="w-full py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-[#4682B4] to-[#000000] shadow-lg hover:shadow-xl hover:scale-105 transition transform mb-8"
       >
         Calculate BMI
       </button>
 
-      {/* Result */}
+      {/* Result Section */}
       {bmi && (
-        <div className="mt-6">
+        <div className="space-y-6">
+          {/* BMI & Category */}
           <div className="text-center">
-            <p className="text-lg font-semibold">
-              Your BMI: <span className="text-blue-600">{bmi}</span>
+            <p className="text-xl font-semibold" style={{ color: "var(--color-black)" }}>
+              Your BMI: <span style={{ color: "var(--color-calm-blue)" }}>{bmi}</span>
             </p>
             <p
-              className={`inline-block mt-2 px-4 py-1 rounded-full text-sm font-medium ${getCategoryColor()}`}
+              className={`inline-block mt-3 px-6 py-2 rounded-full text-sm font-medium shadow-lg ${getCategoryColor()}`}
             >
               {category}
             </p>
           </div>
 
           {/* Progress Bar */}
-          <div className="mt-6">
-            <div className="relative w-full h-4 bg-gray-200 rounded-full">
-              <div className="absolute left-0 top-0 h-4 w-1/4 bg-blue-300 rounded-l-full"></div>
-              <div className="absolute left-1/4 top-0 h-4 w-1/4 bg-green-300"></div>
-              <div className="absolute left-1/2 top-0 h-4 w-1/4 bg-yellow-300"></div>
-              <div className="absolute left-3/4 top-0 h-4 w-1/4 bg-red-300 rounded-r-full"></div>
-
-              {/* Marker */}
-              <div
-                className="absolute top-1/2 w-2 h-6 bg-black rounded-full -translate-y-1/2"
-                style={{ left: getProgressPosition() }}
-              ></div>
-            </div>
-            <div className="flex justify-between text-xs text-gray-500 mt-1">
+          <div className="relative w-full h-5 bg-gray-200 rounded-full overflow-hidden shadow-inner">
+            <div
+              className="absolute top-0 left-0 h-5 rounded-full"
+              style={{
+                width: getProgressPosition(),
+                background: "linear-gradient(90deg, #4682B4, #000000)",
+                transition: "width 0.6s ease-in-out",
+              }}
+            ></div>
+            <div className="flex justify-between text-xs text-gray-500 mt-1 px-1">
               <span>0</span>
               <span>10</span>
               <span>20</span>
@@ -187,9 +203,11 @@ const BmiCalculator = () => {
           </div>
 
           {/* Advice */}
-          <div className="mt-6 p-4 bg-gray-50 border rounded-lg text-sm text-gray-700">
-            <p className="font-medium"></p>
-            <p>{advice}</p>
+          <div
+            className="p-6 rounded-2xl border bg-gray-50 shadow-md text-sm font-medium"
+            style={{ color: "var(--color-black)" }}
+          >
+            {advice}
           </div>
         </div>
       )}
