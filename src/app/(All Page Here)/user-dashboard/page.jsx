@@ -1,4 +1,5 @@
 import KPIcard from '@/app/Component/UserComponent/KPIcard';
+import UpcomingAppointment from '@/app/Component/UserComponent/UpcomingAppointment';
 import WelcomeBar from '@/app/Component/UserComponent/WelcomeBar';
 import React from 'react';
 
@@ -36,7 +37,7 @@ const UserDashboard = () => {
                     ))
                 }
 
-                <UpcomingAppointment></UpcomingAppointment>
+               <UpcomingAppointment/>
             </div>
         </div>
     );
