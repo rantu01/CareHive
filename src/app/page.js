@@ -13,7 +13,6 @@ export default function Home() {
       <FeaturedServices></FeaturedServices>
       <ContactSection></ContactSection>
       <Footer></Footer>
-      
     </div>
   );
 }
