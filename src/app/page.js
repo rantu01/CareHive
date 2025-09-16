@@ -11,7 +11,6 @@ export default function Home() {
       <Hero></Hero>
       <FeaturedServices></FeaturedServices>
       <Footer></Footer>
-      
     </div>
   );
 }
