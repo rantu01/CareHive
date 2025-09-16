@@ -1,6 +1,11 @@
-import React from 'react';
+"use client"
+import React, { useState } from 'react';
+import UpdateModal from './UpdateModal';
 
 const WelcomeBar = ({ name }) => {
+
+    const [isOpen,setIsOpen]=useState(false)
+
     return (
         <div className="flex justify-between items-center">
             <div>
@@ -12,11 +17,13 @@ const WelcomeBar = ({ name }) => {
                 </p>
             </div>
 
-            <button className="px-4 py-2 rounded text-white font-medium bg-[var(--dashboard-blue)] cursor-pointer">
+            <button onClick={()=>setIsOpen(!isOpen)} className="px-4 py-2 rounded text-white font-medium bg-[var(--dashboard-blue)] cursor-pointer">
                 Update 
             </button>
 
-            
+            {
+                isOpen && <UpdateModal setIsOpen={setIsOpen}/>
+            }
         </div>
     );
 };
