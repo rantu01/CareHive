@@ -40,9 +40,9 @@ const UserDashboard = () => {
 
             </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-6'>
-                <div className='flex-1 md:col-span-4'><UpcomingAppointment /></div>
-                <div className='flex-1 md:col-span-2'><ToDoTask /></div>
+            <div className='grid grid-cols-1 md:grid-cols-6 gap-6'>
+                <div className='md:col-span-4'><UpcomingAppointment /></div>
+                <div className='md:col-span-2'><ToDoTask /></div>
             </div>
         </div>
     );
