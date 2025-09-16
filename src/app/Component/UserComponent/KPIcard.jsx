@@ -1,13 +1,4 @@
 
-
-
-
-
-
-
-
-// bmi , icon , value = bmiValue , compareValue= string or number like "Normal" or 1000  
-
 import { Activity, Heart, TrendingUp, Weight } from "lucide-react";
 
 
@@ -26,11 +17,11 @@ const KPIcard = ({ title, value, target = '', }) => {
                 "High";
 
     return (
-        <div className="flex bg-amber-800 gap-6 p-4 w-fit">
-            <div>
+        <div className="flex bg-[var(--dashboard-blue)]/30 gap-6 p-4 rounded hover:translate-1 transition-all delay-200 duration-500">
+            <div className="flex flex-col justify-between">
 
                 <div>
-                    <p className="text-xl">{title }</p>
+                    <p className="text-xl">{title.toUpperCase() }</p>
                 </div>
                 <div>
                     {
