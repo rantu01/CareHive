@@ -94,12 +94,12 @@ const UpcomingAppointment = () => {
                         <div key={appointment?.doctorName} className="flex items-center border-1 p-2 border-gray-200 justify-between rounded-sm">
                             <div className="flex items-center  gap-4">
                                 <div className="bg-[var(--dashboard-blue)] p-2 rounded-full">
-                                    <UserRound />
+                                    <UserRound color="white"/>
                                 </div>
                                 <div className="space-y-1">
                                     <p className="font-bold">Dr.{appointment?.doctorName}</p>
-                                    <p>{appointment?.specialist}</p>
-                                    <p>{formatAppointmentDate(appointment.appointmentDate)}</p>
+                                    <p className="text-gray-500">{appointment?.specialist}</p>
+                                    <p className="text-gray-500">{formatAppointmentDate(appointment.appointmentDate)}</p>
 
                                 </div>
                             </div>
@@ -137,12 +137,12 @@ const UpcomingAppointment = () => {
                                 >
                                     <div className="flex items-center gap-4">
                                         <div className="bg-[var(--dashboard-blue)] p-2 rounded-full">
-                                            <UserRound />
+                                            <UserRound color="white"/>
                                         </div>
                                         <div className="space-y-1">
                                             <p className="font-bold">Dr.{appointment?.doctorName}</p>
-                                            <p>{appointment?.specialist}</p>
-                                            <p>{formatAppointmentDate(appointment.appointmentDate)}</p>
+                                            <p className="text-gray-500">{appointment?.specialist}</p>
+                                            <p className="text-gray-500">{formatAppointmentDate(appointment.appointmentDate)}</p>
                                         </div>
                                     </div>
                                     <div>

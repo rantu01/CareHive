@@ -25,7 +25,7 @@ const data = [
 
 const UserDashboard = () => {
     return (
-        <div className='max-w-9/12 mx-auto'>
+        <div className='w-full p-6 md:max-w-9/12 md:p-0 mx-auto'>
             <div className='mb-4'>
                 <WelcomeBar name={"Dip Chondo"} />
             </div>
