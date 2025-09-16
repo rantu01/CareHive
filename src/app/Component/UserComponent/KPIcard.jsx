@@ -1,53 +1,74 @@
 
+
 import { Activity, Heart, TrendingUp, Weight } from "lucide-react";
 
+const KPIcard = ({ title, value, target = '' }) => {
+  const iconsMap = {
+    "bmi": <Activity className="w-6 h-6 text-white" />,
+    "daily-step": <TrendingUp className="w-6 h-6 text-white" />,
+    "heart-rate": <Heart className="w-6 h-6 text-white" />,
+    "weight": <Weight className="w-6 h-6 text-white" />
+  };
 
-const KPIcard = ({ title, value, target = '', }) => {
+  const status =
+    value < 18.5 ? "Low" :
+    value <= 24.9 ? "Normal" :
+    "High";
 
-    const iconsMap = {
-        "bmi": <Activity/>,
-        "daily-step": <TrendingUp />,
-        "heart-rate": <Heart />,
-        "weight": <Weight />
-    };
+  return (
+    <div className="flex justify-between items-center bg-white rounded-2xl p-6 shadow hover:shadow-lg transition-all duration-500 hover:-translate-y-1">
+      
+      {/* Left section */}
+      <div className="flex flex-col gap-4">
+        <p className="text-gray-500 text-sm tracking-wide font-medium">
+          {title.toUpperCase()}
+        </p>
 
-    const status =
-        value < 18.5 ? "Low" :
-            value <= 24.9 ? "Normal" :
-                "High";
+        <div className="text-lg font-semibold text-gray-800 flex items-center gap-2">
+          {title === "bmi" && (
+            <>
+              <span className="text-3xl font-bold text-[var(--dashboard-blue)]">
+                {value}
+              </span>
+              <span className="text-sm text-gray-500">{status}</span>
+            </>
+          )}
 
-    return (
-        <div className="flex bg-[var(--dashboard-blue)]/30 gap-6 p-4 rounded hover:translate-1 transition-all delay-200 duration-500">
-            <div className="flex flex-col justify-between">
+          {title === "daily-step" && (
+            <>
+              <span className="text-3xl font-bold text-[var(--dashboard-blue)]">
+                {value}
+              </span>
+              <span className="text-sm text-gray-500">/ {target}</span>
+            </>
+          )}
 
-                <div>
-                    <p className="text-xl">{title.toUpperCase() }</p>
-                </div>
-                <div>
-                    {
-                        title === "bmi" && <> <span className="text-3xl">{value}</span> {status} </> // conditional bmi status
-                    }
-                    {
-                        title === "daily-step" && <><span>{value}</span> {target}</>
-                    }
-                    {
-                        title === 'heart-rate' && <><span>{value}</span> <span>bpm</span></>
-                    }
+          {title === "heart-rate" && (
+            <>
+              <span className="text-3xl font-bold text-[var(--dashboard-blue)]">
+                {value}
+              </span>
+              <span className="text-sm text-gray-500">bpm</span>
+            </>
+          )}
 
-                    {
-                        title === "weight" && <><span>{value}</span> <span>kg</span></>
-                    }
-
-                </div>
-            </div>
-
-            <div className="bg-[var(--dashboard-blue)] flex justify-center items-center w-fit">
-                {
-                    iconsMap[title] // conditional icon
-                }
-            </div>
+          {title === "weight" && (
+            <>
+              <span className="text-3xl font-bold text-[var(--dashboard-blue)]">
+                {value}
+              </span>
+              <span className="text-sm text-gray-500">kg</span>
+            </>
+          )}
         </div>
-    );
+      </div>
+
+      {/* Right section (icon) */}
+      <div className="bg-[var(--dashboard-blue)] flex justify-center items-center p-4 rounded-xl shadow-sm">
+        {iconsMap[title]}
+      </div>
+    </div>
+  );
 };
 
 export default KPIcard;

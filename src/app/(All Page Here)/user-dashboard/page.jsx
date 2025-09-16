@@ -24,11 +24,11 @@ const data = [
 
 const UserDashboard = () => {
     return (
-        <div>
-            <div>
+        <div className='max-w-9/12 mx-auto'>
+            <div className='mb-4'>
                 <WelcomeBar name={"Dip Chondo"} />
             </div>
-            <div className='flex justify-between'>
+            <div className='grid md:grid-cols-4 gap-6 sm:grid-cols-2 grid-cols-1'>
                 {/* <KPIcard title={"bmi"} value={16} /> */}
                 {
                     data.map((activity)=>(
