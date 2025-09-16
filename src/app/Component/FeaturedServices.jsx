@@ -4,10 +4,6 @@ import { useEffect, useState } from "react";
 const FeaturedServices = () => {
   const [services, setServices] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  console.log("services:", services);
-
-
   useEffect(() => {
     async function fetchServices() {
       try {
@@ -24,6 +20,7 @@ const FeaturedServices = () => {
     fetchServices();
   }, []);
 
+  
   // Skeleton loader
   const ServiceSkeleton = () => (
     <div className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 animate-pulse">
