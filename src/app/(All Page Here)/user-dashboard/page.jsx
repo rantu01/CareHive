@@ -35,6 +35,8 @@ const UserDashboard = () => {
                         <KPIcard key={activity.title} title={activity.title} value={activity.value} target={activity?.target} />
                     ))
                 }
+
+                <UpcomingAppointment></UpcomingAppointment>
             </div>
         </div>
     );
