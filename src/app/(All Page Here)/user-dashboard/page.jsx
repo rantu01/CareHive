@@ -4,7 +4,7 @@ import React from 'react';
 const UserDashboard = () => {
     return (
         <div>
-            <WelcomeBar/>
+            <WelcomeBar name={"Dip Chondo"}/>
         </div>
     );
 };
