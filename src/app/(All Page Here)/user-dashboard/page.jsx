@@ -2,6 +2,10 @@ import KPIcard from '@/app/Component/UserComponent/KPIcard';
 import WelcomeBar from '@/app/Component/UserComponent/WelcomeBar';
 import React from 'react';
 
+const data=[
+    
+]
+
 const UserDashboard = () => {
     return (
         <div>
@@ -9,7 +13,7 @@ const UserDashboard = () => {
                 <WelcomeBar name={"Dip Chondo"} />
             </div>
             <div>
-                <KPIcard title={"weight"}/>
+                <KPIcard title={"bmi"} value={16}/>
             </div>
         </div>
     );
