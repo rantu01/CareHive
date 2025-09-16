@@ -32,12 +32,14 @@ const UserDashboard = () => {
             <div className='grid md:grid-cols-4 gap-6 sm:grid-cols-2 grid-cols-1'>
                 {/* <KPIcard title={"bmi"} value={16} /> */}
                 {
-                    data?.map((activity)=>(
+                    data?.map((activity) => (
                         <KPIcard key={activity.title} title={activity.title} value={activity.value} target={activity?.target} />
                     ))
                 }
 
-               <UpcomingAppointment/>
+                <div className='w-full'>
+                    <UpcomingAppointment />
+                </div>
             </div>
         </div>
     );
