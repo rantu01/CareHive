@@ -1,4 +1,5 @@
 import KPIcard from '@/app/Component/UserComponent/KPIcard';
+import ToDoTask from '@/app/Component/UserComponent/ToDoTask';
 import UpcomingAppointment from '@/app/Component/UserComponent/UpcomingAppointment';
 import WelcomeBar from '@/app/Component/UserComponent/WelcomeBar';
 import React from 'react';
@@ -25,7 +26,7 @@ const data = [
 
 const UserDashboard = () => {
     return (
-        <div className='w-full p-6 md:max-w-9/12 md:p-0 mx-auto'>
+        <div className='w-full p-6 md:max-w-9/12 md:p-0 mx-auto space-y-10'>
             <div className='mb-4'>
                 <WelcomeBar name={"Dip Chondo"} />
             </div>
@@ -37,9 +38,11 @@ const UserDashboard = () => {
                     ))
                 }
 
-                <div className='w-full'>
-                    <UpcomingAppointment />
-                </div>
+            </div>
+
+            <div className='grid grid-cols-1 md:grid-cols-6'>
+                <div className='flex-1 md:col-span-4'><UpcomingAppointment /></div>
+                <div className='flex-1 md:col-span-2'><ToDoTask /></div>
             </div>
         </div>
     );
