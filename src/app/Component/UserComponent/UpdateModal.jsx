@@ -35,7 +35,7 @@ const UpdateModal = ({setIsOpen}) => {
           onChange={handleChange}
           type="text"
           placeholder="Blood Pressure"
-          className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]"
+          className="w-full p-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]"
         />
         <input
           name="dailyStep"
@@ -43,7 +43,7 @@ const UpdateModal = ({setIsOpen}) => {
           onChange={handleChange}
           type="text"
           placeholder="Daily Step"
-          className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]"
+          className="w-full p-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]"
         />
         <input
           name="heartRate"
@@ -51,7 +51,7 @@ const UpdateModal = ({setIsOpen}) => {
           onChange={handleChange}
           type="text"
           placeholder="Heart Rate"
-          className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]"
+          className="w-full p-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]"
         />
         <input
           name="weight"
@@ -59,12 +59,12 @@ const UpdateModal = ({setIsOpen}) => {
           onChange={handleChange}
           type="text"
           placeholder="Weight"
-          className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]"
+          className="w-full p-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]"
         />
 
         <button
           type="submit"
-          className="w-full bg-[var(--dashboard-blue)] text-white py-2 rounded-lg font-medium hover:bg-[var(--dashboard-blue)]/80 transition"
+          className="w-full bg-[var(--dashboard-blue)] text-white py-2 rounded-lg font-medium hover:bg-[var(--dashboard-blue)]/80 transition cursor-pointer"
         >
           Submit
         </button>

@@ -1,7 +1,6 @@
 "use client"
 
 import { BookCheck } from "lucide-react";
-import { ClientPageRoot } from "next/dist/client/components/client-page";
 import { useState } from "react";
 
 
@@ -14,12 +13,23 @@ const ToDoTask = () => {
         setToDos([...todos, e.target.todo.value])
         e.target.todo.value = ""
     }
-    console.log(todos)
+
+
+    const handleComplete = (index) => {
+        console.log("indexIs", index)
+        const completedTaskIndex = index
+        const newArray = [
+            ...todos.slice(0, completedTaskIndex), 
+            ...todos.slice(completedTaskIndex + 1) 
+        ];
+        setToDos(newArray)
+    }
+
     return (
         <div className="border-1 border-gray-200 p-4 rounded">
             <div className="flex items-center mb-4 gap-2">
                 <BookCheck />
-                <p className="text-xl">Track your self</p>
+                <p className="text-xl">Set your daily goal</p>
             </div>
             <form onSubmit={handleSubmit} className="w-full">
                 <input
@@ -31,16 +41,16 @@ const ToDoTask = () => {
                 <button type="submit" className="px-4 py-2 rounded text-white font-medium bg-[var(--dashboard-blue)] cursor-pointer">Add Task</button>
             </form>
 
-            <div className="mt-5 min-h-[12.50rem]">
+            <div className="mt-5 h-[12.50rem] max-h-[12.50rem] overflow-auto">
                 <div className="flex flex-col gap-4">
                     {
                         todos.length === 0 ? (<p className="text-center">It's like you do not have add any task</p>)
                             :
                             (
-                                todos.map((todo) => (
-                                    <div key={todo} className="flex justify-between items-center">
+                                todos.map((todo, index) => (
+                                    <div key={index} className="flex justify-between items-center border border-gray-400 p-2 rounded">
                                         <p className="text-xl">{todo}</p>
-                                        <button className="bg-[var(--dashboard-blue)] p-2 cursor-pointer rounded "> Mark As Read</button>
+                                        <button onClick={() => handleComplete(index)} className="bg-[var(--dashboard-blue)] p-2 cursor-pointer rounded text-sm"> Complete</button>
                                     </div>
                                 ))
                             )
