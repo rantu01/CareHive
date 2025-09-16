@@ -101,4 +101,6 @@ CareHive is a **modern, scalable, and user-friendly platform** that bridges the 
 
 ✨ With CareHive, healthcare becomes **simpler, faster, digitalized, and more accessible** for everyone.  
 
+
+
 ---
