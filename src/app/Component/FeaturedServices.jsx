@@ -11,7 +11,19 @@ const FeaturedServices = () => {
         setIsLoading(true);
         const res = await fetch("/api/services");
         const data = await res.json();
-        setServices(data);
+
+        
+
+        // Always ensure it's an array
+        if (Array.isArray(data)) {
+          setServices(data);
+        } else if (data?.services && Array.isArray(data.services)) {
+          setServices(data.services);
+        } else {
+          console.error("⚠️ Unexpected API response:", data);
+          setServices([]); // fallback
+        }
+
         setIsLoading(false);
       } catch (err) {
         console.error("Error fetching services:", err);
@@ -50,20 +62,22 @@ const FeaturedServices = () => {
           </p>
         </div>
 
+        {/* Loading state */}
         {isLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[...Array(8)].map((_, i) => (
               <ServiceSkeleton key={i} />
             ))}
           </div>
-        ) : (
+        ) : Array.isArray(services) && services.length > 0 ? (
+          /* Safe map rendering */
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {services.map((service, index) => (
               <div
                 key={service._id || index}
                 className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group border border-gray-100"
               >
-                {/* Image container with overlay */}
+                {/* Image container */}
                 <div className="relative h-48 overflow-hidden">
                   <img
                     src={service.image_url}
@@ -72,34 +86,16 @@ const FeaturedServices = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                  {/* Service type badge */}
+                  {/* Badge */}
                   <div className="absolute top-4 left-4">
                     <span className="px-3 py-1 bg-[var(--color-calm-blue)] text-white text-xs font-medium rounded-full">
                       {service.service_type}
                     </span>
                   </div>
-
-                  {/* Quick action button */}
-                  <button className="absolute top-4 right-4 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <svg
-                      className="w-4 h-4 text-[var(--color-calm-blue)]"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                      ></path>
-                    </svg>
-                  </button>
                 </div>
 
-                {/* Content container */}
+                {/* Content */}
                 <div className="p-5">
-                  {/* Title and description */}
                   <h3 className="text-lg font-bold text-gray-800 mb-2 line-clamp-1 group-hover:text-[var(--color-calm-blue)] transition-colors duration-300">
                     {service.service_name}
                   </h3>
@@ -107,7 +103,7 @@ const FeaturedServices = () => {
                     {service.description}
                   </p>
 
-                  {/* Specialties tags */}
+                  {/* Specialties */}
                   <div className="flex flex-wrap gap-2 mb-4">
                     {service.specialties?.slice(0, 3).map((specialty, i) => (
                       <span
@@ -124,62 +120,21 @@ const FeaturedServices = () => {
                     )}
                   </div>
 
-                  {/* Metadata */}
+                  {/* Availability */}
                   <div className="space-y-2 mb-5">
                     <div className="flex items-center text-sm text-gray-500">
-                      <svg
-                        className="w-4 h-4 mr-2 text-[var(--color-light-green)]"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                        ></path>
-                      </svg>
                       <span>{service.availability}</span>
                     </div>
-
                     <div className="flex items-center text-sm text-gray-500">
-                      <svg
-                        className="w-4 h-4 mr-2 text-[var(--color-light-green)]"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-                        ></path>
-                      </svg>
                       <span>{service.service_type}</span>
                     </div>
                   </div>
 
-                  {/* Action buttons */}
+                  {/* Buttons */}
                   <div className="flex justify-between items-center pt-3 border-t border-gray-100">
                     <button className="text-sm text-[var(--color-calm-blue)] font-medium hover:text-[var(--color-light-green)] transition-colors duration-300 flex items-center">
-                      Learn More
-                      <svg
-                        className="w-4 h-4 ml-1"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M9 5l7 7-7 7"
-                        ></path>
-                      </svg>
+                      Learn More →
                     </button>
-
                     <button className="px-4 py-2 bg-gradient-to-r from-[var(--color-light-green)] to-[var(--color-calm-blue)] text-white text-sm font-medium rounded-lg hover:shadow-md transition-shadow duration-300">
                       Book Now
                     </button>
@@ -188,6 +143,9 @@ const FeaturedServices = () => {
               </div>
             ))}
           </div>
+        ) : (
+          /* No services fallback */
+          <p className="text-center text-gray-500">No services available</p>
         )}
 
         {/* CTA */}
