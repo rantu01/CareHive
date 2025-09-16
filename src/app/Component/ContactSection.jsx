@@ -23,6 +23,7 @@ const ContactSection = () => {
               Full Name
             
             </label>
+            
             <input
               type="text"
               placeholder="Enter your name"

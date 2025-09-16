@@ -5,6 +5,9 @@ const FeaturedServices = () => {
   const [services, setServices] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  console.log("services:", services);
+
+
   useEffect(() => {
     async function fetchServices() {
       try {
