@@ -8,19 +8,23 @@
 
 // bmi , icon , value = bmiValue , compareValue= string or number like "Normal" or 1000  
 
-import { Activity } from "lucide-react";
+import { Activity, Heart, TrendingUp, Weight } from "lucide-react";
 
-const data=[
-    {
-        "title":"BMI",
-        "value":22.5,
-    }
-]
 
-const KPIcard = ({title,icon,value,growOrDownValue}) => {
+const KPIcard = ({ title}) => {
+
+    const iconsMap = {
+        "bmi": <Activity />,
+        "daily-step": <TrendingUp />,
+        "heart-rate": <Heart />,
+        "weight": <Weight />
+    };
+
     return (
         <div>
-            <Activity />
+            {
+               iconsMap[title]
+            }
         </div>
     );
 };
