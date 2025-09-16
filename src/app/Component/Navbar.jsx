@@ -23,7 +23,9 @@ const Navbar = () => {
           ? "py-2 bg-white shadow-md"
           : "py-4"
       }`}
+
       style={{ backgroundColor: scrolled ? "white" : "var(--color-calm-blue)" }}
+      
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex justify-between items-center">
