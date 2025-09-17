@@ -10,7 +10,13 @@ const ToDoTask = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        setToDos([...todos, e.target.todo.value])
+
+        if (e.target.todo.value) {
+            setToDos([...todos, e.target.todo.value])
+        }else{
+            return
+        }
+
         e.target.todo.value = ""
     }
 
@@ -19,8 +25,8 @@ const ToDoTask = () => {
         console.log("indexIs", index)
         const completedTaskIndex = index
         const newArray = [
-            ...todos.slice(0, completedTaskIndex), 
-            ...todos.slice(completedTaskIndex + 1) 
+            ...todos.slice(0, completedTaskIndex),
+            ...todos.slice(completedTaskIndex + 1)
         ];
         setToDos(newArray)
     }
