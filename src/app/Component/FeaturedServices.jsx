@@ -21,7 +21,10 @@ const FeaturedServices = () => {
     fetchServices();
   }, []);
 
+
   
+
+
   // Skeleton loader
   const ServiceSkeleton = () => (
     <div className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 animate-pulse">
