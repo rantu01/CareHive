@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { BookCheck } from "lucide-react";
+import { nanoid } from "nanoid";
 import { useParams } from "next/navigation";
 
 
@@ -9,18 +10,19 @@ const ToDoTask = ({ userToDo, setUserToDo }) => {
 
     const { userId } = useParams()
 
-
+    const addToDoUrl = `/api/get-todo-task/${userId}`
+    const patchUrl = `/api/get-todo-task/${userId}`;
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const addToDoUrl = `/api/get-todo-task/${userId}`
+
 
         try {
             const todo = e.target.todo.value;
 
             const newTodoData = {
-                taskId: "122",
+                taskId: nanoid(7),
 
                 title: todo,
                 completed: false,
@@ -28,7 +30,7 @@ const ToDoTask = ({ userToDo, setUserToDo }) => {
 
             await axios.post(addToDoUrl, newTodoData);
 
-            const toDoListResponse = await axios.get(addToDoUrl )
+            const toDoListResponse = await axios.get(addToDoUrl)
             setUserToDo(toDoListResponse?.data[0]?.todo)
 
         } catch (error) {
@@ -37,15 +39,19 @@ const ToDoTask = ({ userToDo, setUserToDo }) => {
     }
 
 
-    const handleComplete = (index) => {
-        console.log("indexIs", index)
-        const completedTaskIndex = index
-        const newArray = [
-            ...todos.slice(0, completedTaskIndex),
-            ...todos.slice(completedTaskIndex + 1)
-        ];
-        setToDos(newArray)
-    }
+    const handleMarkAsComplete = async (taskId) => {
+        try {
+
+            await axios.patch(patchUrl, { taskId });
+
+            const toDoListResponse = await axios.get(addToDoUrl)
+            setUserToDo(toDoListResponse?.data[0]?.todo)
+            
+        } catch (error) {
+            console.error("Failed to mark as completed", error);
+        }
+    };
+
 
     return (
         <div className="border-1 border-gray-200 p-4 rounded">
@@ -81,6 +87,7 @@ const ToDoTask = ({ userToDo, setUserToDo }) => {
                                         </p>
                                     </div>
                                     <button
+                                        onClick={() => handleMarkAsComplete(todo.taskId)}
                                         className="bg-[var(--dashboard-blue)] p-2 cursor-pointer rounded text-sm"
                                     >
                                         Complete

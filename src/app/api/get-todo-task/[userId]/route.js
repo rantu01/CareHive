@@ -76,3 +76,36 @@ export async function POST(request, { params }) {
     return NextResponse.json({ error: "Failed to add todo" }, { status: 500 });
   }
 }
+
+
+
+export async function PATCH(request, { params }) {
+  try {
+    const { userId } = await params;
+    if (!userId) {
+      return NextResponse.json({ error: "User ID is required" }, { status: 400 });
+    }
+
+    const body = await request.json();
+    const { taskId } = body;
+
+    if (!taskId) {
+      return NextResponse.json({ error: "taskId is required" }, { status: 400 });
+    }
+
+    const client = await clientPromise;
+    const db = client.db("carehive");
+    const toDoCollection = db.collection("userToDo");
+
+    // Update the specific todo's completed field to true
+    const result = await toDoCollection.updateOne(
+      { userId: userId, "todo.taskId": taskId },
+      { $set: { "todo.$.completed": true } }
+    );
+
+    return NextResponse.json({ message: "Task marked as completed", result }, { status: 200 });
+  } catch (error) {
+    console.error("Error updating todo:", error);
+    return NextResponse.json({ error: "Failed to update todo" }, { status: 500 });
+  }
+}
