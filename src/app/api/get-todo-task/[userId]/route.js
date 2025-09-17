@@ -109,3 +109,37 @@ export async function PATCH(request, { params }) {
     return NextResponse.json({ error: "Failed to update todo" }, { status: 500 });
   }
 }
+
+
+
+
+export async function DELETE(request, { params }) {
+  try {
+    const { userId } = params;
+    if (!userId) {
+      return NextResponse.json({ error: "User ID is required" }, { status: 400 });
+    }
+
+    const body = await request.json();
+    const { taskId } = body;
+
+    if (!taskId) {
+      return NextResponse.json({ error: "taskId is required" }, { status: 400 });
+    }
+
+    const client = await clientPromise;
+    const db = client.db("carehive");
+    const toDoCollection = db.collection("userToDo");
+
+    // Remove the task from todo array
+    const result = await toDoCollection.updateOne(
+      { userId },
+      { $pull: { todo: { taskId } } }
+    );
+
+    return NextResponse.json({ message: "Task deleted successfully", result }, { status: 200 });
+  } catch (error) {
+    console.error("Error deleting todo:", error);
+    return NextResponse.json({ error: "Failed to delete todo" }, { status: 500 });
+  }
+}

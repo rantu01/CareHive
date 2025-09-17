@@ -13,6 +13,12 @@ const ToDoTask = ({ userToDo, setUserToDo }) => {
     const addToDoUrl = `/api/get-todo-task/${userId}`
     const patchUrl = `/api/get-todo-task/${userId}`;
 
+
+    const fetchUserToDo = async () => {
+        const toDoListResponse = await axios.get(addToDoUrl)
+        setUserToDo(toDoListResponse?.data[0]?.todo)
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
 
@@ -46,11 +52,29 @@ const ToDoTask = ({ userToDo, setUserToDo }) => {
 
             const toDoListResponse = await axios.get(addToDoUrl)
             setUserToDo(toDoListResponse?.data[0]?.todo)
-            
+
         } catch (error) {
             console.error("Failed to mark as completed", error);
         }
     };
+
+
+    const handleDeleteTask = async (taskId) => {
+        try {
+            const deleteUrl = `/api/get-todo-task/${userId}`;
+
+            await axios.delete(deleteUrl, {
+                data: { taskId }, // DELETE in axios needs `data` for body
+            });
+
+            fetchUserToDo()
+
+        } catch (error) {
+            console.error("Failed to delete task:", error);
+        }
+    };
+
+
 
 
     return (
@@ -77,20 +101,26 @@ const ToDoTask = ({ userToDo, setUserToDo }) => {
                         ) : (
                             userToDo?.map((todo) => (
                                 <div
-                                    key={todo.taskId}
+                                    key={todo?.taskId}
                                     className="flex justify-between items-center border border-gray-400 p-2 rounded"
                                 >
                                     <div>
                                         <p className="text-xl">{todo.title}</p>
                                         <p className="text-sm text-gray-500">
-                                            {todo.completed ? "✅ Completed" : "🕒 Pending"}
+                                            {todo?.completed ? "✅ Completed" : "🕒 Pending"}
                                         </p>
                                     </div>
                                     <button
-                                        onClick={() => handleMarkAsComplete(todo.taskId)}
-                                        className="bg-[var(--dashboard-blue)] p-2 cursor-pointer rounded text-sm"
+                                        onClick={() => {
+                                            if (todo.completed) {
+                                                handleDeleteTask(todo.taskId);
+                                            } else {
+                                                handleMarkAsComplete(todo.taskId);
+                                            }
+                                        }}
+                                        className="bg-[var(--dashboard-blue)] p-2 cursor-pointer rounded text-sm text-white"
                                     >
-                                        Complete
+                                        {todo.completed ? "Delete" : "Complete"}
                                     </button>
                                 </div>
                             ))
