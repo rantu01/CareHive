@@ -7,7 +7,7 @@ import { useState } from "react";
 
 const ToDoTask = ({ userToDo }) => {
 
-    const {userId} = useParams()
+    const { userId } = useParams()
 
 
 
@@ -18,12 +18,17 @@ const ToDoTask = ({ userToDo }) => {
         const todo = e.target.todo.value
 
         const newTodoData = {
+            "taskId": Randomstring.generate({
+                length: 12,
+                charset: 'alphabetic'})
+            
+            ,
             "title": todo,
             "completed": false
         }
 
         try {
-  
+
         } catch (error) {
             console.log(error)
         }
