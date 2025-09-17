@@ -14,6 +14,7 @@ import React, { use, useEffect, useState } from 'react';
 const UserDashboard = () => {
 
     const [userStatsData, setUserStatData] = useState([])
+
     const [userHealthStats, setHealthStats] = useState([])
 
 
@@ -31,7 +32,7 @@ const UserDashboard = () => {
                 const url = `/api/get-health-stats/${userId}`;
                 console.log(url)
                 const response = await axios.get(url)
-                console.log(response)
+                setHealthStats(response.data[0].userStats)
             } catch (error) {
                 console.error('Error fetching health stats:', error);
             }
@@ -42,15 +43,15 @@ const UserDashboard = () => {
     }, [])
 
     return (
+
         <div className='w-full p-6 md:max-w-9/12 md:p-0 mx-auto space-y-10'>
             <div className='mb-4'>
-                <p>{userId}</p>
                 <WelcomeBar name={user?.displayName} />
             </div>
             <div className='grid md:grid-cols-4 gap-6 sm:grid-cols-2 grid-cols-1'>
                 {/* <KPIcard title={"bmi"} value={16} /> */}
                 {
-                    data?.map((activity) => (
+                    userHealthStats?.map((activity) => (
                         <KPIcard key={activity.title} title={activity.title} value={activity.value} target={activity?.target} />
                     ))
                 }
@@ -62,6 +63,7 @@ const UserDashboard = () => {
                 <div className='md:col-span-2'><ToDoTask /></div>
             </div>
         </div>
+        
     );
 };
 
