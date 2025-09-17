@@ -4,10 +4,10 @@ import { Activity, Heart, TrendingUp, Weight } from "lucide-react";
 
 const KPIcard = ({ title, value, target = '' }) => {
   const iconsMap = {
-    "bmi": <Activity className="w-6 h-6 text-white" />,
-    "daily-step": <TrendingUp className="w-6 h-6 text-white" />,
-    "heart-rate": <Heart className="w-6 h-6 text-white" />,
-    "weight": <Weight className="w-6 h-6 text-white" />
+    "bmi": <Activity className="w-4 h-4 text-white" />,
+    "daily-step": <TrendingUp className="w-4 h-4 text-white" />,
+    "heart-rate": <Heart className="w-4 h-4 text-white" />,
+    "weight": <Weight className="w-4 h-4 text-white" />
   };
 
   const status =
@@ -16,7 +16,7 @@ const KPIcard = ({ title, value, target = '' }) => {
     "High";
 
   return (
-    <div className="flex justify-between items-center bg-white rounded-2xl p-6 shadow hover:shadow-lg transition-all duration-500 hover:-translate-y-1">
+    <div className="flex justify-between items-center bg-white rounded-2xl p-6 shadow hover:shadow-lg transition-all duration-500 hover:-translate-y-1 flex-wrap">
       
       {/* Left section */}
       <div className="flex flex-col gap-4">
