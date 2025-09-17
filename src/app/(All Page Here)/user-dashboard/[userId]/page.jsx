@@ -71,7 +71,7 @@ const UserDashboard = () => {
 
             <div className='grid grid-cols-1 md:grid-cols-6 gap-6'>
                 <div className='md:col-span-4'><UpcomingAppointment appointmentData={appointmentData} /></div>
-                <div className='md:col-span-2'><ToDoTask userToDo={userToDo} /></div>
+                <div className='md:col-span-2'><ToDoTask userToDo={userToDo} setUserToDo={setUserToDo}/></div>
             </div>
         </div>
 

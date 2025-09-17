@@ -1,36 +1,38 @@
 "use client"
 
+import axios from "axios";
 import { BookCheck } from "lucide-react";
 import { useParams } from "next/navigation";
-import { useState } from "react";
 
 
-const ToDoTask = ({ userToDo }) => {
+const ToDoTask = ({ userToDo, setUserToDo }) => {
 
     const { userId } = useParams()
 
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
         const addToDoUrl = `/api/get-todo-task/${userId}`
-        const todo = e.target.todo.value
-
-        const newTodoData = {
-            "taskId": Randomstring.generate({
-                length: 12,
-                charset: 'alphabetic'})
-            
-            ,
-            "title": todo,
-            "completed": false
-        }
 
         try {
+            const todo = e.target.todo.value;
+
+            const newTodoData = {
+                taskId: "122",
+
+                title: todo,
+                completed: false,
+            };
+
+            await axios.post(addToDoUrl, newTodoData);
+
+            const toDoListResponse = await axios.get(addToDoUrl )
+            setUserToDo(toDoListResponse?.data[0]?.todo)
 
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
 
