@@ -281,7 +281,8 @@ export default function CalorieTracker() {
 
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-6">
-        <h1>Calorie Tracker – Track Your Daily Meals & Macros</h1>
+        <h1 className="text-xl font-medium text-center mb-10 transition-all duration-1000 text-gray-400">Calorie Tracker – Track Your Daily Meals & Macros</h1>
+        <p>Easily log your meals, track calories, carbs, protein, and fats, and stay on top of your daily nutrition goals. Visualize your progress with an intuitive summary and progress bar.</p>
       {/* Daily Goal */}
       <div className="bg-white p-6 rounded-2xl shadow">
         <h2 className="text-xl font-bold mb-3 text-black">Set Daily Calorie Goal</h2>
