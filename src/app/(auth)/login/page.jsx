@@ -1,4 +1,4 @@
-"use client"; // if using Next.js App Router
+"use client"; 
 import Link from "next/link";
 import React, { useContext, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
@@ -148,7 +148,7 @@ const Login = () => {
 
           <p className="text-center text-sm text-gray-500 mt-4">
             Don't have an account?{" "}
-            <a href="/register" className="text-primary underline">
+            <a href="/signup" className="text-primary underline">
               Sign up here
             </a>
           </p>
