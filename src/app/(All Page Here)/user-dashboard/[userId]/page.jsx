@@ -42,7 +42,7 @@ const UserDashboard = () => {
 
         getUserStats()
 
-    }, [])
+    }, [userId])
 
     return (
 
