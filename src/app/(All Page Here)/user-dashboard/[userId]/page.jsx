@@ -13,7 +13,7 @@ import React, { use, useEffect, useState } from 'react';
 
 const UserDashboard = () => {
 
-    const [userStatsData, setUserStatData] = useState([])
+    const [appointmentData, setAppointmentData] = useState([])
 
     const [userHealthStats, setHealthStats] = useState([])
 
@@ -29,10 +29,12 @@ const UserDashboard = () => {
         const getUserStats = async () => {
 
             try {
-                const url = `/api/get-health-stats/${userId}`;
-                console.log(url)
-                const response = await axios.get(url)
-                setHealthStats(response.data[0].userStats)
+                const healthStatsUrl = `/api/get-health-stats/${userId}`;
+                const doctorListUrl=`/api/get-appointment-list/${userId}`;
+                const healthStatsResponse = await axios.get(healthStatsUrl)
+                const doctorListResponse=await axios.get(doctorListUrl)
+                setHealthStats(healthStatsResponse.data[0].userStats)
+                setAppointmentData(doctorListResponse.data[0].appointmentDetails)
             } catch (error) {
                 console.error('Error fetching health stats:', error);
             }
@@ -59,11 +61,11 @@ const UserDashboard = () => {
             </div>
 
             <div className='grid grid-cols-1 md:grid-cols-6 gap-6'>
-                <div className='md:col-span-4'><UpcomingAppointment /></div>
+                <div className='md:col-span-4'><UpcomingAppointment appointmentData={appointmentData}/></div>
                 <div className='md:col-span-2'><ToDoTask /></div>
             </div>
         </div>
-        
+
     );
 };
 
