@@ -281,8 +281,8 @@ export default function CalorieTracker() {
 
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-6">
-        <h1 className="text-xl font-medium text-center mb-10 transition-all duration-1000 text-gray-400">Calorie Tracker – Track Your Daily Meals & Macros</h1>
-        <p>Easily log your meals, track calories, carbs, protein, and fats, and stay on top of your daily nutrition goals. Visualize your progress with an intuitive summary and progress bar.</p>
+        <h1 className="text-xl font-medium text-center mb-2 transition-all duration-1000 text-gray-400">Calorie Tracker – Track Your Daily Meals & Macros</h1>
+        <p className="text-gray-600">Easily log your meals, track calories, carbs, protein, and fats, and stay on top of your daily nutrition goals. Visualize your progress with an intuitive summary and progress bar.</p>
       {/* Daily Goal */}
       <div className="bg-white p-6 rounded-2xl shadow">
         <h2 className="text-xl font-bold mb-3 text-black">Set Daily Calorie Goal</h2>
@@ -353,7 +353,7 @@ export default function CalorieTracker() {
           </select>
           <button
             type="submit"
-            className="bg-[#4682B4] text-white px-4 py-3 rounded col-span-2 hover:bg-[#3199ee] transition"
+            className="col-span-2 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-[#4682B4] to-gray-600 shadow-lg hover:shadow-xl hover:scale-105 transition transform mb-8"
           >
             Add Meal
           </button>
