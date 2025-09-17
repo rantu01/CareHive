@@ -1,11 +1,11 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 import Swal from "sweetalert2";
 import SocialLogin from "@/app/Component/Auth/SocialLogin";
-import { AuthContext } from "@/app/context/authContext";
+import UseAuth from "@/app/Hooks/UseAuth";
 
 const Page = () => {
   const [name, setName] = useState("");
@@ -16,7 +16,7 @@ const Page = () => {
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const { createUser } = useContext(AuthContext);
+  const { createUser } = UseAuth();
   const router = useRouter();
 
   const handleSubmit = async (e) => {
@@ -47,13 +47,18 @@ const Page = () => {
     if (hasError) return; // stop submission if validation fails
 
     try {
-      await createUser(email, password); 
+      await createUser(email, password);
 
       Swal.fire({
         icon: "success",
         title: "Account Created",
         text: "Welcome to CareHive!",
         confirmButtonText: "Continue",
+        customClass: {
+          confirmButton:
+            "bg-[var(--dashboard-blue)] text-white px-4 py-2 rounded-lg hover:bg-blue-600",
+        },
+        buttonsStyling: false,
       }).then(() => router.push("/"));
     } catch (error) {
       const errorCode = error.code;
@@ -176,11 +181,17 @@ const Page = () => {
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 flex items-center justify-center"
                 onClick={() => setShowPassword((prev) => !prev)}
               >
-                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                {showPassword ? (
+                  <EyeOff className="w-5 h-5" />
+                ) : (
+                  <Eye className="w-5 h-5" />
+                )}
               </button>
 
               {passwordError && (
-                <span className="text-red-500 text-sm mt-1">{passwordError}</span>
+                <span className="text-red-500 text-sm mt-1">
+                  {passwordError}
+                </span>
               )}
             </div>
 
