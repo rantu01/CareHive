@@ -28,7 +28,7 @@ const UserDashboard = () => {
         const getUserStats = async () => {
 
             try {
-                const url = `/api/get-helth-stats/${userId}`;
+                const url = `/api/get-health-stats/${userId}`;
                 console.log(url)
                 const response = await axios.get(url)
                 console.log(response)
