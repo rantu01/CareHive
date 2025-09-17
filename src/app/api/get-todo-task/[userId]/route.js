@@ -6,7 +6,7 @@ export async function GET(request,{params}) {
 
   try {
 
-    const {userId}=params
+    const {userId}=await params
 
     console.log(userId)
 
@@ -19,12 +19,11 @@ export async function GET(request,{params}) {
 
     const client = await clientPromise;
     const db = client.db("carehive");
-    const healthStatsCollection = db.collection("healthMetrics")
-    const userHealthStats = await healthStatsCollection.find({ userId: userId }).toArray();
+    const toDoCollection = db.collection("userToDo")
+    const userToDoList = await toDoCollection.find({ userId: userId }).toArray();
 
-    console.log(userHealthStats)
 
-    return NextResponse.json(userHealthStats);
+    return NextResponse.json(userToDoList);
   } catch (error) {
     return NextResponse.json(
       { error: "Failed to fetch health stats data" },

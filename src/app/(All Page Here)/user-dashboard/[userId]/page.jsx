@@ -29,12 +29,21 @@ const UserDashboard = () => {
         const getUserStats = async () => {
 
             try {
+                // url
                 const healthStatsUrl = `/api/get-health-stats/${userId}`;
                 const doctorListUrl = `/api/get-appointment-list/${userId}`;
+                const toDoUrl = `/api/get-todo-task/${userId}`;
+
+                // response
                 const healthStatsResponse = await axios.get(healthStatsUrl)
                 const doctorListResponse = await axios.get(doctorListUrl)
-                setHealthStats(healthStatsResponse.data[0].userStats)
-                setAppointmentData(doctorListResponse.data[0].appointmentDetails)
+                const toDoListResponse = await axios.get(toDoUrl)
+
+                // set data in state
+                setHealthStats(healthStatsResponse?.data[0]?.userStats)
+                setAppointmentData(doctorListResponse?.data[0]?.appointmentDetails)
+                setUserToDo(toDoListResponse?.data[0]?.todo)
+
             } catch (error) {
                 console.error('Error fetching health stats:', error);
             }
@@ -62,7 +71,7 @@ const UserDashboard = () => {
 
             <div className='grid grid-cols-1 md:grid-cols-6 gap-6'>
                 <div className='md:col-span-4'><UpcomingAppointment appointmentData={appointmentData} /></div>
-                <div className='md:col-span-2'><ToDoTask /></div>
+                <div className='md:col-span-2'><ToDoTask userToDo={userToDo} /></div>
             </div>
         </div>
 

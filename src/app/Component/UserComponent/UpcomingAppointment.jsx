@@ -24,7 +24,7 @@ const UpcomingAppointment = ({appointmentData}) => {
     }
 
     return (
-        <div className="border-1 border-gray-200 p-4 rounded  ">
+        <div className="border-1 border-gray-200 p-4 rounded h-[24.50rem] max-h-[24.50rem] ">
             <header className="flex justify-between items-center mb-5">
                 <div className="flex gap-2">
                     <div><Calendar color="var(--dashboard-blue)" /></div>

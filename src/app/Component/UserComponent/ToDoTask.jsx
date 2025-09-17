@@ -1,23 +1,32 @@
 "use client"
 
 import { BookCheck } from "lucide-react";
+import { useParams } from "next/navigation";
 import { useState } from "react";
 
 
-const ToDoTask = () => {
+const ToDoTask = ({ userToDo }) => {
 
-    const [todos, setToDos] = useState([])
+    const {userId} = useParams()
+
+
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        if (e.target.todo.value) {
-            setToDos([...todos, e.target.todo.value])
-        }else{
-            return
+        const addToDoUrl = `/api/get-todo-task/${userId}`
+        const todo = e.target.todo.value
+
+        const newTodoData = {
+            "title": todo,
+            "completed": false
         }
 
-        e.target.todo.value = ""
+        try {
+  
+        } catch (error) {
+            console.log(error)
+        }
     }
 
 
@@ -50,17 +59,30 @@ const ToDoTask = () => {
             <div className="mt-5 h-[12.50rem] max-h-[12.50rem] overflow-auto">
                 <div className="flex flex-col gap-4">
                     {
-                        todos.length === 0 ? (<p className="text-center">It's like you do not have add any task</p>)
-                            :
-                            (
-                                todos.map((todo, index) => (
-                                    <div key={index} className="flex justify-between items-center border border-gray-400 p-2 rounded">
-                                        <p className="text-xl">{todo}</p>
-                                        <button onClick={() => handleComplete(index)} className="bg-[var(--dashboard-blue)] p-2 cursor-pointer rounded text-sm"> Complete</button>
+                        userToDo?.length === 0 ? (
+                            <p className="text-center">It's like you do not have add any task</p>
+                        ) : (
+                            userToDo?.map((todo) => (
+                                <div
+                                    key={todo.taskId}
+                                    className="flex justify-between items-center border border-gray-400 p-2 rounded"
+                                >
+                                    <div>
+                                        <p className="text-xl">{todo.title}</p>
+                                        <p className="text-sm text-gray-500">
+                                            {todo.completed ? "✅ Completed" : "🕒 Pending"}
+                                        </p>
                                     </div>
-                                ))
-                            )
+                                    <button
+                                        className="bg-[var(--dashboard-blue)] p-2 cursor-pointer rounded text-sm"
+                                    >
+                                        Complete
+                                    </button>
+                                </div>
+                            ))
+                        )
                     }
+
                 </div>
 
 
