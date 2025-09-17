@@ -6,12 +6,12 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDYozU6SdZmypDCIZ9QhwBRP626IL15fM8",
-  authDomain: "carehive-86ab3.firebaseapp.com",
-  projectId: "carehive-86ab3",
-  storageBucket: "carehive-86ab3.firebasestorage.app",
-  messagingSenderId: "226425455907",
-  appId: "1:226425455907:web:1cef103bebb3b1038e7896"
+  apiKey: process.env.NEXT_PUBLIC_apiKey,
+  authDomain: process.env.NEXT_PUBLIC_authDomain,
+  projectId: process.env.NEXT_PUBLIC_projectId,
+  storageBucket: process.env.NEXT_PUBLIC_storageBucket,
+  messagingSenderId: process.env.NEXT_PUBLIC_messagingSenderId,
+  appId: process.env.NEXT_PUBLIC_appId,
 };
 
 // Initialize Firebase
