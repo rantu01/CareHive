@@ -1,34 +1,51 @@
+"use client"
+
 import KPIcard from '@/app/Component/UserComponent/KPIcard';
 import ToDoTask from '@/app/Component/UserComponent/ToDoTask';
 import UpcomingAppointment from '@/app/Component/UserComponent/UpcomingAppointment';
 import WelcomeBar from '@/app/Component/UserComponent/WelcomeBar';
-import React from 'react';
+import { AuthContext } from '@/app/context/authContext';
+import axios from 'axios';
+import { useParams } from 'next/navigation';
+import React, { use, useEffect, useState } from 'react';
 
-const data = [
-    {
-        "title": "bmi",
-        "value": 50
-    },
-    {
-        "title": "daily-step",
-        "value": 5000,
-        "target": 6000
-    },
-    {
-        "title": "heart-rate",
-        "value": 90
-    },
-    {
-        "title": "weight",
-        "value": 36
-    }
-]
+
 
 const UserDashboard = () => {
+
+    const [userStatsData, setUserStatData] = useState([])
+    const [userHealthStats, setHealthStats] = useState([])
+
+
+    const data = [{ "title": "bmi", "value": 50 }, { "title": "daily-step", "value": 5000, "target": 6000 }, { "title": "heart-rate", "value": 90 }, { "title": "weight", "value": 36 }]
+
+    const { userId } = useParams()
+
+    const { user } = use(AuthContext)
+
+
+    useEffect(() => {
+        const getUserStats = async () => {
+
+            try {
+                const url = `/api/get-helth-stats/${userId}`;
+                console.log(url)
+                const response = await axios.get(url)
+                console.log(response)
+            } catch (error) {
+                console.error('Error fetching health stats:', error);
+            }
+        }
+
+        getUserStats()
+
+    }, [])
+
     return (
         <div className='w-full p-6 md:max-w-9/12 md:p-0 mx-auto space-y-10'>
             <div className='mb-4'>
-                <WelcomeBar name={"Dip Chondo"} />
+                <p>{userId}</p>
+                <WelcomeBar name={user?.displayName} />
             </div>
             <div className='grid md:grid-cols-4 gap-6 sm:grid-cols-2 grid-cols-1'>
                 {/* <KPIcard title={"bmi"} value={16} /> */}
