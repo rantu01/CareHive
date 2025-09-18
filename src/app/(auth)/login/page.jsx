@@ -2,9 +2,7 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-
 import { useRouter } from "next/navigation"; // Next.js router
-// import SocialLogin from "./SocialLogin";
 import Swal from "sweetalert2";
 import SocialLogin from "@/app/Component/Auth/SocialLogin";
 import UseAuth from "@/app/Hooks/UseAuth";

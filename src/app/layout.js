@@ -3,6 +3,10 @@ import "./globals.css";
 import AuthProvider from "./context/authProvider";
 import TanstackProviders from "./TanstackProvider/TanstackProvider";
 import DashBoardDataProvider from "./Component/UserComponent/UserDashBoardDataContext/DashBoardDataProvider";
+<<<<<<< HEAD
+import { ThemeProvider } from "next-themes";
+=======
+>>>>>>> 36ba47ed5a3e73fe6241f29f54485a1c6e089f36
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,7 +25,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

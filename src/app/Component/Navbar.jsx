@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import UseAuth from "../Hooks/UseAuth";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -95,16 +96,30 @@ const Navbar = () => {
 
             <div className="flex items-center space-x-4">
               {user ? (
-                <button
-                  onClick={handleLogout}
-                  className="font-medium py-2 px-4 rounded-full transition duration-300 cursor-pointer"
-                  style={{
-                    backgroundColor: "var(--color-light-green)",
-                    color: "var(--color-white)",
-                  }}
-                >
-                  Logout
-                </button>
+                <>
+                  <Link
+                    href="/user"
+                    className="font-medium"
+                    style={{
+                      color: scrolled
+                        ? "var(--color-calm-blue)"
+                        : "var(--color-white)",
+                    }}
+                  >
+                    Dashboard
+                  </Link>
+
+                  <button
+                    onClick={handleLogout}
+                    className="font-medium py-2 px-4 rounded-full transition duration-300 cursor-pointer"
+                    style={{
+                      backgroundColor: "var(--color-light-green)",
+                      color: "var(--color-white)",
+                    }}
+                  >
+                    Logout
+                  </button>
+                </>
               ) : (
                 <>
                   <Link
@@ -130,6 +145,7 @@ const Navbar = () => {
                   </Link>
                 </>
               )}
+              <ThemeToggle />
             </div>
           </div>
 
