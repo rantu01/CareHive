@@ -7,8 +7,8 @@ export async function GET(req, { params }) {
     try {
         const { userId } = await params;
 
-        const body = await req.json();
-        console.log(body)
+        // const body = await req.json();
+        // console.log(body)
         const client = await clientPromise;
         const db = client.db("carehive");
         const collection = db.collection("userGoal");
@@ -16,6 +16,7 @@ export async function GET(req, { params }) {
 
         const userGoal = await collection.find({ userId }).toArray()
 
+        console.log(userGoal)
         return NextResponse.json(userGoal);
 
     } catch (err) {
@@ -24,26 +25,3 @@ export async function GET(req, { params }) {
     }
 }
 
-
-export async function POST(req, { params }) {
-    try {
-        const { userId } = await params;
-
-        const body = await req.json();
-        console.log(body)
-        const client = await clientPromise;
-        const db = client.db("carehive");
-        const collection = db.collection("userGoal");
-
-        // const result = await collection.insertOne()
-
-
-        // return NextResponse.json(
-        //   { success: true, modifiedCount: result.modifiedCount },
-        //   { status: 200 }
-        // );
-    } catch (err) {
-        console.error(err);
-        return NextResponse.json({ success: false, error: err.message }, { status: 500 });
-    }
-}

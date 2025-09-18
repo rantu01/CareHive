@@ -1,12 +1,16 @@
 "use client";
 
 import { Goal, X } from "lucide-react";
-import { use, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { DashBoardDataContext } from "./UserDashBoardDataContext/DashboardDataContext";
 import { useParams } from "next/navigation";
+import axios from "axios";
 
 const UserGoal = () => {
     const { goalData } = use(DashBoardDataContext);
+
+
+    console.log("from goal",goalData)
 
     const [isOpen, setIsOpen] = useState(false);
     const [title, setTitle] = useState("");
@@ -14,6 +18,7 @@ const UserGoal = () => {
 
 
     const { userId } = useParams()
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -24,12 +29,6 @@ const UserGoal = () => {
         }
 
         const goalInformation = { userId, goalData: { title, goal } }
-
-        const getUserGoal = async () => {
-            const res = await axios.post('/api/users', userData);
-            return res.data;
-        }
-
 
 
         // Reset & close
