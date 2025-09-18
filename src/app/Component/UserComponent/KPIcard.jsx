@@ -4,7 +4,7 @@ import { Activity, Heart, TrendingUp, Weight } from "lucide-react";
 
 const KPIcard = ({ title, value, target = '' }) => {
   const iconsMap = {
-    "bmi": <Activity className="w-4 h-4 text-white" />,
+    "bp": <Activity className="w-4 h-4 text-white" />,
     "daily-step": <TrendingUp className="w-4 h-4 text-white" />,
     "heart-rate": <Heart className="w-4 h-4 text-white" />,
     "weight": <Weight className="w-4 h-4 text-white" />
@@ -25,7 +25,7 @@ const KPIcard = ({ title, value, target = '' }) => {
         </p>
 
         <div className="text-lg font-semibold text-gray-800 flex items-center gap-2">
-          {title === "bmi" && (
+          {title === "bp" && (
             <>
               <span className="text-3xl font-bold text-[var(--dashboard-blue)]">
                 {value}
