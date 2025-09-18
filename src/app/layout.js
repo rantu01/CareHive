@@ -1,6 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "./context/authProvider";
+import TanstackProviders from "./TanstackProvider/TanstackProvider";
+import DashBoardDataProvider from "./Component/UserComponent/UserDashBoardDataContext/DashBoardDataProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,7 +25,13 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AuthProvider>{children}</AuthProvider>
+
+        <TanstackProviders>
+          <DashBoardDataProvider>
+            <AuthProvider>{children}</AuthProvider>
+          </DashBoardDataProvider>
+        </TanstackProviders>
+
       </body>
     </html>
   );
