@@ -25,14 +25,19 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        cz-shortcut-listen="true"
       >
-
-        <TanstackProviders>
-          <DashBoardDataProvider>
-            <AuthProvider>{children}</AuthProvider>
-          </DashBoardDataProvider>
-        </TanstackProviders>
-
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem={true}
+        >
+          <TanstackProviders>
+            <DashBoardDataProvider>
+              <AuthProvider>{children}</AuthProvider>
+            </DashBoardDataProvider>
+          </TanstackProviders>
+        </ThemeProvider>
       </body>
     </html>
   );
