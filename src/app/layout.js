@@ -3,6 +3,7 @@ import "./globals.css";
 import AuthProvider from "./context/authProvider";
 import TanstackProviders from "./TanstackProvider/TanstackProvider";
 import DashBoardDataProvider from "./Component/UserComponent/UserDashBoardDataContext/DashBoardDataProvider";
+import { ThemeProvider } from "next-themes";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
