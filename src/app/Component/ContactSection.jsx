@@ -10,7 +10,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section className="py-16 px-6 bg-[var(--color-calm-blue)]/20">
+    <section className="py-16 px-6  bg-gradient-to-r from-[var(--color-calm-blue)] to-[var(--color-white)]">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         {/* Left: Glass Form */}
         <div className="bg-white/20 backdrop-blur-lg border border-white/20 p-8 rounded-3xl shadow-lg">

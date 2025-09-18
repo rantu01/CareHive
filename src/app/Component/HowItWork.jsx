@@ -49,7 +49,7 @@ const steps = [
 
 const HowItWork = () => {
   return (
-    <section className="py-20 px-6 bg-gradient-to-r from-[var(--color-light-green)]/30 to-[var(--color-calm-blue)]/20">
+    <section className="py-20 px-6 bg-white">
       <div className="max-w-7xl mx-auto text-center">
         <h2 className="text-4xl md:text-5xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-green-500">
           How It Works
@@ -63,7 +63,7 @@ const HowItWork = () => {
   connect with doctors, and track your wellness journey.
 </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 bg-gradient-to-r from-[var(--color-light-green)]/20 to-[var(--color-calm-blue)]/10">
           {steps.map((step, index) => (
             <motion.div
               key={step.id}
