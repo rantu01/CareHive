@@ -3,6 +3,7 @@
 import KPIcard from '@/app/Component/UserComponent/KPIcard';
 import ToDoTask from '@/app/Component/UserComponent/ToDoTask';
 import UpcomingAppointment from '@/app/Component/UserComponent/UpcomingAppointment';
+import { DashBoardDataContext } from '@/app/Component/UserComponent/UserDashBoardDataContext/DashboardDataContext';
 import WelcomeBar from '@/app/Component/UserComponent/WelcomeBar';
 import { AuthContext } from '@/app/context/authContext';
 import axios from 'axios';
@@ -27,6 +28,10 @@ const UserDashboard = () => {
 
     const { user } = use(AuthContext)
 
+    const {goalData}=use(DashBoardDataContext)
+
+    console.log("I am goal data",goalData)
+    
 
     useEffect(() => {
         const getUserStats = async () => {
