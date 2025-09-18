@@ -27,6 +27,8 @@ const ToDoTask = ({ userToDo, setUserToDo }) => {
         try {
             const todo = e.target.todo.value;
 
+            if(!todo) return
+
             const newTodoData = {
                 taskId: nanoid(7),
 

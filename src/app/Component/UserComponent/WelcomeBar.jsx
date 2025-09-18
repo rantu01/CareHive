@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import UpdateModal from './UpdateModal';
 
-const WelcomeBar = ({ name }) => {
+const WelcomeBar = ({ name,userHealthStats }) => {
 
     const [isOpen,setIsOpen]=useState(false)
 
@@ -22,7 +22,7 @@ const WelcomeBar = ({ name }) => {
             </button>
 
             {
-                isOpen && <UpdateModal setIsOpen={setIsOpen}/>
+                isOpen && <UpdateModal setIsOpen={setIsOpen} userHealthStats={userHealthStats}/>
             }
         </div>
     );

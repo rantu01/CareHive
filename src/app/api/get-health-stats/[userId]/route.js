@@ -2,11 +2,11 @@ import clientPromise from "../../../lib/mongodb";
 import { NextResponse } from "next/server";
 
 
-export async function GET(request,{params}) {
+export async function GET(request, { params }) {
 
   try {
 
-    const {userId}=await params
+    const { userId } = await params
 
     console.log(userId)
 
@@ -32,4 +32,33 @@ export async function GET(request,{params}) {
     );
   }
 
+}
+
+
+export async function PUT(req, { params }) {
+  try {
+    const { userId } = await params;
+
+    const body = await req.json(); 
+
+    const client = await clientPromise;
+    const db = client.db("carehive"); 
+    const collection = db.collection("healthMetrics");
+
+    const result = await collection.updateOne(
+      { userId: userId },
+
+      { $set: { userStats: body.userStats } }
+    );
+
+    console.log(userId)
+
+    return NextResponse.json(
+      { success: true, modifiedCount: result.modifiedCount },
+      { status: 200 }
+    );
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  }
 }
