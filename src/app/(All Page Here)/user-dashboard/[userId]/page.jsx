@@ -29,9 +29,8 @@ const UserDashboard = () => {
 
     const { user } = use(AuthContext)
 
-    const { goalData } = use(DashBoardDataContext)
 
-    console.log("I am goal data", goalData)
+
 
 
     useEffect(() => {
