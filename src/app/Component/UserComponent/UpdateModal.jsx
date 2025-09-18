@@ -2,7 +2,7 @@ import axios from "axios";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 
-const UpdateModal = ({ setIsOpen, userHealthStats }) => {
+const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
 
 
   console.log(userHealthStats)
@@ -20,9 +20,10 @@ const UpdateModal = ({ setIsOpen, userHealthStats }) => {
     const formData = new FormData(e.target);
     const values = Object.fromEntries(formData.entries());
 
+    setError("")
     for (const [key, val] of Object.entries(values)) {
       if (val.trim() === "" || isNaN(val)) {
-        setError(`Invalid input for ${key}: must be a number`);
+        setError(`Stat information must be a number`);
         return; // stop execution if invalid
       }
     }
@@ -38,6 +39,12 @@ const UpdateModal = ({ setIsOpen, userHealthStats }) => {
         userStats: updatedStats,
         userId,
       });
+
+
+      const healthStatsUrl = `/api/get-health-stats/${userId}`;
+      const healthStatsResponse = await axios.get(healthStatsUrl)
+      setHealthStats(healthStatsResponse?.data[0]?.userStats)
+
 
       console.log("Update success:", res.data);
       alert("Health stats updated successfully!");
@@ -143,7 +150,7 @@ const UpdateModal = ({ setIsOpen, userHealthStats }) => {
           Submit
         </button>
 
-        <p className="">{invalidInputError}</p>
+        <p className="text-center text-red-500">{invalidInputError}</p>
       </form>
 
     </div>
