@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import UseAuth from "../Hooks/UseAuth";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -144,6 +145,7 @@ const Navbar = () => {
                   </Link>
                 </>
               )}
+              <ThemeToggle />
             </div>
           </div>
 
