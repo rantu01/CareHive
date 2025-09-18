@@ -5,12 +5,20 @@ import { use, useEffect, useState } from "react";
 import { DashBoardDataContext } from "./UserDashBoardDataContext/DashboardDataContext";
 import { useParams } from "next/navigation";
 import axios from "axios";
+import { div } from "framer-motion/client";
+
 
 const UserGoal = () => {
-    const { goalData } = use(DashBoardDataContext);
+    const { goalData, isLoading } = use(DashBoardDataContext);
 
+    if (isLoading) return <p>Loading......</p>
 
-    console.log("from goal",goalData)
+    const goalList = goalData[0]?.goalData
+    console.log(goalList)
+
+    goalList?.map((goal) => {
+        console.log(goal?.title)
+    })
 
     const [isOpen, setIsOpen] = useState(false);
     const [title, setTitle] = useState("");
@@ -53,12 +61,31 @@ const UserGoal = () => {
                 </button>
             </div>
 
-            {/* Progress bar (example static 45%) */}
             <div className="mt-5">
-                <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700">
-                    <div className="bg-[var(--dashboard-blue)] text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full w-[45%]">
-                        45%
-                    </div>
+                <div className="w-full">
+                    {
+                        goalList?.map((goal) => (
+                            <div key={goal?.id}>
+                                <div className="flex justify-between space-y-4">
+                                    <p>{goal?.title}</p>
+                                    <div>
+                                        <span>{goal?.completed}</span>/<span>{goal?.goal}</span>
+                                    </div>
+                                </div>
+
+
+                                <div className="w-full rounded-full bg-gray-700">
+                                    <div
+                                        className="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+                                        style={{ width: "50%" }}
+                                    >
+                                        {goal?.percentage}
+                                    </div>
+                                </div>
+
+                            </div>
+                        ))
+                    }
                 </div>
             </div>
 
