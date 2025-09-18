@@ -1,7 +1,8 @@
 "use client"; // Add this line at the very top
 import BmiCalculator from '@/app/Component/BmiCalculator';
-import HealthLog from '@/app/Component/HealthLog';
+// import HealthLog from '@/app/Component/HealthLog';
 import Navbar from '@/app/Component/Navbar';
+// import QuickHealthTips from '@/app/Component/QuickHealthTips';
 import React, { useEffect, useState } from 'react';
 
 const page = () => {
@@ -42,7 +43,9 @@ const page = () => {
                 <div className="mt-8">
                     <BmiCalculator />
 
-                    <HealthLog></HealthLog>
+                    {/* <HealthLog></HealthLog>
+                    <QuickHealthTips></QuickHealthTips> */}
+                    
                 </div>
             </div>
         </div>
