@@ -19,7 +19,7 @@ const page = () => {
     return (
         <div>
             <Navbar />
-            <div className="pt-30 text-center px-4">
+            <div className="pt-30 text-center  bg-amber-50">
                 {/* Animated Title */}
                 <h1
                     className={`text-3xl md:text-4xl font-extrabold mt-6 transition-all duration-1000 ease-out ${

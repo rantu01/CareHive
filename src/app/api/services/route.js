@@ -5,7 +5,7 @@ export async function GET() {
   try {
     const client = await clientPromise;
     const db = client.db("carehive"); // change to your DB name
-    const services = await db.collection("services").find({}).limit(8).toArray();
+    const services = await db.collection("services").find({}).limit(6).toArray();
 
     return NextResponse.json(services);
   } catch (error) {
