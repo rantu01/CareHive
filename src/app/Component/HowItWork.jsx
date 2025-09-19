@@ -49,7 +49,7 @@ const steps = [
 
 const HowItWork = () => {
   return (
-    <section className="py-20 px-6 bg-white">
+    <section className="py-20 px-20 bg-white">
       <div className="max-w-7xl mx-auto text-center">
         {/* Title */}
         <h2

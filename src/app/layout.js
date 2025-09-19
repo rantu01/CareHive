@@ -3,6 +3,7 @@ import "./globals.css";
 import AuthProvider from "./context/authProvider";
 import TanstackProviders from "./TanstackProvider/TanstackProvider";
 import DashBoardDataProvider from "./Component/UserComponent/UserDashBoardDataContext/DashBoardDataProvider";
+import { ThemeProvider } from "next-themes";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,14 +25,19 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        cz-shortcut-listen="true"
       >
-
-        <TanstackProviders>
-          <DashBoardDataProvider>
-            <AuthProvider>{children}</AuthProvider>
-          </DashBoardDataProvider>
-        </TanstackProviders>
-
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem={true}
+        >
+          <TanstackProviders>
+            <DashBoardDataProvider>
+              <AuthProvider>{children}</AuthProvider>
+            </DashBoardDataProvider>
+          </TanstackProviders>
+        </ThemeProvider>
       </body>
     </html>
   );
