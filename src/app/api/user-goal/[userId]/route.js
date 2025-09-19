@@ -7,8 +7,6 @@ export async function GET(req, { params }) {
     try {
         const { userId } = await params;
 
-        // const body = await req.json();
-        // console.log(body)
         const client = await clientPromise;
         const db = client.db("carehive");
         const collection = db.collection("userGoal");
@@ -25,3 +23,19 @@ export async function GET(req, { params }) {
     }
 }
 
+export async function PATCH(req, { params }) {
+
+    try {
+        const { userId,id } = await params
+        const client = await clientPromise;
+        const db = client.db("carehive");
+        const collection = db.collection("userGoal");
+
+        const userGoal=await collection.find({userId,"goalData.id":id})
+
+        console.log(userGoal)
+
+    } catch (error) {
+
+    }
+}

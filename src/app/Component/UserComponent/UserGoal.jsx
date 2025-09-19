@@ -11,6 +11,7 @@ import { div } from "framer-motion/client";
 const UserGoal = () => {
     const { goalData, isLoading } = use(DashBoardDataContext);
 
+
     if (isLoading) return <p>Loading......</p>
 
     const goalList = goalData[0]?.goalData
@@ -45,6 +46,20 @@ const UserGoal = () => {
         setIsOpen(false);
     };
 
+    // const updateProgress=()=>{
+    //     const { data} = useQuery({
+    //         queryKey: ["completed", userId],
+    //         queryFn: gn,
+    //         enabled: !!userId,
+    //     });
+    // }
+    const handleOnchangeRange = (e, id) => {
+
+        const currentValue =
+            console.log(e.target.value)
+        console.log(id)
+    }
+
     return (
         <div className="border-1 border-gray-200 p-4 rounded">
             {/* Header */}
@@ -62,30 +77,27 @@ const UserGoal = () => {
             </div>
 
             <div className="mt-5">
-                <div className="w-full">
-                    {
-                        goalList?.map((goal) => (
-                            <div key={goal?.id}>
-                                <div className="flex justify-between space-y-4">
-                                    <p>{goal?.title}</p>
-                                    <div>
-                                        <span>{goal?.completed}</span>/<span>{goal?.goal}</span>
-                                    </div>
+                <div className="w-full space-y-4">
+                    {goalList?.map((goal, idx) => (
+                        <div key={goal?.id} className="space-y-2">
+                            {/* Goal Title and Numbers */}
+                            <div className="flex justify-between">
+                                <p>{goal?.title}</p>
+                                <div>
+                                    <span>{goal?.completed}</span>/<span>{goal?.goal}</span>
                                 </div>
-
-
-                                <div className="w-full rounded-full bg-gray-700">
-                                    <div
-                                        className="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
-                                        style={{ width: "50%" }}
-                                    >
-                                        {goal?.percentage}
-                                    </div>
-                                </div>
-
                             </div>
-                        ))
-                    }
+
+                            <input
+                                type="range"
+                                min="0"
+                                max={goal?.goal}
+                                defaultValue={goal?.completed}
+                                onChange={(e) => handleOnchangeRange(e, goal?.id)}
+                                className="w-full accent-[var(--dashboard-blue)] cursor-default"
+                            />
+                        </div>
+                    ))}
                 </div>
             </div>
 

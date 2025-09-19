@@ -2,15 +2,16 @@
 "use client"
 
 import { Calendar, UserRound, X } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
 
-const UpcomingAppointment = ({appointmentData}) => {
+const UpcomingAppointment = ({ appointmentData }) => {
 
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-
+    console.log(appointmentData)
 
     function formatAppointmentDate(dateString) {
         const apptDate = new Date(dateString);
@@ -31,18 +32,29 @@ const UpcomingAppointment = ({appointmentData}) => {
                     <div>Upcoming Appointments</div>
                 </div>
                 <div>
-                    <button className="border-1 border-gray-200 p-1 px-3 rounded cursor-pointer" onClick={() => setIsModalOpen(true)}>View All</button>
+                    <button className="p-1 px-3 rounded cursor-pointer" onClick={() => setIsModalOpen(true)}>View All</button>
                 </div>
             </header>
 
             <main className="flex flex-col gap-2">
+
                 {
-                    appointmentData?.slice(0,3)?.map((appointment) => (
+                    (appointmentData?.length === 0 || (!appointmentData)) &&
+                    <div className="flex flex-col justify-center items-center">
+                        <p className="text-center mb-6">You have mot booked any doctor</p>
+                        <Link href={"/hello"} className="w-fit bg-[var(--dashboard-blue)] p-1 px-3 rounded cursor-pointer">
+                            Book Now
+                        </Link>
+                    </div>
+                }
+
+                {
+                    appointmentData?.slice(0, 3)?.map((appointment) => (
 
                         <div key={appointment?.doctorName} className="flex items-center border-1 p-2 border-gray-200 justify-between rounded-sm">
                             <div className="flex items-center  gap-4">
                                 <div className="bg-[var(--dashboard-blue)] p-2 rounded-full">
-                                    <UserRound color="white"/>
+                                    <UserRound color="white" />
                                 </div>
                                 <div className="space-y-1">
                                     <p className="font-bold">Dr.{appointment?.doctorName}</p>
@@ -62,7 +74,7 @@ const UpcomingAppointment = ({appointmentData}) => {
 
 
             {isModalOpen && (
-               <div className="fixed inset-0 flex items-center justify-center bg-gray-200/40 backdrop-blur-sm z-50">
+                <div className="fixed inset-0 flex items-center justify-center bg-gray-200/40 backdrop-blur-sm z-50">
 
                     <div className="bg-white w-[90%] md:w-[600px] max-h-[80vh] overflow-y-auto rounded-lg shadow-lg transform transition-all duration-300 scale-100 p-4">
                         <div className="flex justify-between items-center border-b pb-2 mb-3">
@@ -85,7 +97,7 @@ const UpcomingAppointment = ({appointmentData}) => {
                                 >
                                     <div className="flex items-center gap-4">
                                         <div className="bg-[var(--dashboard-blue)] p-2 rounded-full">
-                                            <UserRound color="white"/>
+                                            <UserRound color="white" />
                                         </div>
                                         <div className="space-y-1">
                                             <p className="font-bold">Dr.{appointment?.doctorName}</p>
