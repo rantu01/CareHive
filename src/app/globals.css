@@ -17,4 +17,24 @@
   /* dash board colors */
   --dashboard-blue: #3199ee;
 
+  /* gray */
+  --gray-color: #fafafa;
+
+  /* dashboard bg */
+  --dashboard-bg: #ffffff;
+
+   --dashboard-border: #e7ebef;
+
+   /* font color */
+   --fourground-color: #020817;
+
+
+
+}
+
+.dark {
+  --gray-color: #1a1a1a;
+  --dashboard-bg: #020817;
+  --dashboard-border: #1e293b;
+  --fourground-color: #fff;
 }

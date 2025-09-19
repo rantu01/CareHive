@@ -1,6 +1,9 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "./context/authProvider";
+import TanstackProviders from "./TanstackProvider/TanstackProvider";
+import DashBoardDataProvider from "./Component/UserComponent/UserDashBoardDataContext/DashBoardDataProvider";
+import { ThemeProvider } from "next-themes";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,11 +22,22 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        cz-shortcut-listen="true"
       >
-        <AuthProvider>{children}</AuthProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem={true}
+        >
+          <TanstackProviders>
+            <DashBoardDataProvider>
+              <AuthProvider>{children}</AuthProvider>
+            </DashBoardDataProvider>
+          </TanstackProviders>
+        </ThemeProvider>
       </body>
     </html>
   );

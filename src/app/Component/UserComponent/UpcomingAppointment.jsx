@@ -5,63 +5,11 @@ import { Calendar, UserRound, X } from "lucide-react";
 import { useState } from "react";
 
 
-const UpcomingAppointment = () => {
+const UpcomingAppointment = ({appointmentData}) => {
 
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const appointmentData = [
-        {
-            "doctorName": "Sarah Johnson",
-            "specialist": "Cardiologist",
-            "appointmentDate": "2025-06-09T10:00:00Z"
-        },
-        {
-            "doctorName": "David Lee",
-            "specialist": "Dermatologist",
-            "appointmentDate": "2025-09-15T04:38:16.650Z"
-        },
-        {
-            "doctorName": "Emily Davis",
-            "specialist": "Neurologist",
-            "appointmentDate": "2025-09-16T04:38:16.650Z"
-        },
-        {
-            "doctorName": "Michael Brown",
-            "specialist": "Orthopedic",
-            "appointmentDate": "2025-09-17T09:00:00Z"
-        },
-        {
-            "doctorName": "Olivia Wilson",
-            "specialist": "Pediatrician",
-            "appointmentDate": "2025-09-18T14:30:00Z"
-        },
-        {
-            "doctorName": "James Taylor",
-            "specialist": "Oncologist",
-            "appointmentDate": "2025-09-19T08:15:00Z"
-        },
-        {
-            "doctorName": "Sophia Martinez",
-            "specialist": "Psychiatrist",
-            "appointmentDate": "2025-09-20T11:45:00Z"
-        },
-        {
-            "doctorName": "William Anderson",
-            "specialist": "Gastroenterologist",
-            "appointmentDate": "2025-09-21T16:20:00Z"
-        },
-        {
-            "doctorName": "Isabella Thomas",
-            "specialist": "Ophthalmologist",
-            "appointmentDate": "2025-09-22T13:10:00Z"
-        },
-        {
-            "doctorName": "Ethan Moore",
-            "specialist": "Endocrinologist",
-            "appointmentDate": "2025-09-23T15:30:00Z"
-        }
-    ];
 
 
     function formatAppointmentDate(dateString) {
@@ -76,7 +24,7 @@ const UpcomingAppointment = () => {
     }
 
     return (
-        <div className="border-1 border-gray-200 p-4 rounded ">
+        <div className="border-1 border-gray-200 p-4 rounded h-[24.50rem] max-h-[24.50rem] ">
             <header className="flex justify-between items-center mb-5">
                 <div className="flex gap-2">
                     <div><Calendar color="var(--dashboard-blue)" /></div>
@@ -89,7 +37,7 @@ const UpcomingAppointment = () => {
 
             <main className="flex flex-col gap-2">
                 {
-                    appointmentData.slice(0,3)?.map((appointment) => (
+                    appointmentData?.slice(0,3)?.map((appointment) => (
 
                         <div key={appointment?.doctorName} className="flex items-center border-1 p-2 border-gray-200 justify-between rounded-sm">
                             <div className="flex items-center  gap-4">
@@ -130,7 +78,7 @@ const UpcomingAppointment = () => {
                         </div>
 
                         <div className="flex flex-col gap-3">
-                            {appointmentData.map((appointment) => (
+                            {appointmentData?.map((appointment) => (
                                 <div
                                     key={appointment?.doctorName}
                                     className="flex items-center border-1 p-2 border-gray-200 justify-between rounded-sm"
