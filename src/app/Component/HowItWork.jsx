@@ -7,7 +7,7 @@ const steps = [
   {
     id: 1,
     title: "Sign Up & Create Profile",
-    icon: <User className="w-10 h-10 text-blue-500" />,
+    icon: <User className="w-7 h-7 text-blue-600" />,
     points: [
       "Register as a General User, Patient, or Doctor",
       "Set up your profile: name, age, weight, height",
@@ -17,7 +17,7 @@ const steps = [
   {
     id: 2,
     title: "Explore & Track Health",
-    icon: <Activity className="w-10 h-10 text-green-500" />,
+    icon: <Activity className="w-7 h-7 text-green-600" />,
     points: [
       "Track BMI, calories, and steps in the dashboard",
       "Get health reports and personalized recommendations",
@@ -26,8 +26,8 @@ const steps = [
   },
   {
     id: 3,
-    title: "Connect with Doctors & Book Appointments",
-    icon: <Stethoscope className="w-10 h-10 text-purple-500" />,
+    title: "Connect with Doctors",
+    icon: <Stethoscope className="w-7 h-7 text-purple-600" />,
     points: [
       "Search doctors by specialization, hospital, or location",
       "Check available slots and book appointments online",
@@ -36,12 +36,12 @@ const steps = [
   },
   {
     id: 4,
-    title: "Get Personalized Care & Services",
-    icon: <Cpu className="w-10 h-10 text-orange-500" />,
+    title: "Get Personalized Care",
+    icon: <Cpu className="w-7 h-7 text-orange-600" />,
     points: [
-      "Receive doctor consultations and read health blogs/tips",
-      "Get 24/7 guidance from the AI Health Chatbot",
-      "Use hospital directory and wellness services",
+      "Receive consultations & read health blogs",
+      "24/7 guidance from AI Health Chatbot",
+      "Use hospital directory & wellness services",
       "Make secure online payments for premium features",
     ],
   },
@@ -49,16 +49,29 @@ const steps = [
 
 const HowItWork = () => {
   return (
-    <section className="py-16 px-6 bg-gray-50">
-      <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-4xl font-bold mb-12 text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-light-green)] to-[var(--color-calm-blue)]">
-  How It Works
-</h2>
+    <section className="py-20 px-20 bg-white">
+      <div className="max-w-7xl mx-auto text-center">
+        {/* Title */}
+        <h2
+          className="text-4xl md:text-5xl font-extrabold mb-6 
+          text-transparent bg-clip-text bg-gradient-to-r 
+          from-indigo-500 via-blue-500 to-green-500"
+        >
+          How It Works
+        </h2>
 
-       
+        {/* Subtitle */}
+        <p
+          className="text-lg max-w-2xl mx-auto mb-14 
+          text-transparent bg-clip-text bg-gradient-to-r 
+          from-gray-700 via-blue-600 to-green-600"
+        >
+          A simple and seamless process to take care of your health,
+          connect with doctors, and track your wellness journey.
+        </p>
 
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Step Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {steps.map((step, index) => (
             <motion.div
               key={step.id}
@@ -66,25 +79,37 @@ const HowItWork = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
               viewport={{ once: true }}
-              className="bg-white p-8 rounded-2xl shadow-md transition relative"
-              whileHover={{
-                y: -10, // hover এ card উপরে উঠবে
-                boxShadow: "0px 20px 40px rgba(0,0,0,0.1)", // shadow বড় হবে
-              }}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.95, rotate: -1 }}
+              className=" p-6 rounded-2xl shadow-lg relative 
+                         border border-gray-200 hover:shadow-2xl transition 
+                         bg-gradient-to-br from-[var(--color-light-green)]/50 
+                         via-white/20 to-[var(--color-calm-blue)]/40"
             >
               {/* Number Badge */}
-              <div className="absolute -top-5 -left-5 bg-blue-400 text-white w-12 h-12 flex items-center justify-center rounded-full font-bold shadow">
+              <div
+                className="absolute -top-5 -left-5 
+                   bg-gradient-to-r from-pink-500 to-violet-500 
+                   text-white w-12 h-12 flex items-center justify-center 
+                   rounded-full font-bold shadow-lg"
+              >
                 {step.id}
               </div>
 
-              {/* Icon */}
-              <div className="mb-4 flex justify-center">{step.icon}</div>
+              {/* Icon Circle */}
+              <div className="mb-6 flex justify-center">
+                <div className="p-4 bg-gradient-to-br from-blue-200 to-green-200 rounded-full shadow-inner">
+                  {step.icon}
+                </div>
+              </div>
 
               {/* Title */}
-              <h3 className="text-xl font-semibold mb-4 text-blue-400">{step.title}</h3>
+              <h3 className="text-lg font-semibold mb-3 text-gray-900">
+                {step.title}
+              </h3>
 
               {/* Points */}
-              <ul className="list-disc text-left space-y-2 pl-5 text-gray-800">
+              <ul className="list-disc text-left space-y-2 pl-5 text-gray-700 text-sm">
                 {step.points.map((point, idx) => (
                   <li key={idx}>{point}</li>
                 ))}
