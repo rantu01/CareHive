@@ -72,6 +72,8 @@ export async function POST(req, { params }) {
 
     const body = await req.json();
 
+    console.log(body)
+    
     const client = await clientPromise;
     const db = client.db("carehive");
     const collection = db.collection("healthMetrics");
@@ -80,8 +82,8 @@ export async function POST(req, { params }) {
 
     console.log(result)
 
-    return Response.json({success:true,status:200})
-  } catch{
+    return Response.json({ success: true, status: 200 })
+  } catch {
 
   }
 
