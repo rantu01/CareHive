@@ -6,6 +6,7 @@ import { DashBoardDataContext } from "./UserDashBoardDataContext/DashboardDataCo
 import { useParams } from "next/navigation";
 import axios from "axios";
 import { div } from "framer-motion/client";
+import { useMutation } from "@tanstack/react-query";
 
 
 const UserGoal = () => {
@@ -29,7 +30,7 @@ const UserGoal = () => {
     const { userId } = useParams()
 
 
-    const handleSubmit = (e) => {
+    const handleAddNewGoal = (e) => {
         e.preventDefault();
 
         if (!title.trim() || !goal) {
@@ -46,13 +47,6 @@ const UserGoal = () => {
         setIsOpen(false);
     };
 
-    // const updateProgress=()=>{
-    //     const { data} = useQuery({
-    //         queryKey: ["completed", userId],
-    //         queryFn: gn,
-    //         enabled: !!userId,
-    //     });
-    // }
     const handleOnchangeRange = (e, id) => {
 
         const currentValue =
