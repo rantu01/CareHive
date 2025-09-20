@@ -49,8 +49,8 @@ export async function PATCH(req, { params }) {
 
         if (body?.actionType === 'update-completed') {
             const result = await collection.updateOne(
-                { userId }, 
-                { $set: { "goalData.$[goal].completed": body?.completed } }, 
+                { userId },
+                { $set: { "goalData.$[goal].completed": body?.completed } },
                 { arrayFilters: [{ "goal.id": body?.id }], upsert: false }
             );
 
@@ -71,3 +71,27 @@ export async function PATCH(req, { params }) {
 }
 
 
+export async function DELETE(req, { params }) {
+    try {
+        const { userId } = await params;
+        const body = await req.json()
+        console.log(body)
+
+        const client = await clientPromise;
+        const db = client.db("carehive");
+        const collection = db.collection("userGoal");
+
+        console.log(body?.id)
+
+        const deleteGoal = await collection.updateOne({ userId }, 
+
+            { $pull: { goalData: { id: body.id } } })
+
+        console.log(deleteGoal)
+        return NextResponse.json(deleteGoal);
+
+    } catch (err) {
+        console.error(err);
+        return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+    }
+}

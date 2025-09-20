@@ -8,6 +8,7 @@ import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { nanoid } from "nanoid";
 import Swal from "sweetalert2";
+import { data } from "framer-motion/client";
 
 
 
@@ -37,6 +38,9 @@ const UserGoal = () => {
     }
 
     // delete goal after complete
+    const deleteCompletedGoal = async (goalId) => {
+        const res = await axios.delete(`/api/user-goal/${userId}`, {data:{id:goalId}})
+    }
 
 
 
@@ -66,9 +70,26 @@ const UserGoal = () => {
             queryClient.invalidateQueries({ queryKey: ["daily_goal", userId] });
         },
         onError: (error) => {
-            console.log(error)
+            Swal.fire({
+                title: error,
+                icon: 'warning'
+            })
         }
     })
+
+    const deleteGoalMutation = useMutation({
+        mutationFn: deleteCompletedGoal,
+        onSuccess: (data) => {
+            queryClient.invalidateQueries({ queryKey: ["daily_goal", userId] });
+        },
+        onError: (error) => {
+            Swal.fire({
+                title: error,
+                icon: 'warning'
+            })
+        }
+    })
+
 
     const handleAddNewGoal = (e) => {
         e.preventDefault();
@@ -120,11 +141,12 @@ const UserGoal = () => {
                 confirmButtonText: "Yes, delete it!"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire({
-                        title: "Deleted!",
-                        text: "Your file has been deleted.",
-                        icon: "success"
-                    });
+                    deleteGoalMutation.mutate(goalId)
+                    // Swal.fire({
+                    //     title: "Deleted!",
+                    //     text: "Your file has been deleted.",
+                    //     icon: "success"
+                    // });
                 }
             });
         }
