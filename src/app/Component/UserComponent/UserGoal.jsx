@@ -5,8 +5,9 @@ import { use, useEffect, useState } from "react";
 import { DashBoardDataContext } from "./UserDashBoardDataContext/DashboardDataContext";
 import { useParams } from "next/navigation";
 import axios from "axios";
-import { useMutation } from "@tanstack/react-query";
-import { nanoid} from "nanoid";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { nanoid } from "nanoid";
+import Swal from "sweetalert2";
 
 
 const UserGoal = () => {
@@ -16,6 +17,7 @@ const UserGoal = () => {
     const [goal, setGoal] = useState("");
 
     const { userId } = useParams()
+    const queryClient = useQueryClient();
 
     console.log("user goal data", goalData)
 
@@ -30,13 +32,22 @@ const UserGoal = () => {
     const mutation = useMutation({
         mutationFn: addNewGoal,
         onSuccess: (data) => {
-            console.log("goal data", data)
+            queryClient.invalidateQueries({ queryKey: ["daily_goal", userId] });
+            Swal.fire({
+                title: "Goal added successfully",
+                icon: "success"
+            })
         },
         onError: (error) => {
-            console.error("Error", error)
+            Swal.fire({
+                title: error,
+                icon: 'warning'
+            })
         }
 
     })
+
+
 
 
 
@@ -63,6 +74,40 @@ const UserGoal = () => {
         setGoal("");
         setIsOpen(false);
     };
+
+
+
+    const trackGoalComplete = (e, target, goalId) => {
+
+        const completed = e.target.value
+        const remaining = target - completed
+
+        console.log("completed", completed)
+        console.log("remaining", remaining)
+
+        if (remaining === 0) {
+            Swal.fire({
+                title: "You have reached your goal.",
+                text: "Do you want delete this",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
+                }
+            });
+        }
+
+
+        console.log("goalId", goalId)
+    }
 
     if (isLoading) return <p>Loading......</p>
 
@@ -100,7 +145,7 @@ const UserGoal = () => {
                                 min="0"
                                 max={goal?.goal}
                                 defaultValue={goal?.completed}
-                                // onChange={(e) => handleOnchangeRange(e, goal?.id)}
+                                onChange={(e) => trackGoalComplete(e, goal?.goal, goal?.id)}
                                 className="w-full accent-[var(--dashboard-blue)] cursor-default"
                             />
                         </div>
@@ -143,6 +188,7 @@ const UserGoal = () => {
                                 <label className="block text-sm font-medium mb-1">
                                     Target
                                 </label>
+
                                 <input
                                     type="number"
                                     value={goal}
@@ -151,6 +197,7 @@ const UserGoal = () => {
                                     className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]"
                                     required
                                 />
+
                             </div>
 
                             {/* Submit button */}
