@@ -141,7 +141,7 @@ const DashBoardDataProvider = ({ children }) => {
 
 
 
-// all data
+  // all data of dashboard
 
 
   const allDashBoardData = {

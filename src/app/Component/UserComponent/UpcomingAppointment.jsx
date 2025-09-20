@@ -3,12 +3,14 @@
 
 import { Calendar, UserRound, X } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { use, useState } from "react";
+import { DashBoardDataContext } from "./UserDashBoardDataContext/DashboardDataContext";
 
 
-const UpcomingAppointment = ({ appointmentData }) => {
+const UpcomingAppointment = () => {
 
-
+    const { appointmentData } = use(DashBoardDataContext)
+    
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     console.log(appointmentData)

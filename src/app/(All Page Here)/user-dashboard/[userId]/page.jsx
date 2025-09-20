@@ -15,13 +15,13 @@ import React, { use, useEffect, useState } from 'react';
 
 const UserDashboard = () => {
 
-
+    const {userHealthStats}=use(DashBoardDataContext)
 
     return (
 
         <div className='w-full p-6 md:max-w-9/12 md:p-0 mx-auto space-y-10'>
             <div className='mb-4'>
-                <WelcomeBar name={user?.displayName} userHealthStats={userHealthStats} setHealthStats={setHealthStats} />
+                <WelcomeBar />
             </div>
             <div className='grid md:grid-cols-4 gap-6 sm:grid-cols-2 grid-cols-1'>
 
@@ -34,8 +34,8 @@ const UserDashboard = () => {
             </div>
 
             <div className='grid grid-cols-1 md:grid-cols-6 gap-6'>
-                <div className='md:col-span-4'><UpcomingAppointment appointmentData={appointmentData} /></div>
-                <div className='md:col-span-2'><ToDoTask userToDo={userToDo} setUserToDo={setUserToDo} /></div>
+                <div className='md:col-span-4'><UpcomingAppointment /></div>
+                <div className='md:col-span-2'><ToDoTask /></div>
             </div>
 
             <div>
