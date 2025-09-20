@@ -5,29 +5,39 @@ import { use, useEffect, useState } from "react";
 import { DashBoardDataContext } from "./UserDashBoardDataContext/DashboardDataContext";
 import { useParams } from "next/navigation";
 import axios from "axios";
-import { div } from "framer-motion/client";
 import { useMutation } from "@tanstack/react-query";
+import { nanoid} from "nanoid";
 
 
 const UserGoal = () => {
-    const { goalData, isLoading } = use(DashBoardDataContext);
-
-
-    if (isLoading) return <p>Loading......</p>
-
-    const goalList = goalData[0]?.goalData
-    console.log(goalList)
-
-    goalList?.map((goal) => {
-        console.log(goal?.title)
-    })
-
+    const { goalData, isLoading, setGoalData } = use(DashBoardDataContext);
     const [isOpen, setIsOpen] = useState(false);
     const [title, setTitle] = useState("");
     const [goal, setGoal] = useState("");
 
-
     const { userId } = useParams()
+
+    console.log("user goal data", goalData)
+
+    const goalList = goalData[0]?.goalData
+    console.log("The goal list", goalList)
+
+    const addNewGoal = async (goalData) => {
+        const res = await axios.patch(`/api/user-goal/${userId}`, goalData)
+    }
+
+
+    const mutation = useMutation({
+        mutationFn: addNewGoal,
+        onSuccess: (data) => {
+            console.log("goal data", data)
+        },
+        onError: (error) => {
+            console.error("Error", error)
+        }
+
+    })
+
 
 
     const handleAddNewGoal = (e) => {
@@ -38,8 +48,15 @@ const UserGoal = () => {
             return;
         }
 
-        const goalInformation = { userId, goalData: { title, goal } }
+        const goalInformation = {
+            id: nanoid(7),
+            title: title,
+            goal: goal,
+            completed: 0,
+            percentage: "0%"
+        }
 
+        mutation.mutate(goalInformation)
 
         // Reset & close
         setTitle("");
@@ -47,12 +64,8 @@ const UserGoal = () => {
         setIsOpen(false);
     };
 
-    const handleOnchangeRange = (e, id) => {
+    if (isLoading) return <p>Loading......</p>
 
-        const currentValue =
-            console.log(e.target.value)
-        console.log(id)
-    }
 
     return (
         <div className="border-1 border-gray-200 p-4 rounded">
@@ -87,7 +100,7 @@ const UserGoal = () => {
                                 min="0"
                                 max={goal?.goal}
                                 defaultValue={goal?.completed}
-                                onChange={(e) => handleOnchangeRange(e, goal?.id)}
+                                // onChange={(e) => handleOnchangeRange(e, goal?.id)}
                                 className="w-full accent-[var(--dashboard-blue)] cursor-default"
                             />
                         </div>
@@ -109,7 +122,7 @@ const UserGoal = () => {
 
                         <h2 className="text-lg font-bold mb-4">Add New Goal</h2>
 
-                        <form onSubmit={handleSubmit} className="space-y-4">
+                        <form onSubmit={handleAddNewGoal} className="space-y-4">
                             {/* Goal Title */}
                             <div>
                                 <label className="block text-sm font-medium mb-1">
