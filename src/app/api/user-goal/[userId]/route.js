@@ -32,7 +32,7 @@ export async function PATCH(req, { params }) {
         const db = client.db("carehive");
         const collection = db.collection("userGoal");
 
-        const userGoal = await collection.updateOne({ userId: userId },{ $push: { goalData: body } })
+        const userGoal = await collection.updateOne({ userId: userId },{ $push: { goalData: body } },{ upsert: true })
 
         console.log(userGoal)
 
@@ -47,24 +47,3 @@ export async function PATCH(req, { params }) {
 }
 
 
-
-// export async function POST(req, { params }) {
-//     try {
-
-//         const body = await req.json()
-//         const client = await clientPromise;
-//         const db = client.db("carehive")
-//         const collection = db.collection("userGoal")
-//         const newGoal = await collection.insertOne(body)
-//         console.log(newGoal)
-
-        
-//         return NextResponse.json(
-//             { status: 200 }
-//         );
-
-//     } catch (error) {
-//         console.error(error);
-//         return NextResponse.json({ success: false, error: error.message }, { status: 500 });
-//     }
-// }
