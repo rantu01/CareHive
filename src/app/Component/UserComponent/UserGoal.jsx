@@ -10,6 +10,7 @@ import { nanoid } from "nanoid";
 import Swal from "sweetalert2";
 
 
+
 const UserGoal = () => {
     const { goalData, isLoading, setGoalData } = use(DashBoardDataContext);
     const [isOpen, setIsOpen] = useState(false);
@@ -24,11 +25,22 @@ const UserGoal = () => {
     const goalList = goalData[0]?.goalData
     console.log("The goal list", goalList)
 
+    // add new goal
     const addNewGoal = async (goalData) => {
         const res = await axios.patch(`/api/user-goal/${userId}`, goalData)
     }
 
+    // update goal progress
 
+    const trackGoalChange = async (completedData) => {
+        const res = await axios.patch(`/api/user-goal/${userId}`, completedData)
+    }
+
+    // delete goal after complete
+
+
+
+    // add new goal mutation
     const mutation = useMutation({
         mutationFn: addNewGoal,
         onSuccess: (data) => {
@@ -48,8 +60,15 @@ const UserGoal = () => {
     })
 
 
-
-
+    const completeGoalMutation = useMutation({
+        mutationFn: trackGoalChange,
+        onSuccess: (data) => {
+            queryClient.invalidateQueries({ queryKey: ["daily_goal", userId] });
+        },
+        onError: (error) => {
+            console.log(error)
+        }
+    })
 
     const handleAddNewGoal = (e) => {
         e.preventDefault();
@@ -60,6 +79,7 @@ const UserGoal = () => {
         }
 
         const goalInformation = {
+            actionType: "add-goal",
             id: nanoid(7),
             title: title,
             goal: goal,
@@ -84,6 +104,10 @@ const UserGoal = () => {
 
         console.log("completed", completed)
         console.log("remaining", remaining)
+
+        const updatedData = { actionType: "update-completed", completed: completed, id: goalId }
+
+        completeGoalMutation.mutate(updatedData)
 
         if (remaining === 0) {
             Swal.fire({

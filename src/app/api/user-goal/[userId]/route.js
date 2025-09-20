@@ -26,15 +26,39 @@ export async function GET(req, { params }) {
 export async function PATCH(req, { params }) {
 
     try {
-        const { userId} = await params
-        const body=await req.json()
+        const { userId } = await params
+        const body = await req.json()
         const client = await clientPromise;
         const db = client.db("carehive");
         const collection = db.collection("userGoal");
 
-        const userGoal = await collection.updateOne({ userId: userId },{ $push: { goalData: body } },{ upsert: true })
+        if (body?.actionType === "add-goal") {
+            const userGoal = await collection.updateOne({ userId: userId }, {
+                $push: {
+                    goalData: {
+                        id: body?.id,
+                        title: body?.title,
+                        goal: parseInt(body?.goal),
+                        completed: parseInt(body?.completed)
+                    }
 
-        console.log(userGoal)
+                }
+            }, { upsert: true })
+            console.log(userGoal)
+        }
+
+        if (body?.actionType === 'update-completed') {
+            const result = await collection.updateOne(
+                { userId }, 
+                { $set: { "goalData.$[goal].completed": body?.completed } }, 
+                { arrayFilters: [{ "goal.id": body?.id }], upsert: false }
+            );
+
+            console.log(result)
+        }
+
+
+
 
         return NextResponse.json(
             { status: 200 }
