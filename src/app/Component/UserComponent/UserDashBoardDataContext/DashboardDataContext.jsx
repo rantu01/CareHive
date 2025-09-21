@@ -1,3 +1,3 @@
 import { createContext, useContext } from "react"
 
-export const DashBoardDataContext=createContext()
+export const DashBoardDataContext=createContext("")

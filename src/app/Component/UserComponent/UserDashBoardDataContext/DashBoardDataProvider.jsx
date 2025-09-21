@@ -1,11 +1,12 @@
 
 "use client";
 
-import React, { useState, useEffect, use } from "react";
+import { useState, useEffect, use, useContext } from "react";
 import { DashBoardDataContext } from "./DashboardDataContext";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
 import axios from "axios";
+import { AuthContext } from "@/app/context/authContext";
+
 
 const DashBoardDataProvider = ({ children }) => {
 
@@ -16,9 +17,15 @@ const DashBoardDataProvider = ({ children }) => {
 
   const [userToDo, setUserToDo] = useState([])
 
-  const { userId } = useParams()
 
-  // const { user } = use(AuthContext)
+
+  const { user } = useContext(AuthContext)
+  const userId = user?.uid
+
+
+  console.log(user)
+
+  console.log("data provider", userId)
 
 
 

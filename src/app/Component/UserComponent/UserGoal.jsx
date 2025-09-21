@@ -8,7 +8,7 @@ import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { nanoid } from "nanoid";
 import Swal from "sweetalert2";
-import { data } from "framer-motion/client";
+import { AuthContext } from "@/app/context/authContext";
 
 
 
@@ -18,13 +18,21 @@ const UserGoal = () => {
     const [title, setTitle] = useState("");
     const [goal, setGoal] = useState("");
 
-    const { userId } = useParams()
+    const { user } = use(AuthContext)
+    const userId = user?.uid
+
+    
     const queryClient = useQueryClient();
 
-    console.log("user goal data", goalData)
+
+
+
+
+
+
 
     const goalList = goalData[0]?.goalData
-    console.log("The goal list", goalList)
+
 
     // add new goal
     const addNewGoal = async (goalData) => {
@@ -39,7 +47,7 @@ const UserGoal = () => {
 
     // delete goal after complete
     const deleteCompletedGoal = async (goalId) => {
-        const res = await axios.delete(`/api/user-goal/${userId}`, {data:{id:goalId}})
+        const res = await axios.delete(`/api/user-goal/${userId}`, { data: { id: goalId } })
     }
 
 
@@ -191,7 +199,7 @@ const UserGoal = () => {
                                 min="0"
                                 max={goal?.goal}
                                 defaultValue={goal?.completed}
-                                onChange={(e) => trackGoalComplete(e, goal?.goal, goal?.id)}
+                                onMouseLeave={(e) => trackGoalComplete(e, goal?.goal, goal?.id)}
                                 className="w-full accent-[var(--dashboard-blue)] cursor-default"
                             />
                         </div>

@@ -1,11 +1,12 @@
+import { AuthContext } from "@/app/context/authContext";
 import axios from "axios";
-import { useParams } from "next/navigation";
-import { useState } from "react";
+import { use, useState } from "react";
 
 const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
 
 
-  const { userId } = useParams()
+    const {user}=use(AuthContext)
+    const  userId  = user?.uid
 
   const [formData, setFormData] = useState({});
 

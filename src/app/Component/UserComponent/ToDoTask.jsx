@@ -6,11 +6,13 @@ import { nanoid } from "nanoid";
 import { useParams } from "next/navigation";
 import { use } from "react";
 import { DashBoardDataContext } from "./UserDashBoardDataContext/DashboardDataContext";
+import { AuthContext } from "@/app/context/authContext";
 
 
 const ToDoTask = () => {
 
-    const { userId } = useParams()
+    const {user}=use(AuthContext)
+    const  userId  = user?.uid
 
     const {userToDo,setUserToDo}=use(DashBoardDataContext)
 
