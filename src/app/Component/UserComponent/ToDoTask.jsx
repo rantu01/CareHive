@@ -4,11 +4,17 @@ import axios from "axios";
 import { BookCheck } from "lucide-react";
 import { nanoid } from "nanoid";
 import { useParams } from "next/navigation";
+import { use } from "react";
+import { DashBoardDataContext } from "./UserDashBoardDataContext/DashboardDataContext";
+import { AuthContext } from "@/app/context/authContext";
 
 
-const ToDoTask = ({ userToDo, setUserToDo }) => {
+const ToDoTask = () => {
 
-    const { userId } = useParams()
+    const {user}=use(AuthContext)
+    const  userId  = user?.uid
+
+    const {userToDo,setUserToDo}=use(DashBoardDataContext)
 
     const addToDoUrl = `/api/get-todo-task/${userId}`
     const patchUrl = `/api/get-todo-task/${userId}`;
