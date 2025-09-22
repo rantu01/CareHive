@@ -7,19 +7,21 @@ export default function Sidebar({ items, isCollapsed }) {
 
   return (
     <aside
-      className={`h-screen border-r border-r-[var(--dashboard-border)] px-4 py-6 flex flex-col justify-between bg-[var(--gray-color)] 
-        transition-all duration-300 ease-in-out
-        ${isCollapsed ? "w-16" : "w-64"}
-      `}
+      className={`h-screen px-4 py-6 flex flex-col justify-between transition-all duration-300 ease-in-out
+        ${isCollapsed ? "w-16" : "w-64"}`}
+      style={{
+        backgroundColor: "var(--gray-color)",
+        borderRight: "1px solid var(--dashboard-border)",
+      }}
     >
       {/* Logo */}
       <div>
         <h1
           className={`font-bold mb-6 transition-opacity duration-300
-            ${isCollapsed ? "opacity-0 h-0" : "text-xl opacity-100"}
-          `}
+            ${isCollapsed ? "opacity-0 h-0" : "text-xl opacity-100"}`}
+          style={{ color: "var(--fourground-color)" }}
         >
-          CareHive
+          <Link href="/">CareHive</Link>
         </h1>
 
         <ul className="menu space-y-2">
@@ -28,9 +30,13 @@ export default function Sidebar({ items, isCollapsed }) {
               <Link
                 href={item.path}
                 className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-300
-                  ${pathname === item.path ? "bg-primary text-white" : "hover:bg-base-300"}
-                  ${isCollapsed ? "justify-center" : ""}
-                `}
+                  ${isCollapsed ? "justify-center" : ""}`}
+                style={{
+                  backgroundColor:
+                    pathname === item.path ? "var(--color-calm-blue)" : "transparent",
+                  color:
+                    pathname === item.path ? "var(--color-white)" : "var(--fourground-color)",
+                }}
               >
                 {item.icon}
                 {!isCollapsed && <span>{item.name}</span>}
@@ -41,17 +47,40 @@ export default function Sidebar({ items, isCollapsed }) {
       </div>
 
       {/* Bottom section */}
-      <div className="mt-auto">
+      <div className="mt-auto flex flex-col items-center">
         <Link
           href="/profile"
-          className={`block px-3 py-2 hover:bg-base-300 rounded-lg transition-all duration-300 
-            ${isCollapsed ? "text-center" : ""}
-          `}
+          className="block px-3 py-2 rounded-lg transition-all duration-300"
+          style={{
+            textAlign: isCollapsed ? "center" : "left",
+            color: "var(--fourground-color)",
+            backgroundColor: "transparent",
+          }}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = "var(--dashboard-blue)")
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = "transparent")
+          }
         >
           {isCollapsed ? "👤" : "Profile"}
         </Link>
         {!isCollapsed && (
-          <button className="btn btn-error btn-sm w-full mt-3">Logout</button>
+          <button
+            className="w-full mt-3 py-2 rounded-lg font-medium transition-colors duration-300"
+            style={{
+              backgroundColor: "var(--color-calm-blue)",
+              color: "var(--color-white)",
+            }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.backgroundColor = "var(--color-light-green)")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.backgroundColor = "var(--color-calm-blue)")
+            }
+          >
+            Logout
+          </button>
         )}
       </div>
     </aside>
