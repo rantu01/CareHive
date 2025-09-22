@@ -214,6 +214,7 @@ const Navbar = () => {
                   </Link>
                 )
               )}
+              <ThemeToggle />
               <div className="pt-4 border-t border-gray-200">
                 {user ? (
                   <button

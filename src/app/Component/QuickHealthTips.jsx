@@ -47,22 +47,24 @@ export default function QuickHealthTips() {
   }, []);
 
   return (
-    <div className="relative mx-auto mt-12  overflow-hidden shadow-xl ">
-      {/* Flex container inside the main background */}
-      <div className="flex flex-col md:flex-row">
-        {/* Left Column: Text */}
-        <div className="flex-1 relative z-10 p-8 flex flex-col gap-6 text-white bg-gradient-to-br from-[#223d53] to-gray-400">
+    <div className="relative mx-auto mt-12 mb-12 px-4 sm:px-6 lg:px-8">
+      <div className="flex flex-col md:flex-row gap-6 md:gap-10">
+        {/* Left Column: Tips */}
+        <div
+          className="flex-1 z-10 p-6 sm:p-8 md:p-10 flex flex-col gap-6 rounded-2xl"
+          style={{ background: "var(--color-calm-blue)", color: "var(--color-white)" }}
+        >
           <motion.h2
-            className="text-3xl md:text-4xl font-extrabold text-center md:text-left"
+            className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center md:text-left"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
           >
-             Quick Health Tips Feed
+            Quick Health Tips Feed
           </motion.h2>
 
           <motion.p
-            className="text-center md:text-left text-lg"
+            className="text-center md:text-left text-base sm:text-lg"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.7 }}
@@ -79,35 +81,44 @@ export default function QuickHealthTips() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -15, scale: 0.95 }}
                   transition={{ duration: 0.5, delay: index * 0.2 }}
-                  className="bg-black/50 border border-white/30 rounded-xl p-5 shadow-lg backdrop-blur-sm"
+                  className="border rounded-xl p-4 sm:p-5 shadow-lg backdrop-blur-sm"
+                  style={{
+                    background: "var(--dashboard-bg)",
+                    borderColor: "var(--dashboard-border)",
+                    color: "var(--fourground-color)",
+                  }}
                 >
-                  <span className="font-medium">{tip}</span>
+                  <span className="font-medium text-sm sm:text-base">{tip}</span>
                 </motion.li>
               ))}
             </AnimatePresence>
           </ul>
 
           <motion.p
-            className="mt-4 text-center md:text-left text-sm text-white/80"
+            className="mt-4 text-center md:text-left text-sm sm:text-base"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 0.6 }}
+            style={{ color: "var(--gray-color)" }}
           >
             💡 Refresh the page to get new health tips!
           </motion.p>
         </div>
 
         {/* Right Column: Video */}
-        <div className="flex-1 relative min-h-[100px] ">
+        <div className="flex-1 relative min-h-[220px] sm:min-h-[280px] md:min-h-[320px] rounded-2xl overflow-hidden">
           <iframe
             src="https://player.vimeo.com/video/1119895598?autoplay=1&loop=1&muted=1&background=1#t=0s"
             title="Health Video"
-            className="w-full h-full object-cover rounded-none md:rounded-tr-3xl md:rounded-br-3xl"
+            className="w-full h-full object-cover rounded-2xl"
             frameBorder="0"
             allow="autoplay; fullscreen; picture-in-picture"
             allowFullScreen
           ></iframe>
-          <div className="absolute inset-0 bg-black/30 pointer-events-none"></div>
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{ background: "var(--dashboard-blue)/20" }}
+          ></div>
         </div>
       </div>
     </div>

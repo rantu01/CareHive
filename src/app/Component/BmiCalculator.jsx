@@ -14,7 +14,7 @@ const BmiCalculator = () => {
   const [titleVisible, setTitleVisible] = useState(false);
 
   useEffect(() => {
-    setTitleVisible(true); // Animate title on mount
+    setTitleVisible(true);
   }, []);
 
   const calculateBMI = () => {
@@ -65,10 +65,14 @@ const BmiCalculator = () => {
   };
 
   const getCategoryColor = () => {
-    if (category === "Underweight") return "bg-[#4682B4]/20 text-[#4682B4]";
-    if (category === "Normal weight") return "bg-[#4682B4]/30 text-[#4682B4]";
-    if (category === "Overweight") return "bg-yellow-200 text-[#4682B4]";
-    if (category === "Obese") return "bg-red-200 text-[#4682B4]";
+    if (category === "Underweight")
+      return "bg-[color:var(--color-calm-blue)]/20 text-[color:var(--color-calm-blue)]";
+    if (category === "Normal weight")
+      return "bg-[color:var(--color-calm-blue)]/30 text-[color:var(--color-calm-blue)]";
+    if (category === "Overweight")
+      return "bg-yellow-200 text-[color:var(--color-calm-blue)]";
+    if (category === "Obese")
+      return "bg-red-200 text-[color:var(--color-calm-blue)]";
     return "";
   };
 
@@ -78,19 +82,23 @@ const BmiCalculator = () => {
     return `${(value / 40) * 100}%`;
   };
 
-  // Shadow only for main container
   const mainBoxShadow = { boxShadow: "0 10px 25px -5px #9CA3AF" };
 
   return (
     <div
-      className="max-w-2xl w-full mx-auto mt-12 p-8 bg-white rounded-3xl mb-12"
-      style={mainBoxShadow}
+      className="max-w-2xl w-full mx-auto mt-12 p-8 rounded-3xl mb-12"
+      style={{
+        ...mainBoxShadow,
+        background: "var(--dashboard-bg)",
+        color: "var(--fourground-color)",
+      }}
     >
-      {/* Animated Title */}
+      {/* Title */}
       <h2
-        className={`text-xl font-medium text-center mb-10 transition-all duration-1000 text-gray-400 ${
+        className={`text-xl font-medium text-center mb-10 transition-all duration-1000 ${
           titleVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-6"
         }`}
+        style={{ color: "var(--fourground-color)" }}
       >
         BMI Measurement & Guidance
       </h2>
@@ -99,12 +107,15 @@ const BmiCalculator = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         {/* Height */}
         <div>
-          <label className="block text-sm font-medium mb-2 text-gray-600">Height</label>
+          <label className="block text-sm font-medium mb-2" style={{ color: "var(--fourground-color)" }}>
+            Height
+          </label>
           <div className="flex items-center gap-3">
             <select
               value={heightUnit}
               onChange={(e) => setHeightUnit(e.target.value)}
               className="px-4 py-2 border rounded-lg outline-none transition w-28"
+              style={{ borderColor: "var(--dashboard-border)" }}
             >
               <option value="cm">cm</option>
               <option value="ft">ft/in</option>
@@ -116,6 +127,7 @@ const BmiCalculator = () => {
                 onChange={(e) => setHeightCm(e.target.value)}
                 className="flex-1 px-2 py-2 border rounded-lg outline-none transition"
                 placeholder="Enter height in cm"
+                style={{ borderColor: "var(--dashboard-border)" }}
               />
             ) : (
               <div className="flex gap-2 flex-1">
@@ -125,6 +137,7 @@ const BmiCalculator = () => {
                   onChange={(e) => setHeightFt(e.target.value)}
                   className="w-1/2 px-4 py-2 border rounded-lg outline-none transition"
                   placeholder="ft"
+                  style={{ borderColor: "var(--dashboard-border)" }}
                 />
                 <input
                   type="number"
@@ -132,6 +145,7 @@ const BmiCalculator = () => {
                   onChange={(e) => setHeightIn(e.target.value)}
                   className="w-1/2 px-4 py-2 border rounded-lg outline-none transition"
                   placeholder="in"
+                  style={{ borderColor: "var(--dashboard-border)" }}
                 />
               </div>
             )}
@@ -140,12 +154,15 @@ const BmiCalculator = () => {
 
         {/* Weight */}
         <div>
-          <label className="block text-sm font-medium mb-2 text-gray-600">Weight</label>
+          <label className="block text-sm font-medium mb-2" style={{ color: "var(--fourground-color)" }}>
+            Weight
+          </label>
           <div className="flex items-center gap-3">
             <select
               value={weightUnit}
               onChange={(e) => setWeightUnit(e.target.value)}
               className="px-4 py-2 border rounded-lg outline-none transition w-28"
+              style={{ borderColor: "var(--dashboard-border)" }}
             >
               <option value="kg">kg</option>
               <option value="lbs">lbs</option>
@@ -156,25 +173,29 @@ const BmiCalculator = () => {
               onChange={(e) => setWeight(e.target.value)}
               className="flex-1 px-2 py-2 border rounded-lg outline-none transition"
               placeholder={`Enter weight in ${weightUnit}`}
+              style={{ borderColor: "var(--dashboard-border)" }}
             />
           </div>
         </div>
       </div>
 
-      {/* Calculate Button */}
+      {/* Button */}
       <button
         onClick={calculateBMI}
-        className="w-full py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-[#4682B4] to-gray-600 shadow-lg hover:shadow-xl hover:scale-105 transition transform mb-8"
+        className="w-full py-3 rounded-xl font-semibold text-white shadow-lg hover:shadow-xl hover:scale-105 transition transform mb-8"
+        style={{
+          background: "linear-gradient(90deg, var(--color-calm-blue), var(--fourground-color))",
+        }}
       >
         Calculate BMI
       </button>
 
-      {/* Result Section */}
+      {/* Result */}
       {bmi && (
         <div className="space-y-6">
           {/* BMI & Category */}
           <div className="text-center">
-            <p className="text-xl font-semibold text-gray-600">
+            <p className="text-xl font-semibold" style={{ color: "var(--fourground-color)" }}>
               Your BMI: <span style={{ color: "var(--color-calm-blue)" }}>{bmi}</span>
             </p>
             <p
@@ -185,16 +206,17 @@ const BmiCalculator = () => {
           </div>
 
           {/* Progress Bar */}
-          <div className="relative w-full h-5 bg-gray-200 rounded-full overflow-hidden shadow-inner">
+          <div className="relative w-full h-5 rounded-full overflow-hidden shadow-inner"
+               style={{ background: "var(--gray-color)" }}>
             <div
               className="absolute top-0 left-0 h-5 rounded-full"
               style={{
                 width: getProgressPosition(),
-                background: "linear-gradient(90deg, #4682B4, #4B5563)",
+                background: "linear-gradient(90deg, var(--color-calm-blue), var(--fourground-color))",
                 transition: "width 0.6s ease-in-out",
               }}
             ></div>
-            <div className="flex justify-between text-xs text-gray-500 mt-1 px-1">
+            <div className="flex justify-between text-xs mt-1 px-1" style={{ color: "var(--fourground-color)" }}>
               <span>0</span>
               <span>10</span>
               <span>20</span>
@@ -205,8 +227,12 @@ const BmiCalculator = () => {
 
           {/* Advice */}
           <div
-            className="p-6 rounded-2xl border bg-gray-50 shadow-md text-sm font-medium"
-            style={{ color: "var(--color-black)" }}
+            className="p-6 rounded-2xl border shadow-md text-sm font-medium"
+            style={{
+              background: "var(--gray-color)",
+              borderColor: "var(--dashboard-border)",
+              color: "var(--fourground-color)",
+            }}
           >
             {advice}
           </div>

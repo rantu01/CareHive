@@ -7,7 +7,7 @@ const steps = [
   {
     id: 1,
     title: "Sign Up & Create Profile",
-    icon: <User className="w-7 h-7 text-blue-600" />,
+    icon: <User className="w-7 h-7" style={{ color: "var(--color-calm-blue)" }} />,
     points: [
       "Register as a General User, Patient, or Doctor",
       "Set up your profile: name, age, weight, height",
@@ -17,7 +17,7 @@ const steps = [
   {
     id: 2,
     title: "Explore & Track Health",
-    icon: <Activity className="w-7 h-7 text-green-600" />,
+    icon: <Activity className="w-7 h-7" style={{ color: "var(--color-light-green)" }} />,
     points: [
       "Track BMI, calories, and steps in the dashboard",
       "Get health reports and personalized recommendations",
@@ -27,7 +27,7 @@ const steps = [
   {
     id: 3,
     title: "Connect with Doctors",
-    icon: <Stethoscope className="w-7 h-7 text-purple-600" />,
+    icon: <Stethoscope className="w-7 h-7" style={{ color: "var(--dashboard-blue)" }} />,
     points: [
       "Search doctors by specialization, hospital, or location",
       "Check available slots and book appointments online",
@@ -37,7 +37,7 @@ const steps = [
   {
     id: 4,
     title: "Get Personalized Care",
-    icon: <Cpu className="w-7 h-7 text-orange-600" />,
+    icon: <Cpu className="w-7 h-7" style={{ color: "var(--color-calm-blue)" }} />,
     points: [
       "Receive consultations & read health blogs",
       "24/7 guidance from AI Health Chatbot",
@@ -49,22 +49,23 @@ const steps = [
 
 const HowItWork = () => {
   return (
-    <section className="py-20 px-20 bg-white">
+    <section
+      className="py-20 px-6 md:px-20"
+      style={{ backgroundColor: "var(--gray-color)" }}
+    >
       <div className="max-w-7xl mx-auto text-center">
         {/* Title */}
         <h2
-          className="text-4xl md:text-5xl font-extrabold mb-6 
-          text-transparent bg-clip-text bg-gradient-to-r 
-          from-indigo-500 via-blue-500 to-green-500"
+          className="text-4xl md:text-5xl font-extrabold mb-6"
+          style={{ color: "var(--color-calm-blue)" }}
         >
           How It Works
         </h2>
 
         {/* Subtitle */}
         <p
-          className="text-lg max-w-2xl mx-auto mb-14 
-          text-transparent bg-clip-text bg-gradient-to-r 
-          from-gray-700 via-blue-600 to-green-600"
+          className="text-lg max-w-2xl mx-auto mb-14"
+          style={{ color: "var(--fourground-color)" }}
         >
           A simple and seamless process to take care of your health,
           connect with doctors, and track your wellness journey.
@@ -81,35 +82,48 @@ const HowItWork = () => {
               viewport={{ once: true }}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.95, rotate: -1 }}
-              className=" p-6 rounded-2xl shadow-lg relative 
-                         border border-gray-200 hover:shadow-2xl transition 
-                         bg-gradient-to-br from-[var(--color-light-green)]/50 
-                         via-white/20 to-[var(--color-calm-blue)]/40"
+              className="p-6 rounded-2xl shadow-lg relative border transition"
+              style={{
+                background: `linear-gradient(to bottom right, var(--color-light-green)/50, var(--color-white)/20, var(--color-calm-blue)/40)`,
+                borderColor: "var(--dashboard-border)",
+              }}
             >
               {/* Number Badge */}
               <div
-                className="absolute -top-5 -left-5 
-                   bg-gradient-to-r from-pink-500 to-violet-500 
-                   text-white w-12 h-12 flex items-center justify-center 
-                   rounded-full font-bold shadow-lg"
+                className="absolute -top-5 -left-5 w-12 h-12 flex items-center justify-center rounded-full font-bold shadow-lg"
+                style={{
+                  background: `linear-gradient(to right, var(--color-light-green), var(--color-calm-blue))`,
+                  color: "var(--color-white)",
+                }}
               >
                 {step.id}
               </div>
 
               {/* Icon Circle */}
               <div className="mb-6 flex justify-center">
-                <div className="p-4 bg-gradient-to-br from-blue-200 to-green-200 rounded-full shadow-inner">
+                <div
+                  className="p-4 rounded-full shadow-inner"
+                  style={{
+                    background: `linear-gradient(to bottom right, var(--color-light-green), var(--color-calm-blue))`,
+                  }}
+                >
                   {step.icon}
                 </div>
               </div>
 
               {/* Title */}
-              <h3 className="text-lg font-semibold mb-3 text-gray-900">
+              <h3
+                className="text-lg font-semibold mb-3"
+                style={{ color: "var(--fourground-color)" }}
+              >
                 {step.title}
               </h3>
 
               {/* Points */}
-              <ul className="list-disc text-left space-y-2 pl-5 text-gray-700 text-sm">
+              <ul
+                className="list-disc text-left space-y-2 pl-5 text-sm"
+                style={{ color: "var(--fourground-color)" }}
+              >
                 {step.points.map((point, idx) => (
                   <li key={idx}>{point}</li>
                 ))}
