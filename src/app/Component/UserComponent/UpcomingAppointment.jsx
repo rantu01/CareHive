@@ -1,9 +1,5 @@
 
 
-
-
-
-
 "use client"
 
 import { Calendar, UserRound, X } from "lucide-react";
@@ -55,7 +51,7 @@ const UpcomingAppointment = () => {
                 {appointmentData?.slice(0, 3)?.map((appointment) => (
                     <div
                         key={appointment?.doctorName}
-                        className="flex items-center justify-between p-3 rounded border border-[var(--dashboard-border)] shadow-sm hover:shadow-lg transition-shadow bg-gray-50"
+                        className="flex items-center justify-between p-3 rounded border border-[var(--dashboard-border)] shadow-sm hover:shadow-lg transition-shadow"
                     >
                         <div className="flex items-center gap-4">
                             <div className="bg-[var(--dashboard-blue)] p-3 rounded-full flex items-center justify-center">
