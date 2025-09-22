@@ -31,19 +31,19 @@ const FeaturedServices = () => {
     >
       <div
         className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl mb-4 mx-auto"
-        style={{ backgroundColor: "var(--gray-color)" }}
+        style={{ backgroundColor: "var(--dashboard-bg)" }}
       ></div>
       <div
         className="h-5 sm:h-6 rounded mb-3"
-        style={{ backgroundColor: "var(--gray-color)" }}
+        style={{ backgroundColor: "var(--dashboard-bg)" }}
       ></div>
       <div
         className="h-3 sm:h-4 rounded mb-2"
-        style={{ backgroundColor: "var(--gray-color)" }}
+        style={{ backgroundColor: "var(--dashboard-bg)" }}
       ></div>
       <div
         className="h-3 sm:h-4 rounded w-3/4"
-        style={{ backgroundColor: "var(--gray-color)" }}
+        style={{ backgroundColor: "var(--dashboard-bg)" }}
       ></div>
     </div>
   );
@@ -51,7 +51,7 @@ const FeaturedServices = () => {
   return (
     <section
       className="py-12 sm:py-20 relative overflow-hidden"
-      style={{ backgroundColor: "var(--gray-color)" }}
+      style={{ backgroundColor: "var(--dashboard-bg)" }}
     >
       {/* Decorative elements */}
       <div
