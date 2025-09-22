@@ -29,17 +29,19 @@ export default function RootLayout({ children }) {
         cz-shortcut-listen="true"
       >
         <UserProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem={true}
-          >
-            <TanstackProviders>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem={true}
+        >
+          <TanstackProviders>
+            <AuthProvider>
               <DashBoardDataProvider>
-                <AuthProvider>{children}</AuthProvider>
+                {children}
               </DashBoardDataProvider>
-            </TanstackProviders>
-          </ThemeProvider>
+            </AuthProvider>
+          </TanstackProviders>
+        </ThemeProvider>
         </UserProvider>
       </body>
     </html>
