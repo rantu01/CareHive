@@ -7,10 +7,10 @@ export default function Sidebar({ items, isCollapsed }) {
 
   return (
     <aside
-      className={`h-screen px-4 py-6 flex flex-col justify-between transition-all duration-300 ease-in-out
+      className={`fixed top-0 left-0 h-screen px-4 py-6 flex flex-col justify-between transition-all duration-300 ease-in-out overflow-y-auto
         ${isCollapsed ? "w-16" : "w-64"}`}
       style={{
-        backgroundColor: "var(--gray-color)",
+        backgroundColor: "var(--sidebar-bg)",
         borderRight: "1px solid var(--dashboard-border)",
       }}
     >

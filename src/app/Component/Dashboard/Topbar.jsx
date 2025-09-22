@@ -6,7 +6,7 @@ export default function Topbar({ toggleSidebar }) {
     <header
       className="w-full px-4 sm:px-6 py-3 flex items-center justify-between transition-colors duration-300"
       style={{
-        backgroundColor: "var(--gray-color)",
+        backgroundColor: "var(--sidebar-bg)",
         borderBottom: "1px solid var(--dashboard-border)",
         color: "var(--fourground-color)",
       }}
