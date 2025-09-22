@@ -17,15 +17,10 @@ const DashBoardDataProvider = ({ children }) => {
 
   const [userToDo, setUserToDo] = useState([])
 
-
+  const [mealData, setMealData] = useState([])
 
   const { user } = useContext(AuthContext)
   const userId = user?.uid
-
-
-  console.log(user)
-
-  console.log("data provider", userId)
 
 
 
@@ -39,13 +34,16 @@ const DashBoardDataProvider = ({ children }) => {
         const healthStatsUrl = `/api/get-health-stats/${userId}`;
         const doctorListUrl = `/api/get-appointment-list/${userId}`;
         const toDoUrl = `/api/get-todo-task/${userId}`;
+        const mealUrl = `/api/calories`
 
         // response
         const healthStatsResponse = await axios.get(healthStatsUrl)
         const doctorListResponse = await axios.get(doctorListUrl)
         const toDoListResponse = await axios.get(toDoUrl)
+        const mealResponse = await axios.get(mealUrl)
 
         // set data in state
+        console.log("I am meal response",mealResponse)
         setHealthStats(healthStatsResponse?.data[0]?.userStats)
         setAppointmentData(doctorListResponse?.data[0]?.appointmentDetails)
         setUserToDo(toDoListResponse?.data[0]?.todo)

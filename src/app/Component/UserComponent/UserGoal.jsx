@@ -131,8 +131,6 @@ const UserGoal = () => {
         const completed = e.target.value
         const remaining = target - completed
 
-        console.log("completed", completed)
-        console.log("remaining", remaining)
 
         const updatedData = { actionType: "update-completed", completed: completed, id: goalId }
 
@@ -150,17 +148,14 @@ const UserGoal = () => {
             }).then((result) => {
                 if (result.isConfirmed) {
                     deleteGoalMutation.mutate(goalId)
-                    // Swal.fire({
-                    //     title: "Deleted!",
-                    //     text: "Your file has been deleted.",
-                    //     icon: "success"
-                    // });
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
                 }
             });
         }
-
-
-        console.log("goalId", goalId)
     }
 
     if (isLoading) return <p>Loading......</p>
