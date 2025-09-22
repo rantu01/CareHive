@@ -15,10 +15,22 @@ export default function DashboardLayout({ children, role }) {
       <Sidebar items={navItems[role]} isCollapsed={isCollapsed} />
 
       {/* Main content area */}
-      <div className="flex-1 flex flex-col">
-        <Topbar toggleSidebar={() => setIsCollapsed(!isCollapsed)} />
+      <div className="flex-1 flex flex-col transition-all duration-300">
+        {/* Topbar */}
+        <div
+          className={`transition-all duration-300 ${
+            isCollapsed ? "ml-16" : "ml-64"
+          }`}
+        >
+          <Topbar toggleSidebar={() => setIsCollapsed(!isCollapsed)} />
+        </div>
 
-        <main className="flex-1 p-6 bg-[var(--dashboard-bg)] overflow-y-auto">
+        {/* Main content */}
+        <main
+          className={`flex-1 p-6 bg-[var(--dashboard-bg)] overflow-y-auto transition-all duration-300 ${
+            isCollapsed ? "ml-16" : "ml-64"
+          }`}
+        >
           <WelcomeBar />
           {children}
         </main>

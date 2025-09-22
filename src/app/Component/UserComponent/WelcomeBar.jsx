@@ -14,7 +14,7 @@ const WelcomeBar = () => {
     return (
         <div className="flex justify-between items-center">
             <div>
-                <h1 className="text-[var(--gray-color)] dark:text-[var(--gray-color)] font-bold text-2xl md:text-4xl mb-5">
+                <h1 className="text-[var(--fourground-color)] font-bold text-2xl md:text-4xl mb-5">
                     Welcome back, {user?.displayName}!
                 </h1>
                 <p className="text-gray-500 text-sm md:text-xl mb-5">
