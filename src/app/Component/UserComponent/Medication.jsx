@@ -1,4 +1,4 @@
-import { Plus, Bell, Check } from "lucide-react";
+import { Plus, Bell, Check, Pill } from "lucide-react";
 
 const Medication = () => {
   const medicationData = [
@@ -36,18 +36,18 @@ const Medication = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-9/12 mx-auto">
       {/* Header */}
       <header className="flex justify-between items-center ">
         <div>
-          <h1 className="text-2xl text-[var(--fourground-color)] font-bold mb-1">
+          <h1 className="text-3xl text-[var(--fourground-color)] font-bold mb-1">
             Medications
           </h1>
           <p className="text-[var(--fourground-color)]">
             Manage your medication schedule
           </p>
         </div>
-        <button className="bg-[var(--accent-color)] text-[var(--fourground-color)] rounded flex items-center gap-2 h-fit px-4 py-2 cursor-pointer hover:opacity-90 transition">
+        <button className="bg-[var(--dashboard-blue)] text-[var(--fourground-color)] rounded flex items-center gap-2 h-fit px-4 py-2 cursor-pointer hover:opacity-90 transition">
           <Plus size={18} /> Add Medication
         </button>
       </header>
@@ -57,12 +57,12 @@ const Medication = () => {
         {medicationData.map((med, idx) => (
           <div
             key={idx}
-            className="bg-[var(--card-bg)] border border-[var(--border-color)] rounded-xl p-4 shadow-sm"
+            className="bg-[var(--card-bg)]  p-4 shadow-sm"
           >
             {/* Top Section */}
             <div className="flex justify-between items-start mb-3">
-              <h2 className="text-lg font-semibold text-[var(--fourground-color)] flex items-center gap-2">
-                {med.medicineName}
+              <h2 className="text-2xl font-semibold text-[var(--dashboard-blue)] flex items-center gap-2">
+               <Pill/> {med.medicineName}
               </h2>
               <span
                 className={`text-xs px-2 py-1 rounded-full ${
@@ -77,10 +77,10 @@ const Medication = () => {
 
             {/* Details */}
             <div className="mb-4">
-              <p className="text-[var(--fourground-color)]">
+              <p className="text-[var(--fourground-color)] text-xl">
                 {med.douseType}
               </p>
-              <p className="text-[var(--fourground-color)] text-sm">
+              <p className="text-[var(--fourground-color)] text-lg">
                 {med.perDouse}
               </p>
               <p className="text-[var(--fourground-color)] text-sm flex items-center gap-2 mt-1">
@@ -90,10 +90,10 @@ const Medication = () => {
 
             {/* Actions */}
             <div className="flex gap-3">
-              <button className="flex items-center gap-1 border border-[var(--border-color)] px-3 py-1.5 rounded-lg cursor-pointer hover:bg-[var(--hover-color)] transition">
+              <button className="flex items-center gap-1 border border-[var(--dashboard-border)] px-3 py-1.5 rounded-lg cursor-pointer hover:bg-[var(--hover-color)] transition">
                 <Bell size={16} /> Remind
               </button>
-              <button className="flex items-center gap-1 border border-[var(--border-color)] px-3 py-1.5 rounded-lg cursor-pointer hover:bg-[var(--accent-color)] transition">
+              <button className="flex items-center gap-1 border border-[var(--dashboard-border)] px-3 py-1.5 rounded-lg cursor-pointer hover:bg-[var(--accent-color)] transition">
                 <Check size={16} /> Mark Taken
               </button>
             </div>
