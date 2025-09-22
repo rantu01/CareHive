@@ -11,7 +11,6 @@ const FeaturedServices = () => {
         setIsLoading(true);
         const res = await fetch("/api/services");
         const data = await res.json();
-        console.log("Fetched services:", data);
         setServices(data);
         setIsLoading(false);
       } catch (err) {
