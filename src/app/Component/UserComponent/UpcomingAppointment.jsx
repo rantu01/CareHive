@@ -83,9 +83,9 @@ const UpcomingAppointment = () => {
                             </h2>
                             <button
                                 onClick={() => setIsModalOpen(false)}
-                                className="p-1 rounded-full hover:bg-gray-100 transition-colors cursor-pointer"
+                                className="p-1 rounded-full transition-colors cursor-pointer"
                             >
-                                <X size={18} />
+                                <X size={18} color="red"/>
                             </button>
                         </div>
 
@@ -105,7 +105,7 @@ const UpcomingAppointment = () => {
                                             <p className="text-gray-400 text-xs">{formatAppointmentDate(appointment.appointmentDate)}</p>
                                         </div>
                                     </div>
-                                    <button className="border border-gray-300 px-3 py-1 rounded-lg hover:bg-[var(--dashboard-blue)] hover:text-white transition-colors cursor-pointer">
+                                    <button className="border text-[var(--fourground-color)] border-[var(--dashboard-border)] px-3 py-1 rounded-lg bg-[var(--dashboard-blue)] transition-colors cursor-pointer">
                                         Join
                                     </button>
                                 </div>
