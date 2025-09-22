@@ -6,7 +6,7 @@ export default function Topbar({ toggleSidebar }) {
     <header
       className="w-full px-4 sm:px-6 py-3 flex items-center justify-between transition-colors duration-300"
       style={{
-        backgroundColor: "var(--gray-color)",
+        backgroundColor: "var(--sidebar-bg)",
         borderBottom: "1px solid var(--dashboard-border)",
         color: "var(--fourground-color)",
       }}
@@ -15,7 +15,7 @@ export default function Topbar({ toggleSidebar }) {
       <div className="flex items-center gap-2 sm:gap-3 flex-1">
         <button
           onClick={toggleSidebar}
-          className="btn btn-ghost btn-circle sm:w-10 sm:h-10 w-8 h-8"
+          className="cursor-pointer sm:w-10 sm:h-10 w-8 h-8"
           style={{ color: "var(--fourground-color)" }}
         >
           <PanelLeft size={20} />
@@ -45,7 +45,7 @@ export default function Topbar({ toggleSidebar }) {
       {/* Right Section */}
       <div className="flex items-center gap-2 sm:gap-4 ml-2">
         <button
-          className="btn btn-ghost btn-circle relative sm:w-10 sm:h-10 w-8 h-8 transition-colors duration-300"
+          className="cursor-pointer relative sm:w-10 sm:h-10 w-8 h-8 transition-colors duration-300"
           style={{ color: "var(--fourground-color)" }}
         >
           <Bell size={20} />
