@@ -16,9 +16,9 @@ const UserDashboard = () => {
 
   return (
     <div className="w-full p-6  md:p-0  space-y-10">
-      <div className='mb-4'>
-                <WelcomeBar />
-            </div>
+      {/* <div className="mb-4">
+        <WelcomeBar />
+      </div> */}
       <div className="grid md:grid-cols-4 gap-6 sm:grid-cols-2 grid-cols-1">
         {userHealthStats?.map((activity) => (
           <KPIcard
