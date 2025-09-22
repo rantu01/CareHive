@@ -1,10 +1,10 @@
-
 "use client";
 import React, { useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -32,12 +32,17 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, provider);
   };
 
+  const passwordReset = (email) => {
+    setLoading(true);
+    return sendPasswordResetEmail(auth, email);
+  };
+
   const signOutUser = () => {
     setLoading(true);
     return signOut(auth);
   };
 
-    useEffect(() => {
+  useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       // console.log("User from on auth state change", currentUser);
@@ -54,6 +59,7 @@ const AuthProvider = ({ children }) => {
     signInUser,
     googleSignIn,
     signOutUser,
+    passwordReset,
     loading,
     user,
   };
