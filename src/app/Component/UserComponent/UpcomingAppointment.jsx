@@ -27,14 +27,14 @@ const UpcomingAppointment = () => {
     }
 
     return (
-        <div className="border border-[var(--dashboard-border)] p-6 rounded-xl h-[24.5rem] max-h-[24.5rem] max-w-9/12 mx-auto shadow-md bg-[var(--dashboard-bg)]">
+        <div className="border border-[var(--dashboard-border)] p-6 rounded h-[24.5rem] max-h-[24.5rem] shadow-md bg-[var(--dashboard-bg)]">
             <header className="flex justify-between items-center mb-6">
                 <div className="flex gap-2 items-center text-xl font-semibold text-[var(--fourground-color)]">
                     <Calendar color="var(--dashboard-blue)" size={22} />
                     Upcoming Appointments
                 </div>
                 <button
-                    className="bg-[var(--dashboard-blue)] text-white font-medium p-2 px-4 rounded-lg transition-colors cursor-pointer"
+                    className="bg-[var(--dashboard-blue)] text-[var(--fourground-color)] font-medium p-2 px-4 rounded-lg transition-colors cursor-pointer"
                     onClick={() => setIsModalOpen(true)}
                 >
                     View All
@@ -46,7 +46,7 @@ const UpcomingAppointment = () => {
                     (!appointmentData || appointmentData.length === 0) &&
                     <div className="flex flex-col justify-center items-center py-10">
                         <p className="text-gray-500 text-center mb-4">You have not booked any doctor</p>
-                        <Link href={"/hello"} className="bg-[var(--dashboard-blue)] text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors cursor-pointer">
+                        <Link href={"/hello"} className="bg-[var(--dashboard-blue)] text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors cursor-pointer">
                             Book Now
                         </Link>
                     </div>
@@ -55,7 +55,7 @@ const UpcomingAppointment = () => {
                 {appointmentData?.slice(0, 3)?.map((appointment) => (
                     <div
                         key={appointment?.doctorName}
-                        className="flex items-center justify-between p-3 rounded-xl border border-[var(--dashboard-border)] shadow-sm hover:shadow-lg transition-shadow bg-gray-50"
+                        className="flex items-center justify-between p-3 rounded border border-[var(--dashboard-border)] shadow-sm hover:shadow-lg transition-shadow bg-gray-50"
                     >
                         <div className="flex items-center gap-4">
                             <div className="bg-[var(--dashboard-blue)] p-3 rounded-full flex items-center justify-center">
@@ -67,7 +67,7 @@ const UpcomingAppointment = () => {
                                 <p className="text-gray-400 text-xs">{formatAppointmentDate(appointment.appointmentDate)}</p>
                             </div>
                         </div>
-                        <button className="px-3 py-1 rounded-lg bg-[var(--dashboard-blue)] hover:text-white transition-colors cursor-pointer">
+                        <button className="px-3 py-1 rounded text-[var(--fourground-color)] bg-[var(--dashboard-blue)] transition-colors cursor-pointer">
                             Join
                         </button>
                     </div>

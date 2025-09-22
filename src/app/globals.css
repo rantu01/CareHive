@@ -28,13 +28,15 @@
    /* font color */
    --fourground-color: #020817;
 
+   /* text color */
+
 
 
 }
 
 .dark {
   --gray-color: #1a1a1a;
-  --dashboard-bg: #020817;
-  --dashboard-border: #1e293b;
+  --dashboard-bg: #131a1a;
+  --dashboard-border: #0c1016;
   --fourground-color: #fff;
 }
