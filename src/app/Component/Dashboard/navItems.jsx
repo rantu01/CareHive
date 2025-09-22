@@ -2,7 +2,7 @@ import { Home, BarChart, Calendar, Pill, Activity, History, Heart, User } from "
 
 export const navItems = {
   user: [
-    { name: "Overview", path: "/user/overview", icon: <Home size={18} /> },
+    { name: "Overview", path: "/user", icon: <Home size={18} /> },
     { name: "Health Stats", path: "/user/health-stats", icon: <BarChart size={18} /> },
     { name: "Appointments", path: "/user/appointments", icon: <Calendar size={18} /> },
     { name: "Medications", path: "/user/medications", icon: <Pill size={18} /> },

@@ -33,9 +33,11 @@ export default function RootLayout({ children }) {
           enableSystem={true}
         >
           <TanstackProviders>
-            <DashBoardDataProvider>
-              <AuthProvider>{children}</AuthProvider>
-            </DashBoardDataProvider>
+            <AuthProvider>
+              <DashBoardDataProvider>
+                {children}
+              </DashBoardDataProvider>
+            </AuthProvider>
           </TanstackProviders>
         </ThemeProvider>
       </body>

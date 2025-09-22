@@ -1,18 +1,23 @@
 "use client"
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import UpdateModal from './UpdateModal';
+import { DashBoardDataContext } from './UserDashBoardDataContext/DashboardDataContext';
+import { AuthContext } from '@/app/context/authContext';
 
-const WelcomeBar = ({ name,userHealthStats,setHealthStats }) => {
+const WelcomeBar = () => {
 
+    const {userHealthStats,setHealthStats}=use(DashBoardDataContext)
+
+    const {user}=use(AuthContext)
     const [isOpen,setIsOpen]=useState(false)
 
     return (
         <div className="flex justify-between items-center">
             <div>
-                <h1 className="text-black font-bold text-2xl md:text-4xl">
-                    Welcome back, {name}!
+                <h1 className="text-[var(--gray-color)] dark:text-[var(--gray-color)] font-bold text-2xl md:text-4xl mb-5">
+                    Welcome back, {user?.displayName}!
                 </h1>
-                <p className="text-gray-500 text-sm md:text-xl">
+                <p className="text-gray-500 text-sm md:text-xl mb-5">
                     Here’s your health overview for today
                 </p>
             </div>

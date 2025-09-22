@@ -1,20 +1,18 @@
+import { AuthContext } from "@/app/context/authContext";
 import axios from "axios";
-import { useParams } from "next/navigation";
-import { useState } from "react";
+import { use, useState } from "react";
 
 const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
 
 
-  console.log(userHealthStats)
-
-  const { userId } = useParams()
+    const {user}=use(AuthContext)
+    const  userId  = user?.uid
 
   const [formData, setFormData] = useState({});
 
   const [invalidInputError, setError] = useState("")
   const handleSubmit = async (e) => {
     e.preventDefault();
-
 
 
     const formData = new FormData(e.target);
@@ -35,18 +33,25 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
     ];
 
     try {
-      const res = await axios.put(`/api/get-health-stats/${userId}`, {
-        userStats: updatedStats,
-        userId,
-      });
+
+      if (!userHealthStats && userId) {
+        const res = await axios.post(`/api/get-health-stats/${userId}`, {
+          userStats: updatedStats,
+          userId,
+        });
+      } else {
+        const res = await axios.put(`/api/get-health-stats/${userId}`, {
+          userStats: updatedStats,
+          userId,
+        });
+      }
+
 
 
       const healthStatsUrl = `/api/get-health-stats/${userId}`;
       const healthStatsResponse = await axios.get(healthStatsUrl)
       setHealthStats(healthStatsResponse?.data[0]?.userStats)
 
-
-      console.log("Update success:", res.data);
       alert("Health stats updated successfully!");
     }
 
@@ -59,7 +64,7 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
 
 
   return (
-    <div className="z-10 absolute top-5 right-10 w-[20rem] rounded shadow-lg bg-gray-500 border border-gray-200">
+    <div className="z-10 absolute top-5 right-10 w-[20rem] rounded shadow-lg bg-white border border-gray-200">
       {/* Header */}
       <div className="px-5 py-3 border-b  rounded flex justify-between items-center">
         <h2 className="text-lg font-semibold text-gray-800">Update Health Data</h2>
@@ -75,7 +80,7 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
           <input
             id="bloodPressure"
             name="bloodPressure"
-            defaultValue={userHealthStats[0].value}
+            defaultValue={userHealthStats ? userHealthStats[0]?.value : 0}
             type="text"
             placeholder="Blood Pressure"
             required
@@ -90,7 +95,7 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
           <input
             id="dailyStep"
             name="dailyStep"
-            defaultValue={userHealthStats[1].value}
+            defaultValue={userHealthStats ? userHealthStats[1]?.value : 0}
             type="text"
             placeholder="Daily Step"
             required
@@ -105,7 +110,7 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
           <input
             id="dailyStepTarget"
             name="dailyStepTarget"
-            defaultValue={userHealthStats[1].target}
+            defaultValue={userHealthStats ? userHealthStats[1]?.target : 0}
             type="text"
             placeholder="Daily Step Target"
             required
@@ -120,7 +125,7 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
           <input
             id="heartRate"
             name="heartRate"
-            defaultValue={userHealthStats[2].value}
+            defaultValue={userHealthStats ? userHealthStats[2]?.value : 0}
             type="text"
             placeholder="Heart Rate"
             required
@@ -135,7 +140,7 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
           <input
             id="weight"
             name="weight"
-            defaultValue={userHealthStats[3].value}
+            defaultValue={userHealthStats ? userHealthStats[3]?.value : 0}
             type="text"
             placeholder="Weight"
             required

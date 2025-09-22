@@ -1,21 +1,105 @@
 "use client";
 
 import { Goal, X } from "lucide-react";
-import { use, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { DashBoardDataContext } from "./UserDashBoardDataContext/DashboardDataContext";
 import { useParams } from "next/navigation";
+import axios from "axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { nanoid } from "nanoid";
+import Swal from "sweetalert2";
+import { AuthContext } from "@/app/context/authContext";
+
+
 
 const UserGoal = () => {
-    const { goalData } = use(DashBoardDataContext);
-
+    const { goalData, isLoading, setGoalData } = use(DashBoardDataContext);
     const [isOpen, setIsOpen] = useState(false);
     const [title, setTitle] = useState("");
     const [goal, setGoal] = useState("");
 
+    const { user } = use(AuthContext)
+    const userId = user?.uid
 
-    const { userId } = useParams()
+    
+    const queryClient = useQueryClient();
 
-    const handleSubmit = (e) => {
+
+
+
+
+
+
+
+    const goalList = goalData[0]?.goalData
+
+
+    // add new goal
+    const addNewGoal = async (goalData) => {
+        const res = await axios.patch(`/api/user-goal/${userId}`, goalData)
+    }
+
+    // update goal progress
+
+    const trackGoalChange = async (completedData) => {
+        const res = await axios.patch(`/api/user-goal/${userId}`, completedData)
+    }
+
+    // delete goal after complete
+    const deleteCompletedGoal = async (goalId) => {
+        const res = await axios.delete(`/api/user-goal/${userId}`, { data: { id: goalId } })
+    }
+
+
+
+    // add new goal mutation
+    const mutation = useMutation({
+        mutationFn: addNewGoal,
+        onSuccess: (data) => {
+            queryClient.invalidateQueries({ queryKey: ["daily_goal", userId] });
+            Swal.fire({
+                title: "Goal added successfully",
+                icon: "success"
+            })
+        },
+        onError: (error) => {
+            Swal.fire({
+                title: error,
+                icon: 'warning'
+            })
+        }
+
+    })
+
+
+    const completeGoalMutation = useMutation({
+        mutationFn: trackGoalChange,
+        onSuccess: (data) => {
+            queryClient.invalidateQueries({ queryKey: ["daily_goal", userId] });
+        },
+        onError: (error) => {
+            Swal.fire({
+                title: error,
+                icon: 'warning'
+            })
+        }
+    })
+
+    const deleteGoalMutation = useMutation({
+        mutationFn: deleteCompletedGoal,
+        onSuccess: (data) => {
+            queryClient.invalidateQueries({ queryKey: ["daily_goal", userId] });
+        },
+        onError: (error) => {
+            Swal.fire({
+                title: error,
+                icon: 'warning'
+            })
+        }
+    })
+
+
+    const handleAddNewGoal = (e) => {
         e.preventDefault();
 
         if (!title.trim() || !goal) {
@@ -23,20 +107,59 @@ const UserGoal = () => {
             return;
         }
 
-        const goalInformation = { userId, goalData: { title, goal } }
-
-        const getUserGoal = async () => {
-            const res = await axios.post('/api/users', userData);
-            return res.data;
+        const goalInformation = {
+            actionType: "add-goal",
+            id: nanoid(7),
+            title: title,
+            goal: goal,
+            completed: 0,
+            percentage: "0%"
         }
 
-
+        mutation.mutate(goalInformation)
 
         // Reset & close
         setTitle("");
         setGoal("");
         setIsOpen(false);
     };
+
+
+
+    const trackGoalComplete = (e, target, goalId) => {
+
+        const completed = e.target.value
+        const remaining = target - completed
+
+
+        const updatedData = { actionType: "update-completed", completed: completed, id: goalId }
+
+        completeGoalMutation.mutate(updatedData)
+
+        if (remaining === 0) {
+            Swal.fire({
+                title: "You have reached your goal.",
+                text: "Do you want delete this",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deleteGoalMutation.mutate(goalId)
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
+                }
+            });
+        }
+    }
+
+    if (isLoading) return <p>Loading......</p>
+
 
     return (
         <div className="border-1 border-gray-200 p-4 rounded">
@@ -54,12 +177,28 @@ const UserGoal = () => {
                 </button>
             </div>
 
-            {/* Progress bar (example static 45%) */}
             <div className="mt-5">
-                <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700">
-                    <div className="bg-[var(--dashboard-blue)] text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full w-[45%]">
-                        45%
-                    </div>
+                <div className="w-full space-y-4">
+                    {goalList?.map((goal, idx) => (
+                        <div key={goal?.id} className="space-y-2">
+                            {/* Goal Title and Numbers */}
+                            <div className="flex justify-between">
+                                <p>{goal?.title}</p>
+                                <div>
+                                    <span>{goal?.completed}</span>/<span>{goal?.goal}</span>
+                                </div>
+                            </div>
+
+                            <input
+                                type="range"
+                                min="0"
+                                max={goal?.goal}
+                                defaultValue={goal?.completed}
+                                onMouseLeave={(e) => trackGoalComplete(e, goal?.goal, goal?.id)}
+                                className="w-full accent-[var(--dashboard-blue)] cursor-default"
+                            />
+                        </div>
+                    ))}
                 </div>
             </div>
 
@@ -77,7 +216,7 @@ const UserGoal = () => {
 
                         <h2 className="text-lg font-bold mb-4">Add New Goal</h2>
 
-                        <form onSubmit={handleSubmit} className="space-y-4">
+                        <form onSubmit={handleAddNewGoal} className="space-y-4">
                             {/* Goal Title */}
                             <div>
                                 <label className="block text-sm font-medium mb-1">
@@ -98,6 +237,7 @@ const UserGoal = () => {
                                 <label className="block text-sm font-medium mb-1">
                                     Target
                                 </label>
+
                                 <input
                                     type="number"
                                     value={goal}
@@ -106,6 +246,7 @@ const UserGoal = () => {
                                     className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]"
                                     required
                                 />
+
                             </div>
 
                             {/* Submit button */}
