@@ -4,7 +4,6 @@
 import { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
-import WelcomeBar from "../UserComponent/WelcomeBar";
 import { navItems } from "./navItems";
 
 export default function DashboardLayout({ children, role = "default" }) {
@@ -54,7 +53,6 @@ export default function DashboardLayout({ children, role = "default" }) {
 
         {/* Main content */}
         <main className="flex-1 p-6 bg-[var(--dashboard-bg)] overflow-y-auto">
-          <WelcomeBar />
           {children}
         </main>
       </div>

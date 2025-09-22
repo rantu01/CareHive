@@ -1,9 +1,4 @@
 
-
-
-
-
-
 "use client"
 
 import { Calendar, UserRound, X } from "lucide-react";
