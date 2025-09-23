@@ -6,11 +6,15 @@ import axios from "axios";
 import { Plus, Bell, Check, Pill, Delete, X, Pointer } from "lucide-react";
 import { use, useState } from "react";
 import Swal from "sweetalert2";
+import { DashBoardDataContext } from "./UserDashBoardDataContext/DashboardDataContext";
 
 const Medication = () => {
 
   const [isOpen, setOpen] = useState(false)
   const { user } = use(AuthContext)
+  const {medicineData}=use(DashBoardDataContext)
+
+  console.log("new medicine data",medicineData)
 
   const medicationData = [
     {

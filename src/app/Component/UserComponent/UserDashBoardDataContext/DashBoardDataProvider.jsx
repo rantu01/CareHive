@@ -73,7 +73,7 @@ const DashBoardDataProvider = ({ children }) => {
 
   // get user medicine information
   const getUserMedicine = async () => {
-    const response = await axios.get(`/api/medicine-remainder/${userId}`);
+    const response = await axios.get(`/api/medicine-remainder/`, {params: { userId }});
     return response.data
   }
 
@@ -96,24 +96,21 @@ const DashBoardDataProvider = ({ children }) => {
 
 
 
-
-
   useEffect(() => {
     if (goalInfo) {
       setGoalData(goalInfo);
     }
   }, [goalInfo]);
 
-  
-  useEffect(() => {
 
+  useEffect(() => {
     if (medicineInfo) {
       setMedicineData(medicineInfo)
     }
 
   }, [medicineInfo])
 
-  console.log("thu medicino dato",medicineData)
+  console.log("thu medicino dato", medicineData)
 
 
 

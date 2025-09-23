@@ -32,18 +32,17 @@ export async function POST(request, { params }) {
 
 export async function GET(req, { params }) {
   try {
-    const { userId } = await params;
 
-    console.log("the useri ido",userId)
+    const { searchParams } = new URL(req.url);
+    const userId = searchParams.get("userId");
+
     const client = await clientPromise;
     const db = client.db("carehive");
     const collection = db.collection("medicineRemainder");
 
 
-    const userGoal = await collection.find({ userId }).toArray()
-
-    console.log(userGoal)
-    return NextResponse.json(userGoal);
+    const userMedicine = await collection.find({ userId }).toArray()
+    return NextResponse.json(userMedicine);
 
   } catch (err) {
     console.error(err);
