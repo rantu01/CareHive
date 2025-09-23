@@ -26,3 +26,39 @@ export async function GET(req) {
     });
   }
 }
+
+// POST → insert a new user
+export async function POST(req) {
+  try {
+    const body = await req.json();
+    const { name, email, role } = body;
+
+    if (!email) {
+      return new Response(JSON.stringify({ error: "Email required" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    const client = await clientPromise;
+    const db = client.db("carehive");
+
+    const result = await db.collection("users").insertOne({
+      name: name || null,
+      email,
+      role: role || "user",
+      createdAt: new Date(),
+    });
+
+    return new Response(
+      JSON.stringify({ insertedId: result.insertedId }),
+      { status: 201, headers: { "Content-Type": "application/json" } }
+    );
+  } catch (error) {
+    console.error(error);
+    return new Response(JSON.stringify({ error: "Failed to add user" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+}
