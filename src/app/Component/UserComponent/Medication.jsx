@@ -1,6 +1,6 @@
 "use client"
 
-import { Plus, Bell, Check, Pill } from "lucide-react";
+import { Plus, Bell, Check, Pill, Delete } from "lucide-react";
 import { useState } from "react";
 
 const Medication = () => {
@@ -41,6 +41,13 @@ const Medication = () => {
     });
   };
 
+
+
+  const handleSubmit=()=>{
+    
+  }
+
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -53,7 +60,7 @@ const Medication = () => {
             Manage your medication schedule
           </p>
         </div>
-        <button className="bg-[var(--dashboard-blue)] text-[var(--fourground-color)] rounded flex items-center gap-2 h-fit px-4 py-2 md:py-4 cursor-pointer hover:opacity-90 transition text-sm md:text-[1rem]">
+        <button onClick={() => setOpen(!isOpen)} className="bg-[var(--dashboard-blue)] text-[var(--fourground-color)] rounded flex items-center gap-2 h-fit px-4 py-2 md:py-4 cursor-pointer hover:opacity-90 transition text-sm md:text-[1rem]">
           <Plus size={18} /> <span>Add Medication</span>
         </button>
       </header>
@@ -101,41 +108,47 @@ const Medication = () => {
               <button className="flex items-center gap-1 border border-[var(--dashboard-border)] px-3 py-1.5 rounded-lg cursor-pointer hover:bg-[var(--accent-color)] transition text-sm">
                 <Check size={16} /> Mark Taken
               </button>
+
+              <button className="flex items-center gap-1 border border-[var(--dashboard-border)] px-3 py-1.5 rounded-lg cursor-pointer hover:bg-[var(--accent-color)] transition text-sm">
+                <Delete size={16} /> Delete
+              </button>
             </div>
           </div>
         ))}
       </main>
 
       {
-        isOpen && <div>
+        isOpen && <div class="form-container max-w-lg mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-300 dark:border-gray-700">
           <form>
-            <label for="medicine-name">Medicine Name</label>
-            <input id="medicine-name" type="text" placeholder="Medicine Name" />
+            <label htmlFor="medicine-name" className="text-sm text-gray-800 dark:text-white mb-2 block">Medicine Name</label>
+            <input id="medicine-name" type="text" placeholder="Enter Medicine Name" class="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-6" />
 
-            <div>
-              <label for="douse-type"></label>
-              <select name="douse-type" id="douse-type">
-                <option value="daily">Daily</option>
-                <option value="weekly">Weekly</option>
+            <div className="dose-section mb-6">
+              <label htmlFor="douse-type" className="text-sm text-gray-800 dark:text-white mb-2 block">Dose Type</label>
+              <select name="douse-type" id="douse-type" className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="24">Daily</option>
+                <option value="168">Weekly</option>
                 <option value="monthly">Monthly</option>
                 <option value="every-three-day">Every Three Days</option>
               </select>
-
-              <div>
-                <label for="douse-qty"></label>
-                <select name="qty" id="douse-qty">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">6</option>
-                  <option value="7">7</option>
-                </select>
-              </div>
             </div>
 
+            <div class="dose-qty-section mb-6">
+              <label htmlFor="douse-qty" className="text-sm text-gray-800 dark:text-white mb-2 block">Quantity</label>
+              <select name="qty" id="douse-qty" className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">6</option>
+                <option value="7">7</option>
+              </select>
+            </div>
+
+            <button type="submit" className="w-full p-3 text-sm text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">Submit</button>
           </form>
         </div>
+  
       }
     </div>
   );
