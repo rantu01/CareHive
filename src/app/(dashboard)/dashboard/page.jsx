@@ -1,11 +1,12 @@
 "use client";
 import React from "react";
 import { useUser } from "../../context/UserContext"; // adjust path if needed
+import Loader from "@/app/Component/Loader";
 
 export default function DashboardPage() {
   const { user, role, loading } = useUser();
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
   if (!user) return <p>Please log in</p>;
 
   return (
