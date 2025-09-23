@@ -19,64 +19,75 @@ const Page = () => {
   const { createUser } = UseAuth();
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    // Reset errors
-    setNameError("");
-    setEmailError("");
-    setPasswordError("");
+  // Reset errors
+  setNameError("");
+  setEmailError("");
+  setPasswordError("");
 
-    let hasError = false;
-    if (!name) {
-      setNameError("Name is required");
-      hasError = true;
-    }
-    if (!email) {
-      setEmailError("Email is required");
-      hasError = true;
-    }
-    if (!password) {
-      setPasswordError("Password is required");
-      hasError = true;
-    } else if (password.length < 6) {
+  let hasError = false;
+  if (!name) {
+    setNameError("Name is required");
+    hasError = true;
+  }
+  if (!email) {
+    setEmailError("Email is required");
+    hasError = true;
+  }
+  if (!password) {
+    setPasswordError("Password is required");
+    hasError = true;
+  } else if (password.length < 6) {
+    setPasswordError("Password must be at least 6 characters");
+    hasError = true;
+  }
+
+  if (hasError) return;
+
+  try {
+    // 1. Create user in Firebase (or auth system)
+    const userCredential = await createUser(email, password);
+
+    // 2. Save user profile in MongoDB
+    await fetch("/api/users", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name,
+        email,
+      }),
+    });
+
+    Swal.fire({
+      icon: "success",
+      title: "Account Created",
+      text: "Welcome to CareHive!",
+      confirmButtonText: "Continue",
+      customClass: {
+        confirmButton:
+          "bg-[var(--dashboard-blue)] text-white px-4 py-2 rounded-lg hover:bg-blue-600",
+      },
+      buttonsStyling: false,
+    }).then(() => router.push("/"));
+  } catch (error) {
+    const errorCode = error.code;
+    if (errorCode === "auth/email-already-in-use") {
+      setEmailError("Email is already in use");
+    } else if (errorCode === "auth/invalid-email") {
+      setEmailError("Invalid email address");
+    } else if (errorCode === "auth/weak-password") {
       setPasswordError("Password must be at least 6 characters");
-      hasError = true;
     }
 
-    if (hasError) return; // stop submission if validation fails
-
-    try {
-      await createUser(email, password);
-
-      Swal.fire({
-        icon: "success",
-        title: "Account Created",
-        text: "Welcome to CareHive!",
-        confirmButtonText: "Continue",
-        customClass: {
-          confirmButton:
-            "bg-[var(--dashboard-blue)] text-white px-4 py-2 rounded-lg hover:bg-blue-600",
-        },
-        buttonsStyling: false,
-      }).then(() => router.push("/"));
-    } catch (error) {
-      const errorCode = error.code;
-      if (errorCode === "auth/email-already-in-use") {
-        setEmailError("Email is already in use");
-      } else if (errorCode === "auth/invalid-email") {
-        setEmailError("Invalid email address");
-      } else if (errorCode === "auth/weak-password") {
-        setPasswordError("Password must be at least 6 characters");
-      }
-
-      Swal.fire({
-        icon: "error",
-        title: "Signup Failed",
-        text: error.message || "Please check your credentials and try again.",
-      });
-    }
-  };
+    Swal.fire({
+      icon: "error",
+      title: "Signup Failed",
+      text: error.message || "Please check your credentials and try again.",
+    });
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-200 px-4 py-12">
