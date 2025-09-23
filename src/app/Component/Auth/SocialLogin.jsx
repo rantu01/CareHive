@@ -53,7 +53,7 @@ const SocialLogin = () => {
           alt="Google"
           className="w-5 h-5"
         />
-        <span className="text-gray-700 font-medium">Continue with Google</span>
+        <span className="text-gray-700 font-medium cursor-pointer">Continue with Google</span>
       </button>
 
       {/* GitHub Auth Button */}
@@ -66,7 +66,7 @@ const SocialLogin = () => {
           alt="GitHub"
           className="w-5 h-5"
         />
-        <span className="text-gray-700 font-medium">Continue with GitHub</span>
+        <span className="text-gray-700 font-medium cursor-pointer">Continue with GitHub</span>
       </button>
     </div>
   );
