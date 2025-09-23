@@ -9,6 +9,7 @@ import { Plus, Bell, Check, Pill, Delete, X } from "lucide-react";
 import { use, useState } from "react";
 import Swal from "sweetalert2";
 import { DashBoardDataContext } from "./UserDashBoardDataContext/DashboardDataContext";
+import { param } from "framer-motion/m";
 
 const Medication = () => {
 
@@ -50,6 +51,7 @@ const Medication = () => {
     });
   };
 
+  // axios to add new medicine
   const addNewMedicine = () => {
     const medicineData = {
       userId: userId,
@@ -58,17 +60,21 @@ const Medication = () => {
     axios.patch(`/api/medicine-remainder/`, medicineData)
   }
 
+  // axios to delete new medicine
+
+  const deleteMedicine = (id) => {
+    axios.delete(`/api/medicine-remainder/`,  {data: { userId, id }})
+  }
+
+
   // Handle form submit
   const handleSubmit = (e) => {
     e.preventDefault();
-
-
-
-
     addNewMedicineMutation.mutate()
   };
 
 
+  // mutation for add new medicine
 
   const addNewMedicineMutation = useMutation({
     mutationFn: addNewMedicine,
@@ -83,6 +89,27 @@ const Medication = () => {
     }
   })
 
+  // mutation for delete medicine
+
+  const deleteNewMedicineMutation = useMutation({
+    mutationFn: deleteMedicine,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["medicine", userId] });
+    },
+    onError: (data) => {
+      Swal.fire({
+        title: error,
+        icon: 'warning'
+      })
+    }
+  })
+
+
+  const handleDelete = (id) => {
+
+    deleteNewMedicineMutation.mutate(id)
+
+  }
 
 
 
@@ -149,7 +176,7 @@ const Medication = () => {
                 <Check size={16} /> Mark Taken
               </button>
 
-              <button className="flex items-center gap-1 border border-[var(--dashboard-border)] px-3 py-1.5 rounded-lg cursor-pointer hover:bg-[var(--accent-color)] text-[var(--fourground-color)] transition text-sm">
+              <button onClick={()=>handleDelete(med?.id)} className="flex items-center gap-1 border border-[var(--dashboard-border)] px-3 py-1.5 rounded-lg cursor-pointer hover:bg-[var(--accent-color)] text-[var(--fourground-color)] transition text-sm">
                 <Delete size={16} /> Delete
               </button>
             </div>
