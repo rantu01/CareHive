@@ -1,6 +1,12 @@
+"use client"
+
 import { Plus, Bell, Check, Pill } from "lucide-react";
+import { useState } from "react";
 
 const Medication = () => {
+
+  const [isOpen, setOpen] = useState(false)
+
   const medicationData = [
     {
       medicineName: "Vitamin D3",
@@ -36,7 +42,7 @@ const Medication = () => {
   };
 
   return (
-    <div className="space-y-6 max-w-9/12 mx-auto">
+    <div className="space-y-6">
       {/* Header */}
       <header className="flex justify-between items-center ">
         <div>
@@ -47,29 +53,28 @@ const Medication = () => {
             Manage your medication schedule
           </p>
         </div>
-        <button className="bg-[var(--dashboard-blue)] text-[var(--fourground-color)] rounded flex items-center gap-2 h-fit px-4 py-2 cursor-pointer hover:opacity-90 transition">
-          <Plus size={18} /> Add Medication
+        <button className="bg-[var(--dashboard-blue)] text-[var(--fourground-color)] rounded flex items-center gap-2 h-fit px-4 py-2 md:py-4 cursor-pointer hover:opacity-90 transition text-sm md:text-[1rem]">
+          <Plus size={18} /> <span>Add Medication</span>
         </button>
       </header>
 
       {/* Medication Cards */}
-      <main className="grid grid-cols-3 gap-4">
+      <main className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {medicationData.map((med, idx) => (
           <div
             key={idx}
-            className="bg-[var(--card-bg)]  p-4 shadow-sm"
+            className="bg-[var(--card-bg)] p-4 shadow-sm border border-[var(--dashboard-border)] rounded-lg "
           >
             {/* Top Section */}
             <div className="flex justify-between items-start mb-3">
               <h2 className="text-2xl font-semibold text-[var(--dashboard-blue)] flex items-center gap-2">
-               <Pill/> {med.medicineName}
+                <Pill /> {med.medicineName}
               </h2>
               <span
-                className={`text-xs px-2 py-1 rounded-full ${
-                  med.status === "taken"
-                    ? "bg-green-900/30 text-green-400"
-                    : "bg-yellow-900/30 text-yellow-400"
-                }`}
+                className={`text-xs px-2 py-1 rounded-full ${med.status === "taken"
+                  ? "bg-green-900/30 text-green-400"
+                  : "bg-yellow-900/30 text-yellow-400"
+                  }`}
               >
                 {med.status}
               </span>
@@ -89,17 +94,49 @@ const Medication = () => {
             </div>
 
             {/* Actions */}
-            <div className="flex gap-3">
-              <button className="flex items-center gap-1 border border-[var(--dashboard-border)] px-3 py-1.5 rounded-lg cursor-pointer hover:bg-[var(--hover-color)] transition">
+            <div className="flex gap-3 justify-between mt-6">
+              <button className="flex items-center gap-1 border border-[var(--dashboard-border)] px-3 py-1.5 rounded-lg cursor-pointer hover:bg-[var(--hover-color)] transition text-sm">
                 <Bell size={16} /> Remind
               </button>
-              <button className="flex items-center gap-1 border border-[var(--dashboard-border)] px-3 py-1.5 rounded-lg cursor-pointer hover:bg-[var(--accent-color)] transition">
+              <button className="flex items-center gap-1 border border-[var(--dashboard-border)] px-3 py-1.5 rounded-lg cursor-pointer hover:bg-[var(--accent-color)] transition text-sm">
                 <Check size={16} /> Mark Taken
               </button>
             </div>
           </div>
         ))}
       </main>
+
+      {
+        isOpen && <div>
+          <form>
+            <label for="medicine-name">Medicine Name</label>
+            <input id="medicine-name" type="text" placeholder="Medicine Name" />
+
+            <div>
+              <label for="douse-type"></label>
+              <select name="douse-type" id="douse-type">
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="every-three-day">Every Three Days</option>
+              </select>
+
+              <div>
+                <label for="douse-qty"></label>
+                <select name="qty" id="douse-qty">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">6</option>
+                  <option value="7">7</option>
+                </select>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      }
     </div>
   );
 };
