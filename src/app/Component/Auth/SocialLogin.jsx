@@ -1,11 +1,10 @@
 "use client";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
-import { use } from "react";
-import { AuthContext } from "@/app/context/authContext";
+import UseAuth from "@/app/Hooks/UseAuth";
 
 const SocialLogin = () => {
-  const { googleSignIn } = use(AuthContext);
+  const { googleSignIn, githubSignIn } = UseAuth();
   const router = useRouter();
 
   const handleGoogleLogin = async () => {
@@ -25,19 +24,49 @@ const SocialLogin = () => {
     }
   };
 
+  const handleGithubLogin = async () => {
+    try {
+      const result = await githubSignIn();
+      console.log("Github sign in result:", result);
+
+      // Navigate to home or previous location
+      router.push("/");
+    } catch (error) {
+      console.error(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error?.code || "Something went wrong!",
+      });
+    }
+  };
+
   return (
-    <div className="w-full flex flex-col items-center gap-4 mt-4">
+    <div className="w-full flex items-center gap-4 mt-4">
       {/* Google Auth Button */}
       <button
         onClick={handleGoogleLogin}
-        className="w-full flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-100 transition-colors"
+        className="flex-1 flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-100 transition-colors"
       >
         <img
           src="https://www.svgrepo.com/show/475656/google-color.svg"
           alt="Google"
           className="w-5 h-5"
         />
-        <span className="text-gray-700 font-medium">Continue with Google</span>
+        <span className="text-gray-700 font-medium cursor-pointer">Continue with Google</span>
+      </button>
+
+      {/* GitHub Auth Button */}
+      <button
+        onClick={handleGithubLogin}
+        className="flex-1 flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-100 transition-colors"
+      >
+        <img
+          src="https://www.svgrepo.com/show/512317/github-142.svg"
+          alt="GitHub"
+          className="w-5 h-5"
+        />
+        <span className="text-gray-700 font-medium cursor-pointer">Continue with GitHub</span>
       </button>
     </div>
   );
