@@ -1,13 +1,16 @@
 "use client"
 
+import { AuthContext } from "@/app/context/authContext";
 import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 import { Plus, Bell, Check, Pill, Delete, X, Pointer } from "lucide-react";
-import { useState } from "react";
+import { use, useState } from "react";
 import Swal from "sweetalert2";
 
 const Medication = () => {
 
   const [isOpen, setOpen] = useState(false)
+  const { user } = use(AuthContext)
 
   const medicationData = [
     {
@@ -61,8 +64,21 @@ const Medication = () => {
   // Handle form submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form Data:', formData);
+
+    const userId = user.uid
+    const medicineData = {
+      userId,
+      medicineData:formData
+    }
+
+
+    console.log("medicine name",medicineData)
+
+
+    axios.post(`/api/medicine-remainder/`,medicineData)
+    addNewMedicineMutation.mutate()
   };
+
 
 
   const addNewMedicineMutation = useMutation({
@@ -77,6 +93,7 @@ const Medication = () => {
       })
     }
   })
+
 
 
 
