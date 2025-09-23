@@ -12,35 +12,15 @@ const Medication = () => {
 
   const [isOpen, setOpen] = useState(false)
   const { user } = use(AuthContext)
-  const {medicineData}=use(DashBoardDataContext)
+  const { medicineData } = use(DashBoardDataContext)
 
-  console.log("new medicine data",medicineData)
+  console.log(medicineData)
+  console.log(medicineData[0]?.medicineData)
 
-  const medicationData = [
-    {
-      medicineName: "Vitamin D3",
-      status: "pending",
-      douseType: "1 tablet daily",
-      perDouse: "Morning",
-      timeToTake: "2025-09-23T08:00:00",
-    },
-    {
-      medicineName: "Paracetamol",
-      status: "taken",
-      douseType: "1 tablet",
-      perDouse: "Every 6 hours",
-      timeToTake: "2025-09-22T14:00:00",
-    },
-    {
-      medicineName: "Antibiotic A",
-      status: "pending",
-      douseType: "2 tablets",
-      perDouse: "Twice a day",
-      timeToTake: "2025-09-23T20:00:00",
-    },
-  ];
+  const medicationDataList = medicineData[0]?.medicineData
 
 
+  console.log("list is", medicationDataList)
 
 
   const formatNextTime = (timeString) => {
@@ -71,15 +51,15 @@ const Medication = () => {
 
     const userId = user.uid
     const medicineData = {
-      userId,
-      medicineData:formData
+      userId: userId,
+      medicineData: formData
     }
 
 
-    console.log("medicine name",medicineData)
+    console.log("medicine name", medicineData)
 
 
-    axios.post(`/api/medicine-remainder/`,medicineData)
+    axios.patch(`/api/medicine-remainder/`, medicineData)
     addNewMedicineMutation.mutate()
   };
 
@@ -119,8 +99,10 @@ const Medication = () => {
       </header>
 
       {/* Medication Cards */}
+
       <main className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {medicationData.map((med, idx) => (
+        {medicationDataList?.map((med, idx) => (
+
           <div
             key={idx}
             className="bg-[var(--card-bg)] p-4 shadow-sm border border-[var(--dashboard-border)] rounded-lg "
@@ -169,14 +151,13 @@ const Medication = () => {
           </div>
         ))}
       </main>
-
       {
         isOpen && <div className="absolute top-5 right-5  form-container max-w-[20rem] mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-300 dark:border-gray-700">
           <form onSubmit={handleSubmit}>
             <div className="flex justify-between">
               <label htmlFor="medicineName" className="text-sm text-gray-800 dark:text-white mb-2 block">Medicine Name</label> <X size={15} onClick={() => setOpen(!isOpen)} className="cursor-pointer" />
             </div>
-            <input onChange={handleChange} id="medicine-name" name="medicine-name" type="text" placeholder="Enter Medicine Name" className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-6" />
+            <input onChange={handleChange} id="medicine-name" name="medicineName" type="text" placeholder="Enter Medicine Name" className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-6" />
 
             <div className="dose-section mb-6">
               <label htmlFor="douse-type" className="text-sm text-gray-800 dark:text-white mb-2 block">Dose Type</label>
