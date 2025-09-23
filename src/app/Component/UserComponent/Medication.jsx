@@ -9,7 +9,7 @@ import { Plus, Bell, Check, Pill, Delete, X } from "lucide-react";
 import { use, useState } from "react";
 import Swal from "sweetalert2";
 import { DashBoardDataContext } from "./UserDashBoardDataContext/DashboardDataContext";
-import { param } from "framer-motion/m";
+
 
 const Medication = () => {
 
@@ -20,14 +20,7 @@ const Medication = () => {
 
   const { medicineData } = use(DashBoardDataContext)
 
-  console.log(medicineData)
-  console.log(medicineData[0]?.medicineData)
-
   const medicationDataList = medicineData[0]?.medicineData
-
-
-  console.log("list is", medicationDataList)
-
 
   const formatNextTime = (timeString) => {
     const date = new Date(timeString);
@@ -63,7 +56,7 @@ const Medication = () => {
   // axios to delete new medicine
 
   const deleteMedicine = (id) => {
-    axios.delete(`/api/medicine-remainder/`,  {data: { userId, id }})
+    axios.delete(`/api/medicine-remainder/`, { data: { userId, id } })
   }
 
 
@@ -176,7 +169,7 @@ const Medication = () => {
                 <Check size={16} /> Mark Taken
               </button>
 
-              <button onClick={()=>handleDelete(med?.id)} className="flex items-center gap-1 border border-[var(--dashboard-border)] px-3 py-1.5 rounded-lg cursor-pointer hover:bg-[var(--accent-color)] text-[var(--fourground-color)] transition text-sm">
+              <button onClick={() => handleDelete(med?.id)} className="flex items-center gap-1 border border-[var(--dashboard-border)] px-3 py-1.5 rounded-lg cursor-pointer hover:bg-[var(--accent-color)] text-[var(--fourground-color)] transition text-sm">
                 <Delete size={16} /> Delete
               </button>
             </div>
@@ -193,8 +186,7 @@ const Medication = () => {
 
             <div className="dose-section mb-6">
               <label htmlFor="douse-type" className="text-sm text-gray-800 dark:text-white mb-2 block">Dose Type</label>
-              <select onChange={handleChange} name="douseType" id="douse-type" className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="" disabled>Type</option>
+              <select defaultValue="24" onChange={handleChange} name="douseType" id="douse-type" className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
                 <option value="24">Daily</option>
                 <option value="168">Weekly</option>
                 <option value="monthly">Monthly</option>
@@ -204,8 +196,7 @@ const Medication = () => {
 
             <div className="dose-qty-section mb-6">
               <label htmlFor="douse-qty" className="text-sm text-gray-800 dark:text-white mb-2 block">Quantity</label>
-              <select onChange={handleChange} name="douseQty" id="douse-qty" className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="" disabled>Qty</option>
+              <select defaultValue="1" onChange={handleChange} name="douseQty" id="douse-qty" className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>

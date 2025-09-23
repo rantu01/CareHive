@@ -70,12 +70,9 @@ export async function DELETE(req, { params }) {
   try {
 
 
-    // const { searchParams } = new URL(req.url);
-    // const userId = searchParams.get("userId");
-
 
     const body = await req.json()
-    console.log(body)
+
 
     const userId=body?.userId
 
