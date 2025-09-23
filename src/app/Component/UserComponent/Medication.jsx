@@ -1,7 +1,9 @@
 "use client"
 
+import { useMutation } from "@tanstack/react-query";
 import { Plus, Bell, Check, Pill, Delete, X, Pointer } from "lucide-react";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 const Medication = () => {
 
@@ -59,8 +61,23 @@ const Medication = () => {
   // Handle form submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form Data:', formData); 
+    console.log('Form Data:', formData);
   };
+
+
+  const addNewMedicineMutation = useMutation({
+    mutationFn: handleSubmit,
+    onSuccess: (data) => {
+      console.log("Hello success")
+    },
+    onError: (data) => {
+      Swal.fire({
+        title: error,
+        icon: 'warning'
+      })
+    }
+  })
+
 
 
   return (
@@ -136,7 +153,7 @@ const Medication = () => {
         isOpen && <div className="absolute top-5 right-5  form-container max-w-[20rem] mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-300 dark:border-gray-700">
           <form onSubmit={handleSubmit}>
             <div className="flex justify-between">
-              <label htmlFor="medicineName" className="text-sm text-gray-800 dark:text-white mb-2 block">Medicine Name</label> <X size={15} onClick={()=>setOpen(!isOpen)} className="cursor-pointer"/>
+              <label htmlFor="medicineName" className="text-sm text-gray-800 dark:text-white mb-2 block">Medicine Name</label> <X size={15} onClick={() => setOpen(!isOpen)} className="cursor-pointer" />
             </div>
             <input onChange={handleChange} id="medicine-name" name="medicine-name" type="text" placeholder="Enter Medicine Name" className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-6" />
 
