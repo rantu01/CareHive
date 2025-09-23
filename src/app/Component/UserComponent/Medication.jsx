@@ -1,6 +1,6 @@
 "use client"
 
-import { Plus, Bell, Check, Pill, Delete } from "lucide-react";
+import { Plus, Bell, Check, Pill, Delete, X, Pointer } from "lucide-react";
 import { useState } from "react";
 
 const Medication = () => {
@@ -31,6 +31,9 @@ const Medication = () => {
     },
   ];
 
+
+
+
   const formatNextTime = (timeString) => {
     const date = new Date(timeString);
     return date.toLocaleString("en-US", {
@@ -42,10 +45,22 @@ const Medication = () => {
   };
 
 
+  const [formData, setFormData] = useState([]);
 
-  const handleSubmit=()=>{
-    
-  }
+  // Handle input changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  // Handle form submit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Form Data:', formData); 
+  };
 
 
   return (
@@ -79,8 +94,8 @@ const Medication = () => {
               </h2>
               <span
                 className={`text-xs px-2 py-1 rounded-full ${med.status === "taken"
-                  ? "bg-green-900/30 text-green-400"
-                  : "bg-yellow-900/30 text-yellow-400"
+                  ? "text-green-400"
+                  : "text-yellow-400"
                   }`}
               >
                 {med.status}
@@ -102,14 +117,14 @@ const Medication = () => {
 
             {/* Actions */}
             <div className="flex gap-3 justify-between mt-6">
-              <button className="flex items-center gap-1 border border-[var(--dashboard-border)] px-3 py-1.5 rounded-lg cursor-pointer hover:bg-[var(--hover-color)] transition text-sm">
+              <button className="flex items-center gap-1 border border-[var(--dashboard-border)] px-3 py-1.5 rounded-lg cursor-pointer hover:bg-[var(--hover-color)] text-[var(--fourground-color)] transition text-sm">
                 <Bell size={16} /> Remind
               </button>
-              <button className="flex items-center gap-1 border border-[var(--dashboard-border)] px-3 py-1.5 rounded-lg cursor-pointer hover:bg-[var(--accent-color)] transition text-sm">
+              <button className="flex items-center gap-1 border border-[var(--dashboard-border)] px-3 py-1.5 rounded-lg cursor-pointer hover:bg-[var(--accent-color)] text-[var(--fourground-color)] transition text-sm">
                 <Check size={16} /> Mark Taken
               </button>
 
-              <button className="flex items-center gap-1 border border-[var(--dashboard-border)] px-3 py-1.5 rounded-lg cursor-pointer hover:bg-[var(--accent-color)] transition text-sm">
+              <button className="flex items-center gap-1 border border-[var(--dashboard-border)] px-3 py-1.5 rounded-lg cursor-pointer hover:bg-[var(--accent-color)] text-[var(--fourground-color)] transition text-sm">
                 <Delete size={16} /> Delete
               </button>
             </div>
@@ -118,14 +133,17 @@ const Medication = () => {
       </main>
 
       {
-        isOpen && <div class="form-container max-w-lg mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-300 dark:border-gray-700">
-          <form>
-            <label htmlFor="medicine-name" className="text-sm text-gray-800 dark:text-white mb-2 block">Medicine Name</label>
-            <input id="medicine-name" type="text" placeholder="Enter Medicine Name" class="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-6" />
+        isOpen && <div className="absolute top-5 right-5  form-container max-w-[20rem] mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-300 dark:border-gray-700">
+          <form onSubmit={handleSubmit}>
+            <div className="flex justify-between">
+              <label htmlFor="medicineName" className="text-sm text-gray-800 dark:text-white mb-2 block">Medicine Name</label> <X size={15} onClick={()=>setOpen(!isOpen)} className="cursor-pointer"/>
+            </div>
+            <input onChange={handleChange} id="medicine-name" name="medicine-name" type="text" placeholder="Enter Medicine Name" className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-6" />
 
             <div className="dose-section mb-6">
               <label htmlFor="douse-type" className="text-sm text-gray-800 dark:text-white mb-2 block">Dose Type</label>
-              <select name="douse-type" id="douse-type" className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <select onChange={handleChange} name="douseType" id="douse-type" className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="" disabled>Type</option>
                 <option value="24">Daily</option>
                 <option value="168">Weekly</option>
                 <option value="monthly">Monthly</option>
@@ -133,9 +151,10 @@ const Medication = () => {
               </select>
             </div>
 
-            <div class="dose-qty-section mb-6">
+            <div className="dose-qty-section mb-6">
               <label htmlFor="douse-qty" className="text-sm text-gray-800 dark:text-white mb-2 block">Quantity</label>
-              <select name="qty" id="douse-qty" className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <select onChange={handleChange} name="douseQty" id="douse-qty" className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="" disabled>Qty</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -145,10 +164,10 @@ const Medication = () => {
               </select>
             </div>
 
-            <button type="submit" className="w-full p-3 text-sm text-white bg-blue-500 hover:bg-blue-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">Submit</button>
+            <button type="submit" className="w-full p-3 text-sm text-white bg-[var(--dashboard-blue)] cursor-pointer">Submit</button>
           </form>
         </div>
-  
+
       }
     </div>
   );
