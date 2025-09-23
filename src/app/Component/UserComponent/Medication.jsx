@@ -1,9 +1,11 @@
 "use client"
 
 import { AuthContext } from "@/app/context/authContext";
-import { useMutation } from "@tanstack/react-query";
+
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
 import axios from "axios";
-import { Plus, Bell, Check, Pill, Delete, X, Pointer } from "lucide-react";
+import { Plus, Bell, Check, Pill, Delete, X } from "lucide-react";
 import { use, useState } from "react";
 import Swal from "sweetalert2";
 import { DashBoardDataContext } from "./UserDashBoardDataContext/DashboardDataContext";
@@ -12,6 +14,9 @@ const Medication = () => {
 
   const [isOpen, setOpen] = useState(false)
   const { user } = use(AuthContext)
+  const userId = user.uid
+  const queryClient = useQueryClient();
+
   const { medicineData } = use(DashBoardDataContext)
 
   console.log(medicineData)
@@ -45,30 +50,30 @@ const Medication = () => {
     });
   };
 
-  // Handle form submit
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const userId = user.uid
+  const addNewMedicine = () => {
     const medicineData = {
       userId: userId,
       medicineData: formData
     }
-
-
-    console.log("medicine name", medicineData)
-
-
     axios.patch(`/api/medicine-remainder/`, medicineData)
+  }
+
+  // Handle form submit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+
+
+
     addNewMedicineMutation.mutate()
   };
 
 
 
   const addNewMedicineMutation = useMutation({
-    mutationFn: handleSubmit,
+    mutationFn: addNewMedicine,
     onSuccess: (data) => {
-      console.log("Hello success")
+      queryClient.invalidateQueries({ queryKey: ["medicine", userId] });
     },
     onError: (data) => {
       Swal.fire({
@@ -136,7 +141,7 @@ const Medication = () => {
             </div>
 
             {/* Actions */}
-            <div className="flex gap-3 justify-between mt-6">
+            <div className="flex gap-3 justify-between mt-6 flex-wrap">
               <button className="flex items-center gap-1 border border-[var(--dashboard-border)] px-3 py-1.5 rounded-lg cursor-pointer hover:bg-[var(--hover-color)] text-[var(--fourground-color)] transition text-sm">
                 <Bell size={16} /> Remind
               </button>

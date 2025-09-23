@@ -110,7 +110,7 @@ const DashBoardDataProvider = ({ children }) => {
 
   }, [medicineInfo])
 
-  console.log("thu medicino dato", medicineData[0])
+
 
 
 
