@@ -1,4 +1,3 @@
-import WellcomeBar from "../../../Component/UserComponent/WelcomeBar";
 
 export default function AdminDashboard() {
   return (
