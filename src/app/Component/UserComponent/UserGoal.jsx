@@ -162,16 +162,16 @@ const UserGoal = () => {
 
 
     return (
-        <div className="border-1 border-gray-200 p-4 rounded">
+        <div className="border-1  border-[var(--dashboard-border)] p-4 rounded">
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div className="flex gap-2 items-center">
                     <Goal color="var(--dashboard-blue)" />
-                    <h1 className="text-xl font-bold">Weekly Health Goal</h1>
+                    <h1 className="text-xl font-semibold text-[var(--fourground-color)]">Weekly Health Goal</h1>
                 </div>
                 <button
                     onClick={() => setIsOpen(true)}
-                    className="bg-[var(--dashboard-blue)] p-2 cursor-pointer rounded text-sm text-white"
+                    className="bg-[var(--dashboard-blue)] p-2 cursor-pointer rounded text-sm text-[var(--fourground-color)]"
                 >
                     Add New Goal
                 </button>
@@ -183,7 +183,7 @@ const UserGoal = () => {
                         <div key={goal?.id} className="space-y-2">
                             {/* Goal Title and Numbers */}
                             <div className="flex justify-between">
-                                <p>{goal?.title}</p>
+                                <p className="text-[var(--fourground-color)]">{goal?.title}</p>
                                 <div>
                                     <span>{goal?.completed}</span>/<span>{goal?.goal}</span>
                                 </div>

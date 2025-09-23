@@ -12,7 +12,6 @@ const page = () => {
   return (
     <div className="max-w-[90%] mx-auto mt-20">
 
-        <WelcomeBar />
       <div className="grid md:grid-cols-4 gap-6 sm:grid-cols-2 grid-cols-1 mt-12">
         {userHealthStats?.map((activity) => (
           <KPIcard
