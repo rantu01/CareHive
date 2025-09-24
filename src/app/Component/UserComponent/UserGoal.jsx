@@ -132,7 +132,7 @@ const UserGoal = () => {
         const remaining = target - completed
 
 
-        const updatedData = { actionType: "update-completed", completed: completed, id: goalId }
+        const updatedData = { actionType: "update-completed", completed: completed, id: goalId,target:target }
 
         completeGoalMutation.mutate(updatedData)
 
