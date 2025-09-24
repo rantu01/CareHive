@@ -17,6 +17,10 @@ const Medication = () => {
   const { user } = use(AuthContext)
   const userId = user.uid
   const queryClient = useQueryClient();
+  const [timeLoop, setTimeLoop] = useState(1)
+  const [timeValue, setTimeValue] = useState([])
+  const [formData, setFormData] = useState([]);
+  console.log(timeValue)
 
   const { medicineData } = use(DashBoardDataContext)
 
@@ -32,9 +36,11 @@ const Medication = () => {
     });
   };
 
+  const [times, setTimes] = useState([])
 
-  const [formData, setFormData] = useState([]);
-
+  const handle = (e) => {
+    console.log(e.target.value)
+  }
   // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -133,7 +139,7 @@ const Medication = () => {
             className="bg-[var(--card-bg)] p-4 shadow-sm border border-[var(--dashboard-border)] rounded-lg "
           >
             {/* Top Section */}
-            <div className="flex justify-between items-start mb-3">
+            <div className="flex justify-between items-start mb-3 flex-wrap">
               <h2 className="text-2xl font-semibold text-[var(--dashboard-blue)] flex items-center gap-2">
                 <Pill /> {med.medicineName}
               </h2>
@@ -177,7 +183,7 @@ const Medication = () => {
         ))}
       </main>
       {
-        isOpen && <div className="absolute top-5 right-5  form-container max-w-[20rem] mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-300 dark:border-gray-700">
+        isOpen && <div className="form-container min-w-[30rem] max-w-fit mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-300 dark:border-gray-700">
           <form onSubmit={handleSubmit}>
             <div className="flex justify-between">
               <label htmlFor="medicineName" className="text-sm text-gray-800 dark:text-white mb-2 block">Medicine Name</label> <X size={15} onClick={() => setOpen(!isOpen)} className="cursor-pointer" />
@@ -185,26 +191,55 @@ const Medication = () => {
             <input onChange={handleChange} id="medicine-name" name="medicineName" type="text" placeholder="Enter Medicine Name" className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-6" />
 
             <div className="dose-section mb-6">
-              <label htmlFor="douse-type" className="text-sm text-gray-800 dark:text-white mb-2 block">Dose Type</label>
-              <select defaultValue="24" onChange={handleChange} name="douseType" id="douse-type" className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="24">Daily</option>
-                <option value="168">Weekly</option>
-                <option value="monthly">Monthly</option>
-                <option value="every-three-day">Every Three Days</option>
-              </select>
-            </div>
-
-            <div className="dose-qty-section mb-6">
-              <label htmlFor="douse-qty" className="text-sm text-gray-800 dark:text-white mb-2 block">Quantity</label>
-              <select defaultValue="1" onChange={handleChange} name="douseQty" id="douse-qty" className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <label htmlFor="douse-type" className="text-sm text-gray-800 dark:text-white mb-2 block">Dose Per Day</label>
+              <select onChange={(e) => setTimeLoop(e.target.value)} name="douseType" id="douse-type" className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value=" "></option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
-                <option value="5">6</option>
-                <option value="7">7</option>
+
               </select>
             </div>
+
+            <div className="dose-qty-section mb-6">
+              <label htmlFor="douse-qty" className="text-sm text-gray-800 dark:text-white mb-2 block">Week Days</label>
+              <select onChange={handleChange} name="douseQty" id="douse-qty" className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="0">Sunday</option>
+                <option value="1">Monday</option>
+                <option value="2">Tuesday</option>
+                <option value="3">Wednesday</option>
+                <option value="4">Thursday</option>
+                <option value="5">Friday</option>
+                <option value="6">Saturday</option>
+              </select>
+            </div>
+
+            <div className="flex justify-between gap-4 mb-6">
+              {
+                (() => {
+                  const inputs = [];
+                  for (let i = 0; i < timeLoop; i++) {
+                    inputs.push(
+                      <div key={i} className="w-full">
+                        <label htmlFor={`time-${i}`} className="text-sm text-gray-800 dark:text-white mb-2 block">
+                          Time {i + 1}
+                        </label>
+                        <input
+                          onChange={handle}
+                          type="time"
+                          id={`time-${i}`}
+                          name={`time-${i}`}
+                          className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                      </div>
+                    );
+                  }
+                  return inputs;
+                })()
+              }
+            </div>
+
 
             <button type="submit" className="w-full p-3 text-sm text-white bg-[var(--dashboard-blue)] cursor-pointer">Submit</button>
           </form>
