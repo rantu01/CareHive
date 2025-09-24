@@ -2,6 +2,7 @@
 import { Bell, PanelLeft } from "lucide-react";
 import { useUser } from "../../context/UserContext"; // adjust path
 import { use } from "react";
+import ThemeToggle from "../ThemeToggle";
 
 export default function Topbar({ toggleSidebar }) {
   const { user, loading, role } = useUser();
@@ -32,6 +33,10 @@ export default function Topbar({ toggleSidebar }) {
 
       {/* Right Section: User + Notifications */}
       <div className="flex items-center gap-2 sm:gap-4 ml-2">
+
+        {/* dark mode toggle */}
+        <ThemeToggle />
+
         {/* Notification Bell */}
         <button
           className="cursor-pointer relative sm:w-10 sm:h-10 w-8 h-8 transition-colors duration-300"
