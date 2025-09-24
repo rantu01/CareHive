@@ -4,6 +4,7 @@ import AuthProvider from "./context/authProvider";
 import TanstackProviders from "./TanstackProvider/TanstackProvider";
 import DashBoardDataProvider from "./Component/UserComponent/UserDashBoardDataContext/DashBoardDataProvider";
 import { ThemeProvider } from "next-themes";
+import { UserProvider } from "./context/UserContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,6 +28,7 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         cz-shortcut-listen="true"
       >
+        <UserProvider>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -40,6 +42,7 @@ export default function RootLayout({ children }) {
             </AuthProvider>
           </TanstackProviders>
         </ThemeProvider>
+        </UserProvider>
       </body>
     </html>
   );

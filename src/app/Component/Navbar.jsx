@@ -98,7 +98,7 @@ const Navbar = () => {
               {user ? (
                 <>
                   <Link
-                    href="/user"
+                    href="/dashboard"
                     className="font-medium"
                     style={{
                       color: scrolled
@@ -199,7 +199,7 @@ const Navbar = () => {
         {isOpen && (
           <div className="md:hidden mt-4 pb-4 bg-white rounded-lg shadow-lg">
             <div className="flex flex-col space-y-3 px-4 pt-4">
-              {["Home", "Doctors", "Wellness", "Hospitals", "HealthTips"].map(
+              {["Home", "Doctors", "Wellness", "Hospitals", "HealthTips" , "dashboard"].map(
                 (item, idx) => (
                   <Link
                     key={idx}

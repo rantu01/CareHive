@@ -51,7 +51,7 @@ const HowItWork = () => {
   return (
     <section
       className="py-20 px-6 md:px-20"
-      style={{ backgroundColor: "var(--gray-color)" }}
+      style={{ backgroundColor: "var(--dashboard-bg)" }}
     >
       <div className="max-w-7xl mx-auto text-center">
         {/* Title */}

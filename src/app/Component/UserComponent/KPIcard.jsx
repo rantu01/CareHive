@@ -16,11 +16,11 @@ const KPIcard = ({ title, value, target = '' }) => {
     "High";
 
   return (
-    <div className="flex justify-between items-center bg-white rounded-2xl p-6 shadow hover:shadow-lg transition-all duration-500 hover:-translate-y-1 flex-wrap">
+    <div className="flex justify-between items-center rounded-2xl p-6 shadow hover:shadow-lg transition-all duration-500 hover:-translate-y-1 flex-wrap border border-[var(--dashboard-border)]">
       
       {/* Left section */}
       <div className="flex flex-col gap-4">
-        <p className="text-gray-500 text-sm tracking-wide font-medium">
+        <p className="text-gray-600 font-semibold text-sm tracking-wide ">
           {title.toUpperCase()}
         </p>
 

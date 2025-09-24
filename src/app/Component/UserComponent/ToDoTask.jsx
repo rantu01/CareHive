@@ -47,6 +47,8 @@ const ToDoTask = () => {
             const toDoListResponse = await axios.get(addToDoUrl)
             setUserToDo(toDoListResponse?.data[0]?.todo)
 
+            e.target.todo.value=""
+
         } catch (error) {
             console.log(error);
         }
@@ -86,19 +88,19 @@ const ToDoTask = () => {
 
 
     return (
-        <div className="border-1 border-gray-200 p-4 rounded">
+        <div className="border-1 border-[var(--dashboard-border)] p-4 rounded shadow-lg">
             <div className="flex items-center mb-4 gap-2">
-                <BookCheck />
-                <p className="text-xl">Set your daily goal</p>
+                <BookCheck color="var(--dashboard-blue)"/>
+                <p className="text-xl text-[var(--fourground-color)] font-semibold">Set your daily goal</p>
             </div>
             <form onSubmit={handleSubmit} className="w-full">
                 <input
                     type="text"
                     placeholder="Add a new task"
                     name="todo"
-                    className="w-full px-4 py-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mb-4"
+                    className="w-full px-4 py-2 text-[var(--fourground-color)] border border-[var(--dashboard-border)] rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mb-4"
                 />
-                <button type="submit" className="px-4 py-2 rounded text-white font-medium bg-[var(--dashboard-blue)] cursor-pointer">Add Task</button>
+                <button type="submit" className="px-4 py-2 rounded text-[var(--fourground-color)] font-medium bg-[var(--dashboard-blue)] cursor-pointer">Add Task</button>
             </form>
 
             <div className="mt-5 h-[12.50rem] max-h-[12.50rem] overflow-auto">
@@ -113,8 +115,8 @@ const ToDoTask = () => {
                                     className="flex justify-between items-center border border-gray-400 p-2 rounded"
                                 >
                                     <div>
-                                        <p className="text-xl">{todo.title}</p>
-                                        <p className="text-sm text-gray-500">
+                                        <p className="text-xl text-[var(--fourground-color)]">{todo.title}</p>
+                                        <p className="text-sm text-[var(--fourground-color)]">
                                             {todo?.completed ? "✅ Completed" : "🕒 Pending"}
                                         </p>
                                     </div>
@@ -126,7 +128,7 @@ const ToDoTask = () => {
                                                 handleMarkAsComplete(todo.taskId);
                                             }
                                         }}
-                                        className="bg-[var(--dashboard-blue)] p-2 cursor-pointer rounded text-sm text-white"
+                                        className="bg-[var(--dashboard-blue)] p-2 cursor-pointer rounded text-sm text-[var(--fourground-color)]"
                                     >
                                         {todo.completed ? "Delete" : "Complete"}
                                     </button>

@@ -11,7 +11,7 @@ const ContactSection = () => {
     <section
       className="py-16 px-6 transition-colors duration-500 linear-gradient(to right, var(--color-calm-blue), var(--color-white))"
       style={{
-        background: "var(--gray-color)",
+        background: "var(--dashboard-bg)",
       }}
     >
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
