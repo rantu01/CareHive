@@ -1,9 +1,8 @@
 "use client";
 
 import { Goal, X } from "lucide-react";
-import { use, useEffect, useState } from "react";
+import { use, } from "react";
 import { DashBoardDataContext } from "./UserDashBoardDataContext/DashboardDataContext";
-import { useParams } from "next/navigation";
 import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { nanoid } from "nanoid";
@@ -14,14 +13,12 @@ import { AuthContext } from "@/app/context/authContext";
 
 const UserGoal = () => {
     const { goalData, isLoading, setGoalData } = use(DashBoardDataContext);
-    const [isOpen, setIsOpen] = useState(false);
-    const [title, setTitle] = useState("");
-    const [goal, setGoal] = useState("");
+
 
     const { user } = use(AuthContext)
     const userId = user?.uid
 
-    
+
     const queryClient = useQueryClient();
 
 
@@ -34,10 +31,6 @@ const UserGoal = () => {
     const goalList = goalData[0]?.goalData
 
 
-    // add new goal
-    const addNewGoal = async (goalData) => {
-        const res = await axios.patch(`/api/user-goal/${userId}`, goalData)
-    }
 
     // update goal progress
 
@@ -52,24 +45,7 @@ const UserGoal = () => {
 
 
 
-    // add new goal mutation
-    const mutation = useMutation({
-        mutationFn: addNewGoal,
-        onSuccess: (data) => {
-            queryClient.invalidateQueries({ queryKey: ["daily_goal", userId] });
-            Swal.fire({
-                title: "Goal added successfully",
-                icon: "success"
-            })
-        },
-        onError: (error) => {
-            Swal.fire({
-                title: error,
-                icon: 'warning'
-            })
-        }
 
-    })
 
 
     const completeGoalMutation = useMutation({
@@ -99,30 +75,7 @@ const UserGoal = () => {
     })
 
 
-    const handleAddNewGoal = (e) => {
-        e.preventDefault();
 
-        if (!title.trim() || !goal) {
-            alert("Both fields are required!");
-            return;
-        }
-
-        const goalInformation = {
-            actionType: "add-goal",
-            id: nanoid(7),
-            title: title,
-            goal: goal,
-            completed: 0,
-            percentage: "0%"
-        }
-
-        mutation.mutate(goalInformation)
-
-        // Reset & close
-        setTitle("");
-        setGoal("");
-        setIsOpen(false);
-    };
 
 
 
@@ -132,7 +85,7 @@ const UserGoal = () => {
         const remaining = target - completed
 
 
-        const updatedData = { actionType: "update-completed", completed: completed, id: goalId,target:target }
+        const updatedData = { actionType: "update-completed", completed: completed, id: goalId, target: target }
 
         completeGoalMutation.mutate(updatedData)
 
@@ -169,12 +122,6 @@ const UserGoal = () => {
                     <Goal color="var(--dashboard-blue)" />
                     <h1 className="text-xl font-semibold text-[var(--fourground-color)]">Weekly Health Goal</h1>
                 </div>
-                <button
-                    onClick={() => setIsOpen(true)}
-                    className="bg-[var(--dashboard-blue)] p-2 cursor-pointer rounded text-sm text-[var(--fourground-color)]"
-                >
-                    Add New Goal
-                </button>
             </div>
 
             <div className="mt-5">
@@ -203,63 +150,7 @@ const UserGoal = () => {
             </div>
 
             {/* Modal */}
-            {isOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50 text-black">
-                    <div className="bg-white rounded-lg shadow-lg p-6 w-96 relative">
-                        {/* Close button */}
-                        <button
-                            onClick={() => setIsOpen(false)}
-                            className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 cursor-pointer"
-                        >
-                            <X size={20} />
-                        </button>
 
-                        <h2 className="text-lg font-bold mb-4">Add New Goal</h2>
-
-                        <form onSubmit={handleAddNewGoal} className="space-y-4">
-                            {/* Goal Title */}
-                            <div>
-                                <label className="block text-sm font-medium mb-1">
-                                    Goal Title
-                                </label>
-                                <input
-                                    type="text"
-                                    value={title}
-                                    onChange={(e) => setTitle(e.target.value)}
-                                    placeholder="Goal title"
-                                    className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]"
-                                    required
-                                />
-                            </div>
-
-                            {/* Goal Number */}
-                            <div>
-                                <label className="block text-sm font-medium mb-1">
-                                    Target
-                                </label>
-
-                                <input
-                                    type="number"
-                                    value={goal}
-                                    onChange={(e) => setGoal(e.target.value)}
-                                    placeholder="Target"
-                                    className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]"
-                                    required
-                                />
-
-                            </div>
-
-                            {/* Submit button */}
-                            <button
-                                type="submit"
-                                className="bg-[var(--dashboard-blue)] text-white px-4 py-2 rounded w-full hover:opacity-90 cursor-pointer"
-                            >
-                                Save Goal
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            )}
         </div>
     );
 };
