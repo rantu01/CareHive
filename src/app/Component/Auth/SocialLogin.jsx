@@ -17,8 +17,10 @@ const SocialLogin = () => {
       const name = user?.displayName || "Unknown";
       const email = user?.email;
 
-      if (email) {
-        // Save to MongoDB users collection
+      const isNewUser =
+        user?.metadata?.creationTime === user?.metadata?.lastSignInTime;
+
+      if (email && isNewUser) {
         await fetch("/api/users", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -45,15 +47,15 @@ const SocialLogin = () => {
   const handleGithubLogin = async () => {
     try {
       const result = await githubSignIn();
-      console.log("Github sign in result:", result);
-
       const user = result?.user;
       const name =
         user?.displayName || user?.reloadUserInfo?.screenName || "GitHub User";
       const email = user?.email;
 
-      if (email) {
-        // Save to MongoDB users collection
+      const isNewUser =
+        user?.metadata?.creationTime === user?.metadata?.lastSignInTime;
+
+      if (email && isNewUser) {
         await fetch("/api/users", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
