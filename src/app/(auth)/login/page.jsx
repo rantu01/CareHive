@@ -14,7 +14,7 @@ const Login = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
-  const { signInUser } = UseAuth();
+  const { signInUser, passwordReset } = UseAuth();
   const router = useRouter(); // Next.js navigation
 
   const handleLogin = async (e) => {
@@ -52,6 +52,32 @@ const Login = () => {
         icon: "error",
         title: "Login Failed",
         text: "Please check your credentials and try again.",
+      });
+    }
+  };
+
+  const handlePasswordReset = async () => {
+    if (!email) {
+      Swal.fire({
+        icon: "warning",
+        title: "Email required",
+        text: "Please enter your email address first.",
+      });
+      return;
+    }
+
+    try {
+      await passwordReset(email);
+      Swal.fire({
+        icon: "success",
+        title: "Password Reset Email Sent",
+        text: "Check your inbox to reset your password.",
+      });
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Reset Failed",
+        text: error.message || "Unable to send password reset email.",
       });
     }
   };
@@ -153,6 +179,15 @@ const Login = () => {
                 </span>
               )}
             </div>
+            <p className="text-right text-sm mt-1">
+              <button
+                type="button"
+                onClick={handlePasswordReset}
+                className="text-blue-500 hover:underline"
+              >
+                Forgot password?
+              </button>
+            </p>
 
             {/* Submit Button */}
             <button

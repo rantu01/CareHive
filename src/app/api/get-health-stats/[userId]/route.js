@@ -39,10 +39,10 @@ export async function PUT(req, { params }) {
   try {
     const { userId } = await params;
 
-    const body = await req.json(); 
+    const body = await req.json();
 
     const client = await clientPromise;
-    const db = client.db("carehive"); 
+    const db = client.db("carehive");
     const collection = db.collection("healthMetrics");
 
     const result = await collection.updateOne(
@@ -61,4 +61,30 @@ export async function PUT(req, { params }) {
     console.error(err);
     return NextResponse.json({ success: false, error: err.message }, { status: 500 });
   }
+}
+
+
+
+
+export async function POST(req, { params }) {
+
+  try {
+
+    const body = await req.json();
+
+    console.log(body)
+    
+    const client = await clientPromise;
+    const db = client.db("carehive");
+    const collection = db.collection("healthMetrics");
+
+    const result = await collection.insertOne(body)
+
+    console.log(result)
+
+    return Response.json({ success: true, status: 200 })
+  } catch {
+
+  }
+
 }

@@ -17,24 +17,22 @@
   /* dash board colors */
   --dashboard-blue: #3199ee;
 
-  /* gray */
-  --gray-color: #fafafa;
+  /* gray */ 
+  --sidebar-bg: #fafafa;
 
   /* dashboard bg */
   --dashboard-bg: #ffffff;  
 
-   --dashboard-border: #e7ebef;
+   --dashboard-border: #d6d6d6;
 
    /* font color */
-   --fourground-color: #020817;
-
-
+   --fourground-color: #020613;
 
 }
 
 .dark {
-  --gray-color: #1a1a1a;
-  --dashboard-bg: #020817;
-  --dashboard-border: #1e293b;
+  --sidebar-bg: #1a1a1a;
+  --dashboard-bg: #080808;
+  --dashboard-border: #7a7a7a;
   --fourground-color: #fff;
 }

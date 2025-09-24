@@ -1,16 +1,15 @@
 
+
 "use client"
 
 import { Calendar, UserRound, X } from "lucide-react";
-import { useState } from "react";
+import Link from "next/link";
+import { use, useState } from "react";
+import { DashBoardDataContext } from "./UserDashBoardDataContext/DashboardDataContext";
 
-
-const UpcomingAppointment = ({appointmentData}) => {
-
-
+const UpcomingAppointment = () => {
+    const { appointmentData } = use(DashBoardDataContext);
     const [isModalOpen, setIsModalOpen] = useState(false);
-
-
 
     function formatAppointmentDate(dateString) {
         const apptDate = new Date(dateString);
@@ -24,56 +23,65 @@ const UpcomingAppointment = ({appointmentData}) => {
     }
 
     return (
-        <div className="border-1 border-gray-200 p-4 rounded h-[24.50rem] max-h-[24.50rem] ">
-            <header className="flex justify-between items-center mb-5">
-                <div className="flex gap-2">
-                    <div><Calendar color="var(--dashboard-blue)" /></div>
-                    <div>Upcoming Appointments</div>
+        <div className="border border-[var(--dashboard-border)] p-6 rounded h-[24.5rem] max-h-[24.5rem] shadow-md bg-[var(--dashboard-bg)]">
+            <header className="flex justify-between items-center mb-6">
+                <div className="flex gap-2 items-center text-xl font-semibold text-[var(--fourground-color)]">
+                    <Calendar color="var(--dashboard-blue)" size={22} />
+                    Upcoming Appointments
                 </div>
-                <div>
-                    <button className="border-1 border-gray-200 p-1 px-3 rounded cursor-pointer" onClick={() => setIsModalOpen(true)}>View All</button>
-                </div>
+                <button
+                    className="bg-[var(--dashboard-blue)] text-[var(--fourground-color)] font-medium p-2 px-4 rounded-lg transition-colors cursor-pointer"
+                    onClick={() => setIsModalOpen(true)}
+                >
+                    View All
+                </button>
             </header>
 
-            <main className="flex flex-col gap-2">
+            <main className="flex flex-col gap-3 overflow-y-auto max-h-[17rem]">
                 {
-                    appointmentData?.slice(0,3)?.map((appointment) => (
+                    (!appointmentData || appointmentData.length === 0) &&
+                    <div className="flex flex-col justify-center items-center py-10">
+                        <p className="text-gray-500 text-center mb-4">You have not booked any doctor</p>
+                        <Link href={"/hello"} className="bg-[var(--dashboard-blue)] text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors cursor-pointer">
+                            Book Now
+                        </Link>
+                    </div>
+                }
 
-                        <div key={appointment?.doctorName} className="flex items-center border-1 p-2 border-gray-200 justify-between rounded-sm">
-                            <div className="flex items-center  gap-4">
-                                <div className="bg-[var(--dashboard-blue)] p-2 rounded-full">
-                                    <UserRound color="white"/>
-                                </div>
-                                <div className="space-y-1">
-                                    <p className="font-bold">Dr.{appointment?.doctorName}</p>
-                                    <p className="text-gray-500">{appointment?.specialist}</p>
-                                    <p className="text-gray-500">{formatAppointmentDate(appointment.appointmentDate)}</p>
-
-                                </div>
+                {appointmentData?.slice(0, 3)?.map((appointment) => (
+                    <div
+                        key={appointment?.doctorName}
+                        className="flex items-center justify-between p-3 rounded border border-[var(--dashboard-border)] shadow-sm hover:shadow-lg transition-shadow"
+                    >
+                        <div className="flex items-center gap-4">
+                            <div className="bg-[var(--dashboard-blue)] p-3 rounded-full flex items-center justify-center">
+                                <UserRound color="white" size={20} />
                             </div>
-
-                            <div>
-                                <button className="border-1 border-gray-200 p-1 px-3 rounded cursor-pointer">Join</button>
+                            <div className="space-y-1">
+                                <p className="font-semibold text-[var(--fourground-color)]">Dr. {appointment?.doctorName}</p>
+                                <p className="text-gray-500 text-sm">{appointment?.specialist}</p>
+                                <p className="text-gray-400 text-xs">{formatAppointmentDate(appointment.appointmentDate)}</p>
                             </div>
                         </div>
-                    ))
-                }
+                        <button className="px-3 py-1 rounded text-[var(--fourground-color)] bg-[var(--dashboard-blue)] transition-colors cursor-pointer">
+                            Join
+                        </button>
+                    </div>
+                ))}
             </main>
 
-
             {isModalOpen && (
-               <div className="fixed inset-0 flex items-center justify-center bg-gray-200/40 backdrop-blur-sm z-50">
-
-                    <div className="bg-white w-[90%] md:w-[600px] max-h-[80vh] overflow-y-auto rounded-lg shadow-lg transform transition-all duration-300 scale-100 p-4">
-                        <div className="flex justify-between items-center border-b pb-2 mb-3">
-                            <h2 className="text-lg font-bold flex items-center gap-2">
-                                <Calendar color="var(--dashboard-blue)" /> All Appointments
+                <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm z-50">
+                    <div className="bg-[var(--dashboard-bg)] w-[90%] md:w-[600px] max-h-[80vh] overflow-y-auto rounded-2xl shadow-xl transform transition-transform duration-300 scale-100 p-5">
+                        <div className="flex justify-between items-center border-b pb-3 mb-4">
+                            <h2 className="text-lg font-bold flex items-center gap-2 text-[var(--fourground-color)]">
+                                <Calendar color="var(--dashboard-blue)" size={20} /> All Appointments
                             </h2>
                             <button
                                 onClick={() => setIsModalOpen(false)}
-                                className="p-1 rounded hover:bg-gray-100 cursor-pointer"
+                                className="p-1 rounded-full transition-colors cursor-pointer"
                             >
-                                <X />
+                                <X size={18} color="red"/>
                             </button>
                         </div>
 
@@ -81,30 +89,27 @@ const UpcomingAppointment = ({appointmentData}) => {
                             {appointmentData?.map((appointment) => (
                                 <div
                                     key={appointment?.doctorName}
-                                    className="flex items-center border-1 p-2 border-gray-200 justify-between rounded-sm"
+                                    className="flex items-center justify-between p-3 rounded-xl border border-[var(--dashboard-border)] shadow-sm hover:shadow-md transition-shadow bg-gray-50"
                                 >
                                     <div className="flex items-center gap-4">
-                                        <div className="bg-[var(--dashboard-blue)] p-2 rounded-full">
-                                            <UserRound color="white"/>
+                                        <div className="bg-[var(--dashboard-blue)] p-3 rounded-full flex items-center justify-center">
+                                            <UserRound color="white" size={20} />
                                         </div>
                                         <div className="space-y-1">
-                                            <p className="font-bold">Dr.{appointment?.doctorName}</p>
-                                            <p className="text-gray-500">{appointment?.specialist}</p>
-                                            <p className="text-gray-500">{formatAppointmentDate(appointment.appointmentDate)}</p>
+                                            <p className="font-semibold text-[var(--fourground-color)]">Dr. {appointment?.doctorName}</p>
+                                            <p className="text-gray-500 text-sm">{appointment?.specialist}</p>
+                                            <p className="text-gray-400 text-xs">{formatAppointmentDate(appointment.appointmentDate)}</p>
                                         </div>
                                     </div>
-                                    <div>
-                                        <button className="border-1 border-gray-200 p-1 px-3 rounded cursor-pointer">
-                                            Join
-                                        </button>
-                                    </div>
+                                    <button className="border text-[var(--fourground-color)] border-[var(--dashboard-border)] px-3 py-1 rounded-lg bg-[var(--dashboard-blue)] transition-colors cursor-pointer">
+                                        Join
+                                    </button>
                                 </div>
                             ))}
                         </div>
                     </div>
                 </div>
             )}
-
         </div>
     );
 };

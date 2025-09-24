@@ -1,10 +1,11 @@
-
 "use client";
 import React, { useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
+  GithubAuthProvider,
   GoogleAuthProvider,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -12,6 +13,7 @@ import {
 import { auth } from "../firebase/config";
 import { AuthContext } from "./authContext";
 const provider = new GoogleAuthProvider();
+const githubProvider = new GithubAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -32,12 +34,22 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, provider);
   };
 
+  const githubSignIn = () => {
+    setLoading(true);
+    return signInWithPopup(auth, githubProvider);
+  };
+
+  const passwordReset = (email) => {
+    setLoading(true);
+    return sendPasswordResetEmail(auth, email);
+  };
+
   const signOutUser = () => {
     setLoading(true);
     return signOut(auth);
   };
 
-    useEffect(() => {
+  useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       // console.log("User from on auth state change", currentUser);
@@ -54,6 +66,8 @@ const AuthProvider = ({ children }) => {
     signInUser,
     googleSignIn,
     signOutUser,
+    passwordReset,
+    githubSignIn,
     loading,
     user,
   };
