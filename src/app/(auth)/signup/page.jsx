@@ -48,17 +48,22 @@ const Page = () => {
 
   try {
     // 1. Create user in Firebase (or auth system)
-    const userCredential = await createUser(email, password);
+    const result = await createUser(email, password);
 
     // 2. Save user profile in MongoDB
-    await fetch("/api/users", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name,
-        email,
-      }),
-    });
+    const user = result?.user;
+
+    if (user?.email) {
+      await fetch("/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email: user.email,
+          role: "user",
+        }),
+      });
+    }
 
     Swal.fire({
       icon: "success",
