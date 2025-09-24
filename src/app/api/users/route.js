@@ -43,12 +43,18 @@ export async function POST(req) {
     const client = await clientPromise;
     const db = client.db("carehive");
 
-    const result = await db.collection("users").insertOne({
-      name: name || null,
-      email,
-      role: role || "user",
-      createdAt: new Date(),
-    });
+    const result = await db.collection("users").updateOne(
+      { email }, // find by email
+      {
+        $setOnInsert: {
+          name,
+          role: role || "user",
+          createdAt: new Date(),
+        },
+        $set: { lastLogin: new Date() }, 
+      },
+      { upsert: true } 
+    );
 
     return new Response(JSON.stringify({ insertedId: result.insertedId }), {
       status: 201,
@@ -69,10 +75,9 @@ export async function PUT(req) {
     const client = await clientPromise;
     const db = client.db("carehive");
 
-    const result = await db.collection("users").updateOne(
-      { _id: new ObjectId(id) },
-      { $set: { name, email, role } }
-    );
+    const result = await db
+      .collection("users")
+      .updateOne({ _id: new ObjectId(id) }, { $set: { name, email, role } });
 
     return new Response(JSON.stringify({ success: true, result }), {
       status: 200,
