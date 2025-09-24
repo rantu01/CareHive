@@ -20,8 +20,9 @@ const Medication = () => {
   const [timeLoop, setTimeLoop] = useState(1)
   const [timeValue, setTimeValue] = useState([])
   const [formData, setFormData] = useState([]);
-  console.log(timeValue)
 
+  console.log("the time value", timeValue)
+  
   const { medicineData } = use(DashBoardDataContext)
 
   const medicationDataList = medicineData[0]?.medicineData
@@ -40,6 +41,14 @@ const Medication = () => {
 
   const handle = (e) => {
     console.log(e.target.value)
+    console.log(e.target.name)
+
+    const { name, value } = e.target
+    setTimeValue({
+      ...timeValue,
+      [name]: value
+    })
+
   }
   // Handle input changes
   const handleChange = (e) => {

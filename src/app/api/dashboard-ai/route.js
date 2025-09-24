@@ -47,7 +47,7 @@ export async function POST(req) {
             {
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-goog-api-key': "AIzaSyCx5eumhotMhRAiCCaTbK1dz_geqpxENtM",
+                    'X-goog-api-key': `${process.env.NEXT_PUBLIC_OPEN_AI}`,
                 },
             }
         );
