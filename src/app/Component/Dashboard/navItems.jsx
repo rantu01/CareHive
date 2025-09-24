@@ -11,7 +11,7 @@ export const navItems = {
     { name: "Wellness Programs", path: "/dashboard/user/wellness", icon: <Heart size={18} /> },
   ],
   doctor: [
-    { name: "Overview", path: "/dashboard/doctor/overview", icon: <Home size={18} /> },
+    { name: "Overview", path: "/dashboard/doctor", icon: <Home size={18} /> },
     { name: "Appointments", path: "/dashboard/doctor/appointments", icon: <Calendar size={18} /> },
     { name: "Patients", path: "/dashboard/doctor/patients", icon: <User size={18} /> },
   ],
