@@ -29,7 +29,7 @@ const AiHealthTips = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[var(--dashboard-bg)] text-[var(--fourground-color)] p-6">
+    <div className=" bg-[var(--dashboard-bg)] text-[var(--fourground-color)] py-6">
       <h2 className="text-2xl font-bold mb-4">AI Health Tips</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

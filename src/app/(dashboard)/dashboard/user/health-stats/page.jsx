@@ -1,5 +1,6 @@
 "use client";
 
+import AiHealthTips from "@/app/Component/UserComponent/AiHealthTips";
 import HealthStatsBarChart from "@/app/Component/UserComponent/HealthStasBarChart";
 import KPIcard from "@/app/Component/UserComponent/KPIcard";
 import FoodLogChart from "@/app/Component/UserComponent/MacrosPieChart";
@@ -35,6 +36,12 @@ const page = () => {
         <div className="flex-1">
           <FoodLogChart />
         </div>
+      </div>
+
+      {/* ai health tips */}
+
+      <div>
+        <AiHealthTips/>
       </div>
     </div>
   );
