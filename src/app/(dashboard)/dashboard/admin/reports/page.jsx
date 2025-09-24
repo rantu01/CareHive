@@ -33,7 +33,7 @@ export default function Page() {
         {stats.map((stat) => (
           <div
             key={stat.id}
-            className={`p-6 rounded-2xl shadow-md text-center text-white font-bold bg-gradient-to-r ${stat.color} transform hover:-translate-y-1 transition-all duration-300`}
+            className={`p-6 rounded-2xl shadow-xl text-center text-white font-bold bg-gradient-to-r ${stat.color} transform hover:-translate-y-1 transition-all duration-300`}
           >
             <h2 className="text-lg">{stat.title}</h2>
             <p className="text-3xl mt-2">{stat.value}</p>
@@ -42,18 +42,17 @@ export default function Page() {
       </div>
 
       {/* Reports Section */}
-     
       <h2
-            className="text-4xl font-extrabold mb-4 relative inline-block text-center"
-            style={{ color: "var(--fourground-color)" }}
-          >
-             Recent Reports
-            <span
-              className="absolute left-0 -bottom-2 w-1/2 h-1 rounded"
-              style={{ backgroundColor: "var(--color-calm-blue)" }}
-            ></span>
-          </h2>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        className="text-4xl font-extrabold mb-4 relative inline-block mx-auto"
+        style={{ color: "var(--fourground-color)" }}
+      >
+        Recent <span className="text-[var(--color-calm-blue)]">Rep</span>orts
+        <span
+          className="absolute left-0 -bottom-2 w-1/2 h-1 rounded"
+          style={{ backgroundColor: "var(--color-calm-blue)" }}
+        ></span>
+      </h2>
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto mt-6">
         {reports.map((report) => (
           <div
             key={report.id}
@@ -67,15 +66,9 @@ export default function Page() {
             }`}
           >
             <div className="card-body">
-              <h2 className="card-title text-[var(--color-calm-blue)]">
-                {report.title}
-              </h2>
-              <p className="text-sm text-[var(--fourground-color)] opacity-70">
-                {report.date}
-              </p>
-              <p className="mt-3 text-[var(--fourground-color)] leading-relaxed">
-                {report.summary}
-              </p>
+              <h2 className="card-title text-[var(--color-calm-blue)]">{report.title}</h2>
+              <p className="text-sm text-[var(--fourground-color)] opacity-70">{report.date}</p>
+              <p className="mt-3 text-[var(--fourground-color)] leading-relaxed">{report.summary}</p>
               <div className="card-actions justify-end mt-6">
                 <button className="btn btn-sm rounded-full px-5 bg-gradient-to-r from-[var(--color-light-green)] to-[var(--color-calm-blue)] text-[var(--color-white)] border-none hover:opacity-90 transition-all duration-300">
                   View Details
