@@ -18,7 +18,7 @@ const Page = () => {
 
   return (
     <div style={{ background: "var(--dashboard-bg)", color: "var(--fourground-color)" }}>
-      <Navbar />
+      
 
       {/* Hero Section */}
       <div className="pt-30 text-center">
@@ -50,7 +50,6 @@ const Page = () => {
           <CalorieTracker />
           <HealthLog />
           <QuickHealthTips />
-          <Footer />
         </div>
       </div>
     </div>
