@@ -16,7 +16,8 @@ export const navItems = {
     { name: "Patients", path: "/dashboard/doctor/patients", icon: <User size={18} /> },
   ],
   admin: [
-    { name: "Dashboard", path: "/dashboard/admin", icon: <Home size={18} /> },
+    { name: "Dashboard", path: "/dashboard", icon: <Home size={18} /> },
+    { name: "Dashboard Overview", path: "/dashboard/admin", icon: <Home size={18} /> },
     { name: "Users", path: "/dashboard/admin/users", icon: <User size={18} /> },
     { name: "Doctors", path: "/dashboard/admin/doctors", icon: <User size={18} /> },
     { name: "Reports", path: "/dashboard/admin/reports", icon: <BarChart size={18} /> },
