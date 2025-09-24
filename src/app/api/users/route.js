@@ -35,37 +35,50 @@ export async function POST(req) {
     const { name, email, role } = await req.json();
 
     if (!email) {
-      return new Response(JSON.stringify({ error: "Email required" }), {
-        status: 400,
-      });
+      return new Response(
+        JSON.stringify({ error: "Email required" }),
+        { status: 400 }
+      );
     }
 
     const client = await clientPromise;
     const db = client.db("carehive");
 
-    const result = await db.collection("users").updateOne(
-      { email }, // find by email
-      {
-        $setOnInsert: {
-          name,
-          role: role || "user",
-          createdAt: new Date(),
-        },
-        $set: { lastLogin: new Date() }, 
-      },
-      { upsert: true } 
-    );
+    // Check if user exists
+    const existingUser = await db.collection("users").findOne({ email });
 
-    return new Response(JSON.stringify({ insertedId: result.insertedId }), {
-      status: 201,
-    });
+    if (existingUser) {
+      return new Response(
+        JSON.stringify({ message: "User already exists", inserted: false }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    // Insert new user
+    const newUser = {
+      name: name || null,
+      email,
+      role: role || "user",
+      createdAt: new Date(),
+      lastLogin: new Date(),
+    };
+
+    const result = await db.collection("users").insertOne(newUser);
+
+    return new Response(
+      JSON.stringify({ message: "User created", inserted: true, id: result.insertedId }),
+      { status: 201, headers: { "Content-Type": "application/json" } }
+    );
   } catch (error) {
-    console.error(error);
-    return new Response(JSON.stringify({ error: "Failed to add user" }), {
-      status: 500,
-    });
+    console.error("User insert error:", error);
+    return new Response(
+      JSON.stringify({ error: "Failed to add user" }),
+      { status: 500 }
+    );
   }
 }
+
+
 
 // PUT → update user
 export async function PUT(req) {

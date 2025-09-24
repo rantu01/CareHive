@@ -17,12 +17,10 @@ const SocialLogin = () => {
       const name = user?.displayName || "Unknown";
       const email = user?.email;
 
-         if (email) {
-      // Check if this is a new user in Firebase/Auth
       const isNewUser =
         user?.metadata?.creationTime === user?.metadata?.lastSignInTime;
 
-      if (isNewUser) {
+      if (email && isNewUser) {
         await fetch("/api/users", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -33,7 +31,6 @@ const SocialLogin = () => {
           }),
         });
       }
-    }
 
       // Navigate to home
       router.push("/");
@@ -55,22 +52,19 @@ const SocialLogin = () => {
         user?.displayName || user?.reloadUserInfo?.screenName || "GitHub User";
       const email = user?.email;
 
-      if (email) {
-        // Only send if it's the first sign-in
-        const isNewUser =
-          user?.metadata?.creationTime === user?.metadata?.lastSignInTime;
+      const isNewUser =
+        user?.metadata?.creationTime === user?.metadata?.lastSignInTime;
 
-        if (isNewUser) {
-          await fetch("/api/users", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              name,
-              email,
-              role: "user",
-            }),
-          });
-        }
+      if (email && isNewUser) {
+        await fetch("/api/users", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name,
+            email,
+            role: "user",
+          }),
+        });
       }
 
       router.push("/");
