@@ -9,7 +9,7 @@ const Page = () => {
   const [animationData, setAnimationData] = useState(null);
 
   useEffect(() => {
-    // Fetch the Lottie JSON from public folder
+   
     fetch("/mental-therapy.json")
       .then((res) => res.json())
       .then(setAnimationData);
@@ -17,7 +17,7 @@ const Page = () => {
 
   return (
     <div className="max-w-6xl mx-auto p-8">
-      {/* Title & Description */}
+    
       <motion.div
         className="text-center mb-12"
         initial={{ opacity: 0, y: -30 }}
@@ -39,7 +39,7 @@ const Page = () => {
         </p>
       </motion.div>
 
-      {/* Form + Lottie Container */}
+    
       <div className="flex flex-col lg:flex-row gap-10">
         {/* Form */}
         <motion.div
