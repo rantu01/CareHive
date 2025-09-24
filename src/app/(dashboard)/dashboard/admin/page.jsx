@@ -1,83 +1,109 @@
 "use client";
-import React from "react";
-import { Users, UserCog, CalendarCheck2, Settings } from "lucide-react";
+
+import { useEffect, useState } from "react";
+import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
 export default function AdminDashboard() {
-  const features = [
-    {
-      id: 1,
-      title: "User Management",
-      desc: "View, edit, and manage all registered users.",
-      icon: Users,
-      color: "var(--color-calm-blue)",
-    },
-    {
-      id: 2,
-      title: "Doctor Management",
-      desc: "Approve or remove doctors, manage their profiles.",
-      icon: UserCog,
-      color: "var(--dashboard-blue)",
-    },
-    {
-      id: 3,
-      title: "Appointments",
-      desc: "Track and manage patient appointments.",
-      icon: CalendarCheck2,
-      color: "var(--color-light-green)",
-    },
-    {
-      id: 4,
-      title: "Settings",
-      desc: "Manage system settings and preferences.",
-      icon: Settings,
-      color: "var(--color-black)",
-    },
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchUsers() {
+      try {
+        const res = await fetch("/api/users");
+        const data = await res.json();
+        setUsers(data);
+      } catch (err) {
+        console.error("Failed to fetch users", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchUsers();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen text-lg">
+        Loading...
+      </div>
+    );
+  }
+
+  // count users by role
+  const roleCounts = users.reduce((acc, user) => {
+    acc[user.role] = (acc[user.role] || 0) + 1;
+    return acc;
+  }, {});
+
+  const chartData = Object.entries(roleCounts).map(([role, count]) => ({
+    name: role,
+    value: count,
+  }));
+
+  const COLORS = [
+    "var(--color-calm-blue)",
+    "var(--color-light-green)",
+    "var(--dashboard-blue)",
+    "var(--color-black)",
   ];
 
   return (
-    <div
-      className="p-8 min-h-screen"
-      style={{
-        backgroundColor: "var(--dashboard-bg)",
-        color: "var(--fourground-color)",
-      }}
-    >
-      {/* Title */}
-      <h1 className="text-3xl font-bold text-center mb-10">
-        Admin Dashboard
-      </h1>
+    <div className="p-4 sm:p-6 bg-[var(--dashboard-bg)] min-h-screen text-[var(--fourground-color)]">
+      <h1 className="text-2xl sm:text-3xl font-bold mb-6">Admin Dashboard</h1>
 
-      {/* Feature Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {features.map((item) => {
-          const Icon = item.icon;
-          return (
-            <div
-              key={item.id}
-              className="p-6 rounded-2xl shadow-md transition hover:shadow-lg"
-              style={{
-                backgroundColor: "var(--sidebar-bg)",
-                border: "1px solid var(--dashboard-border)",
-              }}
-            >
-              <div className="flex flex-col items-center text-center">
-                <Icon
-                  className="w-12 h-12 mb-4"
-                  style={{ color: item.color }}
-                />
-                <h2 className="text-lg font-semibold mb-2">{item.title}</h2>
-                <p className="text-sm text-[var(--fourground-color)] mb-4">
-                  {item.desc}
-                </p>
-                <button
-                  className="w-full py-2 rounded-xl font-semibold text-[var(--color-white)] bg-gradient-to-r from-[var(--color-calm-blue)] to-[var(--color-light-green)] hover:opacity-90 transition"
+      {/* Layout wrapper → stack on mobile, grid on md+ */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Pie Chart */}
+        <div className="bg-[var(--dashboard-bg)] border border-[var(--dashboard-border)] rounded-xl p-4 sm:p-6 shadow">
+          <h2 className="text-lg sm:text-xl font-semibold mb-4">Users by Role</h2>
+          <div className="w-full h-64 sm:h-72">
+            <ResponsiveContainer>
+              <PieChart>
+                <Pie
+                  data={chartData}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={50}
+                  outerRadius={90}
+                  paddingAngle={5}
+                  dataKey="value"
                 >
-                  Manage
-                </button>
-              </div>
-            </div>
-          );
-        })}
+                  {chartData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip />
+                <Legend verticalAlign="bottom" height={36} />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Users Table */}
+        <div className="bg-[var(--dashboard-bg)] border border-[var(--dashboard-border)] rounded-xl p-4 sm:p-6 shadow">
+          <h2 className="text-lg sm:text-xl font-semibold mb-4">All Users</h2>
+          <div className="overflow-x-auto">
+            <table className="table w-full border-collapse text-sm sm:text-base">
+              <thead className="bg-[var(--sidebar-bg)]">
+                <tr>
+                  <th className="p-2 sm:p-3 text-left">Name</th>
+                  <th className="p-2 sm:p-3 text-left">Email</th>
+                  <th className="p-2 sm:p-3 text-left">Role</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((user) => (
+                  <tr key={user.id} className="hover:bg-[var(--sidebar-bg)]">
+                    <td className="p-2 sm:p-3">{user.name || "—"}</td>
+                    <td className="p-2 sm:p-3">{user.email}</td>
+                    <td className="p-2 sm:p-3 capitalize">{user.role}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   );
