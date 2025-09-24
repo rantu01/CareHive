@@ -1,5 +1,6 @@
 // app/api/blogs/route.js
-import clientPromise from "@/lib/mongodb";
+// import clientPromise from "@/lib/mongodb";
+import clientPromise from "@/app/lib/mongodb";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
