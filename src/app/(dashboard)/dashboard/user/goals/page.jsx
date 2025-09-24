@@ -1,8 +1,9 @@
+import GoalProgress from "@/app/Component/UserComponent/GoalProgress";
 
 const page = () => {
     return (
         <div>
-            dsfk
+            <GoalProgress/>
         </div>
     );
 };
