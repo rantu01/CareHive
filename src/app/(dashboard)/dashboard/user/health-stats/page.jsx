@@ -9,8 +9,11 @@ import { use } from "react";
 
 const page = () => {
   const { userHealthStats } = use(DashBoardDataContext);
+
   return (
-    <div className="max-w-[90%] mx-auto mt-20">
+    <div className="">
+
+      <h1 className="text-[var(--fourground-color)] text-3xl font-bold">Stay on Top of Your Health: Easy Monitoring, Clear Insights</h1>
 
       <div className="grid md:grid-cols-4 gap-6 sm:grid-cols-2 grid-cols-1 mt-12">
         {userHealthStats?.map((activity) => (
