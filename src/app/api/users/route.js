@@ -2,13 +2,39 @@ import clientPromise from "../../lib/mongodb";
 import { ObjectId } from "mongodb";
 
 // GET all users
-export async function GET() {
+// GET user(s)
+export async function GET(req) {
   try {
+    const { searchParams } = new URL(req.url);
+    const email = searchParams.get("email");
+
     const client = await clientPromise;
     const db = client.db("carehive");
 
-    const users = await db.collection("users").find({}).toArray();
+    if (email) {
+      // find single user by email
+      const user = await db.collection("users").findOne({ email });
 
+      if (!user) {
+        return new Response(JSON.stringify({ error: "User not found" }), {
+          status: 404,
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+
+      return new Response(
+        JSON.stringify({
+          id: user._id.toString(),
+          name: user.name,
+          email: user.email,
+          role: user.role,
+        }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    // if no email query → return all users
+    const users = await db.collection("users").find({}).toArray();
     const sanitizedUsers = users.map(({ _id, email, role, name }) => ({
       id: _id.toString(),
       name,
@@ -88,9 +114,15 @@ export async function PUT(req) {
     const client = await clientPromise;
     const db = client.db("carehive");
 
+    // Build update object dynamically
+    const updateFields = {};
+    if (name !== undefined) updateFields.name = name;
+    if (email !== undefined) updateFields.email = email;
+    if (role !== undefined) updateFields.role = role;
+
     const result = await db
       .collection("users")
-      .updateOne({ _id: new ObjectId(id) }, { $set: { name, email, role } });
+      .updateOne({ _id: new ObjectId(id) }, { $set: updateFields });
 
     return new Response(JSON.stringify({ success: true, result }), {
       status: 200,
