@@ -1,8 +1,16 @@
+import DashboardStats from "@/app/Component/DoctorsComponent/DashboardStats";
+import DoctorsSchedule from "@/app/Component/DoctorsComponent/DoctorsSchedule ";
+import Header from "@/app/Component/DoctorsComponent/Header";
+import PerformanceAndActions from "@/app/Component/DoctorsComponent/PerformanceAndActions";
+
+
 export default function DoctorDashboard() {
   return (
     <div>
-      <h2 className="text-2xl font-bold">Doctor Dashboard</h2>
-      <p>Doctor-specific tools go here.</p>
+      <Header />
+      <DashboardStats />
+      <DoctorsSchedule />
+      <PerformanceAndActions />
     </div>
   );
 }

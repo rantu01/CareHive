@@ -28,6 +28,9 @@
    /* font color */
    --fourground-color: #020613;
 
+   /* gray color*/
+   --gray-color: #f3f3f3;
+
 }
 
 .dark {
@@ -35,4 +38,5 @@
   --dashboard-bg: #080808;
   --dashboard-border: #7a7a7a;
   --fourground-color: #fff;
+  --gray-color: #313131;
 }

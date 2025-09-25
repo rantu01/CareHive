@@ -47,7 +47,7 @@ export default function QuickHealthTips() {
   }, []);
 
   return (
-    <div className="relative mx-auto mt-12 mb-12 px-4 sm:px-6 lg:px-8">
+    <div className="relative mx-auto mt-12  p-6 sm:px-6 lg:px-8">
       <div className="flex flex-col md:flex-row gap-6 md:gap-10">
         {/* Left Column: Tips */}
         <div
