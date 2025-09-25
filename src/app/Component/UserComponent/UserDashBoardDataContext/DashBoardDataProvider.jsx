@@ -22,8 +22,9 @@ const DashBoardDataProvider = ({ children }) => {
   const { user } = useContext(AuthContext)
   const userId = user?.uid
 
+  const [medicineData, setMedicineData] = useState([])
 
-
+  const [goalData, setGoalData] = useState([]);
 
 
   useEffect(() => {
@@ -43,7 +44,11 @@ const DashBoardDataProvider = ({ children }) => {
         const mealResponse = await axios.get(mealUrl)
 
         // set data in state
+<<<<<<< HEAD
+        console.log("I am meal response", mealResponse)
+=======
         // console.log("I am meal response",mealResponse)
+>>>>>>> be9d0de981f7aeb9fc84d95fd8ec2b6153e28fcf
         setHealthStats(healthStatsResponse?.data[0]?.userStats)
         setAppointmentData(doctorListResponse?.data[0]?.appointmentDetails)
         setUserToDo(toDoListResponse?.data[0]?.todo)
@@ -60,30 +65,54 @@ const DashBoardDataProvider = ({ children }) => {
 
 
 
-  const [goalData, setGoalData] = useState([]);
 
 
 
-  // Query function
+
   const getUserGoal = async () => {
     const response = await axios.get(`/api/user-goal/${userId}`);
     return response.data;
   };
 
-  const { data, isLoading, error } = useQuery({
+
+  // get user medicine information
+  const getUserMedicine = async () => {
+    const response = await axios.get(`/api/medicine-remainder/`, {params: { userId }});
+    return response.data
+  }
+
+
+
+
+  // Query function
+
+  const { data: goalInfo, isLoading: goalLoading, error: goalError } = useQuery({
     queryKey: ["daily_goal", userId],
     queryFn: getUserGoal,
     enabled: !!userId,
   });
 
+  const { data: medicineInfo, isLoading: medicineLoading, error: medicineError } = useQuery({
+    queryKey: ["medicine", userId],
+    queryFn: getUserMedicine,
+    enabled: !!userId,
+  });
+
+
 
   useEffect(() => {
-    if (data) {
-      setGoalData(data);
+    if (goalInfo) {
+      setGoalData(goalInfo);
     }
-  }, [data]);
+  }, [goalInfo]);
 
 
+  useEffect(() => {
+    if (medicineInfo) {
+      setMedicineData(medicineInfo)
+    }
+
+  }, [medicineInfo])
 
 
 
@@ -99,8 +128,14 @@ const DashBoardDataProvider = ({ children }) => {
   const allDashBoardData = {
     // users goal
     goalData,
-    isLoading,
-    error,
+    goalLoading,
+    goalError,
+
+    // medicine 
+    medicineData,
+    medicineLoading,
+    medicineError,
+
 
     //  appointment details
     appointmentData, setAppointmentData,
