@@ -74,22 +74,13 @@ const Medication = () => {
 
   // get the weekdays value
   const handleMedicineTakingWeekdays = (e) => {
-
-
     if (e.target.value && e.target.checked) {
       setMedicineTakingDays([...userMedicineWeekDays, e.target.value])
     } else {
-
-
       const newArray = userMedicineWeekDays.filter((day) => (day !== e.target.value))
-      
       setMedicineTakingDays(newArray)
 
-      console.log("new array", newArray)
     }
-
-
-
   }
 
 
