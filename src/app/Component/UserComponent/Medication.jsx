@@ -18,14 +18,12 @@ const Medication = () => {
   const userId = user.uid
   const queryClient = useQueryClient();
   const [timeLoop, setTimeLoop] = useState(1)
+
+  // user medicine taking time and weekdays
   const [timeValue, setTimeValue] = useState([])
-  const [formData, setFormData] = useState([]);
   const [userMedicineWeekDays, setMedicineTakingDays] = useState([])
-
-
-  console.log("the time value", timeValue)
-
-  console.log(userMedicineWeekDays)
+  const [medicineName, setMedicineName] = useState("");
+  const [pillCount, setPillCount] = useState([])
 
 
   const weekDays = [
@@ -40,10 +38,9 @@ const Medication = () => {
 
 
 
-
-
-
   const { medicineData } = use(DashBoardDataContext)
+
+  console.log(medicineData)
 
   const medicationDataList = medicineData[0]?.medicineData
 
@@ -60,9 +57,6 @@ const Medication = () => {
 
   // get the time values
   const handleMedicineTakingTimes = (e) => {
-    console.log(e.target.value)
-    console.log(e.target.name)
-
     const { name, value } = e.target
     setTimeValue({
       ...timeValue,
@@ -84,21 +78,32 @@ const Medication = () => {
   }
 
 
-
-  // Handle input changes
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+  //get medicine name
+  const handleMedicineName = (e) => {
+    setMedicineName(e.target.value)
   };
+
+
+  // get number of pill
+
+
+  const handleNumberOfPill = (e) => {
+    const { name, value } = e.target
+    setPillCount({
+      ...pillCount,
+      [name]: value
+    })
+  }
+
 
   // axios to add new medicine
   const addNewMedicine = () => {
     const medicineData = {
       userId: userId,
-      medicineData: formData
+      medicineName: medicineName,
+      medicineTakingDays: userMedicineWeekDays,
+      medicineTakingTime: timeValue,
+      numberOfPill:pillCount
     }
     axios.patch(`/api/medicine-remainder/`, medicineData)
   }
@@ -113,6 +118,9 @@ const Medication = () => {
   // Handle form submit
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // console.log([timeValue])
+    // console.log(userMedicineWeekDays)
     addNewMedicineMutation.mutate()
   };
 
@@ -232,7 +240,7 @@ const Medication = () => {
             <div className="flex justify-between">
               <label htmlFor="medicineName" className="text-sm text-gray-800 dark:text-white mb-2 block">Medicine Name</label> <X size={15} onClick={() => setOpen(!isOpen)} className="cursor-pointer" />
             </div>
-            <input onChange={handleChange} id="medicine-name" name="medicineName" type="text" placeholder="Enter Medicine Name" className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-6" />
+            <input onChange={handleMedicineName} id="medicine-name" name="medicineName" type="text" placeholder="Enter Medicine Name" className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-6" />
 
             <div className="dose-section mb-6">
               <label htmlFor="douse-type" className="text-sm text-gray-800 dark:text-white mb-2 block">Dose Per Day</label>
@@ -289,6 +297,32 @@ const Medication = () => {
                     );
                   }
                   return inputs;
+                })()
+              }
+            </div>
+
+
+            <div className="flex justify-between gap-4 mb-6">
+              {
+                (() => {
+                  const inputsPill = [];
+                  for (let i = 0; i < timeLoop; i++) {
+                    inputsPill.push(
+                      <div key={i} className="w-full">
+                        <label htmlFor={`pill-${i}`} className="text-sm text-gray-800 dark:text-white mb-2 block">
+                          Pill {i + 1}
+                        </label>
+                        <input
+                          onChange={handleNumberOfPill}
+                          type="pill"
+                          id={`pill-${i}`}
+                          name={`pill-${i}`}
+                          className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                      </div>
+                    );
+                  }
+                  return inputsPill;
                 })()
               }
             </div>
