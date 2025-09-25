@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useUser } from "../../context/UserContext"; // adjust path
+import { useUser } from "../../../context/UserContext"; // adjust path
 import Link from "next/link";
 
 export default function Profile() {
