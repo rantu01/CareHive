@@ -163,10 +163,6 @@ const Medication = () => {
   }
 
 
- const checkToday=(day)=>{
-  const 
- }
-
 
 
   return (
