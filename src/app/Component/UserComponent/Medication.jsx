@@ -164,6 +164,9 @@ const Medication = () => {
 
 
 
+
+
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -184,109 +187,109 @@ const Medication = () => {
       {/* Medication Cards */}
 
       <main className="grid grid-cols-1 md:grid-cols-3 gap-4">
-{medicationDataList?.map((med, idx) => {
-  const daysMap = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  return (
-    <div
-      key={idx}
-      className="bg-gradient-to-br from-[var(--card-bg)] to-[var(--card-bg)]/90 p-6 shadow-lg border border-[var(--dashboard-border)]/50 rounded-2xl hover:shadow-xl transition-all duration-300 backdrop-blur-sm relative overflow-hidden"
-    >
-      {/* Decorative gradient overlay */}
-      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[var(--dashboard-blue)]/10 to-transparent rounded-full blur-2xl -translate-y-16 translate-x-16"></div>
-      
-      {/* Header Section */}
-      <div className="relative z-10 mb-6">
-        <div className="flex items-center gap-3 mb-2">
-          <div className="p-2.5 bg-[var(--dashboard-blue)]/15 rounded-xl">
-            <Pill className="text-[var(--dashboard-blue)]" size={24} />
-          </div>
-          <h2 className="text-2xl font-bold text-[var(--dashboard-blue)] tracking-tight">
-            {med?.medicineName}
-          </h2>
-        </div>
-      </div>
+        {medicationDataList?.map((med, idx) => {
+          const daysMap = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+          return (
+            <div
+              key={idx}
+              className="bg-gradient-to-br from-[var(--card-bg)] to-[var(--card-bg)]/90 p-6 shadow-lg border border-[var(--dashboard-border)]/50 rounded-2xl hover:shadow-xl transition-all duration-300 backdrop-blur-sm relative overflow-hidden"
+            >
+              {/* Decorative gradient overlay */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[var(--dashboard-blue)]/10 to-transparent rounded-full blur-2xl -translate-y-16 translate-x-16"></div>
 
-      {/* Content Grid */}
-      <div className="space-y-5 mb-6">
-        {/* Days Section */}
-        <div className="space-y-3">
-          <h4 className="text-sm font-semibold text-[var(--fourground-color)]/80 uppercase tracking-wide">
-            Schedule Days
-          </h4>
-          <div className="flex flex-wrap gap-2">
-            {med?.medicineTakingDays?.map((dayVal, index) => (
-              <span
-                key={index}
-                className="px-3 py-2 bg-gradient-to-r from-[var(--dashboard-blue)]/20 to-[var(--dashboard-blue)]/10 text-[var(--dashboard-blue)] text-sm font-medium rounded-full border border-[var(--dashboard-blue)]/20 backdrop-blur-sm"
-              >
-                {daysMap[parseInt(dayVal)]}
-              </span>
-            ))}
-          </div>
-        </div>
+              {/* Header Section */}
+              <div className="relative z-10 mb-6">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="p-2.5 bg-[var(--dashboard-blue)]/15 rounded-xl">
+                    <Pill className="text-[var(--dashboard-blue)]" size={24} />
+                  </div>
+                  <h2 className="text-2xl font-bold text-[var(--dashboard-blue)] tracking-tight">
+                    {med?.medicineName}
+                  </h2>
+                </div>
+              </div>
 
-        {/* Times Section */}
-        <div className="space-y-3">
-          <div className="flex items-center gap-2">
-            <Bell size={16} className="text-[var(--fourground-color)]/60" />
-            <h4 className="text-sm font-semibold text-[var(--fourground-color)]/80 uppercase tracking-wide">
-              Timing
-            </h4>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {Object.values(med.medicineTakingTime || {}).map((time, i) => (
-              <span 
-                key={i} 
-                className="px-3 py-2 bg-[var(--card-bg)] border-2 border-[var(--dashboard-border)] text-[var(--fourground-color)] text-sm font-medium rounded-lg shadow-sm hover:shadow-md transition-shadow"
-              >
-                {time}
-              </span>
-            ))}
-          </div>
-        </div>
+              {/* Content Grid */}
+              <div className="space-y-5 mb-6">
+                {/* Days Section */}
+                <div className="space-y-3">
+                  <h4 className="text-sm font-semibold text-[var(--fourground-color)]/80 uppercase tracking-wide">
+                    Schedule Days
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {med?.medicineTakingDays?.map((dayVal, index) => (
+                      <span
+                        key={index}
+                        className="px-3 py-2 bg-gradient-to-r from-[var(--dashboard-blue)]/20 to-[var(--dashboard-blue)]/10 text-[var(--dashboard-blue)] text-sm font-medium rounded-full border border-[var(--dashboard-blue)]/20 backdrop-blur-sm"
+                      >
+                        {daysMap[parseInt(dayVal)]}
+                      </span>
+                    ))}
+                  </div>
+                </div>
 
-        {/* Pills Section */}
-        <div className="space-y-3">
-          <div className="flex items-center gap-2">
-            <Pill size={16} className="text-[var(--fourground-color)]/60" />
-            <h4 className="text-sm font-semibold text-[var(--fourground-color)]/80 uppercase tracking-wide">
-              Dosage
-            </h4>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {Object.values(med.numberOfPill || {}).map((pill, i) => (
-              <span 
-                key={pill} 
-                className="px-3 py-2 bg-[var(--card-bg)] border-2 border-[var(--dashboard-border)] text-[var(--fourground-color)] text-sm font-medium rounded-lg shadow-sm hover:shadow-md transition-shadow"
-              >
-                {pill} {pill == 1 ? 'pill' : 'pills'}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
+                {/* Times Section */}
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <Bell size={16} className="text-[var(--fourground-color)]/60" />
+                    <h4 className="text-sm font-semibold text-[var(--fourground-color)]/80 uppercase tracking-wide">
+                      Timing
+                    </h4>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {Object.values(med.medicineTakingTime || {}).map((time, i) => (
+                      <span
+                        key={i}
+                        className="px-3 py-2 bg-[var(--card-bg)] border-2 border-[var(--dashboard-border)] text-[var(--fourground-color)] text-sm font-medium rounded-lg shadow-sm hover:shadow-md transition-shadow"
+                      >
+                        {time}
+                      </span>
+                    ))}
+                  </div>
+                </div>
 
-      {/* Action Buttons */}
-      <div className="flex gap-3 justify-between flex-wrap pt-4 border-t border-[var(--dashboard-border)]/30">
-        <button className="flex items-center gap-2 bg-[var(--card-bg)] hover:bg-[var(--hover-color)] border-2 border-[var(--dashboard-border)] px-4 py-2.5 rounded-xl cursor-pointer text-[var(--fourground-color)] transition-all duration-200 text-sm font-medium hover:scale-105 hover:shadow-md group">
-          <Bell size={16} className="group-hover:animate-pulse" /> 
-          Remind
-        </button>
-        <button className="flex items-center gap-2 bg-gradient-to-r from-green-500/20 to-green-600/20 hover:from-green-500/30 hover:to-green-600/30 border-2 border-green-500/30 px-4 py-2.5 rounded-xl cursor-pointer text-green-600 transition-all duration-200 text-sm font-medium hover:scale-105 hover:shadow-md group">
-          <Check size={16} className="group-hover:animate-bounce" /> 
-          Mark Taken
-        </button>
-        <button
-          onClick={() => handleDelete(med?.id)}
-          className="flex items-center gap-2 bg-gradient-to-r from-red-500/20 to-red-600/20 hover:from-red-500/30 hover:to-red-600/30 border-2 border-red-500/30 px-4 py-2.5 rounded-xl cursor-pointer text-red-600 transition-all duration-200 text-sm font-medium hover:scale-105 hover:shadow-md group"
-        >
-          <Delete size={16} className="group-hover:animate-pulse" /> 
-          Delete
-        </button>
-      </div>
-    </div>
-  );
-})}
+                {/* Pills Section */}
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <Pill size={16} className="text-[var(--fourground-color)]/60" />
+                    <h4 className="text-sm font-semibold text-[var(--fourground-color)]/80 uppercase tracking-wide">
+                      Dosage
+                    </h4>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {Object.values(med.numberOfPill || {}).map((pill, i) => (
+                      <span
+                        key={pill}
+                        className="px-3 py-2 bg-[var(--card-bg)] border-2 border-[var(--dashboard-border)] text-[var(--fourground-color)] text-sm font-medium rounded-lg shadow-sm hover:shadow-md transition-shadow"
+                      >
+                        {pill} {pill == 1 ? 'pill' : 'pills'}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-3 justify-between flex-wrap pt-4 border-t border-[var(--dashboard-border)]/30">
+                <button className="flex items-center gap-2 bg-[var(--card-bg)] hover:bg-[var(--hover-color)] border-2 border-[var(--dashboard-border)] px-4 py-2.5 rounded-xl cursor-pointer text-[var(--fourground-color)] transition-all duration-200 text-sm font-medium hover:scale-105 hover:shadow-md group">
+                  <Bell size={16} className="group-hover:animate-pulse" />
+                  Remind
+                </button>
+                <button className="flex items-center gap-2 bg-gradient-to-r from-green-500/20 to-green-600/20 hover:from-green-500/30 hover:to-green-600/30 border-2 border-green-500/30 px-4 py-2.5 rounded-xl cursor-pointer text-green-600 transition-all duration-200 text-sm font-medium hover:scale-105 hover:shadow-md group">
+                  <Check size={16} className="group-hover:animate-bounce" />
+                  Mark Taken
+                </button>
+                <button
+                  onClick={() => handleDelete(med?.id)}
+                  className="flex items-center gap-2 bg-gradient-to-r from-red-500/20 to-red-600/20 hover:from-red-500/30 hover:to-red-600/30 border-2 border-red-500/30 px-4 py-2.5 rounded-xl cursor-pointer text-red-600 transition-all duration-200 text-sm font-medium hover:scale-105 hover:shadow-md group"
+                >
+                  <Delete size={16} className="group-hover:animate-pulse" />
+                  Delete
+                </button>
+              </div>
+            </div>
+          );
+        })}
 
 
       </main>
