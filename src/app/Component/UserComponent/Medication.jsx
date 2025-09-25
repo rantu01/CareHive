@@ -22,7 +22,25 @@ const Medication = () => {
   const [formData, setFormData] = useState([]);
 
   console.log("the time value", timeValue)
-  
+
+
+
+
+  const weekDays = [
+    { name: "Sunday", value: 0 },
+    { name: "Monday", value: 1 },
+    { name: "Tuesday", value: 2 },
+    { name: "Wednesday", value: 3 },
+    { name: "Thursday", value: 4 },
+    { name: "Friday", value: 5 },
+    { name: "Saturday", value: 6 },
+  ];
+
+
+
+
+
+
   const { medicineData } = use(DashBoardDataContext)
 
   const medicationDataList = medicineData[0]?.medicineData
@@ -36,8 +54,6 @@ const Medication = () => {
       hour12: true,
     });
   };
-
-  const [times, setTimes] = useState([])
 
   const handle = (e) => {
     console.log(e.target.value)
@@ -192,7 +208,7 @@ const Medication = () => {
         ))}
       </main>
       {
-        isOpen && <div className="form-container min-w-[30rem] max-w-fit mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-300 dark:border-gray-700">
+        isOpen && <div className="form-container md:min-w-[30rem] max-w-fit mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-300 dark:border-gray-700">
           <form onSubmit={handleSubmit}>
             <div className="flex justify-between">
               <label htmlFor="medicineName" className="text-sm text-gray-800 dark:text-white mb-2 block">Medicine Name</label> <X size={15} onClick={() => setOpen(!isOpen)} className="cursor-pointer" />
@@ -211,18 +227,26 @@ const Medication = () => {
               </select>
             </div>
 
-            <div className="dose-qty-section mb-6">
-              <label htmlFor="douse-qty" className="text-sm text-gray-800 dark:text-white mb-2 block">Week Days</label>
-              <select onChange={handleChange} name="douseQty" id="douse-qty" className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="0">Sunday</option>
-                <option value="1">Monday</option>
-                <option value="2">Tuesday</option>
-                <option value="3">Wednesday</option>
-                <option value="4">Thursday</option>
-                <option value="5">Friday</option>
-                <option value="6">Saturday</option>
-              </select>
+            <div className="grid grid-cols-3 md:grid-cols-4 gap-3.5 mb-6">
+              {weekDays.map((day) => (
+                <div key={day.value} className="flex items-center me-4">
+                  <input
+                    id={`${day.name.toLowerCase()}-checkbox`}
+                    type="checkbox"
+                    value={day.value}
+                    name="day-checkbox"
+                    className="w-4 h-4 bg-gray-100 border-gray-300 focus:ring-2"
+                  />
+                  <label
+                    htmlFor={`${day.name.toLowerCase()}-checkbox`}
+                    className="ms-2 text-sm font-medium text-white"
+                  >
+                    {day.name}
+                  </label>
+                </div>
+              ))}
             </div>
+
 
             <div className="flex justify-between gap-4 mb-6">
               {
