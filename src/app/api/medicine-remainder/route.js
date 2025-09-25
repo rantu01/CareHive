@@ -9,6 +9,10 @@ export async function PATCH(request, { params }) {
 
     const data = await request.json()
 
+    console.log("data from frontend", data)
+
+    console.log(data)
+
     const userId = data?.userId
 
     const client = await clientPromise;
@@ -18,10 +22,10 @@ export async function PATCH(request, { params }) {
     const insertedMedicineData = await medicineCollection.updateOne({ userId: userId }, {
       $push: {
         medicineData: {
-          medicineName: data.medicineData?.medicineName,
-          douseType: data.medicineData?.douseType,
-          douseQty: data.medicineData?.douseQty,
-          status: "pending",
+          medicineName: data?.medicineName,
+          medicineTakingDays: data?.medicineTakingDays,
+          medicineTakingTime: data?.medicineTakingTime,
+          numberOfPill: data?.numberOfPill,
           id: nanoid(7)
         }
       }
@@ -74,7 +78,7 @@ export async function DELETE(req, { params }) {
     const body = await req.json()
 
 
-    const userId=body?.userId
+    const userId = body?.userId
 
     const client = await clientPromise;
     const db = client.db("carehive");

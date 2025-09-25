@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useUser } from "../../../context/UserContext"; // adjust path
 import Link from "next/link";
 
+
 export default function Profile() {
   const { user, role, loading } = useUser();
   const [formData, setFormData] = useState({ name: "", email: "", role: "" });

@@ -149,8 +149,30 @@ const UserGoal = () => {
                 </div>
             </div>
 
-            {/* Modal */}
 
+            {/* Custom CSS for range slider */}
+            <style jsx>{`
+                .slider::-webkit-slider-thumb {
+                    appearance: none;
+                    height: 20px;
+                    width: 20px;
+                    border-radius: 50%;
+                    background: var(--dashboard-blue);
+                    cursor: pointer;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    border: 2px solid white;
+                }
+
+                .slider::-moz-range-thumb {
+                    height: 20px;
+                    width: 20px;
+                    border-radius: 50%;
+                    background: var(--dashboard-blue);
+                    cursor: pointer;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    border: 2px solid white;
+                }
+            `}</style>
         </div>
     );
 };
