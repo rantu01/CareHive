@@ -35,10 +35,9 @@ export async function POST(req) {
     const { name, email, role } = await req.json();
 
     if (!email) {
-      return new Response(
-        JSON.stringify({ error: "Email required" }),
-        { status: 400 }
-      );
+      return new Response(JSON.stringify({ error: "Email required" }), {
+        status: 400,
+      });
     }
 
     const client = await clientPromise;
@@ -66,19 +65,20 @@ export async function POST(req) {
     const result = await db.collection("users").insertOne(newUser);
 
     return new Response(
-      JSON.stringify({ message: "User created", inserted: true, id: result.insertedId }),
+      JSON.stringify({
+        message: "User created",
+        inserted: true,
+        id: result.insertedId,
+      }),
       { status: 201, headers: { "Content-Type": "application/json" } }
     );
   } catch (error) {
     console.error("User insert error:", error);
-    return new Response(
-      JSON.stringify({ error: "Failed to add user" }),
-      { status: 500 }
-    );
+    return new Response(JSON.stringify({ error: "Failed to add user" }), {
+      status: 500,
+    });
   }
 }
-
-
 
 // PUT → update user
 export async function PUT(req) {
