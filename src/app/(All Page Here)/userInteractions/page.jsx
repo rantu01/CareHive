@@ -459,24 +459,58 @@ const UserInteractions = () => {
     setCommentText((prev) => ({ ...prev, [blogId]: "" }));
   };
 
+  // const handleUpdateComment = async (blogId, commentId) => {
+  //   if (!editingComment[commentId]) return;
+
+  //   await fetch("/api/blogs", {
+  //     method: "PATCH",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({
+  //       blogId,
+  //       type: "update-comment",
+  //       commentId,
+  //       text: editingComment[commentId],
+  //       user: { email: user.email },
+  //     }),
+  //   });
+
+  //   fetchBlogs();
+  //   setEditingComment((prev) => ({ ...prev, [commentId]: "" }));
+  // };
+
+
+
+
+
+
+
+
+
+
   const handleUpdateComment = async (blogId, commentId) => {
-    if (!editingComment[commentId]) return;
+  if (!editingComment[commentId]) return;
 
-    await fetch("/api/blogs", {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        blogId,
-        type: "update-comment",
-        commentId,
-        text: editingComment[commentId],
-        user: { email: user.email },
-      }),
-    });
+  await fetch("/api/blogs", {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      blogId,
+      type: "update-comment",
+      commentId,
+      text: editingComment[commentId],
+      user: { email: user.email },
+    }),
+  });
 
-    fetchBlogs();
-    setEditingComment((prev) => ({ ...prev, [commentId]: "" }));
-  };
+  fetchBlogs();
+
+  // Remove editing state for this comment
+  setEditingComment((prev) => {
+    const copy = { ...prev };
+    delete copy[commentId];
+    return copy;
+  });
+};
 
   const handleDeleteComment = async (blogId, commentId) => {
     await fetch("/api/blogs", {
