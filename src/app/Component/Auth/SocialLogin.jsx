@@ -12,7 +12,27 @@ const SocialLogin = () => {
       const result = await googleSignIn();
       console.log("Google sign in result:", result);
 
-      // Navigate to home or previous location
+      // Get user data from the result
+      const user = result?.user;
+      const name = user?.displayName || "Unknown";
+      const email = user?.email;
+
+      const isNewUser =
+        user?.metadata?.creationTime === user?.metadata?.lastSignInTime;
+
+      if (email && isNewUser) {
+        await fetch("/api/users", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name,
+            email,
+            role: "user",
+          }),
+        });
+      }
+
+      // Navigate to home
       router.push("/");
     } catch (error) {
       console.error(error);
@@ -27,9 +47,26 @@ const SocialLogin = () => {
   const handleGithubLogin = async () => {
     try {
       const result = await githubSignIn();
-      console.log("Github sign in result:", result);
+      const user = result?.user;
+      const name =
+        user?.displayName || user?.reloadUserInfo?.screenName || "GitHub User";
+      const email = user?.email;
 
-      // Navigate to home or previous location
+      const isNewUser =
+        user?.metadata?.creationTime === user?.metadata?.lastSignInTime;
+
+      if (email && isNewUser) {
+        await fetch("/api/users", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name,
+            email,
+            role: "user",
+          }),
+        });
+      }
+
       router.push("/");
     } catch (error) {
       console.error(error);
@@ -53,7 +90,9 @@ const SocialLogin = () => {
           alt="Google"
           className="w-5 h-5"
         />
-        <span className="text-gray-700 font-medium cursor-pointer">Continue with Google</span>
+        <span className="text-gray-700 font-medium cursor-pointer">
+          Continue with Google
+        </span>
       </button>
 
       {/* GitHub Auth Button */}
@@ -66,7 +105,9 @@ const SocialLogin = () => {
           alt="GitHub"
           className="w-5 h-5"
         />
-        <span className="text-gray-700 font-medium cursor-pointer">Continue with GitHub</span>
+        <span className="text-gray-700 font-medium cursor-pointer">
+          Continue with GitHub
+        </span>
       </button>
     </div>
   );

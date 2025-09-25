@@ -39,7 +39,8 @@ export async function PATCH(req, { params }) {
                         id: body?.id,
                         title: body?.title,
                         goal: parseInt(body?.goal),
-                        completed: parseInt(body?.completed)
+                        completed: parseInt(body?.completed),
+                        percentage:0,
                     }
 
                 }
@@ -50,7 +51,12 @@ export async function PATCH(req, { params }) {
         if (body?.actionType === 'update-completed') {
             const result = await collection.updateOne(
                 { userId },
-                { $set: { "goalData.$[goal].completed": body?.completed } },
+                {
+                    $set: {
+                        "goalData.$[goal].completed": body?.completed,
+                        "goalData.$[goal].percentage": parseInt(((body?.completed)/(body?.target))*100),
+                    }
+                },
                 { arrayFilters: [{ "goal.id": body?.id }], upsert: false }
             );
 
@@ -83,7 +89,7 @@ export async function DELETE(req, { params }) {
 
         console.log(body?.id)
 
-        const deleteGoal = await collection.updateOne({ userId }, 
+        const deleteGoal = await collection.updateOne({ userId },
 
             { $pull: { goalData: { id: body.id } } })
 

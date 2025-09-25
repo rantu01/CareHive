@@ -9,12 +9,15 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@huggingface/inference": "^4.8.0",
     "@tanstack/react-query": "^5.89.0",
     "@tanstack/react-query-devtools": "^5.89.0",
     "axios": "^1.12.2",
     "cookie": "^1.0.2",
     "firebase": "^12.2.1",
     "firebase-admin": "^13.5.0",
+    "framer-motion": "^12.23.13",
+    "lottie-react": "^2.4.1",
     "framer-motion": "^12.23.18",
     "lucide-react": "^0.544.0",
     "moment": "^2.30.1",

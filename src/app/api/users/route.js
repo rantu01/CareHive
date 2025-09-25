@@ -43,18 +43,37 @@ export async function POST(req) {
     const client = await clientPromise;
     const db = client.db("carehive");
 
-    const result = await db.collection("users").insertOne({
+    // Check if user exists
+    const existingUser = await db.collection("users").findOne({ email });
+
+    if (existingUser) {
+      return new Response(
+        JSON.stringify({ message: "User already exists", inserted: false }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    // Insert new user
+    const newUser = {
       name: name || null,
       email,
       role: role || "user",
       createdAt: new Date(),
-    });
+      lastLogin: new Date(),
+    };
 
-    return new Response(JSON.stringify({ insertedId: result.insertedId }), {
-      status: 201,
-    });
+    const result = await db.collection("users").insertOne(newUser);
+
+    return new Response(
+      JSON.stringify({
+        message: "User created",
+        inserted: true,
+        id: result.insertedId,
+      }),
+      { status: 201, headers: { "Content-Type": "application/json" } }
+    );
   } catch (error) {
-    console.error(error);
+    console.error("User insert error:", error);
     return new Response(JSON.stringify({ error: "Failed to add user" }), {
       status: 500,
     });
@@ -69,10 +88,9 @@ export async function PUT(req) {
     const client = await clientPromise;
     const db = client.db("carehive");
 
-    const result = await db.collection("users").updateOne(
-      { _id: new ObjectId(id) },
-      { $set: { name, email, role } }
-    );
+    const result = await db
+      .collection("users")
+      .updateOne({ _id: new ObjectId(id) }, { $set: { name, email, role } });
 
     return new Response(JSON.stringify({ success: true, result }), {
       status: 200,
