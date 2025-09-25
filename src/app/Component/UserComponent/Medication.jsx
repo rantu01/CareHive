@@ -20,10 +20,12 @@ const Medication = () => {
   const [timeLoop, setTimeLoop] = useState(1)
   const [timeValue, setTimeValue] = useState([])
   const [formData, setFormData] = useState([]);
+  const [userMedicineWeekDays, setMedicineTakingDays] = useState([])
+
 
   console.log("the time value", timeValue)
 
-
+  console.log(userMedicineWeekDays)
 
 
   const weekDays = [
@@ -55,7 +57,9 @@ const Medication = () => {
     });
   };
 
-  const handle = (e) => {
+
+  // get the time values
+  const handleMedicineTakingTimes = (e) => {
     console.log(e.target.value)
     console.log(e.target.name)
 
@@ -66,6 +70,30 @@ const Medication = () => {
     })
 
   }
+
+
+  // get the weekdays value
+  const handleMedicineTakingWeekdays = (e) => {
+
+
+    if (e.target.value && e.target.checked) {
+      setMedicineTakingDays([...userMedicineWeekDays, e.target.value])
+    } else {
+
+
+      const newArray = userMedicineWeekDays.filter((day) => (day !== e.target.value))
+      
+      setMedicineTakingDays(newArray)
+
+      console.log("new array", newArray)
+    }
+
+
+
+  }
+
+
+
   // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -235,6 +263,7 @@ const Medication = () => {
                     type="checkbox"
                     value={day.value}
                     name="day-checkbox"
+                    onChange={(e) => handleMedicineTakingWeekdays(e)}
                     className="w-4 h-4 bg-gray-100 border-gray-300 focus:ring-2"
                   />
                   <label
@@ -259,7 +288,7 @@ const Medication = () => {
                           Time {i + 1}
                         </label>
                         <input
-                          onChange={handle}
+                          onChange={handleMedicineTakingTimes}
                           type="time"
                           id={`time-${i}`}
                           name={`time-${i}`}
