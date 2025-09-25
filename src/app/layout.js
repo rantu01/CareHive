@@ -37,7 +37,9 @@ export default function RootLayout({ children }) {
           <TanstackProviders>
             <AuthProvider>
               <DashBoardDataProvider>
+                
                 {children}
+                
               </DashBoardDataProvider>
             </AuthProvider>
           </TanstackProviders>

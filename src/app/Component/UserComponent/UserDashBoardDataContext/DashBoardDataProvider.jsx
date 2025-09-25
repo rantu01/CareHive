@@ -43,7 +43,7 @@ const DashBoardDataProvider = ({ children }) => {
         const mealResponse = await axios.get(mealUrl)
 
         // set data in state
-        console.log("I am meal response",mealResponse)
+        // console.log("I am meal response",mealResponse)
         setHealthStats(healthStatsResponse?.data[0]?.userStats)
         setAppointmentData(doctorListResponse?.data[0]?.appointmentDetails)
         setUserToDo(toDoListResponse?.data[0]?.todo)
