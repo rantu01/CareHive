@@ -100,10 +100,10 @@ const UserGoal = () => {
     );
 
     return (
-        <div className="bg-gradient-to-br from-[var(--card-bg)] to-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 backdrop-blur-sm relative overflow-hidden">
+        <div className="bg-gradient-to-br from-[var(--card-bg)] to-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] p-2 md:p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 backdrop-blur-sm relative overflow-hidden">
             {/* Decorative Background Elements */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[var(--dashboard-blue)]/10 to-transparent rounded-full blur-2xl -translate-y-16 translate-x-16"></div>
-            <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-[var(--dashboard-blue)]/5 to-transparent rounded-full blur-xl translate-y-12 -translate-x-12"></div>
+            {/* <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[var(--dashboard-blue)]/10 to-transparent rounded-full blur-2xl -translate-y-16 translate-x-16"></div>
+            <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-[var(--dashboard-blue)]/5 to-transparent rounded-full blur-xl translate-y-12 -translate-x-12"></div> */}
 
             <div className="relative z-10">
                 {/* Header */}
