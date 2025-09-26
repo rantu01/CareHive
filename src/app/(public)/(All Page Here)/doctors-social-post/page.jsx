@@ -125,9 +125,8 @@ const Page = () => {
   };
 
   return (
-    <div>
-      <Navbar />
-      <div className="max-w-6xl mx-auto p-8 pt-28">
+    <div style={{ background: "var(--dashboard-bg)", color: "var(--fourground-color)" }}>
+      <div  className="max-w-6xl mx-auto p-8 pt-28">
         {/* Heading */}
         <motion.div
           className="text-center mb-12"
