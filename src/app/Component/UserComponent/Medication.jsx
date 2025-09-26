@@ -5,7 +5,7 @@ import { AuthContext } from "@/app/context/authContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import axios from "axios";
-import { Plus, Bell, Check, Pill, Delete, X } from "lucide-react";
+import { Plus, Bell, Check, Pill, Delete, X, Clock } from "lucide-react";
 import { use, useState } from "react";
 import Swal from "sweetalert2";
 import { DashBoardDataContext } from "./UserDashBoardDataContext/DashboardDataContext";
@@ -60,7 +60,7 @@ const Medication = () => {
     const { name, value } = e.target
     setTimeValue({
       ...timeValue,
-      [name]: value
+      [name]: value.toLocaleString()
     })
 
   }
@@ -163,26 +163,67 @@ const Medication = () => {
   }
 
 
- const checkToday=(day)=>{
-  const 
- }
+  const checkToday = (dayIndex) => {
+    const currentDate = new Date()
+    const today = currentDate.getDay();
 
+    if (dayIndex == today) {
+      console.log("matcheds")
+      return true
+    }
+  }
+
+
+
+  const checkCurrentTime = (pillTime) => {
+    const [hours, minutes] = pillTime.split(':').map(Number);
+
+    console.log(hours, minutes)
+
+    const now = new Date();
+    const formattedTime = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    console.log("formatted time", formattedTime)
+  }
 
 
   return (
     <div className="space-y-6">
       {/* Header */}
-      <header className="flex justify-between items-center ">
-        <div>
-          <h1 className="text-3xl text-[var(--fourground-color)] font-bold mb-1">
-            Medications
-          </h1>
-          <p className="text-[var(--fourground-color)]">
+      <header className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 lg:gap-4 p-6 bg-gradient-to-r from-[var(--card-bg)] to-[var(--sidebar-bg)] rounded-2xl border border-[var(--dashboard-border)] shadow-lg backdrop-blur-sm relative overflow-hidden">
+        {/* Decorative Background Elements */}
+        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[var(--dashboard-blue)]/10 to-transparent rounded-full blur-2xl -translate-y-16 translate-x-16"></div>
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-[var(--dashboard-blue)]/5 to-transparent rounded-full blur-xl translate-y-12 -translate-x-12"></div>
+
+        <div className="relative z-10 flex-1">
+          <div className="flex items-center gap-4 mb-2">
+            <div className="p-3 bg-[var(--dashboard-blue)]/20 rounded-xl border border-[var(--dashboard-blue)]/30">
+              <Pill className="text-[var(--dashboard-blue)]" size={24} />
+            </div>
+            <h1 className="text-3xl md:text-4xl text-[var(--fourground-color)] font-bold bg-gradient-to-r from-[var(--fourground-color)] to-[var(--dashboard-blue)] bg-clip-text text-transparent">
+              Medications
+            </h1>
+          </div>
+          <p className="text-[var(--fourground-color)]/70 text-base md:text-lg font-medium ml-16">
             Manage your medication schedule
           </p>
+          <div className="flex items-center gap-4 mt-2 text-sm text-[var(--fourground-color)]/50 ml-16">
+            <span className="flex items-center gap-1">
+              <Clock size={14} />
+              3 Active medications
+            </span>
+            <span className="flex items-center gap-1">
+              <Bell size={14} />
+              Next dose: 2:30 PM
+            </span>
+          </div>
         </div>
-        <button onClick={() => setOpen(!isOpen)} className="bg-[var(--dashboard-blue)] text-[var(--fourground-color)] rounded flex items-center gap-2 h-fit px-4 py-2 md:py-4 cursor-pointer hover:opacity-90 transition text-sm md:text-[1rem]">
-          <Plus size={18} /> <span>Add Medication</span>
+
+        <button
+          onClick={() => setOpen(!isOpen)}
+          className="group w-full lg:w-auto bg-gradient-to-r from-[var(--dashboard-blue)] to-[var(--dashboard-blue)]/90 text-white rounded-xl flex items-center justify-center gap-3 px-6 py-4 md:py-4 cursor-pointer hover:from-[var(--dashboard-blue)]/90 hover:to-[var(--dashboard-blue)] shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 font-semibold text-sm md:text-base relative z-10 border border-[var(--dashboard-blue)]/30"
+        >
+          <Plus size={20} className="group-hover:rotate-90 transition-transform duration-300" />
+          <span>Add Medication</span>
         </button>
       </header>
 
@@ -222,9 +263,11 @@ const Medication = () => {
                     {med?.medicineTakingDays?.map((dayVal, index) => (
                       <span
                         key={index}
-                        className="px-3 py-2 bg-gradient-to-r from-[var(--dashboard-blue)]/20 to-[var(--dashboard-blue)]/10 text-[var(--dashboard-blue)] text-sm font-medium rounded-full border border-[var(--dashboard-blue)]/20 backdrop-blur-sm"
+                        className={`px-3 py-2 bg-gradient-to-r from-[var(--dashboard-blue)]/20 to-[var(--dashboard-blue)]/10 text-[var(--dashboard-blue)] text-sm font-medium rounded-full border border-[var(--dashboard-blue)]/20 backdrop-blur-sm ${checkToday(dayVal) && "text-red-700 font-bold"}`}
                       >
                         {daysMap[parseInt(dayVal)]}
+
+                        {checkToday(dayVal)}
                       </span>
                     ))}
                   </div>
@@ -245,6 +288,8 @@ const Medication = () => {
                         className="px-3 py-2 bg-[var(--card-bg)] border-2 border-[var(--dashboard-border)] text-[var(--fourground-color)] text-sm font-medium rounded-lg shadow-sm hover:shadow-md transition-shadow"
                       >
                         {time}
+
+                        {checkCurrentTime(time)}
                       </span>
                     ))}
                   </div>
@@ -261,7 +306,7 @@ const Medication = () => {
                   <div className="flex flex-wrap gap-2">
                     {Object.values(med.numberOfPill || {}).map((pill, i) => (
                       <span
-                        key={pill}
+                        key={i}
                         className="px-3 py-2 bg-[var(--card-bg)] border-2 border-[var(--dashboard-border)] text-[var(--fourground-color)] text-sm font-medium rounded-lg shadow-sm hover:shadow-md transition-shadow"
                       >
                         {pill} {pill == 1 ? 'pill' : 'pills'}
@@ -296,7 +341,7 @@ const Medication = () => {
 
       </main>
       {
-        isOpen && <div className="form-container md:min-w-[30rem] max-w-fit mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-300 dark:border-gray-700">
+        isOpen && <div className=" absolute top-0 right-0 form-container md:min-w-[30rem] max-w-fit mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-300 dark:border-gray-700">
           <form onSubmit={handleSubmit}>
             <div className="flex justify-between">
               <label htmlFor="medicineName" className="text-sm text-gray-800 dark:text-white mb-2 block">Medicine Name</label> <X size={15} onClick={() => setOpen(!isOpen)} className="cursor-pointer" />

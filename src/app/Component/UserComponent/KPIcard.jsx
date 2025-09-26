@@ -1,13 +1,11 @@
-
-
-import { Activity, Heart, TrendingUp, Weight } from "lucide-react";
+import { Activity, Heart, TrendingUp, Weight, ArrowUp, ArrowDown, Minus } from "lucide-react";
 
 const KPIcard = ({ title, value, target = '' }) => {
   const iconsMap = {
-    "bp": <Activity className="w-4 h-4 text-white" />,
-    "daily-step": <TrendingUp className="w-4 h-4 text-white" />,
-    "heart-rate": <Heart className="w-4 h-4 text-white" />,
-    "weight": <Weight className="w-4 h-4 text-white" />
+    "bp": <Activity className="w-5 h-5 text-white" />,
+    "daily-step": <TrendingUp className="w-5 h-5 text-white" />,
+    "heart-rate": <Heart className="w-5 h-5 text-white" />,
+    "weight": <Weight className="w-5 h-5 text-white" />
   };
 
   const status =
@@ -15,58 +13,125 @@ const KPIcard = ({ title, value, target = '' }) => {
     value <= 24.9 ? "Normal" :
     "High";
 
+  // Status color mapping using your color variables
+  const getStatusColor = (status, title) => {
+    if (title === "bp") {
+      return status === "Normal" ? "text-[var(--dashboard-blue)]" : 
+             status === "Low" ? "text-[var(--fourground-color)]/60" : "text-[var(--dashboard-blue)]";
+    }
+    return "text-[var(--fourground-color)]/60";
+  };
+
+  const getStatusIcon = (status) => {
+    if (status === "High") return <ArrowUp size={14} />;
+    if (status === "Low") return <ArrowDown size={14} />;
+    return <Minus size={14} />;
+  };
+
+  const getProgressPercentage = () => {
+    if (title === "daily-step" && target) {
+      return Math.min((value / parseInt(target)) * 100, 100);
+    }
+    return 0;
+  };
+
   return (
-    <div className="flex justify-between items-center rounded-2xl p-6 shadow hover:shadow-lg transition-all duration-500 hover:-translate-y-1 flex-wrap border border-[var(--dashboard-border)]">
-      
-      {/* Left section */}
-      <div className="flex flex-col gap-4">
-        <p className="text-gray-600 font-semibold text-sm tracking-wide ">
-          {title.toUpperCase()}
-        </p>
+    <div className="group relative bg-gradient-to-br from-[var(--card-bg)] to-[var(--sidebar-bg)] rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-[var(--dashboard-border)] hover:border-[var(--dashboard-blue)]/30 backdrop-blur-sm overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-[var(--dashboard-blue)]/10 to-transparent rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -translate-y-12 translate-x-12"></div>
+      <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-[var(--dashboard-blue)]/5 to-transparent rounded-full blur-lg -translate-y-8 -translate-x-8"></div>
 
-        <div className="text-lg font-semibold text-gray-800 flex items-center gap-2">
-          {title === "bp" && (
-            <>
-              <span className="text-3xl font-bold text-[var(--dashboard-blue)]">
-                {value}
-              </span>
-              <span className="text-sm text-gray-500">{status}</span>
-            </>
-          )}
+      <div className="relative z-10 flex justify-between items-center">
+        {/* Left section */}
+        <div className="flex flex-col gap-4 flex-1">
+          {/* Title with enhanced styling */}
+          <div className="flex items-center gap-2">
+            <p className="text-[var(--fourground-color)]/70 font-bold text-xs tracking-widest uppercase">
+              {title.replace('-', ' ')}
+            </p>
+            <div className="h-1 w-8 bg-gradient-to-r from-[var(--dashboard-blue)]/30 to-transparent rounded-full"></div>
+          </div>
 
-          {title === "daily-step" && (
-            <>
-              <span className="text-3xl font-bold text-[var(--dashboard-blue)]">
-                {value}
-              </span>
-              <span className="text-sm text-gray-500">/ {target}</span>
-            </>
-          )}
+          {/* Value section with enhanced displays */}
+          <div className="space-y-2">
+            {title === "bp" && (
+              <div className="space-y-1">
+                <div className="flex items-baseline gap-3">
+                  <span className="text-3xl md:text-4xl font-black text-[var(--dashboard-blue)] tracking-tight">
+                    {value}
+                  </span>
+                  <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(status, title)} bg-[var(--dashboard-border)]/30`}>
+                    {getStatusIcon(status)}
+                    <span>{status}</span>
+                  </div>
+                </div>
+                <p className="text-xs text-[var(--fourground-color)]/50 font-medium">Blood Pressure Reading</p>
+              </div>
+            )}
 
-          {title === "heart-rate" && (
-            <>
-              <span className="text-3xl font-bold text-[var(--dashboard-blue)]">
-                {value}
-              </span>
-              <span className="text-sm text-gray-500">bpm</span>
-            </>
-          )}
+            {title === "daily-step" && (
+              <div className="space-y-2">
+                <div className="flex items-baseline gap-3">
+                  <span className="text-3xl md:text-4xl font-black text-[var(--dashboard-blue)] tracking-tight">
+                    {value?.toLocaleString()}
+                  </span>
+                  <span className="text-sm text-[var(--fourground-color)]/60 font-medium">/ {target?.toLocaleString()}</span>
+                </div>
+                <div className="space-y-1">
+                  <div className="flex justify-between text-xs text-[var(--fourground-color)]/60">
+                    <span>Progress</span>
+                    <span>{Math.round(getProgressPercentage())}%</span>
+                  </div>
+                  <div className="w-full bg-[var(--dashboard-border)]/40 rounded-full h-2">
+                    <div 
+                      className="bg-gradient-to-r from-[var(--dashboard-blue)] to-[var(--dashboard-blue)]/80 h-2 rounded-full transition-all duration-700 ease-out"
+                      style={{ width: `${getProgressPercentage()}%` }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            )}
 
-          {title === "weight" && (
-            <>
-              <span className="text-3xl font-bold text-[var(--dashboard-blue)]">
-                {value}
-              </span>
-              <span className="text-sm text-gray-500">kg</span>
-            </>
-          )}
+            {title === "heart-rate" && (
+              <div className="space-y-1">
+                <div className="flex items-baseline gap-3">
+                  <span className="text-3xl md:text-4xl font-black text-[var(--dashboard-blue)] tracking-tight">
+                    {value}
+                  </span>
+                  <span className="text-sm text-[var(--fourground-color)]/60 font-medium">bpm</span>
+                </div>
+                <p className="text-xs text-[var(--fourground-color)]/50 font-medium">Beats per minute</p>
+              </div>
+            )}
+
+            {title === "weight" && (
+              <div className="space-y-1">
+                <div className="flex items-baseline gap-3">
+                  <span className="text-3xl md:text-4xl font-black text-[var(--dashboard-blue)] tracking-tight">
+                    {value}
+                  </span>
+                  <span className="text-sm text-[var(--fourground-color)]/60 font-medium">kg</span>
+                </div>
+                <p className="text-xs text-[var(--fourground-color)]/50 font-medium">Current weight</p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Right section (icon) with enhanced styling */}
+        <div className="flex-shrink-0 ml-4">
+          <div className="relative">
+            <div className="bg-gradient-to-br from-[var(--dashboard-blue)] to-[var(--dashboard-blue)]/80 flex justify-center items-center p-4 rounded-2xl shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 border border-[var(--dashboard-blue)]/30">
+              {iconsMap[title]}
+            </div>
+            {/* Pulse effect */}
+            <div className="absolute inset-0 bg-[var(--dashboard-blue)]/20 rounded-2xl animate-pulse opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 scale-110"></div>
+          </div>
         </div>
       </div>
 
-      {/* Right section (icon) */}
-      <div className="bg-[var(--dashboard-blue)] flex justify-center items-center p-4 rounded-xl shadow-sm">
-        {iconsMap[title]}
-      </div>
+      {/* Bottom accent line */}
+      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--dashboard-blue)]/30 via-[var(--dashboard-blue)]/10 to-transparent"></div>
     </div>
   );
 };

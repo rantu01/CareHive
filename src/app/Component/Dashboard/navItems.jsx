@@ -7,8 +7,8 @@ export const navItems = {
     { name: "Appointments", path: "/dashboard/user/appointments", icon: <Calendar size={18} /> },
     { name: "Medications", path: "/dashboard/user/medications", icon: <Pill size={18} /> },
     { name: "Goals & Progress", path: "/dashboard/user/goals", icon: <Activity size={18} /> },
-    { name: "Health History", path: "/dashboard/user/history", icon: <History size={18} /> },
-    { name: "Wellness Programs", path: "/dashboard/user/wellness", icon: <Heart size={18} /> },
+    // { name: "Health History", path: "/dashboard/user/history", icon: <History size={18} /> },
+    // { name: "Wellness Programs", path: "/dashboard/user/wellness", icon: <Heart size={18} /> },
   ],
   doctor: [
     { name: "Overview", path: "/dashboard/doctor", icon: <Home size={18} /> },
