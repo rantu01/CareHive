@@ -4,6 +4,15 @@ import Link from "next/link";
 import UseAuth from "../Hooks/UseAuth";
 import ThemeToggle from "./ThemeToggle";
 
+const navLinks = [
+  { label: "Home", href: "/" },
+  { label: "Doctors", href: "/doctors" },
+  { label: "Wellness", href: "/wellness" },
+  { label: "Hospitals", href: "/hospitals" },
+  { label: "Health Tips", href: "/health-tips" },
+  { label: "Doctor's Blog", href: "/userInteractions" },
+];
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -12,20 +21,12 @@ const Navbar = () => {
 
   const handleLogout = () => {
     signOutUser()
-      .then(() => {
-        console.log("Signout successfully");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      .then(() => console.log("Signout successfully"))
+      .catch((error) => console.log(error));
   };
 
   useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 10;
-      setScrolled(isScrolled);
-    };
-
+    const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -77,22 +78,20 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {["Home", "Doctors", "Wellness", "Hospitals", "Health-Tips"].map(
-              (item, idx) => (
-                <Link
-                  key={idx}
-                  href={`/${item === "Home" ? "" : item.toLowerCase()}`}
-                  className="font-medium"
-                  style={{
-                    color: scrolled
-                      ? "var(--color-calm-blue)"
-                      : "var(--color-white)",
-                  }}
-                >
-                  {item}
-                </Link>
-              )
-            )}
+            {navLinks.map((link, idx) => (
+              <Link
+                key={idx}
+                href={link.href}
+                className="font-medium"
+                style={{
+                  color: scrolled
+                    ? "var(--color-calm-blue)"
+                    : "var(--color-white)",
+                }}
+              >
+                {link.label}
+              </Link>
+            ))}
 
             <div className="flex items-center space-x-4">
               {user ? (
@@ -108,7 +107,6 @@ const Navbar = () => {
                   >
                     Dashboard
                   </Link>
-
                   <button
                     onClick={handleLogout}
                     className="font-medium py-2 px-4 rounded-full transition duration-300 cursor-pointer"
@@ -149,7 +147,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -199,21 +197,18 @@ const Navbar = () => {
         {isOpen && (
           <div className="md:hidden mt-4 pb-4 bg-white rounded-lg shadow-lg">
             <div className="flex flex-col space-y-3 px-4 pt-4">
-              {["Home", "Doctors", "Wellness", "Hospitals", "HealthTips" , "dashboard"].map(
-                (item, idx) => (
-                  <Link
-                    key={idx}
-                    href={`/${item === "Home" ? "" : item.toLowerCase()}`}
-                    className="font-medium py-2 px-4 rounded"
-                    style={{
-                      color: "var(--color-calm-blue)",
-                    }}
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {item}
-                  </Link>
-                )
-              )}
+              {navLinks.map((link, idx) => (
+                <Link
+                  key={idx}
+                  href={link.href}
+                  className="font-medium py-2 px-4 rounded"
+                  style={{ color: "var(--color-calm-blue)" }}
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ))}
+
               <ThemeToggle />
               <div className="pt-4 border-t border-gray-200">
                 {user ? (
