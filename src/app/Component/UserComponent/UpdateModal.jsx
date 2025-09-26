@@ -64,7 +64,7 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
 
 
   return (
-    <div className="z-50 absolute top-5 right-10 w-[20rem] rounded shadow-lg bg-white border border-gray-200">
+    <div className="z-50 absolute top-5 right-10 w-[20rem] rounded shadow-lg bg-[var(--fourground-color)]/55 border-gray-200">
       {/* Header */}
       <div className="px-5 py-3 border-b  rounded flex justify-between items-center">
         <h2 className="text-lg font-semibold text-gray-800">Update Health Data</h2>
