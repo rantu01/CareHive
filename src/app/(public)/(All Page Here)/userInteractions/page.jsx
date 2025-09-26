@@ -25,10 +25,7 @@ const UserInteractions = () => {
   };
 
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
     fetchBlogs();
   }, []);
 
@@ -136,7 +133,7 @@ const UserInteractions = () => {
             key={blog._id}
             whileHover={{ scale: 1.01 }}
             transition={{ type: "spring", stiffness: 220 }}
-            className="p-6 md:p-8 rounded-2xl shadow-md bg-[var(--bg-surface)] border border-[var(--dashboard-border)] hover:shadow-xl transition-all duration-300"
+            className="p-6 md:p-8 rounded-2xl shadow-md bg-[var(--dashboard-bg)] border border-[var(--dashboard-border)] hover:shadow-xl transition-all duration-300"
           >
             {/* Blog Header */}
             <h2 className="text-2xl md:text-3xl font-bold mb-2 text-[var(--fourground-color)]">
@@ -154,13 +151,14 @@ const UserInteractions = () => {
             </p>
 
             {/* Actions */}
-            <div className="flex  sm:flex-row sm:items-center sm:gap-6 gap-3 border-t border-[var(--dashboard-border)] pt-4">
+            <div className="flex sm:flex-row sm:items-center sm:gap-6 gap-3 border-t border-[var(--dashboard-border)] pt-4">
               <button
                 onClick={() => handleLike(blog._id)}
-                className={`inline-flex px-4 py-2 rounded-lg items-center gap-2 font-medium transition-all duration-300 shadow-sm max-w-max ${blog.likes?.some((l) => l.email === user?.email)
-                    ? "bg-green-500 text-white hover:bg-green-600"
+                className={`inline-flex px-4 py-2 rounded-lg items-center gap-2 font-medium transition-all duration-300 shadow-sm max-w-max ${
+                  blog.likes?.some((l) => l.email === user?.email)
+                    ? "bg-[var(--color-light-green)] text-[var(--color-black)] hover:brightness-90"
                     : "bg-[var(--color-calm-blue)] text-white hover:brightness-90"
-                  }`}
+                }`}
               >
                 <ThumbsUp size={18} /> {blog.likes?.length || 0}
               </button>
@@ -183,10 +181,11 @@ const UserInteractions = () => {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
-                      className={`p-4 rounded-xl border border-[var(--dashboard-border)] shadow-sm ${user?.email === c.user.email
-                          ? "bg-blue-50 dark:bg-blue-900"
-                          : "bg-gray-50 dark:bg-gray-800"
-                        }`}
+                      className={`p-4 rounded-xl border border-[var(--dashboard-border)] shadow-sm ${
+                        user?.email === c.user.email
+                          ? "bg-[var(--gray-color)]"
+                          : "bg-[var(--sidebar-bg)]"
+                      }`}
                     >
                       {editingComment[c._id] !== undefined ? (
                         <div className="flex flex-col sm:flex-row gap-2">
@@ -199,7 +198,7 @@ const UserInteractions = () => {
                                 [c._id]: e.target.value,
                               }))
                             }
-                            className="flex-1 px-3 py-2 rounded-lg bg-white dark:bg-gray-700 border border-[var(--dashboard-border)] text-[var(--fourground-color)] focus:ring-2 focus:ring-[var(--color-calm-blue)]"
+                            className="flex-1 px-3 py-2 rounded-lg bg-[var(--dashboard-bg)] border border-[var(--dashboard-border)] text-[var(--fourground-color)] focus:ring-2 focus:ring-[var(--color-calm-blue)]"
                           />
                           <div className="flex gap-2 mt-2 sm:mt-0">
                             <button
@@ -218,7 +217,7 @@ const UserInteractions = () => {
                                   return copy;
                                 })
                               }
-                              className="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-[var(--fourground-color)] rounded-lg hover:brightness-90 transition"
+                              className="px-4 py-2 bg-[var(--gray-color)] text-[var(--fourground-color)] rounded-lg hover:brightness-90 transition"
                             >
                               Cancel
                             </button>
@@ -243,17 +242,16 @@ const UserInteractions = () => {
                                     [c._id]: c.text,
                                   }))
                                 }
-                                className="inline-flex items-center gap-1 px-3 py-1 bg-blue-500 hover:brightness-90 text-white rounded-lg shadow-sm max-w-max"
+                                className="inline-flex items-center gap-1 px-3 py-1 bg-[var(--color-calm-blue)] hover:brightness-90 text-white rounded-lg shadow-sm max-w-max"
                               >
                                 <Edit3 size={14} /> Edit
                               </button>
                               <button
                                 onClick={() => handleDeleteComment(blog._id, c._id)}
-                                className="inline-flex items-center gap-1 px-3 py-1 bg-blue-900 hover:brightness-90 text-white rounded-lg shadow-sm max-w-max"
+                                className="inline-flex items-center gap-1 px-3 py-1 bg-[var(--color-black)] hover:brightness-90 text-white rounded-lg shadow-sm max-w-max"
                               >
                                 <Trash2 size={14} /> Delete
                               </button>
-
                             </div>
                           )}
                         </>
@@ -265,7 +263,7 @@ const UserInteractions = () => {
 
               {/* Add Comment */}
               {user && (
-                <div className="mt-6 flex  sm:flex-row gap-3 items-center">
+                <div className="mt-6 flex sm:flex-row gap-3 items-center">
                   <input
                     type="text"
                     value={commentText[blog._id] || ""}
@@ -276,7 +274,7 @@ const UserInteractions = () => {
                       }))
                     }
                     placeholder="Write a comment..."
-                    className="flex-1 px-4 py-3 rounded-full border border-[var(--dashboard-border)] bg-white dark:bg-gray-700 focus:ring-2 focus:ring-[var(--color-calm-blue)] text-[var(--fourground-color)]"
+                    className="flex-1 px-4 py-3 rounded-full border border-[var(--dashboard-border)] bg-[var(--dashboard-bg)] focus:ring-2 focus:ring-[var(--color-calm-blue)] text-[var(--fourground-color)]"
                   />
                   <button
                     onClick={() => handleComment(blog._id)}
