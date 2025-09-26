@@ -25,12 +25,12 @@ const UserInteractions = () => {
   };
 
   useEffect(() => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth", 
-  });
-  fetchBlogs();
-}, []);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    fetchBlogs();
+  }, []);
 
   const handleLike = async (blogId) => {
     if (!user) return alert("⚠️ Please login to like this post");
@@ -98,17 +98,17 @@ const UserInteractions = () => {
     fetchBlogs();
   };
 
- if (loading) {
-  return (
-    <div className="flex justify-center items-center h-80">
-      <motion.div
-        className="w-12 h-12 border-4 border-[var(--color-calm-blue)] border-t-transparent rounded-full"
-        animate={{ rotate: 360 }}
-        transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-      ></motion.div>
-    </div>
-  );
-}
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-80">
+        <motion.div
+          className="w-12 h-12 border-4 border-[var(--color-calm-blue)] border-t-transparent rounded-full"
+          animate={{ rotate: 360 }}
+          transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+        ></motion.div>
+      </div>
+    );
+  }
 
   return (
     <motion.section
@@ -155,16 +155,15 @@ const UserInteractions = () => {
 
             {/* Actions */}
             <div className="flex  sm:flex-row sm:items-center sm:gap-6 gap-3 border-t border-[var(--dashboard-border)] pt-4">
-             <button
-  onClick={() => handleLike(blog._id)}
-  className={`inline-flex px-4 py-2 rounded-lg items-center gap-2 font-medium transition-all duration-300 shadow-sm max-w-max ${
-    blog.likes?.some((l) => l.email === user?.email)
-      ? "bg-green-500 text-white hover:bg-green-600"
-      : "bg-[var(--color-calm-blue)] text-white hover:brightness-90"
-  }`}
->
-  <ThumbsUp size={18} /> {blog.likes?.length || 0}
-</button>
+              <button
+                onClick={() => handleLike(blog._id)}
+                className={`inline-flex px-4 py-2 rounded-lg items-center gap-2 font-medium transition-all duration-300 shadow-sm max-w-max ${blog.likes?.some((l) => l.email === user?.email)
+                    ? "bg-green-500 text-white hover:bg-green-600"
+                    : "bg-[var(--color-calm-blue)] text-white hover:brightness-90"
+                  }`}
+              >
+                <ThumbsUp size={18} /> {blog.likes?.length || 0}
+              </button>
               <span className="text-sm flex items-center gap-1 text-[var(--fourground-color)] opacity-70">
                 <MessageSquare size={16} /> {blog.comments?.length || 0} Comments
               </span>
@@ -184,11 +183,10 @@ const UserInteractions = () => {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
-                      className={`p-4 rounded-xl border border-[var(--dashboard-border)] shadow-sm ${
-                        user?.email === c.user.email
+                      className={`p-4 rounded-xl border border-[var(--dashboard-border)] shadow-sm ${user?.email === c.user.email
                           ? "bg-blue-50 dark:bg-blue-900"
                           : "bg-gray-50 dark:bg-gray-800"
-                      }`}
+                        }`}
                     >
                       {editingComment[c._id] !== undefined ? (
                         <div className="flex flex-col sm:flex-row gap-2">
@@ -239,22 +237,22 @@ const UserInteractions = () => {
                           {user?.email === c.user.email && (
                             <div className="flex sm:flex-row gap-2 mt-3">
                               <button
-  onClick={() =>
-    setEditingComment((prev) => ({
-      ...prev,
-      [c._id]: c.text,
-    }))
-  }
-  className="inline-flex items-center gap-1 px-3 py-1 bg-blue-500 hover:brightness-90 text-white rounded-lg shadow-sm max-w-max"
->
-  <Edit3 size={14} /> Edit
-</button>
-<button
-  onClick={() => handleDeleteComment(blog._id, c._id)}
-  className="inline-flex items-center gap-1 px-3 py-1 bg-blue-900 hover:brightness-90 text-white rounded-lg shadow-sm max-w-max"
->
-  <Trash2 size={14} /> Delete
-</button>
+                                onClick={() =>
+                                  setEditingComment((prev) => ({
+                                    ...prev,
+                                    [c._id]: c.text,
+                                  }))
+                                }
+                                className="inline-flex items-center gap-1 px-3 py-1 bg-blue-500 hover:brightness-90 text-white rounded-lg shadow-sm max-w-max"
+                              >
+                                <Edit3 size={14} /> Edit
+                              </button>
+                              <button
+                                onClick={() => handleDeleteComment(blog._id, c._id)}
+                                className="inline-flex items-center gap-1 px-3 py-1 bg-blue-900 hover:brightness-90 text-white rounded-lg shadow-sm max-w-max"
+                              >
+                                <Trash2 size={14} /> Delete
+                              </button>
 
                             </div>
                           )}
