@@ -7,11 +7,10 @@ export default function Page() {
   // Dashboard Stats (Dummy Data)
   const stats = [
     { id: 1, title: "Total Users", value: "1,245", color: "from-[var(--color-calm-blue)] to-[var(--color-light-green)]" },
-    { id: 2, title: "Active Users", value: "876", color: "from-[var(--color-light-green)] to-[var(--dashboard-blue)]" },
-    { id: 3, title: "Reports Generated", value: "534", color: "from-purple-400 to-blue-400" },
-    { id: 4, title: "Pending Reports", value: "42", color: "from-red-400 to-pink-500" },
-    { id: 5, title: "Articles Published", value: "89", color: "from-yellow-400 to-orange-500" },
-    { id: 6, title: "Appointments", value: "312", color: "from-teal-400 to-green-500" },
+    { id: 2, title: "Active Users", value: "876",color: "from-[var(--color-calm-blue)] to-[var(--color-light-green)] " },
+    { id: 3, title: "Reports Generated", value: "534",color: "from-[var(--color-calm-blue)] to-[var(--color-light-green)] " },
+    { id: 5, title: "Articles Published", value: "89",color: "from-[var(--color-calm-blue)] to-[var(--color-light-green)] " },
+    { id: 6, title: "Appointments", value: "312",color: "from-[var(--color-calm-blue)] to-[var(--color-light-green)]" },
   ];
 
   // Reports List (Dummy Data)

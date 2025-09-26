@@ -90,7 +90,7 @@ const FeaturedServices = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
-            {services.map((service, index) => (
+            {services?.map((service, index) => (
               <div
                 key={service._id || index}
                 className="rounded-2xl overflow-hidden shadow-lg transition-all duration-500 hover:-translate-y-2 group"
