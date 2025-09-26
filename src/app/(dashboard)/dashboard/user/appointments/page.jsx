@@ -13,7 +13,7 @@ const page = () => {
                 {/* Header Section */}
                 <header className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-4">
                     <div className="space-y-2">
-                        <h1 className="text-[var(--fourground-color)] text-3xl md:text-4xl font-bold bg-gradient-to-r from-[var(--dashboard-blue)] to-blue-600 bg-clip-text text-transparent">
+                        <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[var(--dashboard-blue)] to-blue-600 bg-clip-text text-transparent">
                             Appointments
                         </h1>
                         <p className="text-[var(--fourground-color)]/60 text-base md:text-lg">

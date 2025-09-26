@@ -199,7 +199,7 @@ const Medication = () => {
             <div className="p-3 bg-[var(--dashboard-blue)]/20 rounded-xl border border-[var(--dashboard-blue)]/30">
               <Pill className="text-[var(--dashboard-blue)]" size={24} />
             </div>
-            <h1 className="text-3xl md:text-4xl text-[var(--fourground-color)] font-bold bg-gradient-to-r from-[var(--fourground-color)] to-[var(--dashboard-blue)] bg-clip-text text-transparent">
+            <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[var(--fourground-color)] to-[var(--dashboard-blue)] bg-clip-text text-transparent">
               Medications
             </h1>
           </div>

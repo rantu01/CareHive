@@ -24,7 +24,7 @@ const WelcomeBar = () => {
               <User className="text-white" size={28} />
             </div>
             <div className="flex-1 min-w-0">
-              <h1 className="text-[var(--fourground-color)] font-bold text-2xl md:text-4xl mb-2 bg-gradient-to-r from-[var(--fourground-color)] to-[var(--dashboard-blue)] bg-clip-text text-transparent leading-tight">
+              <h1 className=" font-bold text-2xl md:text-4xl mb-2 bg-gradient-to-r from-[var(--fourground-color)] to-[var(--dashboard-blue)] bg-clip-text text-transparent leading-tight">
                 Welcome back, {user?.displayName}!
               </h1>
               <p className="text-[var(--fourground-color)]/70 text-sm md:text-xl font-medium">
