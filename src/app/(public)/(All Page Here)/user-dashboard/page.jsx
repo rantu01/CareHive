@@ -82,7 +82,7 @@ const UserDashboard = () => {
             <div className="flex-1 h-px bg-gradient-to-r from-[var(--dashboard-border)] to-transparent"></div>
           </div>
           
-          <div className="transform transition-all duration-300 hover:scale-[1.01]">
+          <div className="transform transition-all duration-300 ">
             <UserGoal />
           </div>
         </div>

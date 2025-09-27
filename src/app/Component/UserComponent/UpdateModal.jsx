@@ -1,30 +1,29 @@
 import { AuthContext } from "@/app/context/authContext";
 import axios from "axios";
 import { use, useState } from "react";
+import { X, Activity, TrendingUp, Heart, Weight, Save, AlertCircle } from "lucide-react";
+import Swal from "sweetalert2";
 
 const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
-
-
-    const {user}=use(AuthContext)
-    const  userId  = user?.uid
-
+  const { user } = use(AuthContext);
+  const userId = user?.uid;
   const [formData, setFormData] = useState({});
+  const [invalidInputError, setError] = useState("");
 
-  const [invalidInputError, setError] = useState("")
   const handleSubmit = async (e) => {
     e.preventDefault();
-
 
     const formData = new FormData(e.target);
     const values = Object.fromEntries(formData.entries());
 
-    setError("")
+    setError("");
     for (const [key, val] of Object.entries(values)) {
       if (val.trim() === "" || isNaN(val)) {
         setError(`Stat information must be a number`);
         return; // stop execution if invalid
       }
     }
+
     const updatedStats = [
       { title: "bp", value: parseFloat(values.bloodPressure) },
       { title: "daily-step", value: parseInt(values.dailyStep, 10), target: parseInt(values.dailyStepTarget, 10) },
@@ -33,131 +32,201 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
     ];
 
     try {
-
       if (!userHealthStats && userId) {
-        const res = await axios.post(`/api/get-health-stats/${userId}`, {
+        await axios.post(`/api/get-health-stats/${userId}`, {
           userStats: updatedStats,
           userId,
         });
       } else {
-        const res = await axios.put(`/api/get-health-stats/${userId}`, {
+        await axios.put(`/api/get-health-stats/${userId}`, {
           userStats: updatedStats,
           userId,
         });
       }
 
-
-
       const healthStatsUrl = `/api/get-health-stats/${userId}`;
-      const healthStatsResponse = await axios.get(healthStatsUrl)
-      setHealthStats(healthStatsResponse?.data[0]?.userStats)
+      const healthStatsResponse = await axios.get(healthStatsUrl);
+      setHealthStats(healthStatsResponse?.data[0]?.userStats);
 
-      alert("Health stats updated successfully!");
-    }
+      Swal.fire({
+        title: "Updated!",
+        text: "Health stats updated successfully!",
+        icon: "success"
+      });
 
-    catch (err) {
+    } catch (err) {
       console.error("Update failed:", err);
       alert("Something went wrong!");
     }
-
-  }
-
+  };
 
   return (
-    <div className="z-50 absolute top-5 right-10 w-[20rem] rounded shadow-lg bg-[var(--fourground-color)]/55 border-gray-200">
-      {/* Header */}
-      <div className="px-5 py-3 border-b  rounded flex justify-between items-center">
-        <h2 className="text-lg font-semibold text-gray-800">Update Health Data</h2>
-        <button onClick={() => setIsOpen(false)} className="text-gray-500 hover:text-red-500 transition cursor-pointer">✕</button>
+    <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-md z-50 p-4 sm:p-6 md:p-8">
+      <div className="bg-gradient-to-br from-[var(--dashboard-bg)] to-[var(--card-bg)] w-full max-w-[90vw] lg:max-w-2xl max-h-[90vh] rounded-3xl shadow-2xl border-2 border-[var(--dashboard-border)] relative">
+        {/* Decorative Background Elements */}
+        <div className="absolute top-0 right-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gradient-to-bl from-[var(--dashboard-blue)]/15 to-transparent rounded-full blur-2xl -translate-y-12 translate-x-12"></div>
+        <div className="absolute bottom-0 left-0 w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-gradient-to-tr from-[var(--dashboard-blue)]/10 to-transparent rounded-full blur-xl translate-y-10 -translate-x-10"></div>
+
+        <div className="relative z-10">
+          {/* Header */}
+          <div className="px-4 sm:px-6 py-4 sm:py-5 border-b-2 border-[var(--dashboard-border)]/50 bg-gradient-to-r from-[var(--card-bg)] to-[var(--sidebar-bg)] rounded-t-3xl">
+            <div className="flex justify-between items-center">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="p-2 bg-[var(--dashboard-blue)]/20 rounded-xl">
+                  <Activity className="text-[var(--dashboard-blue)]" size={20} />
+                </div>
+                <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-[var(--fourground-color)]">
+                  Update Health Data
+                </h2>
+              </div>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="p-2 hover:bg-[var(--dashboard-border)]/20 rounded-full transition-colors duration-300 cursor-pointer group"
+              >
+                <X
+                  size={20}
+                  className="text-[var(--fourground-color)]/60 group-hover:text-[var(--dashboard-blue)] transition-colors duration-300"
+                />
+              </button>
+            </div>
+          </div>
+
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4 sm:space-y-5">
+            {/* Blood Pressure */}
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <Activity className="text-[var(--dashboard-blue)]" size={16} />
+                <label
+                  htmlFor="bloodPressure"
+                  className="text-xs sm:text-sm font-semibold text-[var(--fourground-color)] uppercase tracking-wide"
+                >
+                  Blood Pressure
+                </label>
+              </div>
+              <input
+                id="bloodPressure"
+                name="bloodPressure"
+                defaultValue={userHealthStats ? userHealthStats[0]?.value : 0}
+                type="text"
+                placeholder="120/80"
+                required
+                className="w-full p-2 sm:p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]/30 focus:border-[var(--dashboard-blue)] transition-all duration-300"
+              />
+            </div>
+
+            {/* Daily Step */}
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <TrendingUp className="text-[var(--dashboard-blue)]" size={16} />
+                <label
+                  htmlFor="dailyStep"
+                  className="text-xs sm:text-sm font-semibold text-[var(--fourground-color)] uppercase tracking-wide"
+                >
+                  Daily Steps
+                </label>
+              </div>
+              <input
+                id="dailyStep"
+                name="dailyStep"
+                defaultValue={userHealthStats ? userHealthStats[1]?.value : 0}
+                type="text"
+                placeholder="8000"
+                required
+                className="w-full p-2 sm:p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]/30 focus:border-[var(--dashboard-blue)] transition-all duration-300"
+              />
+            </div>
+
+            {/* Daily Step Target */}
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <TrendingUp className="text-[var(--dashboard-blue)]" size={16} />
+                <label
+                  htmlFor="dailyStepTarget"
+                  className="text-xs sm:text-sm font-semibold text-[var(--fourground-color)] uppercase tracking-wide"
+                >
+                  Daily Step Goal
+                </label>
+              </div>
+              <input
+                id="dailyStepTarget"
+                name="dailyStepTarget"
+                defaultValue={userHealthStats ? userHealthStats[1]?.target : 0}
+                type="text"
+                placeholder="10000"
+                required
+                className="w-full p-2 sm:p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]/30 focus:border-[var(--dashboard-blue)] transition-all duration-300"
+              />
+            </div>
+
+            {/* Heart Rate */}
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <Heart className="text-[var(--dashboard-blue)]" size={16} />
+                <label
+                  htmlFor="heartRate"
+                  className="text-xs sm:text-sm font-semibold text-[var(--fourground-color)] uppercase tracking-wide"
+                >
+                  Heart Rate
+                </label>
+              </div>
+              <input
+                id="heartRate"
+                name="heartRate"
+                defaultValue={userHealthStats ? userHealthStats[2]?.value : 0}
+                type="text"
+                placeholder="72"
+                required
+                className="w-full p-2 sm:p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]/30 focus:border-[var(--dashboard-blue)] transition-all duration-300"
+              />
+            </div>
+
+            {/* Weight */}
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <Weight className="text-[var(--dashboard-blue)]" size={16} />
+                <label
+                  htmlFor="weight"
+                  className="text-xs sm:text-sm font-semibold text-[var(--fourground-color)] uppercase tracking-wide"
+                >
+                  Weight (kg)
+                </label>
+              </div>
+              <input
+                id="weight"
+                name="weight"
+                defaultValue={userHealthStats ? userHealthStats[3]?.value : 0}
+                type="text"
+                placeholder="70"
+                required
+                className="w-full p-2 sm:p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]/30 focus:border-[var(--dashboard-blue)] transition-all duration-300"
+              />
+            </div>
+
+            {/* Error Message */}
+            {invalidInputError && (
+              <div className="flex items-center gap-2 p-2 sm:p-3 bg-[var(--dashboard-blue)]/10 border border-[var(--dashboard-blue)]/30 rounded-xl">
+                <AlertCircle className="text-[var(--dashboard-blue)]" size={16} />
+                <p className="text-xs sm:text-sm text-[var(--dashboard-blue)] font-medium">{invalidInputError}</p>
+              </div>
+            )}
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              className="group w-full bg-gradient-to-r from-[var(--dashboard-blue)] to-[var(--dashboard-blue)]/90 text-white py-2 sm:py-3 rounded-xl font-semibold hover:from-[var(--dashboard-blue)]/90 hover:to-[var(--dashboard-blue)] shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 text-sm sm:text-base"
+            >
+              <Save size={18} className="group-hover:scale-110 transition-transform duration-300" />
+              <span>Update Health Data</span>
+            </button>
+
+            {/* Help Text */}
+            <p className="text-center text-[10px] sm:text-xs md:text-sm text-[var(--fourground-color)]/60">
+              Enter your current health metrics to track your progress
+            </p>
+          </form>
+        </div>
       </div>
-
-      {/* Form */}
-      <form onSubmit={handleSubmit} className="p-5 space-y-2">
-        <div>
-          <label htmlFor="bloodPressure" className="block mb-1 text-sm font-medium text-gray-700">
-            Blood Pressure
-          </label>
-          <input
-            id="bloodPressure"
-            name="bloodPressure"
-            defaultValue={userHealthStats ? userHealthStats[0]?.value : 0}
-            type="text"
-            placeholder="Blood Pressure"
-            required
-            className="w-full p-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="dailyStep" className="block mb-1 text-sm font-medium text-gray-700">
-            Daily Step
-          </label>
-          <input
-            id="dailyStep"
-            name="dailyStep"
-            defaultValue={userHealthStats ? userHealthStats[1]?.value : 0}
-            type="text"
-            placeholder="Daily Step"
-            required
-            className="w-full p-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="dailyStepTarget" className="block mb-1 text-sm font-medium text-gray-700">
-            Daily Step Target
-          </label>
-          <input
-            id="dailyStepTarget"
-            name="dailyStepTarget"
-            defaultValue={userHealthStats ? userHealthStats[1]?.target : 0}
-            type="text"
-            placeholder="Daily Step Target"
-            required
-            className="w-full p-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="heartRate" className="block mb-1 text-sm font-medium text-gray-700">
-            Heart Rate
-          </label>
-          <input
-            id="heartRate"
-            name="heartRate"
-            defaultValue={userHealthStats ? userHealthStats[2]?.value : 0}
-            type="text"
-            placeholder="Heart Rate"
-            required
-            className="w-full p-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="weight" className="block mb-1 text-sm font-medium text-gray-700">
-            Weight
-          </label>
-          <input
-            id="weight"
-            name="weight"
-            defaultValue={userHealthStats ? userHealthStats[3]?.value : 0}
-            type="text"
-            placeholder="Weight"
-            required
-            className="w-full p-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]"
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="w-full bg-[var(--dashboard-blue)] text-white py-2 rounded-lg font-medium hover:bg-[var(--dashboard-blue)]/80 transition cursor-pointer"
-        >
-          Submit
-        </button>
-
-        <p className="text-center text-red-500">{invalidInputError}</p>
-      </form>
-
     </div>
   );
 };

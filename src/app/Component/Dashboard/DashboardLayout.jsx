@@ -52,7 +52,7 @@ export default function DashboardLayout({ children, role = "default" }) {
         />
 
         {/* Main content */}
-        <main className="flex-1 p-6 bg-[var(--dashboard-bg)] overflow-y-auto">
+        <main className="flex-1 p-3 md:p-6 bg-[var(--dashboard-bg)] overflow-y-auto">
           {children}
         </main>
       </div>

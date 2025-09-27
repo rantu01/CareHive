@@ -8,6 +8,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { nanoid } from "nanoid";
 import Swal from "sweetalert2";
 import { AuthContext } from "@/app/context/authContext";
+import Link from "next/link";
 
 const UserGoal = () => {
     const { goalData, isLoading, setGoalData } = use(DashBoardDataContext);
@@ -106,7 +107,7 @@ const UserGoal = () => {
             <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-[var(--dashboard-blue)]/5 to-transparent rounded-full blur-xl translate-y-12 -translate-x-12"></div> */}
 
             <div className="relative z-10">
-                {/* Header */}
+
                 <div className="flex items-center justify-between mb-8">
                     <div className="flex gap-4 items-center">
                         <div className="p-3 bg-gradient-to-br from-[var(--dashboard-blue)] to-[var(--dashboard-blue)]/80 rounded-2xl shadow-lg">
@@ -121,8 +122,8 @@ const UserGoal = () => {
                             </p>
                         </div>
                     </div>
-                    
-                    {/* Goals Summary */}
+
+
                     <div className="hidden md:flex items-center gap-4 text-sm">
                         <div className="flex items-center gap-2 text-[var(--fourground-color)]/60">
                             <Target size={16} />
@@ -142,41 +143,44 @@ const UserGoal = () => {
                     {goalList?.map((goal, idx) => {
                         const progressPercentage = Math.round((goal?.completed / goal?.goal) * 100);
                         const isCompleted = goal?.completed === goal?.goal;
-                        
+
                         return (
-                            <div 
-                                key={goal?.id} 
-                                className={`group p-6 rounded-2xl border-2 transition-all duration-300 hover:shadow-lg relative overflow-hidden ${
-                                    isCompleted 
-                                        ? 'bg-gradient-to-r from-[var(--dashboard-blue)]/10 to-[var(--dashboard-blue)]/5 border-[var(--dashboard-blue)]/30 shadow-[var(--dashboard-blue)]/10' 
+                            <div
+                                key={goal?.id}
+                                className={`group p-4 sm:p-6 md:p-8 rounded-2xl border-2 transition-all duration-300 hover:shadow-lg relative overflow-hidden ${isCompleted
+                                        ? 'bg-gradient-to-r from-[var(--dashboard-blue)]/10 to-[var(--dashboard-blue)]/5 border-[var(--dashboard-blue)]/30 shadow-[var(--dashboard-blue)]/10'
                                         : 'bg-[var(--dashboard-bg)] border-[var(--dashboard-border)] hover:border-[var(--dashboard-blue)]/30'
-                                }`}
+                                    }`}
                             >
                                 {/* Goal Progress Overlay */}
-                                <div 
+                                <div
                                     className="absolute top-0 left-0 h-full bg-gradient-to-r from-[var(--dashboard-blue)]/10 to-[var(--dashboard-blue)]/5 transition-all duration-500 rounded-2xl"
                                     style={{ width: `${progressPercentage}%` }}
                                 ></div>
 
                                 <div className="relative z-10 space-y-4">
                                     {/* Goal Header */}
-                                    <div className="flex justify-between items-start">
+                                    <div className="flex flex-col sm:flex-row sm:justify-between items-start">
                                         <div className="flex-1">
                                             <div className="flex items-center gap-3 mb-2">
-                                                <div className={`p-2 rounded-lg ${isCompleted ? 'bg-[var(--dashboard-blue)]/20' : 'bg-[var(--dashboard-blue)]/15'}`}>
+                                                <div
+                                                    className={`p-2 rounded-lg ${isCompleted ? 'bg-[var(--dashboard-blue)]/20' : 'bg-[var(--dashboard-blue)]/15'}`}
+                                                >
                                                     {isCompleted ? (
-                                                        <Award className="text-[var(--dashboard-blue)]" size={20} />
+                                                        <Award className="text-[var(--dashboard-blue)]" size={18} />
                                                     ) : (
-                                                        <TrendingUp className="text-[var(--dashboard-blue)]" size={20} />
+                                                        <TrendingUp className="text-[var(--dashboard-blue)]" size={18} />
                                                     )}
                                                 </div>
-                                                <h3 className={`text-lg font-bold ${isCompleted ? 'text-[var(--dashboard-blue)]' : 'text-[var(--fourground-color)]'}`}>
+                                                <h3
+                                                    className={`text-sm sm:text-lg font-bold ${isCompleted ? 'text-[var(--dashboard-blue)]' : 'text-[var(--fourground-color)]'}`}
+                                                >
                                                     {goal?.title}
                                                 </h3>
                                             </div>
-                                            
+
                                             {/* Progress Stats */}
-                                            <div className="flex items-center gap-4 text-sm">
+                                            <div className="flex flex-wrap gap-4 text-xs sm:text-sm">
                                                 <span className={`font-semibold ${isCompleted ? 'text-[var(--dashboard-blue)]' : 'text-[var(--dashboard-blue)]'}`}>
                                                     {progressPercentage}% Complete
                                                 </span>
@@ -188,7 +192,9 @@ const UserGoal = () => {
 
                                         {/* Progress Numbers */}
                                         <div className="text-right">
-                                            <div className={`text-2xl font-bold ${isCompleted ? 'text-[var(--dashboard-blue)]' : 'text-[var(--dashboard-blue)]'}`}>
+                                            <div
+                                                className={`text-xl sm:text-2xl font-bold ${isCompleted ? 'text-[var(--dashboard-blue)]' : 'text-[var(--dashboard-blue)]'}`}
+                                            >
                                                 <span>{goal?.completed}</span>
                                                 <span className="text-[var(--fourground-color)]/40">/{goal?.goal}</span>
                                             </div>
@@ -203,11 +209,11 @@ const UserGoal = () => {
 
                                     {/* Progress Bar */}
                                     <div className="space-y-2">
-                                        <div className="flex justify-between text-xs text-[var(--fourground-color)]/60">
+                                        <div className="flex justify-between text-xs sm:text-sm text-[var(--fourground-color)]/60">
                                             <span>Progress</span>
                                             <span>{progressPercentage}%</span>
                                         </div>
-                                        
+
                                         <div className="relative">
                                             {/* Custom Range Input Styling */}
                                             <input
@@ -221,7 +227,7 @@ const UserGoal = () => {
                                                     background: `linear-gradient(to right, var(--dashboard-blue) 0%, var(--dashboard-blue) ${progressPercentage}%, var(--dashboard-border) ${progressPercentage}%, var(--dashboard-border) 100%)`
                                                 }}
                                             />
-                                            
+
                                             {/* Progress Markers */}
                                             <div className="flex justify-between mt-2 text-xs text-[var(--fourground-color)]/40">
                                                 <span>0</span>
@@ -233,11 +239,11 @@ const UserGoal = () => {
 
                                     {/* Achievement Badge */}
                                     {isCompleted && (
-                                        <div className="flex items-center justify-center p-3 bg-gradient-to-r from-[var(--dashboard-blue)]/20 to-[var(--dashboard-blue)]/10 rounded-xl border border-[var(--dashboard-blue)]/30">
+                                        <div className="flex items-center justify-center p-2 sm:p-3 bg-gradient-to-r from-[var(--dashboard-blue)]/20 to-[var(--dashboard-blue)]/10 rounded-xl border border-[var(--dashboard-blue)]/30">
                                             <div className="flex items-center gap-2 text-[var(--dashboard-blue)]">
-                                                <CheckCircle size={20} />
-                                                <span className="font-semibold">Congratulations! Goal completed!</span>
-                                                <Trophy size={20} />
+                                                <CheckCircle size={18} />
+                                                <span className="font-semibold text-sm sm:text-base">Congratulations! Goal completed!</span>
+                                                <Trophy size={18} />
                                             </div>
                                         </div>
                                     )}
@@ -245,6 +251,7 @@ const UserGoal = () => {
                             </div>
                         );
                     })}
+
                 </div>
 
                 {/* Empty State */}
@@ -257,9 +264,9 @@ const UserGoal = () => {
                         <p className="text-[var(--fourground-color)]/60 mb-6 max-w-md mx-auto">
                             Start your health journey by setting your first weekly goal. Track your progress and achieve your targets!
                         </p>
-                        <button className="px-6 py-3 bg-gradient-to-r from-[var(--dashboard-blue)] to-[var(--dashboard-blue)]/90 text-white rounded-xl font-medium hover:shadow-lg transition-all duration-300">
+                        <Link href='/dashboard/user/goals' className="px-6 py-3 bg-gradient-to-r from-[var(--dashboard-blue)] to-[var(--dashboard-blue)]/90 text-white rounded-xl font-medium hover:shadow-lg transition-all duration-300">
                             Set Your First Goal
-                        </button>
+                        </Link>
                     </div>
                 )}
             </div>

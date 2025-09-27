@@ -3,12 +3,23 @@ import axios from "axios";
 import React, { use } from "react";
 import { DashBoardDataContext } from "./UserDashBoardDataContext/DashboardDataContext";
 import { Brain, Sparkles, RefreshCw, Lightbulb, Heart, Activity, TrendingUp, Zap } from "lucide-react";
+import Swal from "sweetalert2";
 
 const AiHealthTips = () => {
   const { userHealthStats } = use(DashBoardDataContext);
   const userStats = userHealthStats;
-  
+
+  console.log("ccccc", userStats)
+
+
+  const notUserHealthStats = () => {
+
+    Swal.fire("Please set your health stats")
+
+  }
+
   const fetchAiTips = async (userStats) => {
+
     const res = await axios.post("/api/dashboard-ai", { userStats });
     let data = res.data;
     // In your route you are returning raw JSON string like: "[ ... ]"
@@ -42,7 +53,7 @@ const AiHealthTips = () => {
       {/* Decorative Background Elements */}
       <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-[var(--dashboard-blue)]/10 to-transparent rounded-full blur-3xl -translate-y-20 translate-x-20"></div>
       <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-purple-400/10 to-transparent rounded-full blur-2xl translate-y-16 -translate-x-16"></div>
-      
+
       <div className="relative z-10">
         {/* Header Section */}
         <div className="flex flex-col lg:flex-row gap-6 mb-8 items-start lg:items-center">
@@ -61,10 +72,10 @@ const AiHealthTips = () => {
               </div>
             </div>
           </div>
-          
+
           <button
             type="button"
-            onClick={() => refetch()} // 🔑 trigger API call on button click
+            onClick={userHealthStats? () => refetch():()=>notUserHealthStats()} // 🔑 trigger API call on button click
             disabled={isLoading}
             className="group px-6 py-3 rounded-xl text-white bg-gradient-to-r from-[var(--dashboard-blue)] to-blue-600 hover:from-blue-600 hover:to-purple-600 cursor-pointer shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-3 font-semibold"
           >
@@ -122,7 +133,7 @@ const AiHealthTips = () => {
                 >
                   {/* Card Gradient Overlay */}
                   <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-[var(--dashboard-blue)]/10 to-transparent rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -translate-y-12 translate-x-12"></div>
-                  
+
                   <div className="relative z-10">
                     {/* Tip Header */}
                     <div className="flex items-center gap-3 mb-4">
@@ -133,7 +144,7 @@ const AiHealthTips = () => {
                         Health Tip {index + 1}
                       </h3>
                     </div>
-                    
+
                     {/* Tip Content */}
                     <p className="text-[var(--fourground-color)]/80 leading-relaxed text-sm font-medium group-hover:text-[var(--fourground-color)] transition-colors duration-300">
                       {tip}

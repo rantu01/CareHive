@@ -5,7 +5,7 @@ import { AuthContext } from "@/app/context/authContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import axios from "axios";
-import { Plus, Bell, Check, Pill, Delete, X, Clock } from "lucide-react";
+import { Plus, Bell, Check, Pill, Delete, X, Clock, Calendar } from "lucide-react";
 import { use, useState } from "react";
 import Swal from "sweetalert2";
 import { DashBoardDataContext } from "./UserDashBoardDataContext/DashboardDataContext";
@@ -40,7 +40,7 @@ const Medication = () => {
 
   const { medicineData } = use(DashBoardDataContext)
 
-  console.log(medicineData)
+  console.log("medication data", medicineData)
 
   const medicationDataList = medicineData[0]?.medicineData
 
@@ -185,7 +185,6 @@ const Medication = () => {
     console.log("formatted time", formattedTime)
   }
 
-
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -209,12 +208,12 @@ const Medication = () => {
           <div className="flex items-center gap-4 mt-2 text-sm text-[var(--fourground-color)]/50 ml-16">
             <span className="flex items-center gap-1">
               <Clock size={14} />
-              3 Active medications
+              {medicineData.length} Active medications
             </span>
-            <span className="flex items-center gap-1">
+            {/* <span className="flex items-center gap-1">
               <Bell size={14} />
               Next dose: 2:30 PM
-            </span>
+            </span> */}
           </div>
         </div>
 
@@ -341,101 +340,177 @@ const Medication = () => {
 
       </main>
       {
-        isOpen && <div className=" absolute top-0 right-0 form-container md:min-w-[30rem] max-w-fit mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg border border-gray-300 dark:border-gray-700">
-          <form onSubmit={handleSubmit}>
-            <div className="flex justify-between">
-              <label htmlFor="medicineName" className="text-sm text-gray-800 dark:text-white mb-2 block">Medicine Name</label> <X size={15} onClick={() => setOpen(!isOpen)} className="cursor-pointer" />
-            </div>
-            <input onChange={handleMedicineName} id="medicine-name" name="medicineName" type="text" placeholder="Enter Medicine Name" className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-6" />
+        isOpen && <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-md z-50 p-4">
+          <div className="bg-gradient-to-br from-[var(--dashboard-bg)] to-[var(--card-bg)] w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl border-2 border-[var(--dashboard-border)] relative">
 
-            <div className="dose-section mb-6">
-              <label htmlFor="douse-type" className="text-sm text-gray-800 dark:text-white mb-2 block">Dose Per Day</label>
-              <select onChange={(e) => setTimeLoop(e.target.value)} name="douseType" id="douse-type" className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value=" "></option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-
-              </select>
-            </div>
-
-            <div className="grid grid-cols-3 md:grid-cols-4 gap-3.5 mb-6">
-              {weekDays.map((day) => (
-                <div key={day.value} className="flex items-center me-4">
-                  <input
-                    id={`${day.name.toLowerCase()}-checkbox`}
-                    type="checkbox"
-                    value={day.value}
-                    name="day-checkbox"
-                    onChange={(e) => handleMedicineTakingWeekdays(e)}
-                    className="w-4 h-4 bg-gray-100 border-gray-300 focus:ring-2"
-                  />
-                  <label
-                    htmlFor={`${day.name.toLowerCase()}-checkbox`}
-                    className="ms-2 text-sm font-medium text-white"
+            <div className="relative z-10">
+              {/* Header */}
+              <div className="px-8 py-6 border-b-2 border-[var(--dashboard-border)]/50 bg-gradient-to-r from-[var(--card-bg)] to-[var(--sidebar-bg)] rounded-t-3xl">
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-[var(--dashboard-blue)]/20 rounded-xl">
+                      <Pill className="text-[var(--dashboard-blue)]" size={20} />
+                    </div>
+                    <h2 className="text-2xl font-bold text-[var(--fourground-color)]">Add Medication</h2>
+                  </div>
+                  <button
+                    onClick={() => setOpen(!isOpen)}
+                    className="p-2 hover:bg-[var(--dashboard-border)]/20 rounded-full transition-colors duration-300 cursor-pointer group"
                   >
-                    {day.name}
-                  </label>
+                    <X size={20} className="text-[var(--fourground-color)]/60 group-hover:text-[var(--dashboard-blue)] transition-colors duration-300" />
+                  </button>
                 </div>
-              ))}
-            </div>
+              </div>
 
+              {/* Form */}
+              <form onSubmit={handleSubmit} className="p-8 space-y-8">
+                {/* Medicine Name */}
+                <div className="space-y-3">
+                  <label htmlFor="medicineName" className="flex items-center gap-2 text-sm font-semibold text-[var(--fourground-color)] uppercase tracking-wide">
+                    <Pill size={16} className="text-[var(--dashboard-blue)]" />
+                    Medicine Name
+                  </label>
+                  <input
+                    onChange={handleMedicineName}
+                    id="medicine-name"
+                    name="medicineName"
+                    type="text"
+                    placeholder="Enter Medicine Name"
+                    className="w-full p-4 text-[var(--fourground-color)] bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-2xl placeholder-[var(--fourground-color)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]/30 focus:border-[var(--dashboard-blue)] transition-all duration-300"
+                  />
+                </div>
 
-            <div className="flex justify-between gap-4 mb-6">
-              {
-                (() => {
-                  const inputs = [];
-                  for (let i = 0; i < timeLoop; i++) {
-                    inputs.push(
-                      <div key={i} className="w-full">
-                        <label htmlFor={`time-${i}`} className="text-sm text-gray-800 dark:text-white mb-2 block">
-                          Time {i + 1}
-                        </label>
+                {/* Dose Per Day */}
+                <div className="space-y-3">
+                  <label htmlFor="douse-type" className="flex items-center gap-2 text-sm font-semibold text-[var(--fourground-color)] uppercase tracking-wide">
+                    <Clock size={16} className="text-[var(--dashboard-blue)]" />
+                    Doses Per Day
+                  </label>
+                  <select
+                    onChange={(e) => setTimeLoop(e.target.value)}
+                    name="douseType"
+                    id="douse-type"
+                    className="w-full p-4 text-[var(--fourground-color)] bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-2xl focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]/30 focus:border-[var(--dashboard-blue)] transition-all duration-300"
+                  >
+                    <option value="1">1 dose per day</option>
+                    <option value="2">2 doses per day</option>
+                    <option value="3">3 doses per day</option>
+                    <option value="4">4 doses per day</option>
+                  </select>
+                </div>
+
+                {/* Days Selection */}
+                <div className="space-y-4">
+                  <label className="flex items-center gap-2 text-sm font-semibold text-[var(--fourground-color)] uppercase tracking-wide">
+                    <Calendar size={16} className="text-[var(--dashboard-blue)]" />
+                    Select Days
+                  </label>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                    {weekDays.map((day) => (
+                      <div key={day.value} className="flex items-center p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl hover:border-[var(--dashboard-blue)]/30 transition-all duration-300">
                         <input
-                          onChange={handleMedicineTakingTimes}
-                          type="time"
-                          id={`time-${i}`}
-                          name={`time-${i}`}
-                          className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          id={`${day.name.toLowerCase()}-checkbox`}
+                          type="checkbox"
+                          value={day.value}
+                          name="day-checkbox"
+                          onChange={(e) => handleMedicineTakingWeekdays(e)}
+                          className="w-4 h-4 text-[var(--dashboard-blue)] bg-[var(--sidebar-bg)] border-[var(--dashboard-border)] rounded focus:ring-[var(--dashboard-blue)] focus:ring-2"
                         />
-                      </div>
-                    );
-                  }
-                  return inputs;
-                })()
-              }
-            </div>
-
-
-            <div className="flex justify-between gap-4 mb-6">
-              {
-                (() => {
-                  const inputsPill = [];
-                  for (let i = 0; i < timeLoop; i++) {
-                    inputsPill.push(
-                      <div key={i} className="w-full">
-                        <label htmlFor={`pill-${i}`} className="text-sm text-gray-800 dark:text-white mb-2 block">
-                          Pill {i + 1}
+                        <label
+                          htmlFor={`${day.name.toLowerCase()}-checkbox`}
+                          className="ml-2 text-sm font-medium text-[var(--fourground-color)] cursor-pointer"
+                        >
+                          {day.name}
                         </label>
-                        <input
-                          onChange={handleNumberOfPill}
-                          type="pill"
-                          id={`pill-${i}`}
-                          name={`pill-${i}`}
-                          className="w-full p-3 text-sm border rounded-md bg-gray-100 dark:bg-gray-600 dark:text-white dark:border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
                       </div>
-                    );
-                  }
-                  return inputsPill;
-                })()
-              }
+                    ))}
+                  </div>
+                </div>
+
+                {/* Time Inputs */}
+                <div className="space-y-4">
+                  <label className="flex items-center gap-2 text-sm font-semibold text-[var(--fourground-color)] uppercase tracking-wide">
+                    <Clock size={16} className="text-[var(--dashboard-blue)]" />
+                    Medication Times
+                  </label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {
+                      (() => {
+                        const inputs = [];
+                        for (let i = 0; i < timeLoop; i++) {
+                          inputs.push(
+                            <div key={i} className="space-y-2">
+                              <label htmlFor={`time-${i}`} className="text-sm text-[var(--fourground-color)]/70 font-medium">
+                                Time {i + 1}
+                              </label>
+                              <input
+                                onChange={handleMedicineTakingTimes}
+                                type="time"
+                                id={`time-${i}`}
+                                name={`time-${i}`}
+                                className="w-full p-3 text-[var(--fourground-color)] bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]/30 focus:border-[var(--dashboard-blue)] transition-all duration-300"
+                              />
+                            </div>
+                          );
+                        }
+                        return inputs;
+                      })()
+                    }
+                  </div>
+                </div>
+
+                {/* Pill Count Inputs */}
+                <div className="space-y-4">
+                  <label className="flex items-center gap-2 text-sm font-semibold text-[var(--fourground-color)] uppercase tracking-wide">
+                    <Pill size={16} className="text-[var(--dashboard-blue)]" />
+                    Number of Pills
+                  </label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {
+                      (() => {
+                        const inputsPill = [];
+                        for (let i = 0; i < timeLoop; i++) {
+                          inputsPill.push(
+                            <div key={i} className="space-y-2">
+                              <label htmlFor={`pill-${i}`} className="text-sm text-[var(--fourground-color)]/70 font-medium">
+                                Dose {i + 1} Pills
+                              </label>
+                              <input
+                                onChange={handleNumberOfPill}
+                                type="number"
+                                id={`pill-${i}`}
+                                name={`pill-${i}`}
+                                min="1"
+                                placeholder="1"
+                                className="w-full p-3 text-[var(--fourground-color)] bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl placeholder-[var(--fourground-color)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]/30 focus:border-[var(--dashboard-blue)] transition-all duration-300"
+                              />
+                            </div>
+                          );
+                        }
+                        return inputsPill;
+                      })()
+                    }
+                  </div>
+                </div>
+
+                {/* Submit Button */}
+                <div className="pt-4">
+                  <button
+                    type="submit"
+                    className="group w-full bg-gradient-to-r from-[var(--dashboard-blue)] to-[var(--dashboard-blue)]/90 text-white py-4 px-6 rounded-2xl font-semibold text-lg hover:from-[var(--dashboard-blue)]/90 hover:to-[var(--dashboard-blue)] shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center gap-3"
+                  >
+                    <Plus size={20} className="group-hover:rotate-90 transition-transform duration-300" />
+                    <span>Add Medication</span>
+                  </button>
+                </div>
+
+                {/* Help Text */}
+                <p className="text-center text-xs text-[var(--fourground-color)]/60">
+                  Fill in all required fields to add your medication schedule
+                </p>
+              </form>
             </div>
-
-
-            <button type="submit" className="w-full p-3 text-sm text-white bg-[var(--dashboard-blue)] cursor-pointer">Submit</button>
-          </form>
+          </div>
         </div>
 
       }
