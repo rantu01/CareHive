@@ -40,7 +40,8 @@ export async function PATCH(req, { params }) {
                         title: body?.title,
                         goal: parseInt(body?.goal),
                         completed: parseInt(body?.completed),
-                        percentage:0,
+                        percentage: 0,
+                        measurementType: body?.measurementType
                     }
 
                 }
@@ -54,7 +55,7 @@ export async function PATCH(req, { params }) {
                 {
                     $set: {
                         "goalData.$[goal].completed": body?.completed,
-                        "goalData.$[goal].percentage": parseInt(((body?.completed)/(body?.target))*100),
+                        "goalData.$[goal].percentage": parseInt(((body?.completed) / (body?.target)) * 100),
                     }
                 },
                 { arrayFilters: [{ "goal.id": body?.id }], upsert: false }

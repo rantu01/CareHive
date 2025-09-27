@@ -66,7 +66,7 @@ const WelcomeBar = () => {
             className="group px-6 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-[var(--dashboard-blue)] to-[var(--dashboard-blue)]/90 hover:from-[var(--color-calm-blue)] hover:to-[var(--dashboard-blue)] shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center gap-2 border border-[var(--dashboard-blue)]/30"
           >
             <RefreshCw size={18} className="group-hover:rotate-180 transition-transform duration-500" />
-            <span>Update</span>
+            <span>{userHealthStats ? "Update":"Add Health Stats"}</span>
           </button>
         </div>
 

@@ -15,7 +15,7 @@ const Medication = () => {
 
   const [isOpen, setOpen] = useState(false)
   const { user } = use(AuthContext)
-  const userId = user.uid
+  const userId = user?.uid
   const queryClient = useQueryClient();
   const [timeLoop, setTimeLoop] = useState(1)
 
@@ -105,7 +105,7 @@ const Medication = () => {
       medicineTakingTime: timeValue,
       numberOfPill: pillCount
     }
-    axios.patch(`/api/medicine-remainder/`, medicineData)
+    return axios.patch(`/api/medicine-remainder/`, medicineData)
   }
 
   // axios to delete new medicine
@@ -131,6 +131,10 @@ const Medication = () => {
     mutationFn: addNewMedicine,
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["medicine", userId] });
+      Swal.fire({
+        title: "Medicine Added",
+        icon: 'success'
+      })
     },
     onError: (data) => {
       Swal.fire({
@@ -158,7 +162,7 @@ const Medication = () => {
 
   const handleDelete = (id) => {
 
-    deleteNewMedicineMutation.mutate(id)
+    return deleteNewMedicineMutation.mutate(id)
 
   }
 
@@ -208,7 +212,7 @@ const Medication = () => {
           <div className="flex items-center gap-4 mt-2 text-sm text-[var(--fourground-color)]/50 ml-16">
             <span className="flex items-center gap-1">
               <Clock size={14} />
-              {medicineData.length} Active medications
+              {medicationDataList.length} Active medications
             </span>
             {/* <span className="flex items-center gap-1">
               <Bell size={14} />

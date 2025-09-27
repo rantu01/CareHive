@@ -1,7 +1,7 @@
 "use client";
 
 import { Goal, X, Trophy, Target, TrendingUp, Calendar, Award, CheckCircle } from "lucide-react";
-import { use, } from "react";
+import { use, useEffect, useState, } from "react";
 import { DashBoardDataContext } from "./UserDashBoardDataContext/DashboardDataContext";
 import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -19,6 +19,25 @@ const UserGoal = () => {
     const queryClient = useQueryClient();
 
     const goalList = goalData[0]?.goalData
+
+    const [currentUrl, setCurrentUrl] = useState('');
+
+    console.log("yoyur url", currentUrl)
+    useEffect(() => {
+        setCurrentUrl(window.location.pathname);
+    }, []);
+
+    const checkCurrentUrl = (url, array) => {
+
+        if (url === "/dashboard/user") {
+            return 3
+        } else if (url === "/dashboard/user/goals") {
+            return array.length
+        }
+    }
+
+
+    console.log("llooooop time", checkCurrentUrl(checkCurrentUrl, goalList))
 
     // update goal progress
     const trackGoalChange = async (completedData) => {
@@ -140,7 +159,7 @@ const UserGoal = () => {
 
                 {/* Goals List */}
                 <div className="space-y-6">
-                    {goalList?.map((goal, idx) => {
+                    {goalList?.slice(0, checkCurrentUrl(currentUrl, goalList)).map((goal, idx) => {
                         const progressPercentage = Math.round((goal?.completed / goal?.goal) * 100);
                         const isCompleted = goal?.completed === goal?.goal;
 
@@ -148,8 +167,8 @@ const UserGoal = () => {
                             <div
                                 key={goal?.id}
                                 className={`group p-4 sm:p-6 md:p-8 rounded-2xl border-2 transition-all duration-300 hover:shadow-lg relative overflow-hidden ${isCompleted
-                                        ? 'bg-gradient-to-r from-[var(--dashboard-blue)]/10 to-[var(--dashboard-blue)]/5 border-[var(--dashboard-blue)]/30 shadow-[var(--dashboard-blue)]/10'
-                                        : 'bg-[var(--dashboard-bg)] border-[var(--dashboard-border)] hover:border-[var(--dashboard-blue)]/30'
+                                    ? 'bg-gradient-to-r from-[var(--dashboard-blue)]/10 to-[var(--dashboard-blue)]/5 border-[var(--dashboard-blue)]/30 shadow-[var(--dashboard-blue)]/10'
+                                    : 'bg-[var(--dashboard-bg)] border-[var(--dashboard-border)] hover:border-[var(--dashboard-blue)]/30'
                                     }`}
                             >
                                 {/* Goal Progress Overlay */}
@@ -196,7 +215,7 @@ const UserGoal = () => {
                                                 className={`text-xl sm:text-2xl font-bold ${isCompleted ? 'text-[var(--dashboard-blue)]' : 'text-[var(--dashboard-blue)]'}`}
                                             >
                                                 <span>{goal?.completed}</span>
-                                                <span className="text-[var(--fourground-color)]/40">/{goal?.goal}</span>
+                                                <span className="text-[var(--fourground-color)]/40">/{goal?.goal} {goal?.measurementType}</span>
                                             </div>
                                             {isCompleted && (
                                                 <div className="flex items-center gap-1 text-[var(--dashboard-blue)] text-xs font-medium">

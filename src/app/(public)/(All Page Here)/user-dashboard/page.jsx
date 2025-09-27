@@ -77,7 +77,7 @@ const UserDashboard = () => {
           <div className="flex items-center gap-3 mb-6">
             <div className="w-1 h-8 bg-gradient-to-b from-[var(--dashboard-blue)] to-[var(--dashboard-blue)]/50 rounded-full"></div>
             <h2 className="text-2xl md:text-3xl font-bold text-[var(--fourground-color)]">
-              Goals & Progress
+              Recent Goals
             </h2>
             <div className="flex-1 h-px bg-gradient-to-r from-[var(--dashboard-border)] to-transparent"></div>
           </div>
