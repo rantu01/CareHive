@@ -13,6 +13,7 @@ import {
   Cell,
 } from "recharts";
 import { DashBoardDataContext } from "./UserDashBoardDataContext/DashboardDataContext";
+import { Activity } from "lucide-react";
 
 // Custom tooltip for modern look
 const CustomTooltip = ({ active, payload, label }) => {
@@ -33,7 +34,12 @@ const HealthStatsBarChart = () => {
   const { userHealthStats } = use(DashBoardDataContext);
 
   if (!userHealthStats || userHealthStats.length === 0) {
-    return <p>No health data available</p>;
+    return <div className="flex items-center justify-center">
+      <div className="text-center">
+        <Activity className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+        <p className="text-gray-600 text-lg">No health data available</p>
+      </div>
+    </div>
   }
 
   const chartData = userHealthStats.map((stat) => ({

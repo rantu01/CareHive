@@ -8,12 +8,12 @@ const page = () => {
     console.log(appointmentData)
     
     return (
-        <div className="min-h-screen p-4 md:p-6 lg:p-8">
+        <div className="min-h-screen">
             <div className="max-w-7xl mx-auto">
                 {/* Header Section */}
                 <header className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-4">
                     <div className="space-y-2">
-                        <h1 className="text-[var(--fourground-color)] text-3xl md:text-4xl font-bold bg-gradient-to-r from-[var(--dashboard-blue)] to-blue-600 bg-clip-text text-transparent">
+                        <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[var(--dashboard-blue)] to-blue-600 bg-clip-text text-transparent">
                             Appointments
                         </h1>
                         <p className="text-[var(--fourground-color)]/60 text-base md:text-lg">
@@ -24,10 +24,10 @@ const page = () => {
                                 <Users size={16} />
                                 {appointmentData?.length || 0} Doctors
                             </span>
-                            <span className="flex items-center gap-1">
+                            {/* <span className="flex items-center gap-1">
                                 <Clock size={16} />
                                 Next: Today 2:30 PM
-                            </span>
+                            </span> */}
                         </div>
                     </div>
                     <button className="w-full lg:w-auto px-6 py-3 gap-3 rounded-xl font-semibold text-white bg-gradient-to-r from-[var(--dashboard-blue)] to-blue-600 hover:from-blue-600 hover:to-[var(--dashboard-blue)] shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center cursor-pointer group">
@@ -68,14 +68,14 @@ const page = () => {
                                                 {specialist}
                                             </p>
                                             <div className="flex items-center gap-4 text-sm text-[var(--fourground-color)]/50">
-                                                <span className="flex items-center gap-1">
+                                                {/* <span className="flex items-center gap-1">
                                                     <Clock size={14} />
                                                     Next: Today 2:30 PM
                                                 </span>
                                                 <span className="flex items-center gap-1">
                                                     <MapPin size={14} />
                                                     City Hospital
-                                                </span>
+                                                </span> */}
                                             </div>
                                         </div>
                                     </div>
