@@ -22,7 +22,6 @@ const UserGoal = () => {
 
     const [currentUrl, setCurrentUrl] = useState('');
 
-    console.log("yoyur url", currentUrl)
     useEffect(() => {
         setCurrentUrl(window.location.pathname);
     }, []);
@@ -37,7 +36,6 @@ const UserGoal = () => {
     }
 
 
-    console.log("llooooop time", checkCurrentUrl(checkCurrentUrl, goalList))
 
     // update goal progress
     const trackGoalChange = async (completedData) => {
@@ -283,9 +281,9 @@ const UserGoal = () => {
                         <p className="text-[var(--fourground-color)]/60 mb-6 max-w-md mx-auto">
                             Start your health journey by setting your first weekly goal. Track your progress and achieve your targets!
                         </p>
-                        <Link href='/dashboard/user/goals' className="px-6 py-3 bg-gradient-to-r from-[var(--dashboard-blue)] to-[var(--dashboard-blue)]/90 text-white rounded-xl font-medium hover:shadow-lg transition-all duration-300">
+                        {/* <Link href='/dashboard/user/goals' className="px-6 py-3 bg-gradient-to-r from-[var(--dashboard-blue)] to-[var(--dashboard-blue)]/90 text-white rounded-xl font-medium hover:shadow-lg transition-all duration-300">
                             Set Your First Goal
-                        </Link>
+                        </Link> */}
                     </div>
                 )}
             </div>

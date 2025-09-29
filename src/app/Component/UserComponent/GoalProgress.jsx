@@ -51,6 +51,8 @@ const GoalProgress = () => {
                 title: "Goal added successfully",
                 icon: "success"
             })
+
+            setMeasurement('m')
         },
         onError: (error) => {
             Swal.fire({

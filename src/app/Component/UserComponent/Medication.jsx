@@ -212,7 +212,7 @@ const Medication = () => {
           <div className="flex items-center gap-4 mt-2 text-sm text-[var(--fourground-color)]/50 ml-16">
             <span className="flex items-center gap-1">
               <Clock size={14} />
-              {medicationDataList.length} Active medications
+              {medicationDataList && medicationDataList.length} Active medications
             </span>
             {/* <span className="flex items-center gap-1">
               <Bell size={14} />

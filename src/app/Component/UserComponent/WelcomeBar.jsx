@@ -10,6 +10,7 @@ const WelcomeBar = () => {
   const { user } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
 
+
   return (
     <div>
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center bg-gradient-to-br from-[var(--dashboard-bg)] to-[var(--card-bg)] p-8 rounded-2xl shadow-xl border border-[var(--dashboard-border)] gap-6 md:gap-4 relative overflow-hidden backdrop-blur-sm">
@@ -25,7 +26,7 @@ const WelcomeBar = () => {
             </div>
             <div className="flex-1 min-w-0">
               <h1 className=" font-bold text-2xl md:text-4xl mb-2 bg-gradient-to-r from-[var(--fourground-color)] to-[var(--dashboard-blue)] bg-clip-text text-transparent leading-tight">
-                Welcome back, {user?.displayName}!
+                Welcome back, {user?.email}!
               </h1>
               <p className="text-[var(--fourground-color)]/70 text-sm md:text-xl font-medium">
                 Here's your health overview for today
