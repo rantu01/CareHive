@@ -210,18 +210,29 @@ const Navbar = () => {
               ))}
 
               <ThemeToggle />
+
               <div className="pt-4 border-t border-gray-200">
                 {user ? (
-                  <button
-                    onClick={handleLogout}
-                    className="font-medium py-2 px-4 rounded-full transition duration-300 cursor-pointer"
-                    style={{
-                      backgroundColor: "var(--color-light-green)",
-                      color: "var(--color-white)",
-                    }}
-                  >
-                    Logout
-                  </button>
+                  <>
+                    <Link
+                      href="/dashboard"
+                      className="block font-medium py-2 px-4 rounded"
+                      style={{ color: "var(--color-calm-blue)" }}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Dashboard
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full font-medium py-2 px-4 rounded-full transition duration-300 cursor-pointer mt-2"
+                      style={{
+                        backgroundColor: "var(--color-light-green)",
+                        color: "var(--color-white)",
+                      }}
+                    >
+                      Logout
+                    </button>
+                  </>
                 ) : (
                   <>
                     <Link
