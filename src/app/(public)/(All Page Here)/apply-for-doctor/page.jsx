@@ -77,6 +77,39 @@ const page = () => {
                             </div>
 
                         </div>
+
+                        {/* Educational Qualification */}
+                        <div>
+                            <input type="text" placeholder="degreeName" />
+                            <input type="text" placeholder="Post Graduate" />
+                            <input type="text" placeholder="Graduation Year" />
+                            <input type="text" placeholder="specialization" />
+                            <input type="text" placeholder="University Name" />
+                        </div>
+
+
+                        {/* Work experience  */}
+                        <div>
+
+                            {/* previous */}
+                            <input type="text" placeholder="Hospital Name" />
+                            <input type="text" placeholder="Position" />
+
+                            {/* working year */}
+                            <input type="text" placeholder="from" />
+                            <input type="text" placeholder="from" />
+
+                            {/* current */}
+
+                            <input type="text" placeholder="Hospital Name" />
+                            <input type="text" placeholder="Position" />
+
+                            {/* working year */}
+                            <input type="text" placeholder="from" />
+                            <input type="text" placeholder="from" />
+
+                        </div>
+
                     </div>
                 </div>
 
