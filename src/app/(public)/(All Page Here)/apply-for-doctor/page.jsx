@@ -42,8 +42,8 @@ const page = () => {
                                 <input type="text" placeholder="Full Name" {...register("fullName", { required: true })} />
                                 <input type="date" {...register("dateOfBirth", { required: true })} />
                                 <select {...register("gender")}>
-                                    <option value="female">female</option>
-                                    <option value="male">male</option>
+                                    <option value="Female">female</option>
+                                    <option value="Male">male</option>
                                 </select>
 
                             </div>
@@ -54,6 +54,27 @@ const page = () => {
                                 <input type="email" {...register("email", { required: true })} placeholder="Enter your email" />
                             </div>
 
+
+                            <div>
+                                <select {...register("meritialStatus", { required: true })}>
+                                    <option value="Married">Married</option>
+                                    <option value="Unmarried">Unmarried</option>
+                                    <option value="Engaged">Engaged</option>
+                                </select>
+
+                                <select {...register("residentalStatus", { required: true })}>
+                                    <option value="Residence">Residence</option>
+                                    <option value="Non-Residence">Non-Residence</option>
+                                </select>
+
+                                <input type="text"  {...register("nationality", { required: true })} placeholder="Nationality" />
+                            </div>
+
+                            <div>
+                                <input type="text" {...register("nationalId", { required: true })} placeholder="National Id No" />
+                                <input type="text" {...register("presentAddress", { required: true })} placeholder="Present Address" />
+                                <input type="text" {...register("permanentAddress", { required: true })} placeholder="Present Address" />
+                            </div>
 
                         </div>
                     </div>
