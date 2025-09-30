@@ -12,7 +12,7 @@ const Page = () => {
     } = useForm();
 
     const [profileImage, setProfileImage] = useState("https://img.daisyui.com/images/profile/demo/spiderperson@192.webp");
-
+    const [timeLoop, setTimeLoop] = useState(1)
     const handleImageUpload = async (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -24,8 +24,8 @@ const Page = () => {
 
             const response = await fetch(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_IMAGE_CLOUD}/image/upload`,
                 {
-                    method:"POST",
-                    body:imageData
+                    method: "POST",
+                    body: imageData
                 }
             )
 
@@ -41,6 +41,16 @@ const Page = () => {
     const onSubmit = (data) => {
         console.log(data);
     };
+
+    const weekDays = [
+        { name: "Sunday", value: 0 },
+        { name: "Monday", value: 1 },
+        { name: "Tuesday", value: 2 },
+        { name: "Wednesday", value: 3 },
+        { name: "Thursday", value: 4 },
+        { name: "Friday", value: 5 },
+        { name: "Saturday", value: 6 },
+    ];
 
     return (
         <div className="min-h-screen bg-white text-gray-900">
@@ -377,9 +387,56 @@ const Page = () => {
                     </div>
                 </section>
 
+                {/* Available Time */}
 
+                <section className="flex flex-col">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                        {weekDays.map((day) => (
+                            <div key={day.value} className="flex items-center p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl hover:border-[var(--dashboard-blue)]/30 transition-all duration-300">
+                                <input
+                                    id={`${day.name.toLowerCase()}-checkbox`}
+                                    type="checkbox"
+                                    value={day.value}
+                                    name="day-checkbox"
+                                    onChange={(e) => handleMedicineTakingWeekdays(e)}
+                                    className="w-4 h-4 text-[var(--dashboard-blue)] bg-[var(--sidebar-bg)] border-[var(--dashboard-border)] rounded focus:ring-[var(--dashboard-blue)] focus:ring-2"
+                                />
+                                <label
+                                    htmlFor={`${day.name.toLowerCase()}-checkbox`}
+                                    className="ml-2 text-sm font-medium text-[var(--fourground-color)] cursor-pointer"
+                                >
+                                    {day.name}
+                                </label>
+                            </div>
+                        ))}
+                    </div>
 
-                <section>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+
+                        {
+                            (() => {
+                                const inputs = [];
+                                for (let i = 0; i < timeLoop; i++) {
+                                    inputs.push(
+                                        <div key={i} className="space-y-2">
+                                            <label htmlFor={`time-${i}`} className="text-sm text-[var(--fourground-color)]/70 font-medium" >
+                                                Time {i + 1}
+                                            </label>
+                                            <input
+                                                // onChange={handleMedicineTakingTimes}
+                                                type="time"
+                                                id={`time-${i}`}
+                                                name={`time-${i}`}
+                                                className="w-full p-3 text-[var(--fourground-color)] bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]/30 focus:border-[var(--dashboard-blue)] transition-all duration-300"
+                                            />
+                                        </div>
+                                    );
+                                }
+                                return inputs;
+                            })()
+                        }
+
+                    </div>
 
                 </section>
 
