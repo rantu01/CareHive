@@ -1,4 +1,5 @@
 "use client"
+import axios from "axios";
 import { Hospital, Upload } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -12,15 +13,28 @@ const Page = () => {
 
     const [profileImage, setProfileImage] = useState("https://img.daisyui.com/images/profile/demo/spiderperson@192.webp");
 
-    const handleImageUpload = (e) => {
+    const handleImageUpload = async (e) => {
         const file = e.target.files[0];
         if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setProfileImage(reader.result);
-            };
-            reader.readAsDataURL(file);
-        }
+            const imageData = new FormData()
+            imageData.append("file", file)
+
+            imageData.append("upload_preset", "carehive_persist")
+            imageData.append("cloud_name", "dqbwtffom")
+
+            const response = await fetch(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_IMAGE_CLOUD}/image/upload`,
+                {
+                    method:"POST",
+                    body:imageData
+                }
+            )
+
+
+            const uploadImageURL = await response.json()
+            setProfileImage(uploadImageURL?.url)
+
+        } else return
+
     };
 
 
