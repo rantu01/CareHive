@@ -64,13 +64,13 @@ export default function ApprovalRequestsPage() {
             <img
               src={req.practiceInfo?.profilePhoto || "/placeholder.jpg"}
               alt={req.personalInfo?.fullName || "Doctor"}
-              className="w-20 h-20 object-cover rounded-full border shadow"
+              className="w-20 h-20 object-cover rounded-full  border-4 border-blue-400 shadow grid-rows-1"
             />
 
             <div className="flex-1">
               <p className="font-semibold">{req.personalInfo?.fullName || "Name not available"}</p>
               <p className="text-sm">{req.personalInfo?.email || "Email not available"}</p>
-              <p className="text-sm text-gray-400">
+              <p className="text-sm text-gray-600">
                 {req.educationAndCredentials?.specialization || "Specialization not available"}
               </p>
 
@@ -116,7 +116,7 @@ export default function ApprovalRequestsPage() {
       {/* Modal */}
       {selectedDoctor && (
         <div
-          className="fixed inset-0 flex items-center justify-center bg-black/40 z-50 backdrop-blur-sm"
+          className="fixed inset-0 flex items-center justify-center bg-blue/40 z-50 backdrop-blur-sm"
           onClick={() => setSelectedDoctor(null)}
         >
           <div
@@ -132,17 +132,17 @@ export default function ApprovalRequestsPage() {
             </h2>
 
             {/* Header */}
-            <div className="flex flex-col md:flex-row items-center gap-6 mb-6 border-b border-white/40 pb-5">
+            <div className="flex flex-col md:flex-row items-center gap-6 mb-6 border-b border-black/40 pb-5">
               <img
                 src={selectedDoctor.practiceInfo?.profilePhoto || "/placeholder.jpg"}
                 alt={selectedDoctor.personalInfo?.fullName || "Doctor"}
-                className="w-28 h-28 object-cover rounded-full border-2 border-white/50 shadow-lg"
+                className="w-28 h-28 object-cover rounded-full border-4 border-blue-400  shadow-lg"
               />
               <div className="text-center md:text-left">
-                <h3 className="text-xl font-semibold text-gray-900 drop-shadow-md">
+                <h3 className="text-xl font-semibold text-black drop-shadow-md">
                   {selectedDoctor.personalInfo?.fullName || "Name not available"}
                 </h3>
-                <p className="text-gray-700">{selectedDoctor.personalInfo?.email || "Email not available"}</p>
+                <p className="text-black">{selectedDoctor.personalInfo?.email || "Email not available"}</p>
                 <p className="text-sm text-indigo-500 font-medium">
                   {selectedDoctor.educationAndCredentials?.specialization || "Specialization not available"}
                 </p>
@@ -150,9 +150,9 @@ export default function ApprovalRequestsPage() {
             </div>
 
             {/* Body */}
-            <div className="space-y-5 text-sm text-gray-800">
+            <div className="space-y-5 text-sm text-black">
               <div>
-                <h4 className="font-semibold mb-1 text-gray-900">Personal Info</h4>
+                <h4 className="font-semibold mb-1 text-black">Personal Info</h4>
                 <p><b>DOB:</b> {selectedDoctor.personalInfo?.dateOfBirth || "N/A"}</p>
                 <p><b>Gender:</b> {selectedDoctor.personalInfo?.gender || "N/A"}</p>
                 <p><b>Mobile:</b> {selectedDoctor.personalInfo?.contactNumber?.mobile || "N/A"}</p>
@@ -160,7 +160,7 @@ export default function ApprovalRequestsPage() {
               </div>
 
               <div>
-                <h4 className="font-semibold mb-1 text-gray-900">Education</h4>
+                <h4 className="font-semibold mb-1 text-black">Education</h4>
                 <p><b>Degree:</b> {selectedDoctor.educationAndCredentials?.medicalDegree || "N/A"}</p>
                 <p><b>Postgraduate:</b> {selectedDoctor.educationAndCredentials?.postGraduate || "N/A"}</p>
                 <p>
@@ -170,7 +170,7 @@ export default function ApprovalRequestsPage() {
               </div>
 
               <div>
-                <h4 className="font-semibold mb-1 text-gray-900">Work Experience</h4>
+                <h4 className="font-semibold mb-1 text-black">Work Experience</h4>
                 <ul className="list-disc ml-5 space-y-1">
                   {selectedDoctor.educationAndCredentials?.workExperience?.length > 0
                     ? selectedDoctor.educationAndCredentials.workExperience.map((we, i) => (
@@ -182,7 +182,7 @@ export default function ApprovalRequestsPage() {
               </div>
 
               <div>
-                <h4 className="font-semibold mb-1 text-gray-900">License & Practice</h4>
+                <h4 className="font-semibold mb-1 text-black">License & Practice</h4>
                 <p><b>License No:</b> {selectedDoctor.licenseAndVerification?.medicalLicenseNumber || "N/A"}</p>
                 <p><b>Authority:</b> {selectedDoctor.licenseAndVerification?.issuingAuthority || "N/A"}</p>
                 <p><b>Expiry:</b> {selectedDoctor.licenseAndVerification?.expiryDate || "N/A"}</p>
@@ -215,7 +215,7 @@ export default function ApprovalRequestsPage() {
             </div>
 
             {/* Footer */}
-            <div className="mt-8 flex justify-center border-t border-white/40 pt-4">
+            <div className="mt-8 flex justify-center border-t border-black/40 pt-4">
               <button
                 onClick={() => setSelectedDoctor(null)}
                 className="px-6 py-2 rounded-lg shadow-md transition transform hover:scale-110 
