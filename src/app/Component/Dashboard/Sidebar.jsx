@@ -19,7 +19,7 @@ export default function Sidebar({ items = [], isCollapsed, mobileOpen, onCloseMo
       />
 
       <aside
-        className={`fixed top-0 left-0 h-screen px-4 py-6 flex flex-col justify-between transition-all duration-300 ease-in-out overflow-y-auto z-50 transform ${
+        className={`fixed top-0 left-0 h-screen pr-4  py-6 flex flex-col justify-between transition-all duration-300 ease-in-out overflow-y-auto z-50 transform ${
           isCollapsed ? "w-16" : "w-64"
         } md:translate-x-0 ${mobileOpen ? "translate-x-0" : "-translate-x-full"}`}
         style={{ backgroundColor: "var(--sidebar-bg)", borderRight: "1px solid var(--dashboard-border)" }}
@@ -35,7 +35,7 @@ export default function Sidebar({ items = [], isCollapsed, mobileOpen, onCloseMo
 
         <div>
           <h1
-            className={`font-bold mb-6 transition-all duration-300 ${
+            className={`pl-4 font-bold mb-6 transition-all duration-300 ${
               isCollapsed ? "opacity-0 h-0 overflow-hidden" : "text-xl opacity-100"
             }`}
             style={{ color: "var(--fourground-color)" }}
