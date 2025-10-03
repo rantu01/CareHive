@@ -20,5 +20,6 @@ export const navItems = {
     { name: "Users", path: "/dashboard/admin/users", icon: <User size={18} /> },
     { name: "Doctors", path: "/dashboard/admin/doctors", icon: <User size={18} /> },
     { name: "Reports", path: "/dashboard/admin/reports", icon: <BarChart size={18} /> },
+    { name: "Doctor Approval", path: "/dashboard/admin/doctor-approval", icon: <BarChart size={18} /> },
   ],
 };
