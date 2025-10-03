@@ -32,7 +32,7 @@ const Page = () => {
             setAvailableDays(newArray)
             setTimeLoop(timeLoop - 1)
 
-            const toRemove=e.target.value
+            const toRemove = e.target.value
             delete slots[toRemove]
             setSlots(slots)
 
@@ -66,10 +66,10 @@ const Page = () => {
             const imageData = new FormData()
             imageData.append("file", file)
 
-            imageData.append("upload_preset", "carehive_persist")
+            imageData.append("upload_preset", "pdf_persist")
             imageData.append("cloud_name", "dqbwtffom")
 
-            const response = await fetch(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_IMAGE_CLOUD}/image/upload`,
+            const response = await fetch(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_IMAGE_CLOUD}/auto/upload`,
                 {
                     method: "POST",
                     body: imageData
@@ -78,7 +78,11 @@ const Page = () => {
 
 
             const uploadImageURL = await response.json()
+
+
             setProfileImage(uploadImageURL?.url)
+
+            console.log(uploadImageURL?.url)
 
         } else return
 
@@ -537,6 +541,133 @@ const Page = () => {
 
                     </div> */}
 
+                </section>
+
+                {/* Certification And License */}
+
+                <section>
+                    <div className="mb-6">
+                        <h2 className="text-xl md:text-2xl font-semibold text-center mb-6 text-blue-600">
+                            Certification And License
+                        </h2>
+                        <p className="text-[var(--fourground-color)]/60 text-sm">
+                            Provide your medical license and identification details
+                        </p>
+                    </div>
+
+                    <div className="space-y-6">
+                        {/* Medical License Number */}
+                        <div>
+                            <label
+                                htmlFor="medicalLicenseNumber"
+                                className="block mb-2 text-sm font-medium text-[var(--fourground-color)]"
+                            >
+                                Medical License Number <span className="text-red-500">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                id="medicalLicenseNumber"
+                                name="medicalLicenseNumber"
+                                // value={certificationData.medicalLicenseNumber}
+                                // onChange={handleCertificationChange}
+                                placeholder="Enter your medical license number"
+                                required
+                                className="w-full p-3 text-[var(--fourground-color)] bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]/30 focus:border-[var(--dashboard-blue)] transition-all duration-300"
+                            />
+                        </div>
+
+                        {/* Issuing Authority */}
+                        <div>
+                            <label
+                                htmlFor="issuingAuthority"
+                                className="block mb-2 text-sm font-medium text-[var(--fourground-color)]"
+                            >
+                                Issuing Authority <span className="text-red-500">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                id="issuingAuthority"
+                                name="issuingAuthority"
+                                // value={certificationData.issuingAuthority}
+                                // onChange={handleCertificationChange}
+                                placeholder="e.g., Medical Council of India"
+                                required
+                                className="w-full p-3 text-[var(--fourground-color)] bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]/30 focus:border-[var(--dashboard-blue)] transition-all duration-300"
+                            />
+                        </div>
+
+                        {/* Expiry Date */}
+                        <div>
+                            <label
+                                htmlFor="expiryDate"
+                                className="block mb-2 text-sm font-medium text-[var(--fourground-color)]"
+                            >
+                                Expiry Date <span className="text-red-500">*</span>
+                            </label>
+                            <input
+                                type="date"
+                                id="expiryDate"
+                                name="expiryDate"
+                                // value={certificationData.expiryDate}
+                                // onChange={handleCertificationChange}
+                                required
+                                className="w-full p-3 text-[var(--fourground-color)] bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]/30 focus:border-[var(--dashboard-blue)] transition-all duration-300"
+                            />
+                        </div>
+
+                        {/* License Certificate (PDF) */}
+                        <div>
+                            <label
+                                htmlFor="licenseCertificate"
+                                className="block mb-2 text-sm font-medium text-[var(--fourground-color)]"
+                            >
+                                License Certificate (PDF) <span className="text-red-500">*</span>
+                            </label>
+                            <div className="relative">
+                                <input
+                                    type="file"
+                                    id="licenseCertificate"
+                                    accept=".pdf"
+                                    // onChange={(e) => handleFileUpload(e, 'licenseCertificate')}
+                                    required
+                                    className="w-full p-3 text-[var(--fourground-color)] bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]/30 focus:border-[var(--dashboard-blue)] transition-all duration-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[var(--dashboard-blue)] file:text-white hover:file:bg-[var(--dashboard-blue)]/80 file:cursor-pointer"
+                                />
+                            </div>
+                            {/* {certificationData.licenseCertificate && (
+                                <p className="mt-2 text-sm text-green-500">
+                                    ✓ {certificationData.licenseCertificate.name}
+                                </p>
+                            )} */}
+                        </div>
+
+                        {/* Government ID (PDF) */}
+                        <div>
+                            <label
+                                htmlFor="govtId"
+                                className="block mb-2 text-sm font-medium text-[var(--fourground-color)]"
+                            >
+                                Government ID (PDF) <span className="text-red-500">*</span>
+                            </label>
+                            <div className="relative">
+                                <input
+                                    type="file"
+                                    id="govtId"
+                                    accept=".pdf"
+                                    // onChange={(e) => handleFileUpload(e, 'govtId')}
+                                    required
+                                    className="w-full p-3 text-[var(--fourground-color)] bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]/30 focus:border-[var(--dashboard-blue)] transition-all duration-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[var(--dashboard-blue)] file:text-white hover:file:bg-[var(--dashboard-blue)]/80 file:cursor-pointer"
+                                />
+                            </div>
+                            {/* {certificationData.govtId && (
+                                <p className="mt-2 text-sm text-green-500">
+                                    ✓ {certificationData.govtId.name}
+                                </p>
+                            )}
+                            <p className="mt-1 text-xs text-[var(--fourground-color)]/60">
+                                Accepted: Aadhaar, Passport, Driver's License, Voter ID
+                            </p> */}
+                        </div>
+                    </div>
                 </section>
 
                 {/* Submit */}
