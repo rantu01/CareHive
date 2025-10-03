@@ -12,7 +12,54 @@ const Page = () => {
     } = useForm();
 
     const [profileImage, setProfileImage] = useState("https://img.daisyui.com/images/profile/demo/spiderperson@192.webp");
-    const [timeLoop, setTimeLoop] = useState(1)
+    const [timeLoop, setTimeLoop] = useState(0)
+
+    // this state will be
+    const [doctorAvailableDays, setAvailableDays] = useState([])
+
+    const [timeFrom, setTimeFrom] = useState('')
+
+
+
+    const [slots, setSlots] = useState({});
+
+    const handleAvailableWeekDays = (e) => {
+        if (e.target.value && e.target.checked) {
+            setAvailableDays([...doctorAvailableDays, e.target.value])
+            setTimeLoop(timeLoop + 1)
+        } else {
+            const newArray = doctorAvailableDays.filter((day) => (day !== e.target.value))
+            setAvailableDays(newArray)
+            setTimeLoop(timeLoop - 1)
+
+            const toRemove=e.target.value
+            delete slots[toRemove]
+            setSlots(slots)
+
+        }
+    }
+
+
+    const captureAvailableSlot = (day, from, to) => {
+        setSlots(prev => ({
+            ...prev,
+            [day]: `${from}-${to}`
+        }));
+
+    }
+
+    console.log(slots)
+
+
+
+
+
+
+
+
+
+
+
     const handleImageUpload = async (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -39,17 +86,24 @@ const Page = () => {
 
 
     const onSubmit = (data) => {
-        console.log(data);
+        // const newData = { ...data, profileImage, doctorAvailableDays }
+
+        // console.log(newData)
+        // console.log(profileImage)
+        // console.log(doctorAvailableDays)
+
+        console.log(doctorAvailableDays)
+
     };
 
     const weekDays = [
-        { name: "Sunday", value: 0 },
-        { name: "Monday", value: 1 },
-        { name: "Tuesday", value: 2 },
-        { name: "Wednesday", value: 3 },
-        { name: "Thursday", value: 4 },
-        { name: "Friday", value: 5 },
-        { name: "Saturday", value: 6 },
+        { name: "Sunday", value: 'sunday' },
+        { name: "Monday", value: 'monday' },
+        { name: "Tuesday", value: 'tuesday' },
+        { name: "Wednesday", value: 'wednesday' },
+        { name: "Thursday", value: 'thursday' },
+        { name: "Friday", value: 'friday' },
+        { name: "Saturday", value: 'saturday' },
     ];
 
     return (
@@ -391,27 +445,72 @@ const Page = () => {
 
                 <section className="flex flex-col">
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                        {weekDays.map((day) => (
-                            <div key={day.value} className="flex items-center p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl hover:border-[var(--dashboard-blue)]/30 transition-all duration-300">
-                                <input
-                                    id={`${day.name.toLowerCase()}-checkbox`}
-                                    type="checkbox"
-                                    value={day.value}
-                                    name="day-checkbox"
-                                    onChange={(e) => handleMedicineTakingWeekdays(e)}
-                                    className="w-4 h-4 text-[var(--dashboard-blue)] bg-[var(--sidebar-bg)] border-[var(--dashboard-border)] rounded focus:ring-[var(--dashboard-blue)] focus:ring-2"
-                                />
-                                <label
-                                    htmlFor={`${day.name.toLowerCase()}-checkbox`}
-                                    className="ml-2 text-sm font-medium text-[var(--fourground-color)] cursor-pointer"
-                                >
-                                    {day.name}
-                                </label>
+
+                        {weekDays?.map((day) => (
+                            <div key={day.value}>
+                                <div className="flex items-center p-3 mb-4 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl hover:border-[var(--dashboard-blue)]/30 transition-all duration-300">
+                                    <input
+                                        id={`${day.name.toLowerCase()}-checkbox`}
+                                        type="checkbox"
+                                        value={day.value}
+                                        name="day-checkbox"
+                                        onChange={(e) => handleAvailableWeekDays(e)}
+                                        className="w-4 h-4 text-[var(--dashboard-blue)] bg-[var(--sidebar-bg)] border-[var(--dashboard-border)] rounded focus:ring-[var(--dashboard-blue)] focus:ring-2"
+                                    />
+                                    <label
+                                        htmlFor={`${day.name.toLowerCase()}-checkbox`}
+                                        className="ml-2 text-sm font-medium text-[var(--fourground-color)] cursor-pointer"
+                                    >
+                                        {day.name}
+                                    </label>
+
+                                </div>
+
+                                <div className={`flex gap-2 `}>
+                                    {
+                                        doctorAvailableDays.includes(day.value) && (
+                                            <div className="flex gap-2">
+                                                <div>
+                                                    <label htmlFor={`from-${day.value}`}>From : </label>
+                                                    <input
+                                                        type="time"
+                                                        id={`from-${day.value}`}
+                                                        required
+                                                        onChange={(e) => setTimeFrom(e.target.value)}
+                                                        className="w-full p-3 text-[var(--fourground-color)] bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]/30 focus:border-[var(--dashboard-blue)] transition-all duration-300"
+                                                    />
+                                                </div>
+
+                                                <div>
+                                                    <label htmlFor={`to-${day.value}`}>To :</label>
+                                                    <input
+                                                        type="time"
+                                                        id={`to-${day.value}`}
+                                                        required
+                                                        onChange={(e) => captureAvailableSlot(day.value, timeFrom, e.target.value)}
+                                                        className="w-full p-3 text-[var(--fourground-color)] bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]/30 focus:border-[var(--dashboard-blue)] transition-all duration-300"
+                                                    />
+                                                </div>
+
+
+                                            </div>
+                                        )
+                                    }
+                                </div>
                             </div>
-                        ))}
+
+
+                        )
+
+
+
+                        )}
+
+
+
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                    {/* <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
 
                         {
                             (() => {
@@ -436,7 +535,7 @@ const Page = () => {
                             })()
                         }
 
-                    </div>
+                    </div> */}
 
                 </section>
 
