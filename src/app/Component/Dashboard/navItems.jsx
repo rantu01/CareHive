@@ -1,4 +1,4 @@
-import { Home, BarChart, Calendar, Pill, Activity, History, Heart, User } from "lucide-react";
+import { Home, BarChart, Calendar, Pill, Activity, History, Heart, User, Clock } from "lucide-react";
 
 export const navItems = {
   user: [
@@ -10,6 +10,7 @@ export const navItems = {
   ],
   doctor: [
     { name: "Overview", path: "/dashboard/doctor", icon: <Home size={18} /> },
+    { name: "Availability", path: "/dashboard/doctor/available-time-slot", icon: <Clock size={18} /> },
     { name: "Appointments", path: "/dashboard/doctor/appointments", icon: <Calendar size={18} /> },
     { name: "Patients", path: "/dashboard/doctor/patients", icon: <User size={18} /> },
     { name: "Create Post", path: "/dashboard/doctor/doctors-social-post", icon: <User size={18} /> },
