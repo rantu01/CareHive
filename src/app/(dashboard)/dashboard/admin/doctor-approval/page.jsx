@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 export default function ApprovalRequestsPage() {
   const [requests, setRequests] = useState([]);
@@ -12,24 +13,67 @@ export default function ApprovalRequestsPage() {
   }
 
   async function handleApprove(id) {
-    if (!confirm("Approve this request?")) return;
-    const res = await fetch(`/api/approved-doctor/${id}/approve`, { method: "POST" });
-    const data = await res.json();
-    alert(data.message || data.error);
-    fetchRequests();
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to approve this doctor?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes, Approve",
+      cancelButtonText: "Cancel",
+      confirmButtonColor: "#22c55e", // green
+      cancelButtonColor: "#ef4444", // red
+    });
+
+    if (result.isConfirmed) {
+      const res = await fetch(`/api/approved-doctor/${id}/approve`, { method: "POST" });
+      const data = await res.json();
+
+      Swal.fire({
+        title: data.ok ? "Approved!" : "Error",
+        text: data.message || data.error,
+        icon: data.ok ? "success" : "error",
+        confirmButtonColor: "#3b82f6",
+      });
+
+      fetchRequests();
+    }
   }
 
   async function handleReject(id) {
-    const remarks = prompt("Reason for rejection:");
-    if (!remarks) return;
-    const res = await fetch(`/api/approved-doctor/${id}/reject`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ remarks }),
+    const { value: remarks } = await Swal.fire({
+      title: "Reject Doctor",
+      input: "text",
+      inputLabel: "Reason for rejection",
+      inputPlaceholder: "Enter reason...",
+      showCancelButton: true,
+      confirmButtonText: "Reject",
+      cancelButtonText: "Cancel",
+      confirmButtonColor: "#ef4444",
+      cancelButtonColor: "#6b7280",
+      inputValidator: (value) => {
+        if (!value) {
+          return "You need to provide a reason!";
+        }
+      },
     });
-    const data = await res.json();
-    alert(data.message || data.error);
-    fetchRequests();
+
+    if (remarks) {
+      const res = await fetch(`/api/approved-doctor/${id}/reject`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ remarks }),
+      });
+      const data = await res.json();
+
+      Swal.fire({
+        title: data.ok ? "Rejected!" : "Error",
+        text: data.message || data.error,
+        icon: data.ok ? "success" : "error",
+        confirmButtonColor: "#3b82f6",
+      });
+
+      fetchRequests();
+    }
   }
 
   useEffect(() => {
@@ -64,7 +108,7 @@ export default function ApprovalRequestsPage() {
             <img
               src={req.practiceInfo?.profilePhoto || "/placeholder.jpg"}
               alt={req.personalInfo?.fullName || "Doctor"}
-              className="w-20 h-20 object-cover rounded-full  border-4 border-blue-400 shadow grid-rows-1"
+              className="w-20 h-20 object-cover rounded-full border-4 border-blue-400 shadow grid-rows-1"
             />
 
             <div className="flex-1">
@@ -136,7 +180,7 @@ export default function ApprovalRequestsPage() {
               <img
                 src={selectedDoctor.practiceInfo?.profilePhoto || "/placeholder.jpg"}
                 alt={selectedDoctor.personalInfo?.fullName || "Doctor"}
-                className="w-28 h-28 object-cover rounded-full border-4 border-blue-400  shadow-lg"
+                className="w-28 h-28 object-cover rounded-full border-4 border-blue-400 shadow-lg"
               />
               <div className="text-center md:text-left">
                 <h3 className="text-xl font-semibold text-black drop-shadow-md">
