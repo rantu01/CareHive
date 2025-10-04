@@ -6,7 +6,6 @@ import Loader from "@/app/Component/Loader";
 
 function MainLayout({ children }) {
   const { user, role, loading } = useUser();
-  console.log(role)
 
   if (loading) return <Loader />;             // waiting for user data
   if (!user) return <p>Please log in</p>; // role check
