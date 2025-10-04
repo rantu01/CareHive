@@ -29,6 +29,19 @@ const Page = () => {
     const [doctorAvailableDays, setAvailableDays] = useState([])
     const [timeFrom, setTimeFrom] = useState('')
     const [slots, setSlots] = useState({});
+    const [spokenLanguage, setSpokenLanguage] = useState([])
+
+    const handleSpokenLanguage = (e) => {
+        if (e.target.value && e.target.checked) {
+            setSpokenLanguage([...spokenLanguage, e.target.value])
+        } else {
+            const newArray = spokenLanguage.filter((lang) => (lang !== e.target.value))
+            setSpokenLanguage(newArray)
+        }
+    }
+
+    console.log(spokenLanguage)
+
 
     const handleAvailableWeekDays = (e) => {
         if (e.target.value && e.target.checked) {
@@ -97,75 +110,72 @@ const Page = () => {
 
 
     const onSubmit = (data) => {
-        console.log(data)
+        console.log(data);
 
-        // {
-        //     personalInfo: {
-        //         fullName: data?.fullName,
-        //             dateOfBirth: data?.dob,
-        //                 gender: data?.gender,
+        const formData = {
+            personalInfo: {
+                fullName: data?.fullName,
+                dateOfBirth: data?.dob,
+                gender: data?.gender,
+                contactNumber: {
+                    mobile: data?.mobile,
+                    whatsapp: data?.whatsapp,
+                    email: data?.email
+                },
+                address: {
+                    current: data?.presentAddress,
+                    permanent: data?.permanentAddress
+                }
+            },
 
-        //                     contactNumber: {
-        //             mobile: data?.mobile,
-        //                 whatsapp: data?.whatsapp,
-        //                     email: data?.email
-        //         }
+            educationAndCredentials: {
+                medicalDegree: data?.degreeName,
+                postGraduate: data?.postGraduate,
+                university: {
+                    name: data?.universityName,
+                    graduationYear: data?.graduationYear
+                },
+                specialization: data?.specialization,
+                workExperience: [
+                    {
+                        hospitalName: data?.previousHospital,
+                        position: data?.previousPosition,
+                        from: data?.previousFrom,
+                        to: data?.previousTo
+                    },
+                    {
+                        hospitalName: data?.currentHospital,
+                        position: data?.currentPosition,
+                        from: data?.currentFrom,
+                        to: data?.currentTo
+                    }
+                ]
+            },
 
-        //         address: {
-        //             current: data?.presentAddress,
-        //                 permanent: data?.permanentAddress
-        //         }
+            licenseAndVerification: {
+                medicalLicenseNumber: data?.medicalLicenseNumber,
+                expiryDate: data?.expiryDate,
+                documents: {
+                    licenseCertificate: data?.licenseCertificate,
+                    govtId: data?.govtId
+                }
+            },
 
-        //     }
+            practiceInfo: {
+                consultationType: data?.consultation,
+                workingHours: data?.slots,
+                clinicAddress: data?.hospital,
+                consultationFees: {
+                    online: data?.onlineFee,
+                    offline: data?.offlineFee
+                },
+                languagesSpoken: data?.languagesSpoken
+            }
+        };
 
-        //     educationAndCredentials: {
-        //         medicalDegree: data?.degreeName,
-        //             postGraduate: data?.postGraduate,
-        //                 university: {
-        //             name: data?.universityName,
-        //                 graduationYear: data?.graduationYear,
-
-        //         }
-
-        //         specialization: data?.specialization,
-
-        //             workExperience: [{
-        //                 hospitalName: data?.previousHospital,
-        //                 position: data?.previousPosition,
-        //                 from: data?.previousFrom,
-        //                 to: data?.previousTo
-        //             }, {
-        //                 hospitalName: data?.currentHospital,
-        //                 position: data?.currentPosition,
-        //                 from: data?.currentFrom,
-        //                 to: data?.currentTo
-        //             }
-        //             ]
-        //     }
-        //     licenseAndVerification: {
-        //         medicalLicenseNumber: data?.medicalLicenseNumber,
-        //             expiryDate: data?.expiryDate,
-
-        //                 documents: {
-        //             licenseCertificate: data?.licenseCertificate,
-        //                 govtId: data?.govtId
-        //         }
-        //     }
-        //     practiceInfo: {
-        //         consultationType: data?.consultation,
-        //         workingHours: data?.slots
-        //         clinicAddress:data?.hospital
-        //     }
-        //     consultationFees: {
-        //         online:data?.onlineFee,
-        //         offline:data?.​offlineFee
-        //     }
-
-        //     languagesSpoken{
-
-        //     }
-        // }
+        // You can now use the `formData` object for whatever you need, like sending it to an API or processing further.
     }
+
 
     const weekDays = [
         { name: "Sunday", value: 'sunday' },
@@ -177,6 +187,11 @@ const Page = () => {
         { name: "Saturday", value: 'saturday' },
     ];
 
+    const lanaguages = [
+        { name: "Bengali", value: 'bengali' },
+        { name: "Hindi", value: 'hindi' },
+        { name: "English", value: 'english' },
+    ]
     return (
         <div className="min-h-screen text-gray-900">
 
@@ -961,35 +976,28 @@ const Page = () => {
                             </div>
                         </div>
                         <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
-                            <label className="flex items-center gap-2 cursor-pointer">
-                                <input
-                                    type="radio"
-                                    value="Bangla"
-                                    {...register("language", { required: true })}
-                                    className="w-4 h-4"
-                                />
-                                <span style={{ color: "var(--fourground-color)" }}>Bangla</span>
-                            </label>
-
-                            <label className="flex items-center gap-2 cursor-pointer">
-                                <input
-                                    type="radio"
-                                    value="English"
-                                    {...register("language", { required: true })}
-                                    className="w-4 h-4"
-                                />
-                                <span style={{ color: "var(--fourground-color)" }}>English</span>
-                            </label>
-
-                            <label className="flex items-center gap-2 cursor-pointer">
-                                <input
-                                    type="radio"
-                                    value="Hindi"
-                                    {...register("language", { required: true })}
-                                    className="w-4 h-4"
-                                />
-                                <span style={{ color: "var(--fourground-color)" }}>Hindi</span>
-                            </label>
+                            {lanaguages?.map((lang) => (
+                                <div key={lang.value}>
+                                    <div className="flex items-center p-3 mb-4 rounded-xl transition-all duration-300" style={{ backgroundColor: 'var(--gray-color)', borderWidth: '2px', borderColor: 'var(--dashboard-border)' }}>
+                                        <input
+                                            id={`${lang.name.toLowerCase()}-checkbox`}
+                                            type="checkbox"
+                                            value={lang.value}
+                                            name="day-checkbox"
+                                            onChange={(e) => handleSpokenLanguage(e)}
+                                            className="w-4 h-4 rounded focus:ring-2"
+                                            style={{ accentColor: 'var(--dashboard-blue)' }}
+                                        />
+                                        <label
+                                            htmlFor={`${lang.name.toLowerCase()}-checkbox`}
+                                            className="ml-2 text-sm font-medium cursor-pointer"
+                                            style={{ color: 'var(--fourground-color)' }}
+                                        >
+                                            {lang.name}
+                                        </label>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
 
