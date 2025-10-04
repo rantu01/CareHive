@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 export default function DoctorsPage() {
   const [doctors, setDoctors] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchDoctors = async () => {
@@ -18,12 +19,30 @@ export default function DoctorsPage() {
     fetchDoctors();
   }, []);
 
+  // Filter doctors by specialization
+  const filteredDoctors = doctors.filter((doc) =>
+    doc.educationAndCredentials?.specialization
+      ?.toLowerCase()
+      .includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="min-h-screen bg-gray-50 py-10 px-5">
       <h1 className="text-3xl font-bold text-center mb-10">Our Doctors</h1>
 
+      {/* 🔍 Search Bar */}
+      <div className="flex justify-center mb-8">
+        <input
+          type="text"
+          placeholder="Search by specialization..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full sm:w-1/2 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
       <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {doctors.map((doc) => {
+        {filteredDoctors.map((doc) => {
           const personal = doc.personalInfo || {};
           const education = doc.educationAndCredentials || {};
 
@@ -90,4 +109,3 @@ export default function DoctorsPage() {
     </div>
   );
 }
-
