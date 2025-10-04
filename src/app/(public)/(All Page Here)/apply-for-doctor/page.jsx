@@ -1,7 +1,9 @@
 "use client"
+import axios from "axios";
 import { Hospital, Upload } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 const Page = () => {
 
@@ -109,8 +111,7 @@ const Page = () => {
     };
 
 
-    const onSubmit = (data) => {
-        console.log(data);
+    const onSubmit = async (data) => {
 
         const formData = {
             personalInfo: {
@@ -119,9 +120,9 @@ const Page = () => {
                 gender: data?.gender,
                 contactNumber: {
                     mobile: data?.mobile,
-                    whatsapp: data?.whatsapp,
-                    email: data?.email
+                    whatsapp: data?.whatsapp
                 },
+                email: data?.email,
                 address: {
                     current: data?.presentAddress,
                     permanent: data?.permanentAddress
@@ -140,40 +141,67 @@ const Page = () => {
                     {
                         hospitalName: data?.previousHospital,
                         position: data?.previousPosition,
-                        from: data?.previousFrom,
-                        to: data?.previousTo
+                        years: `${data?.previousFrom}-${data?.previousTo}`
                     },
                     {
                         hospitalName: data?.currentHospital,
                         position: data?.currentPosition,
-                        from: data?.currentFrom,
-                        to: data?.currentTo
+                        years: `${data?.currentFrom}-${data?.currentTo}`
                     }
-                ]
+                ],
+                currentAffiliation: data?.hospital
             },
 
             licenseAndVerification: {
                 medicalLicenseNumber: data?.medicalLicenseNumber,
                 expiryDate: data?.expiryDate,
                 documents: {
-                    licenseCertificate: data?.licenseCertificate,
-                    govtId: data?.govtId
+                    licenseCertificate: licenseCertificatePdf,
+                    govtId: governmentIdPdf
                 }
             },
 
             practiceInfo: {
                 consultationType: data?.consultation,
-                workingHours: data?.slots,
-                clinicAddress: data?.hospital,
+                workingHours: slots,
                 consultationFees: {
                     online: data?.onlineFee,
-                    offline: data?.offlineFee
+                    inPerson: data?.offlineFee
                 },
-                languagesSpoken: data?.languagesSpoken
+                languagesSpoken: spokenLanguage, // array
+                profilePhoto: profileImage
+            },
+
+            status: {
+                isVerified: false,
+                adminRemarks: "",
+                submittedAt: new Date().toISOString(),
+                approvedAt: null
             }
         };
 
-        // You can now use the `formData` object for whatever you need, like sending it to an API or processing further.
+        try {
+            const res = await axios.post("/api/approved-doctor", formData, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            Swal.fire({
+                title: "✅ Successfully Submitted!",
+                text: "Your approval request has been submitted.",
+                icon: "success",
+                confirmButtonText: "OK",
+            });
+        } catch (err) {
+            Swal.fire({
+                title: "❌ Submission Failed",
+                text: err.response?.data?.message || err.message || "Something went wrong.",
+                icon: "error",
+                confirmButtonText: "Try Again",
+            });
+        }
+
     }
 
 
@@ -430,7 +458,7 @@ const Page = () => {
                             </div>
 
                             {/* National ID */}
-                            <div>
+                            {/* <div>
                                 <input
                                     type="text"
                                     placeholder="National ID No. *"
@@ -445,7 +473,7 @@ const Page = () => {
                                 {errors.nid && (
                                     <p className="text-red-500 text-sm mt-1">{errors.nid.message}</p>
                                 )}
-                            </div>
+                            </div> */}
 
                             {/* Present Address */}
                             <div>
