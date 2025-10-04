@@ -8,8 +8,13 @@ export default function Topbar({ toggleSidebar }) {
   const { user, loading, role } = useUser();
   const [pendingCount, setPendingCount] = useState(0);
 
-  // Fetch pending requests count
+  // Fetch pending requests count only for admin
   useEffect(() => {
+    if (role !== "admin") {
+      setPendingCount(0);
+      return;
+    }
+
     const fetchNotifications = async () => {
       try {
         const res = await fetch("/api/approved-doctor");
@@ -25,7 +30,7 @@ export default function Topbar({ toggleSidebar }) {
     fetchNotifications();
     const interval = setInterval(fetchNotifications, 30000);
     return () => clearInterval(interval);
-  }, []);
+  }, [role]);
 
   if (loading) return null;
 

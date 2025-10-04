@@ -1,4 +1,16 @@
-import { Home, BarChart, Calendar, Pill, Activity, History, Heart, User, Clock } from "lucide-react";
+import { 
+  Home, 
+  BarChart, 
+  Calendar, 
+  Pill, 
+  Activity, 
+  User, 
+  Clock, 
+  Users, 
+  FileText, 
+  CheckCircle2, 
+  PlusSquare 
+} from "lucide-react";
 
 export const navItems = {
   user: [
@@ -12,15 +24,15 @@ export const navItems = {
     { name: "Overview", path: "/dashboard/doctor", icon: <Home size={18} /> },
     { name: "Availability", path: "/dashboard/doctor/available-time-slot", icon: <Clock size={18} /> },
     { name: "Appointments", path: "/dashboard/doctor/appointments", icon: <Calendar size={18} /> },
-    { name: "Patients", path: "/dashboard/doctor/patients", icon: <User size={18} /> },
-    { name: "Create Post", path: "/dashboard/doctor/doctors-social-post", icon: <User size={18} /> },
+    { name: "Patients", path: "/dashboard/doctor/patients", icon: <Users size={18} /> },
+    { name: "Create Post", path: "/dashboard/doctor/doctors-social-post", icon: <PlusSquare size={18} /> },
   ],
   admin: [
     { name: "Dashboard", path: "/dashboard", icon: <Home size={18} /> },
-    { name: "Dashboard Overview", path: "/dashboard/admin", icon: <Home size={18} /> },
-    { name: "Users", path: "/dashboard/admin/users", icon: <User size={18} /> },
+    { name: "Dashboard Overview", path: "/dashboard/admin", icon: <BarChart size={18} /> },
+    { name: "Users", path: "/dashboard/admin/users", icon: <Users size={18} /> },
     { name: "Doctors", path: "/dashboard/admin/doctors", icon: <User size={18} /> },
-    { name: "Reports", path: "/dashboard/admin/reports", icon: <BarChart size={18} /> },
-    { name: "Doctor Approval", path: "/dashboard/admin/doctor-approval", icon: <BarChart size={18} /> },
+    { name: "Reports", path: "/dashboard/admin/reports", icon: <FileText size={18} /> },
+    { name: "Doctor Approval", path: "/dashboard/admin/doctor-approval", icon: <CheckCircle2 size={18} /> },
   ],
 };
