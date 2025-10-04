@@ -102,8 +102,8 @@ export default function DoctorsPage() {
 
                   {/* Education & Affiliation */}
                   <div className="bg-gray-50 p-3 rounded-lg shadow-sm hover:bg-gray-100 transition">
-                    <p><strong>Education</strong> {education.medicalDegree || "N/A"}, {education.postGraduate || "N/A"}</p>
-                    <p><strong>Affiliation</strong> {education.currentAffiliation || "N/A"}</p>
+                    <p><strong>Education:</strong> {education.medicalDegree || "N/A"}, {education.postGraduate || "N/A"}</p>
+                    <p><strong>Affiliation:</strong> {education.currentAffiliation || "N/A"}</p>
                   </div>
 
                   {/* Work Experience */}
