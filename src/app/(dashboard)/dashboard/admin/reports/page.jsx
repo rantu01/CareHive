@@ -1,81 +1,429 @@
 "use client";
-import { useState } from "react";
 
-export default function Page() {
-  const [selectedCard, setSelectedCard] = useState(null);
+import { useEffect, useState } from "react";
 
-  // Dashboard Stats (Dummy Data)
-  const stats = [
-    { id: 1, title: "Total Users", value: "1,245", color: "from-[var(--color-calm-blue)] to-[var(--color-light-green)]" },
-    { id: 2, title: "Active Users", value: "876",color: "from-[var(--color-calm-blue)] to-[var(--color-light-green)] " },
-    { id: 3, title: "Reports Generated", value: "534",color: "from-[var(--color-calm-blue)] to-[var(--color-light-green)] " },
-    { id: 5, title: "Articles Published", value: "89",color: "from-[var(--color-calm-blue)] to-[var(--color-light-green)] " },
-    { id: 6, title: "Appointments", value: "312",color: "from-[var(--color-calm-blue)] to-[var(--color-light-green)]" },
-  ];
+export default function ReportPage() {
+  const [stats, setStats] = useState({
+    totalUsers: 0,
+    totalDoctors: 0,
+    totalBlogs: 0,
+    totalServices: 0,
+  });
 
-  // Reports List (Dummy Data)
-  const reports = [
-    { id: 1, title: "Weekly Wellness Report", date: "2025-09-24", summary: "Overview of user activity, steps, sleep, and stress levels." },
-    { id: 2, title: "Diet & Nutrition Report", date: "2025-09-20", summary: "Nutritional intake and calorie balance for the past week." },
-    { id: 3, title: "Mental Health Report", date: "2025-09-18", summary: "Weekly mood patterns and stress management insights." },
-  ];
+  const [users, setUsers] = useState([]);
+  const [blogs, setBlogs] = useState([]);
+  const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const usersRes = await fetch("/api/users");
+        const usersData = await usersRes.json();
+
+        const blogsRes = await fetch("/api/blogs");
+        const blogsData = await blogsRes.json();
+
+        const servicesRes = await fetch("/api/services");
+        const servicesData = await servicesRes.json();
+
+        const doctorCount = usersData.filter((u) => u.role === "doctor").length;
+
+        setStats({
+          totalUsers: usersData.length,
+          totalDoctors: doctorCount,
+          totalBlogs: blogsData.success ? blogsData.blogs.length : 0,
+          totalServices: servicesData.length,
+        });
+
+        setUsers(usersData);
+        setBlogs(blogsData.success ? blogsData.blogs : []);
+        setServices(servicesData);
+      } catch (err) {
+        console.error("Failed to fetch data:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div
+        className="flex justify-center items-center h-screen"
+        style={{ backgroundColor: "var(--gray-color)" }}
+      >
+        <div className="flex flex-col items-center space-y-4">
+          <div
+            className="w-16 h-16 rounded-full animate-spin border-4 border-t-transparent"
+            style={{
+              borderColor: "var(--dashboard-blue)",
+              borderTopColor: "transparent",
+            }}
+          ></div>
+          <p style={{ color: "var(--fourground-color)", fontWeight: 500 }}>
+            Loading report...
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  const printReport = () => {
+    window.print();
+  };
+
+  const cardStyle = "rounded-xl p-4 shadow border";
+
+  // Helper function to get recent 5 items based on createdAt
+  const getRecent = (array) => {
+    return [...array]
+      .sort((a, b) => {
+        const dateA = Number(
+          a?.createdAt?.$date?.$numberLong || a?.createdAt || Date.now()
+        );
+        const dateB = Number(
+          b?.createdAt?.$date?.$numberLong || b?.createdAt || Date.now()
+        );
+        return dateB - dateA;
+      })
+      .slice(0, 5);
+  };
+
+  const recentUsers = getRecent(users);
+  const recentBlogs = getRecent(blogs);
+  const recentServices = getRecent(services);
 
   return (
-    <div className="p-8 bg-[var(--dashboard-bg)] min-h-screen">
-      {/* Dashboard Title */}
-      <h1 className="text-4xl font-extrabold text-center mb-12 bg-gradient-to-r from-[var(--color-calm-blue)] to-[var(--color-light-green)] bg-clip-text text-transparent drop-shadow">
-        Admin Reports Dashboard
-      </h1>
-
-      {/* Stats Cards */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto mb-12">
-        {stats.map((stat) => (
-          <div
-            key={stat.id}
-            className={`p-6 rounded-2xl shadow-xl text-center text-white font-bold bg-gradient-to-r ${stat.color} transform hover:-translate-y-1 transition-all duration-300`}
+    <div
+      style={{
+        minHeight: "100vh",
+        backgroundColor: "var(--gray-color)",
+        padding: "1.5rem",
+      }}
+    >
+      {/* Header */}
+      <div className="mb-6 flex justify-between items-center">
+        <div>
+          <h1
+            style={{
+              color: "var(--fourground-color)",
+              fontSize: "1.875rem",
+              fontWeight: "bold",
+            }}
           >
-            <h2 className="text-lg">{stat.title}</h2>
-            <p className="text-3xl mt-2">{stat.value}</p>
-          </div>
-        ))}
+            Management Report
+          </h1>
+          <p
+            style={{
+              color: "var(--fourground-color)",
+              opacity: 0.7,
+              marginTop: "0.25rem",
+            }}
+          >
+            Summary of users, blogs, and services
+          </p>
+        </div>
+        <button
+          onClick={printReport}
+          className="rounded-lg px-4 py-2"
+          style={{
+            backgroundColor: "var(--dashboard-blue)",
+            color: "var(--color-white)",
+          }}
+        >
+          Print Report
+        </button>
       </div>
 
-      {/* Reports Section */}
-      <h2
-        className="text-4xl font-extrabold mb-4 relative inline-block mx-auto"
-        style={{ color: "var(--fourground-color)" }}
+      {/* Stats Summary */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div
+          className={cardStyle}
+          style={{
+            backgroundColor: "var(--dashboard-bg)",
+            borderColor: "var(--dashboard-border)",
+            color: "var(--fourground-color)",
+          }}
+        >
+          <p style={{ fontWeight: 500 }}>Total Users</p>
+          <p style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
+            {stats.totalUsers}
+          </p>
+        </div>
+        <div
+          className={cardStyle}
+          style={{
+            backgroundColor: "var(--dashboard-bg)",
+            borderColor: "var(--dashboard-border)",
+            color: "var(--fourground-color)",
+          }}
+        >
+          <p style={{ fontWeight: 500 }}>Total Doctors</p>
+          <p style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
+            {stats.totalDoctors}
+          </p>
+        </div>
+        <div
+          className={cardStyle}
+          style={{
+            backgroundColor: "var(--dashboard-bg)",
+            borderColor: "var(--dashboard-border)",
+            color: "var(--fourground-color)",
+          }}
+        >
+          <p style={{ fontWeight: 500 }}>Total Blogs</p>
+          <p style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
+            {stats.totalBlogs}
+          </p>
+        </div>
+        <div
+          className={cardStyle}
+          style={{
+            backgroundColor: "var(--dashboard-bg)",
+            borderColor: "var(--dashboard-border)",
+            color: "var(--fourground-color)",
+          }}
+        >
+          <p style={{ fontWeight: 500 }}>Total Services</p>
+          <p style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
+            {stats.totalServices}
+          </p>
+        </div>
+      </div>
+
+      {/* Recent Users */}
+      <div
+        className="rounded-xl shadow border mb-6 overflow-x-auto"
+        style={{
+          backgroundColor: "var(--dashboard-bg)",
+          borderColor: "var(--dashboard-border)",
+        }}
       >
-        Recent <span className="text-[var(--color-calm-blue)]">Rep</span>orts
-        <span
-          className="absolute left-0 -bottom-2 w-1/2 h-1 rounded"
-          style={{ backgroundColor: "var(--color-calm-blue)" }}
-        ></span>
-      </h2>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto mt-6">
-        {reports.map((report) => (
-          <div
-            key={report.id}
-            onClick={() =>
-              setSelectedCard(selectedCard === report.id ? null : report.id)
-            }
-            className={`relative cursor-pointer card border border-[var(--dashboard-border)] shadow-md rounded-2xl transition-all duration-500 hover:-translate-y-2 hover:shadow-lg ${
-              selectedCard === report.id
-                ? "ring-4 ring-offset-2 ring-offset-[var(--dashboard-bg)] ring-transparent bg-gradient-to-r from-[var(--color-light-green)]/40 to-[var(--color-calm-blue)]/40 animate-pulse"
-                : "bg-[var(--dashboard-bg)]"
-            }`}
-          >
-            <div className="card-body">
-              <h2 className="card-title text-[var(--color-calm-blue)]">{report.title}</h2>
-              <p className="text-sm text-[var(--fourground-color)] opacity-70">{report.date}</p>
-              <p className="mt-3 text-[var(--fourground-color)] leading-relaxed">{report.summary}</p>
-              <div className="card-actions justify-end mt-6">
-                <button className="btn btn-sm rounded-full px-5 bg-gradient-to-r from-[var(--color-light-green)] to-[var(--color-calm-blue)] text-[var(--color-white)] border-none hover:opacity-90 transition-all duration-300">
-                  View Details
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
+        <h2
+          style={{
+            padding: "1rem 1.5rem",
+            fontWeight: "600",
+            color: "var(--fourground-color)",
+            backgroundColor: "var(--gray-color)",
+            borderBottom: `1px solid var(--dashboard-border)`,
+          }}
+        >
+          Recent Users
+        </h2>
+        <table
+          className="min-w-full divide-y"
+          style={{ borderColor: "var(--dashboard-border)" }}
+        >
+          <thead>
+            <tr>
+              <th
+                className="px-6 py-3 text-left text-sm font-medium"
+                style={{ color: "var(--fourground-color)" }}
+              >
+                Name
+              </th>
+              <th
+                className="px-6 py-3 text-left text-sm font-medium"
+                style={{ color: "var(--fourground-color)" }}
+              >
+                Email
+              </th>
+              <th
+                className="px-6 py-3 text-left text-sm font-medium"
+                style={{ color: "var(--fourground-color)" }}
+              >
+                Role
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {recentUsers.map((user, index) => (
+              <tr
+                key={user._id?.$oid || user._id || `user-${index}`}
+                style={{ borderBottom: `1px solid var(--dashboard-border)` }}
+              >
+                <td
+                  className="px-6 py-4 text-sm"
+                  style={{ color: "var(--fourground-color)" }}
+                >
+                  {user.name}
+                </td>
+                <td
+                  className="px-6 py-4 text-sm"
+                  style={{ color: "var(--fourground-color)" }}
+                >
+                  {user.email}
+                </td>
+                <td
+                  className="px-6 py-4 text-sm"
+                  style={{ color: "var(--fourground-color)" }}
+                >
+                  {user.role}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Recent Blogs */}
+      <div
+        className="rounded-xl shadow border mb-6 overflow-x-auto"
+        style={{
+          backgroundColor: "var(--dashboard-bg)",
+          borderColor: "var(--dashboard-border)",
+        }}
+      >
+        <h2
+          style={{
+            padding: "1rem 1.5rem",
+            fontWeight: "600",
+            color: "var(--fourground-color)",
+            backgroundColor: "var(--gray-color)",
+            borderBottom: `1px solid var(--dashboard-border)`,
+          }}
+        >
+          Recent Blogs
+        </h2>
+        <table
+          className="min-w-full divide-y"
+          style={{ borderColor: "var(--dashboard-border)" }}
+        >
+          <thead>
+            <tr>
+              <th
+                className="px-6 py-3 text-left text-sm font-medium"
+                style={{ color: "var(--fourground-color)" }}
+              >
+                Title
+              </th>
+              <th
+                className="px-6 py-3 text-left text-sm font-medium"
+                style={{ color: "var(--fourground-color)" }}
+              >
+                Author
+              </th>
+              <th
+                className="px-6 py-3 text-left text-sm font-medium"
+                style={{ color: "var(--fourground-color)" }}
+              >
+                Created At
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {recentBlogs.map((blog, index) => {
+              // Safely parse the timestamp
+              const createdAt = Number(
+                blog?.createdAt?.$date?.$numberLong || Date.now()
+              );
+
+              return (
+                <tr
+                  key={blog._id?.$oid || blog._id || `blog-${index}`} // unique key
+                  style={{ borderBottom: `1px solid var(--dashboard-border)` }}
+                >
+                  <td
+                    className="px-6 py-4 text-sm"
+                    style={{ color: "var(--fourground-color)" }}
+                  >
+                    {blog.title}
+                  </td>
+                  <td
+                    className="px-6 py-4 text-sm"
+                    style={{ color: "var(--fourground-color)" }}
+                  >
+                    {blog.author?.name || "Unknown"}
+                  </td>
+                  <td
+                    className="px-6 py-4 text-sm"
+                    style={{ color: "var(--fourground-color)" }}
+                  >
+                    {new Date(createdAt).toLocaleDateString()}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Recent Services */}
+      <div
+        className="rounded-xl shadow border mb-6 overflow-x-auto"
+        style={{
+          backgroundColor: "var(--dashboard-bg)",
+          borderColor: "var(--dashboard-border)",
+        }}
+      >
+        <h2
+          style={{
+            padding: "1rem 1.5rem",
+            fontWeight: "600",
+            color: "var(--fourground-color)",
+            backgroundColor: "var(--gray-color)",
+            borderBottom: `1px solid var(--dashboard-border)`,
+          }}
+        >
+          Recent Services
+        </h2>
+        <table
+          className="min-w-full divide-y"
+          style={{ borderColor: "var(--dashboard-border)" }}
+        >
+          <thead>
+            <tr>
+              <th
+                className="px-6 py-3 text-left text-sm font-medium"
+                style={{ color: "var(--fourground-color)" }}
+              >
+                Service Name
+              </th>
+              <th
+                className="px-6 py-3 text-left text-sm font-medium"
+                style={{ color: "var(--fourground-color)" }}
+              >
+                Description
+              </th>
+              <th
+                className="px-6 py-3 text-left text-sm font-medium"
+                style={{ color: "var(--fourground-color)" }}
+              >
+                Type
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {recentServices.map((service) => (
+              <tr
+                key={service._id?.$oid || service._id}
+                style={{ borderBottom: `1px solid var(--dashboard-border)` }}
+              >
+                <td
+                  className="px-6 py-4 text-sm"
+                  style={{ color: "var(--fourground-color)" }}
+                >
+                  {service.service_name}
+                </td>
+                <td
+                  className="px-6 py-4 text-sm"
+                  style={{ color: "var(--fourground-color)" }}
+                >
+                  {service.description}
+                </td>
+                <td
+                  className="px-6 py-4 text-sm"
+                  style={{ color: "var(--fourground-color)" }}
+                >
+                  {service.service_type}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
