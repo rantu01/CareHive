@@ -3,6 +3,7 @@ import { Bell, PanelLeft } from "lucide-react";
 import { useUser } from "../../context/UserContext";
 import { useEffect, useState } from "react";
 import ThemeToggle from "../ThemeToggle";
+import Link from "next/link";
 
 export default function Topbar({ toggleSidebar }) {
   const { user, loading, role } = useUser();
@@ -135,6 +136,13 @@ export default function Topbar({ toggleSidebar }) {
             </span>
           </div>
         </div>
+
+        <div>
+          <Link href={'/apply-for-doctor'}>
+            Become A Doctor
+          </Link>
+        </div>
+
       </div>
     </header>
   );
