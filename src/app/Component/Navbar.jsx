@@ -33,10 +33,13 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-300 ${
+      className={`fixed w-full z-50 transition-all duration-300 font-sans ${
         scrolled ? "py-2 bg-white shadow-md" : "py-4"
       }`}
-      style={{ backgroundColor: scrolled ? "white" : "var(--color-calm-blue)" }}
+      style={{ 
+        backgroundColor: scrolled ? "white" : "var(--color-calm-blue)",
+        fontFamily: "'Inter', 'sans-serif'" // ফন্ট অ্যাড করুন
+      }}
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex justify-between items-center">
@@ -69,6 +72,7 @@ const Navbar = () => {
                 }`}
                 style={{
                   color: scrolled ? "var(--color-black)" : "var(--color-white)",
+                  fontFamily: "'Inter', 'sans-serif'" // লোগো টেক্সটে ফন্ট
                 }}
               >
                 CareHive
@@ -82,11 +86,13 @@ const Navbar = () => {
               <Link
                 key={idx}
                 href={link.href}
-                className="font-medium"
+                className="font-medium transition-colors duration-200 hover:text-green-600"
                 style={{
                   color: scrolled
                     ? "var(--color-calm-blue)"
                     : "var(--color-white)",
+                  fontFamily: "'Inter', 'sans-serif'", // নেভ লিংকগুলিতে ফন্ট
+                  fontWeight: 500
                 }}
               >
                 {link.label}
@@ -98,21 +104,25 @@ const Navbar = () => {
                 <>
                   <Link
                     href="/dashboard"
-                    className="font-medium"
+                    className="font-medium transition-colors duration-200 hover:text-green-600"
                     style={{
                       color: scrolled
                         ? "var(--color-calm-blue)"
                         : "var(--color-white)",
+                      fontFamily: "'Inter', 'sans-serif'",
+                      fontWeight: 500
                     }}
                   >
                     Dashboard
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="font-medium py-2 px-4 rounded-full transition duration-300 cursor-pointer"
+                    className="font-medium py-2 px-4 rounded-full transition duration-300 cursor-pointer hover:bg-green-600"
                     style={{
                       backgroundColor: "var(--color-light-green)",
                       color: "var(--color-white)",
+                      fontFamily: "'Inter', 'sans-serif'",
+                      fontWeight: 500
                     }}
                   >
                     Logout
@@ -122,21 +132,25 @@ const Navbar = () => {
                 <>
                   <Link
                     href="/login"
-                    className="font-medium"
+                    className="font-medium transition-colors duration-200 hover:text-green-600"
                     style={{
                       color: scrolled
                         ? "var(--color-calm-blue)"
                         : "var(--color-white)",
+                      fontFamily: "'Inter', 'sans-serif'",
+                      fontWeight: 500
                     }}
                   >
                     Login
                   </Link>
                   <Link
                     href="/signup"
-                    className="font-medium py-2 px-4 rounded-full transition duration-300"
+                    className="font-medium py-2 px-4 rounded-full transition duration-300 hover:bg-green-600"
                     style={{
                       backgroundColor: "var(--color-light-green)",
                       color: "var(--color-white)",
+                      fontFamily: "'Inter', 'sans-serif'",
+                      fontWeight: 500
                     }}
                   >
                     Sign Up
@@ -195,14 +209,20 @@ const Navbar = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden mt-4 pb-4 bg-white rounded-lg shadow-lg">
+          <div 
+            className="md:hidden mt-4 pb-4 bg-white rounded-lg shadow-lg"
+            style={{ fontFamily: "'Inter', 'sans-serif'" }}
+          >
             <div className="flex flex-col space-y-3 px-4 pt-4">
               {navLinks.map((link, idx) => (
                 <Link
                   key={idx}
                   href={link.href}
-                  className="font-medium py-2 px-4 rounded"
-                  style={{ color: "var(--color-calm-blue)" }}
+                  className="font-medium py-2 px-4 rounded transition-colors duration-200 hover:bg-gray-100"
+                  style={{ 
+                    color: "var(--color-calm-blue)",
+                    fontWeight: 500
+                  }}
                   onClick={() => setIsOpen(false)}
                 >
                   {link.label}
@@ -216,18 +236,22 @@ const Navbar = () => {
                   <>
                     <Link
                       href="/dashboard"
-                      className="block font-medium py-2 px-4 rounded"
-                      style={{ color: "var(--color-calm-blue)" }}
+                      className="block font-medium py-2 px-4 rounded transition-colors duration-200 hover:bg-gray-100"
+                      style={{ 
+                        color: "var(--color-calm-blue)",
+                        fontWeight: 500
+                      }}
                       onClick={() => setIsOpen(false)}
                     >
                       Dashboard
                     </Link>
                     <button
                       onClick={handleLogout}
-                      className="w-full font-medium py-2 px-4 rounded-full transition duration-300 cursor-pointer mt-2"
+                      className="w-full font-medium py-2 px-4 rounded-full transition duration-300 cursor-pointer mt-2 hover:bg-green-600"
                       style={{
                         backgroundColor: "var(--color-light-green)",
                         color: "var(--color-white)",
+                        fontWeight: 500
                       }}
                     >
                       Logout
@@ -237,18 +261,22 @@ const Navbar = () => {
                   <>
                     <Link
                       href="/login"
-                      className="block font-medium py-2 px-4 rounded"
-                      style={{ color: "var(--color-calm-blue)" }}
+                      className="block font-medium py-2 px-4 rounded transition-colors duration-200 hover:bg-gray-100"
+                      style={{ 
+                        color: "var(--color-calm-blue)",
+                        fontWeight: 500
+                      }}
                       onClick={() => setIsOpen(false)}
                     >
                       Login
                     </Link>
                     <Link
                       href="/signup"
-                      className="block mt-2 font-medium py-2 px-4 rounded-full text-center transition duration-300"
+                      className="block mt-2 font-medium py-2 px-4 rounded-full text-center transition duration-300 hover:bg-green-600"
                       style={{
                         backgroundColor: "var(--color-light-green)",
                         color: "var(--color-white)",
+                        fontWeight: 500
                       }}
                       onClick={() => setIsOpen(false)}
                     >

@@ -1,51 +1,75 @@
-import Image from "next/image";
+"use client";
+import { Poppins } from "next/font/google";
+
+const poppins = Poppins({
+  weight: ["300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+});
 
 const Hero = () => {
   return (
-    <section className="relative bg-gradient-to-b from-[var(--color-calm-blue)] to-[var(--color-light-green)] min-h-screen flex items-center pt-16 pb-12">
+    <section
+      className={`relative bg-gradient-to-b from-[var(--color-calm-blue)] to-[var(--color-light-green)] min-h-screen flex items-center pt-16 pb-12 ${poppins.className}`}
+    >
       <div className="container mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center">
         {/* Text Content */}
         <div className="md:w-1/2 text-center md:text-left mb-10 md:mb-0 md:pr-10">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--color-white)] mb-4 leading-tight">
-            Your Journey to Better Health Starts Here
+          <h1 className="text-4xl md:text-5xl lg:text-5xl font-bold text-white mb-6 leading-tight tracking-tight">
+            Your Journey to Better Health{" "}
+            <span className="text-[var(--color-light-green)]">Starts Here</span>
           </h1>
-          <p className="text-xl md:text-2xl text-[var(--color-white)] mb-8 opacity-90">
+          <p className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed font-light">
             Connect with healthcare professionals, track your wellness, and
             transform your life with CareHive.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <button className="bg-[var(--color-white)] text-[var(--color-black)] hover:bg-[#F8F8F8] font-bold py-4 px-8 rounded-full text-lg transition duration-300 shadow-lg">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start w-full">
+            <button
+              className="w-full sm:w-auto bg-white text-[var(--color-calm-blue)] hover:bg-gray-50 font-semibold py-2 px-4 sm:py-3 sm:px-6 rounded-full text-sm sm:text-base transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              style={{ fontFamily: poppins.style.fontFamily }}
+            >
               Book an Appointment
             </button>
-            <button className="bg-transparent border-2 border-[var(--color-white)] text-[var(--color-white)] hover:bg-[var(--color-white)] hover:text-[var(--color-black)] font-bold py-4 px-8 rounded-full text-lg transition duration-300">
+            <button
+              className="w-full sm:w-auto bg-transparent border-2 border-white text-white hover:bg-white hover:text-[var(--color-calm-blue)] font-semibold py-2 px-4 sm:py-3 sm:px-6 rounded-full text-sm sm:text-base transition-all duration-300 transform hover:-translate-y-0.5"
+              style={{ fontFamily: poppins.style.fontFamily }}
+            >
               Explore Wellness Programs
             </button>
           </div>
 
           {/* Stats Section */}
-          <div className="flex flex-wrap justify-center md:justify-start mt-12 gap-6">
+          <div className="flex flex-wrap justify-center md:justify-start mt-12 gap-8">
             <div className="text-center">
-              <div className="text-3xl font-bold text-[var(--color-white)]">
+              <div
+                className="text-3xl md:text-4xl font-bold text-white mb-2"
+                style={{ fontFamily: poppins.style.fontFamily }}
+              >
                 500+
               </div>
-              <div className="text-[var(--color-white)] opacity-80">
+              <div className="text-white/80 text-sm font-medium tracking-wide">
                 Verified Doctors
               </div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-[var(--color-white)]">
+              <div
+                className="text-3xl md:text-4xl font-bold text-white mb-2"
+                style={{ fontFamily: poppins.style.fontFamily }}
+              >
                 10K+
               </div>
-              <div className="text-[var(--color-white)] opacity-80">
+              <div className="text-white/80 text-sm font-medium tracking-wide">
                 Happy Patients
               </div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-[var(--color-white)]">
+              <div
+                className="text-3xl md:text-4xl font-bold text-white mb-2"
+                style={{ fontFamily: poppins.style.fontFamily }}
+              >
                 24/7
               </div>
-              <div className="text-[var(--color-white)] opacity-80">
+              <div className="text-white/80 text-sm font-medium tracking-wide">
                 Health Support
               </div>
             </div>
@@ -54,19 +78,19 @@ const Hero = () => {
 
         {/* Image Content */}
         <div className="md:w-1/2 relative">
-          <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+          <div className="relative rounded-3xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-500">
             <img
               src="https://i.ibb.co.com/7x0r29bf/front-view-young-female-with-carpet-exercises-blue-wall.webp"
               alt="Woman practicing wellness exercises"
-              className="w-full h-auto object-cover rounded-2xl shadow-2xl"
+              className="w-full h-auto object-cover rounded-3xl"
             />
             {/* Overlay card */}
-            <div className="absolute bottom-6 left-6 bg-[var(--color-white)] p-4 rounded-xl shadow-lg max-w-xs">
+            <div className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm p-5 rounded-2xl shadow-xl max-w-xs border border-white/20">
               <div className="flex items-center">
-                <div className="bg-[var(--color-light-green)] p-2 rounded-full mr-3">
+                <div className="bg-[var(--color-light-green)] p-3 rounded-full mr-4 shadow-md">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-[var(--color-white)]"
+                    className="h-6 w-6 text-white"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -80,10 +104,18 @@ const Hero = () => {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-bold text-[var(--color-black)]">
+                  <h3
+                    className="font-bold text-gray-900 text-lg"
+                    style={{ fontFamily: poppins.style.fontFamily }}
+                  >
                     Wellness Program
                   </h3>
-                  <p className="text-sm text-gray-600">Personalized for you</p>
+                  <p
+                    className="text-sm text-gray-600 font-medium"
+                    style={{ fontFamily: poppins.style.fontFamily }}
+                  >
+                    Personalized for you
+                  </p>
                 </div>
               </div>
             </div>
@@ -91,25 +123,22 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Floating elements */}
-      {/* <div className="absolute top-20 left-10 animate-pulse">
-        <div className="bg-[var(--color-white)] bg-opacity-30 rounded-full p-3">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 text-[var(--color-white)]"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-            />
-          </svg>
-        </div>
-      </div> */}
+      {/* Floating Elements */}
+      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <svg
+          className="w-6 h-6 text-white/80"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 14l-7 7m0 0l-7-7m7 7V3"
+          />
+        </svg>
+      </div>
     </section>
   );
 };
