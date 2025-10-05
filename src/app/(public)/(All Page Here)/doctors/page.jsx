@@ -25,16 +25,28 @@ export default function DoctorsPage() {
   );
 
   return (
-    <div className="min-h-screen py-28 px-5" style={{ backgroundColor: "var(--gray-color)" }}>
-      
+    <div
+      className="container mx-auto min-h-screen py-28 px-5"
+      style={{ fontFamily: "var(--font-primary)", color: "var(--fourground-color)" }}
+    >
       {/* Header */}
       <div className="text-center mb-20">
-        <h1 className="text-5xl text-[#4682B4] font-extrabold mb-2 ;"  >
+        <h1
+          className="text-5xl font-extrabold mb-2"
+          style={{
+            fontFamily: "var(--font-heading)",
+            color: "var(--color-calm-blue)",
+          }}
+        >
           Meet Our <span className="text-6xl">E</span>xpert Doctors
         </h1>
-        
-        <p className="max-w-3xl mx-auto text-lg text-gray-700">
-          Find highly skilled medical professionals. Use the search to quickly locate your specialist.
+
+        <p
+          className="max-w-3xl mx-auto text-lg"
+          style={{ fontFamily: "var(--font-primary)", color: "var(--fourground-color)" }}
+        >
+          Find highly skilled medical professionals. Use the search to quickly
+          locate your specialist.
         </p>
       </div>
 
@@ -46,17 +58,19 @@ export default function DoctorsPage() {
             placeholder="🔍 Search by specialization..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-6 py-3 rounded-full shadow-lg text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-4 transition duration-300"
+            className="w-full px-6 py-3 rounded-full shadow-lg focus:outline-none focus:ring-4 transition duration-300"
             style={{
-              backgroundColor: "var(--color-white)",
+              
               border: "2px solid var(--dashboard-blue)",
               color: "var(--fourground-color)",
+              fontFamily: "var(--font-primary)",
             }}
           />
           {searchTerm && (
             <button
               onClick={() => setSearchTerm("")}
-              className="absolute right-5 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+              className="absolute right-5 top-1/2 transform -translate-y-1/2 transition-colors"
+              style={{ color: "var(--fourground-color)" }}
             >
               ✖
             </button>
@@ -71,21 +85,37 @@ export default function DoctorsPage() {
             const personal = doc.personalInfo || {};
             const education = doc.educationAndCredentials || {};
             const experienceYears =
-              education.workExperience?.reduce((sum, exp) => sum + (exp.years || 0), 0) || 0;
+              education.workExperience?.reduce(
+                (sum, exp) => sum + (exp.years || 0),
+                0
+              ) || 0;
 
             return (
               <div
                 key={doc._id}
-                className="flex flex-col rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 overflow-hidden border border-gray-200"
-                style={{ backgroundColor: "var(--dashboard-bg)" }}
+                className="flex flex-col rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 overflow-hidden border"
+                style={{
+                  backgroundColor: "var(--dashboard-bg)",
+                  borderColor: "var(--dashboard-border)",
+                  fontFamily: "var(--font-primary)",
+                }}
               >
                 {/* Card Header */}
                 <div className="px-6 py-5 flex flex-col items-start space-y-2">
-                  <h2 className="text-2xl font-bold text-gray-900">{personal.fullName || "N/A"}</h2>
-                  <span
-                    className="inline-block px-3 py-1 rounded-full text-sm font-semibold text-white"
+                  <h2
+                    className="text-2xl font-bold"
                     style={{
-                      background: "linear-gradient(90deg, #2e7d32, #4caf50)",
+                      fontFamily: "var(--font-heading)",
+                      color: "var(--fourground-color)",
+                    }}
+                  >
+                    {personal.fullName || "N/A"}
+                  </h2>
+                  <span
+                    className="inline-block px-3 py-1 rounded-full text-sm font-semibold text-white whitespace-nowrap"
+                    style={{
+                      background: "var(--color-light-green)",
+                      fontFamily: "var(--font-primary)",
                     }}
                   >
                     {education.specialization || "General"}
@@ -93,28 +123,58 @@ export default function DoctorsPage() {
                 </div>
 
                 {/* Doctor Info */}
-                <div className="p-6 flex flex-col flex-1 justify-between space-y-4 text-gray-700">
+                <div className="p-6 flex flex-col flex-1 justify-between space-y-4">
                   {/* Email & Phone */}
-                  <div className="bg-gray-50 p-3 rounded-lg shadow-sm hover:bg-gray-100 transition">
-                    <p><strong>Email:</strong> {personal.email || "N/A"}</p>
-                    <p><strong>Phone:</strong> {personal.contactNumber?.mobile || "N/A"}</p>
+                  <div
+                    className="p-3 rounded-lg shadow-sm transition"
+                    style={{ backgroundColor: "var(--gray-color)" }}
+                  >
+                    <p>
+                      <strong>Email:</strong> {personal.email || "N/A"}
+                    </p>
+                    <p>
+                      <strong>Phone:</strong>{" "}
+                      {personal.contactNumber?.mobile || "N/A"}
+                    </p>
                   </div>
 
                   {/* Education & Affiliation */}
-                  <div className="bg-gray-50 p-3 rounded-lg shadow-sm hover:bg-gray-100 transition">
-                    <p><strong>Education:</strong> {education.medicalDegree || "N/A"}, {education.postGraduate || "N/A"}</p>
-                    <p><strong>Affiliation:</strong> {education.currentAffiliation || "N/A"}</p>
+                  <div
+                    className="p-3 rounded-lg shadow-sm transition"
+                    style={{ backgroundColor: "var(--gray-color)" }}
+                  >
+                    <p>
+                      <strong>Education:</strong>{" "}
+                      {education.medicalDegree || "N/A"},{" "}
+                      {education.postGraduate || "N/A"}
+                    </p>
+                    <p>
+                      <strong>Affiliation:</strong>{" "}
+                      {education.currentAffiliation || "N/A"}
+                    </p>
                   </div>
 
                   {/* Work Experience */}
-                  <div className="bg-gray-50 p-3 rounded-lg shadow-sm hover:bg-gray-100 transition">
-                    <strong className="block mb-2 text-lg" style={{ color: "var(--dashboard-blue)" }}>
+                  <div
+                    className="p-3 rounded-lg shadow-sm transition"
+                    style={{ backgroundColor: "var(--gray-color)" }}
+                  >
+                    <strong
+                      className="block mb-2 text-lg"
+                      style={{
+                        color: "var(--dashboard-blue)",
+                        fontFamily: "var(--font-alt)",
+                      }}
+                    >
                       Work Experience:
                     </strong>
-                    <ul className="list-disc list-inside text-sm text-gray-700">
+                    <ul className="list-disc list-inside text-sm">
                       {education.workExperience?.length ? (
                         education.workExperience.map((exp, i) => (
-                          <li key={i}>{exp.position} at {exp.hospitalName} ({exp.years || "N/A"} yrs)</li>
+                          <li key={i}>
+                            {exp.position} at {exp.hospitalName} (
+                            {exp.years || "N/A"} yrs)
+                          </li>
                         ))
                       ) : (
                         <li>No experience data</li>
@@ -122,8 +182,12 @@ export default function DoctorsPage() {
                     </ul>
                     {experienceYears >= 5 && (
                       <span
-                        className="inline-block mt-2 px-2 py-1 text-xs font-bold rounded"
-                        style={{ backgroundColor: "#4682B4", color: "white" }}
+                        className="inline-block mt-2 px-2 py-1 text-xs font-bold rounded whitespace-nowrap"
+                        style={{
+                          backgroundColor: "var(--color-calm-blue)",
+                          color: "var(--color-white)",
+                          fontFamily: "var(--font-primary)",
+                        }}
                       >
                         Experienced ({experienceYears} yrs)
                       </span>
@@ -133,12 +197,11 @@ export default function DoctorsPage() {
                   {/* Book Appointment Button */}
                   <div className="mt-6">
                     <button
-                      className="w-full py-3 font-semibold rounded-full text-white text-lg shadow-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl"
+                      className="w-full py-3 font-semibold rounded-full text-lg shadow-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl whitespace-nowrap"
                       style={{
-                        background: "linear-gradient(270deg, #4682B4, #5a9bd4, #4682B4)",
-                        backgroundSize: "600% 600%",
-                        animation: "gradientFlow 8s ease infinite",
-                        boxShadow: "0 5px 20px rgba(70, 130, 180, 0.4)",
+                        backgroundColor: "var(--color-calm-blue)",
+                        color: "var(--color-white)",
+                        fontFamily: "var(--font-heading)",
                       }}
                     >
                       Book Appointment
@@ -149,7 +212,13 @@ export default function DoctorsPage() {
             );
           })
         ) : (
-          <p className="col-span-full text-center text-lg font-medium" style={{ color: "var(--dashboard-blue)" }}>
+          <p
+            className="col-span-full text-center text-lg font-medium"
+            style={{
+              color: "var(--dashboard-blue)",
+              fontFamily: "var(--font-primary)",
+            }}
+          >
             No doctors found for this specialization.
           </p>
         )}
