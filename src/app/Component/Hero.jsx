@@ -1,8 +1,34 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const Hero = () => {
+  const [doctorCount, setDoctorCount] = useState(0);
+  const [userCount, setUserCount] = useState(0);
+
+  useEffect(() => {
+    const fetchCounts = async () => {
+      try {
+        // Fetch doctors
+        const resDoctors = await fetch("/api/doctors");
+        const doctors = await resDoctors.json();
+        setDoctorCount(doctors.length);
+
+        // Fetch users (patients)
+        const resUsers = await fetch("/api/users");
+        const users = await resUsers.json();
+
+        // Optionally, filter only patients if you store roles
+        const patients = users.filter((u) => u.role === "user");
+        setUserCount(patients.length);
+      } catch (error) {
+        console.error("Error fetching counts:", error);
+      }
+    };
+
+    fetchCounts();
+  }, []);
   return (
     <section
       className="relative bg-gradient-to-b from-[var(--color-calm-blue)] to-[var(--color-light-green)] min-h-screen flex items-center pt-16 pb-12"
@@ -45,7 +71,7 @@ const Hero = () => {
                 className="text-3xl md:text-4xl font-bold text-white mb-2"
                 style={{ fontFamily: "var(--font-primary)" }}
               >
-                500+
+                {doctorCount}+
               </div>
               <div className="text-white/80 text-sm font-medium tracking-wide">
                 Verified Doctors
@@ -56,7 +82,7 @@ const Hero = () => {
                 className="text-3xl md:text-4xl font-bold text-white mb-2"
                 style={{ fontFamily: "var(--font-primary)" }}
               >
-                10K+
+                {userCount}+
               </div>
               <div className="text-white/80 text-sm font-medium tracking-wide">
                 Happy Patients
