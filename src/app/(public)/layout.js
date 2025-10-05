@@ -13,7 +13,7 @@ export default function PublicLayout({ children }) {
     >
       <Navbar />
       <main className="flex-grow">{children}</main>
-      <HospitalAIAssistant/>
+      <HospitalAIAssistant />
       <Footer />
     </div>
   );

@@ -11,7 +11,7 @@ export async function POST(req) {
     console.log("next js body:", body);
 
     const geminiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=AIzaSyCx5eumhotMhRAiCCaTbK1dz_geqpxENtM`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${process.env.NEXT_PUBLIC_OPEN_AI}`,
       {
         method: "POST",
         headers: {
