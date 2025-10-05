@@ -18,7 +18,7 @@ const Page = () => {
     const [formData, setFormData] = useState({});
 
 
-    const [profileImage, setProfileImage] = useState("https://img.daisyui.com/images/profile/demo/spiderperson@192.webp");
+    const [profileImage, setProfileImage] = useState("");
     const [licenseCertificatePdf, setLicenseCertificate] = useState("")
     const [governmentIdPdf, setGovernmentIdPdf] = useState("")
 
@@ -256,11 +256,11 @@ const Page = () => {
                                     boxShadow: "0 0 0 4px var(--color-white)",
                                 }}
                             >
-                                <img
+                               {profileImage && <img
                                     src={profileImage}
                                     alt="profile"
                                     className="w-full h-full object-cover"
-                                />
+                                />}
                             </div>
                             <label
                                 className="cursor-pointer px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors"
@@ -1003,7 +1003,7 @@ const Page = () => {
                                 />
                             </div>
                         </div>
-                        <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
+                        <div className="flex md:flex-row gap-6 justify-center items-center">
                             {lanaguages?.map((lang) => (
                                 <div key={lang.value}>
                                     <div className="flex items-center p-3 mb-4 rounded-xl transition-all duration-300" style={{ backgroundColor: 'var(--gray-color)', borderWidth: '2px', borderColor: 'var(--dashboard-border)' }}>
