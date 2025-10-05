@@ -17,19 +17,19 @@
   /* dash board colors */
   --dashboard-blue: #3199ee;
 
-  /* gray */ 
+  /* gray */
   --sidebar-bg: #fafafa;
 
   /* dashboard bg */
-  --dashboard-bg: #ffffff;  
+  --dashboard-bg: #ffffff;
 
-   --dashboard-border: #d6d6d6;
+  --dashboard-border: #d6d6d6;
 
-   /* font color */
-   --fourground-color: #020613;
+  /* font color */
+  --fourground-color: #020613;
 
-   /* gray color*/
-   --gray-color: #f3f3f3;
+  /* gray color*/
+  --gray-color: #f3f3f3;
 
 }
 
