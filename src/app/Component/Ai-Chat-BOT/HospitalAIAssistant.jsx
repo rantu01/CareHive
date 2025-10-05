@@ -104,7 +104,7 @@ export default function HospitalAIAssistant() {
                 <Bot className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-semibold text-lg">Hospital Assistant</h3>
+                <h3 className="font-semibold text-lg">CareHive Assistant</h3>
                 <p className="text-xs text-blue-100 flex items-center gap-1">
                   <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
                   Online
