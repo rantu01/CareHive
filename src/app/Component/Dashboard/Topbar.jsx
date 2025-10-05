@@ -140,7 +140,7 @@ export default function Topbar({ toggleSidebar }) {
         {role === "user" && (
           <div>
             <Link
-              href={'/apply-for-doctor'}
+              href={'/dashboard/user/apply-for-doctor'}
               className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-[var(--dashboard-blue)] to-[var(--dashboard-blue)]/90 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer border border-[var(--dashboard-blue)]/30 hover:from-[var(--dashboard-blue)]/90 hover:to-[var(--dashboard-blue)]"
             >
               <UserPlus size={18} />
