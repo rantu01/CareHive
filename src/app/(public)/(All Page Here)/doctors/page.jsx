@@ -1,9 +1,13 @@
+
 // "use client";
+// import { useUser } from "@/app/context/UserContext";
 // import { useEffect, useState } from "react";
+// // import { useUser } from "../context/userContext"; // make sure path is correct
 
 // export default function DoctorsPage() {
 //   const [doctors, setDoctors] = useState([]);
 //   const [searchTerm, setSearchTerm] = useState("");
+//   const { user } = useUser(); // get logged in Firebase user
 
 //   useEffect(() => {
 //     const fetchDoctors = async () => {
@@ -18,6 +22,39 @@
 //     fetchDoctors();
 //   }, []);
 
+//   // Function to handle booking
+//   const handleBookAppointment = async (doc) => {
+//     if (!user) {
+//       alert("Please log in to book an appointment.");
+//       return;
+//     }
+
+//     try {
+//       const res = await fetch("/api/appointments", {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({
+//           userId: user.uid,
+//           doctorId: doc._id,
+//           doctorName: doc.personalInfo?.fullName || "Unknown Doctor",
+//           specialist: doc.educationAndCredentials?.specialization || "General",
+//           appointmentDate: new Date().toISOString(),
+//         }),
+//       });
+
+//       const result = await res.json();
+
+//       if (res.ok) {
+//         alert("✅ Appointment booked successfully!");
+//       } else {
+//         alert("❌ Failed to book appointment: " + (result.error || ""));
+//       }
+//     } catch (error) {
+//       console.error("Error booking appointment:", error);
+//       alert("❌ Something went wrong while booking appointment.");
+//     }
+//   };
+
 //   const filteredDoctors = doctors.filter((doc) =>
 //     doc.educationAndCredentials?.specialization
 //       ?.toLowerCase()
@@ -27,7 +64,10 @@
 //   return (
 //     <div
 //       className="container mx-auto min-h-screen py-28 px-5"
-//       style={{ fontFamily: "var(--font-primary)", color: "var(--fourground-color)" }}
+//       style={{
+//         fontFamily: "var(--font-primary)",
+//         color: "var(--fourground-color)",
+//       }}
 //     >
 //       {/* Header */}
 //       <div className="text-center mb-20">
@@ -43,7 +83,10 @@
 
 //         <p
 //           className="max-w-3xl mx-auto text-lg"
-//           style={{ fontFamily: "var(--font-primary)", color: "var(--fourground-color)" }}
+//           style={{
+//             fontFamily: "var(--font-primary)",
+//             color: "var(--fourground-color)",
+//           }}
 //         >
 //           Find highly skilled medical professionals. Use the search to quickly
 //           locate your specialist.
@@ -60,7 +103,6 @@
 //             onChange={(e) => setSearchTerm(e.target.value)}
 //             className="w-full px-6 py-3 rounded-full shadow-lg focus:outline-none focus:ring-4 transition duration-300"
 //             style={{
-              
 //               border: "2px solid var(--dashboard-blue)",
 //               color: "var(--fourground-color)",
 //               fontFamily: "var(--font-primary)",
@@ -197,6 +239,7 @@
 //                   {/* Book Appointment Button */}
 //                   <div className="mt-6">
 //                     <button
+//                       onClick={() => handleBookAppointment(doc)}
 //                       className="w-full py-3 font-semibold rounded-full text-lg shadow-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl whitespace-nowrap"
 //                       style={{
 //                         backgroundColor: "var(--color-calm-blue)",
@@ -228,14 +271,17 @@
 // }
 
 
+
+
 "use client";
 import { useUser } from "@/app/context/UserContext";
 import { useEffect, useState } from "react";
-// import { useUser } from "../context/userContext"; // make sure path is correct
+import Swal from "sweetalert2";
 
 export default function DoctorsPage() {
   const [doctors, setDoctors] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [bookedDoctors, setBookedDoctors] = useState([]); // track booked doctors
   const { user } = useUser(); // get logged in Firebase user
 
   useEffect(() => {
@@ -254,7 +300,12 @@ export default function DoctorsPage() {
   // Function to handle booking
   const handleBookAppointment = async (doc) => {
     if (!user) {
-      alert("Please log in to book an appointment.");
+      Swal.fire({
+        icon: "warning",
+        title: "Please Log In",
+        text: "You must be logged in to book an appointment.",
+        confirmButtonColor: "#3085d6",
+      });
       return;
     }
 
@@ -274,13 +325,28 @@ export default function DoctorsPage() {
       const result = await res.json();
 
       if (res.ok) {
-        alert("✅ Appointment booked successfully!");
+        setBookedDoctors((prev) => [...prev, doc._id]); // mark as booked
+        Swal.fire({
+          icon: "success",
+          title: "Appointment Booked!",
+          text: `You have successfully booked an appointment with Dr. ${doc.personalInfo?.fullName || "Doctor"}.`,
+          showConfirmButton: false,
+          timer: 1800,
+        });
       } else {
-        alert("❌ Failed to book appointment: " + (result.error || ""));
+        Swal.fire({
+          icon: "error",
+          title: "Failed",
+          text: result.error || "Could not book appointment.",
+        });
       }
     } catch (error) {
       console.error("Error booking appointment:", error);
-      alert("❌ Something went wrong while booking appointment.");
+      Swal.fire({
+        icon: "error",
+        title: "Something went wrong",
+        text: "Unable to complete your request right now.",
+      });
     }
   };
 
@@ -360,6 +426,8 @@ export default function DoctorsPage() {
                 (sum, exp) => sum + (exp.years || 0),
                 0
               ) || 0;
+
+            const isBooked = bookedDoctors.includes(doc._id);
 
             return (
               <div
@@ -469,14 +537,21 @@ export default function DoctorsPage() {
                   <div className="mt-6">
                     <button
                       onClick={() => handleBookAppointment(doc)}
-                      className="w-full py-3 font-semibold rounded-full text-lg shadow-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl whitespace-nowrap"
+                      disabled={isBooked}
+                      className={`w-full py-3 font-semibold rounded-full text-lg shadow-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl whitespace-nowrap ${
+                        isBooked
+                          ? "opacity-60 cursor-not-allowed"
+                          : "hover:bg-opacity-90"
+                      }`}
                       style={{
-                        backgroundColor: "var(--color-calm-blue)",
+                        backgroundColor: isBooked
+                          ? "gray"
+                          : "var(--color-calm-blue)",
                         color: "var(--color-white)",
                         fontFamily: "var(--font-heading)",
                       }}
                     >
-                      Book Appointment
+                      {isBooked ? "Appointment Booked ✅" : "Book Appointment"}
                     </button>
                   </div>
                 </div>
@@ -498,3 +573,4 @@ export default function DoctorsPage() {
     </div>
   );
 }
+
