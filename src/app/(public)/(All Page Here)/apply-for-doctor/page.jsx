@@ -1,9 +1,10 @@
 "use client"
 import axios from "axios";
-import { Hospital, Upload } from "lucide-react";
+import { Calendar, Camera, Flag, Heart, Hospital, Mail, MapPin, MessageCircle, Phone, Upload, User } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import Home from "../../page";
 
 const Page = () => {
 
@@ -221,7 +222,7 @@ const Page = () => {
         { name: "English", value: 'english' },
     ]
     return (
-        <div className="min-h-screen text-gray-900 mt-18">
+        <div className="min-h-screen text-gray-900 mt-18 bg-[var(--gray-color)]">
 
             {/* Header */}
             <header className="flex justify-center items-center gap-3 py-6 shadow-lg" style={{ background: 'linear-gradient(to right, var(--color-calm-blue), var(--dashboard-blue))', color: 'var(--color-white)' }}>
@@ -235,9 +236,11 @@ const Page = () => {
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="max-w-6xl mx-auto mt-10 shadow-2xl rounded-2xl p-6 md:p-10 space-y-10"
-                style={{ backgroundColor: 'var(--color-white)', borderWidth: '1px', borderColor: 'var(--dashboard-border)' }}
+                // style={{ backgroundColor: 'var(--color-white)', borderWidth: '1px', borderColor: 'var(--dashboard-border)' }}
             >
                 {/* Personal Info */}
+
+
                 <section>
                     <h2
                         className="text-xl md:text-2xl font-semibold text-center mb-6"
@@ -256,7 +259,7 @@ const Page = () => {
                                     boxShadow: "0 0 0 4px var(--color-white)",
                                 }}
                             >
-                               {profileImage && <img
+                                {profileImage && <img
                                     src={profileImage}
                                     alt="profile"
                                     className="w-full h-full object-cover"
@@ -325,7 +328,7 @@ const Page = () => {
                                     style={{
                                         borderWidth: "2px",
                                         borderColor: "var(--dashboard-border)",
-                                        backgroundColor: "var(--color-white)",
+                                        // backgroundColor: "var(--color-white)",
                                         color: "var(--fourground-color)",
                                     }}
                                 >
@@ -402,7 +405,6 @@ const Page = () => {
                                     style={{
                                         borderWidth: "2px",
                                         borderColor: "var(--dashboard-border)",
-                                        backgroundColor: "var(--color-white)",
                                         color: "var(--fourground-color)",
                                     }}
                                 >
@@ -426,7 +428,6 @@ const Page = () => {
                                     style={{
                                         borderWidth: "2px",
                                         borderColor: "var(--dashboard-border)",
-                                        backgroundColor: "var(--color-white)",
                                         color: "var(--fourground-color)",
                                     }}
                                 >
@@ -517,8 +518,6 @@ const Page = () => {
                         </div>
                     </div>
                 </section>
-
-
                 {/* Education */}
                 <section>
                     <h2
@@ -680,7 +679,6 @@ const Page = () => {
                                     style={{
                                         borderWidth: "2px",
                                         borderColor: "var(--dashboard-border)",
-                                        backgroundColor: "var(--color-white)",
                                         color: "var(--fourground-color)",
                                     }}
                                 />
@@ -703,7 +701,6 @@ const Page = () => {
                                     style={{
                                         borderWidth: "2px",
                                         borderColor: "var(--dashboard-border)",
-                                        backgroundColor: "var(--color-white)",
                                         color: "var(--fourground-color)",
                                     }}
                                 />
@@ -725,7 +722,6 @@ const Page = () => {
                                         style={{
                                             borderWidth: "2px",
                                             borderColor: "var(--dashboard-border)",
-                                            backgroundColor: "var(--color-white)",
                                             color: "var(--fourground-color)",
                                         }}
                                     />
@@ -744,7 +740,6 @@ const Page = () => {
                                         style={{
                                             borderWidth: "2px",
                                             borderColor: "var(--dashboard-border)",
-                                            backgroundColor: "var(--color-white)",
                                             color: "var(--fourground-color)",
                                         }}
                                     />
@@ -785,7 +780,6 @@ const Page = () => {
                                     style={{
                                         borderWidth: "2px",
                                         borderColor: "var(--dashboard-border)",
-                                        backgroundColor: "var(--color-white)",
                                         color: "var(--fourground-color)",
                                     }}
                                 />
@@ -808,7 +802,6 @@ const Page = () => {
                                     style={{
                                         borderWidth: "2px",
                                         borderColor: "var(--dashboard-border)",
-                                        backgroundColor: "var(--color-white)",
                                         color: "var(--fourground-color)",
                                     }}
                                 />
@@ -830,7 +823,6 @@ const Page = () => {
                                         style={{
                                             borderWidth: "2px",
                                             borderColor: "var(--dashboard-border)",
-                                            backgroundColor: "var(--color-white)",
                                             color: "var(--fourground-color)",
                                         }}
                                     />
@@ -849,7 +841,6 @@ const Page = () => {
                                         style={{
                                             borderWidth: "2px",
                                             borderColor: "var(--dashboard-border)",
-                                            backgroundColor: "var(--color-white)",
                                             color: "var(--fourground-color)",
                                         }}
                                     />
@@ -925,16 +916,16 @@ const Page = () => {
                         ))}
                     </div>
 
-                    <div className="flex flex-col gap-4 p-3 rounded-md bg-white shadow">
+                    <div className="flex flex-col gap-4 p-3 rounded-md  shadow">
                         {/* Consultation Type */}
-                        <div className="flex flex-col">
-                            <label htmlFor="consultation" className="font-medium mb-1">
+                        <div className="flex flex-col ">
+                            <label htmlFor="consultation" className="font-medium mb-1 text-[var(--fourground-color)]">
                                 Consultation Type
                             </label>
                             <select
                                 id="consultation"
                                 {...register("consultation", { required: true })}
-                                className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="border rounded px-3 py-2 text-[var(--fourground-color)] bg-[var(--gray-color)] focus:outline-none focus:ring-2 focus:ring-blue-500"
                             >
                                 <option value="">Select...</option>
                                 <option value="online">Online</option>
@@ -944,7 +935,7 @@ const Page = () => {
                         </div>
 
                         {/* Hospital Name */}
-                        <div className="flex flex-col">
+                        <div className="flex flex-col text-[var(--fourground-color)]">
                             <label htmlFor="hospital" className="font-medium mb-1">
                                 Hospital Name
                             </label>
@@ -958,7 +949,7 @@ const Page = () => {
                         </div>
 
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
                             <div>
                                 <label
                                     htmlFor="offline-fee"
@@ -1068,7 +1059,6 @@ const Page = () => {
                                 className="w-full p-3 rounded-xl focus:outline-none focus:ring-2 transition-all duration-300"
                                 style={{
                                     color: "var(--fourground-color)",
-                                    backgroundColor: "var(--color-white)",
                                     borderWidth: "2px",
                                     borderColor: "var(--dashboard-border)",
                                 }}
@@ -1099,7 +1089,6 @@ const Page = () => {
                                 className="w-full p-3 rounded-xl focus:outline-none focus:ring-2 transition-all duration-300"
                                 style={{
                                     color: "var(--fourground-color)",
-                                    backgroundColor: "var(--color-white)",
                                     borderWidth: "2px",
                                     borderColor: "var(--dashboard-border)",
                                 }}
@@ -1127,7 +1116,6 @@ const Page = () => {
                                 className="w-full p-3 rounded-xl focus:outline-none focus:ring-2 transition-all duration-300"
                                 style={{
                                     color: "var(--fourground-color)",
-                                    backgroundColor: "var(--color-white)",
                                     borderWidth: "2px",
                                     borderColor: "var(--dashboard-border)",
                                 }}
@@ -1157,7 +1145,6 @@ const Page = () => {
                                 className="w-full p-3 rounded-xl focus:outline-none focus:ring-2 transition-all duration-300"
                                 style={{
                                     color: "var(--fourground-color)",
-                                    backgroundColor: "var(--color-white)",
                                     borderWidth: "2px",
                                     borderColor: "var(--dashboard-border)",
                                 }}
@@ -1189,7 +1176,6 @@ const Page = () => {
                                 className="w-full p-3 rounded-xl focus:outline-none focus:ring-2 transition-all duration-300"
                                 style={{
                                     color: "var(--fourground-color)",
-                                    backgroundColor: "var(--color-white)",
                                     borderWidth: "2px",
                                     borderColor: "var(--dashboard-border)",
                                 }}
