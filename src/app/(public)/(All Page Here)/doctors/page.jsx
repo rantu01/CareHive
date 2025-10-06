@@ -212,7 +212,7 @@ export default function DoctorsPage() {
                       fontFamily: "var(--font-primary)",
                     }}
                   >
-                    Details
+                    Details...
                   </button>
                 </div>
 
