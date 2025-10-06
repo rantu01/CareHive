@@ -1,8 +1,4 @@
 
-
-
-
-
 "use client";
 import { useUser } from "@/app/context/UserContext";
 import { useEffect, useState } from "react";
@@ -136,7 +132,7 @@ export default function DoctorsPage() {
           }}
         >
           Find highly skilled medical professionals. Use the search to quickly
-          locate your specialist
+          locate your specialist.
         </p>
       </div>
 
