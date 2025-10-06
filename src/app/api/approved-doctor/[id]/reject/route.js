@@ -4,7 +4,9 @@ import clientPromise from "../../../../lib/mongodb";
 
 export async function POST(req, context) {
   try {
+    
     const { id } = await context.params;
+
     if (!id) {
       return NextResponse.json({ ok: false, error: "Missing ID" }, { status: 400 });
     }

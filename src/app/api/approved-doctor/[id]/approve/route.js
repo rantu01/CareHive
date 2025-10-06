@@ -23,7 +23,7 @@ export async function POST(req, context) {
     const usersColl = db.collection("users");
     const doctorsColl = db.collection("doctors");
 
-    // 1️⃣ Approval request বের করা
+    // 1️⃣ Find approval request
     const request = await approvalColl.findOne({ _id: objectId });
     if (!request) {
       return NextResponse.json({ ok: false, error: "Request not found" }, { status: 404 });
@@ -31,23 +31,28 @@ export async function POST(req, context) {
 
     const userIdToUpdate = request.userId || request._id;
 
-    // 2️⃣ Duplicate check
+    // 2️⃣ Prevent duplicate approval
     const existingDoctor = await doctorsColl.findOne({ userId: userIdToUpdate });
     if (existingDoctor) {
-      // Already approved
       return NextResponse.json({
         ok: false,
         message: "Doctor already approved",
       });
     }
 
-    // 3️⃣ Insert doctor data
+    // 3️⃣ Insert doctor with status included
     await doctorsColl.insertOne({
       userId: userIdToUpdate,
       personalInfo: request.personalInfo,
       educationAndCredentials: request.educationAndCredentials,
       licenseAndVerification: request.licenseAndVerification,
       practiceInfo: request.practiceInfo,
+      status: {
+        isVerified: true,
+        adminRemarks: "Approved",
+        submittedAt: request.status?.submittedAt || new Date(),
+        approvedAt: new Date(),
+      },
       createdAt: new Date(),
     });
 

@@ -1,7 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
+
 @import "tailwindcss";
 @plugin "daisyui";
 
 :root {
+  /* Fonts */
+  --font-primary: 'Inter', sans-serif;       /* For body text / nav links */
+  --font-heading: 'Poppins', sans-serif;     /* For logo / headings */
+  --font-alt: 'Montserrat', sans-serif;      /* Optional alternative font */
+
   /* Calm Blue */
   --color-calm-blue: #4682B4;
 
@@ -14,23 +21,19 @@
   /* Light Green */
   --color-light-green: #90EE90;
 
-  /* dash board colors */
+  /* Dashboard colors */
   --dashboard-blue: #3199ee;
 
-  /* gray */ 
+  /* Gray */
   --sidebar-bg: #fafafa;
+  --dashboard-bg: #ffffff;
+  --dashboard-border: #d6d6d6;
 
-  /* dashboard bg */
-  --dashboard-bg: #ffffff;  
+  /* Font color */
+  --fourground-color: #020613;
 
-   --dashboard-border: #d6d6d6;
-
-   /* font color */
-   --fourground-color: #020613;
-
-   /* gray color*/
-   --gray-color: #f3f3f3;
-
+  /* Gray color */
+  --gray-color: #f3f3f3;
 }
 
 .dark {

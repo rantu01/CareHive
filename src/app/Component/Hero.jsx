@@ -1,20 +1,46 @@
 "use client";
-import { Poppins } from "next/font/google";
 
-const poppins = Poppins({
-  weight: ["300", "400", "500", "600", "700"],
-  subsets: ["latin"],
-});
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const Hero = () => {
+  const [doctorCount, setDoctorCount] = useState(0);
+  const [userCount, setUserCount] = useState(0);
+
+  useEffect(() => {
+    const fetchCounts = async () => {
+      try {
+        // Fetch doctors
+        const resDoctors = await fetch("/api/doctors");
+        const doctors = await resDoctors.json();
+        setDoctorCount(doctors.length);
+
+        // Fetch users (patients)
+        const resUsers = await fetch("/api/users");
+        const users = await resUsers.json();
+
+        // Optionally, filter only patients if you store roles
+        const patients = users.filter((u) => u.role === "user");
+        setUserCount(patients.length);
+      } catch (error) {
+        console.error("Error fetching counts:", error);
+      }
+    };
+
+    fetchCounts();
+  }, []);
   return (
     <section
-      className={`relative bg-gradient-to-b from-[var(--color-calm-blue)] to-[var(--color-light-green)] min-h-screen flex items-center pt-16 pb-12 ${poppins.className}`}
+      className="relative bg-gradient-to-b from-[var(--color-calm-blue)] to-[var(--color-light-green)] min-h-screen flex items-center pt-16 pb-12"
+      style={{ fontFamily: "var(--font-primary)" }}
     >
-      <div className="container mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center">
+      <div className="container mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center gap-2">
         {/* Text Content */}
         <div className="md:w-1/2 text-center md:text-left mb-10 md:mb-0 md:pr-10">
-          <h1 className="text-4xl md:text-5xl lg:text-5xl font-bold text-white mb-6 leading-tight tracking-tight">
+          <h1
+            className="text-4xl md:text-5xl lg:text-5xl font-bold text-white mb-6 leading-tight tracking-tight"
+            style={{ fontFamily: "var(--font-heading)" }}
+          >
             Your Journey to Better Health{" "}
             <span className="text-[var(--color-light-green)]">Starts Here</span>
           </h1>
@@ -25,14 +51,14 @@ const Hero = () => {
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start w-full">
             <button
-              className="w-full sm:w-auto bg-white text-[var(--color-calm-blue)] hover:bg-gray-50 font-semibold py-2 px-4 sm:py-3 sm:px-6 rounded-full text-sm sm:text-base transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-              style={{ fontFamily: poppins.style.fontFamily }}
+              className="w-full sm:w-auto bg-white text-[var(--color-calm-blue)] hover:bg-gray-50 font-semibold py-2 px-6 sm:py-3 sm:px-6 rounded-full text-sm sm:text-base transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 whitespace-nowrap"
+              style={{ fontFamily: "var(--font-primary)" }}
             >
-              Book an Appointment
+              <Link href="/doctors">Book an Appointment</Link>
             </button>
             <button
-              className="w-full sm:w-auto bg-transparent border-2 border-white text-white hover:bg-white hover:text-[var(--color-calm-blue)] font-semibold py-2 px-4 sm:py-3 sm:px-6 rounded-full text-sm sm:text-base transition-all duration-300 transform hover:-translate-y-0.5"
-              style={{ fontFamily: poppins.style.fontFamily }}
+              className="w-full sm:w-auto bg-transparent border-2 border-white text-white hover:bg-white hover:text-[var(--color-calm-blue)] font-semibold py-2 px-6 sm:py-3 sm:px-6 rounded-full text-sm sm:text-base transition-all duration-300 transform hover:-translate-y-0.5 whitespace-nowrap"
+              style={{ fontFamily: "var(--font-primary)" }}
             >
               Explore Wellness Programs
             </button>
@@ -43,9 +69,9 @@ const Hero = () => {
             <div className="text-center">
               <div
                 className="text-3xl md:text-4xl font-bold text-white mb-2"
-                style={{ fontFamily: poppins.style.fontFamily }}
+                style={{ fontFamily: "var(--font-primary)" }}
               >
-                500+
+                {doctorCount}+
               </div>
               <div className="text-white/80 text-sm font-medium tracking-wide">
                 Verified Doctors
@@ -54,9 +80,9 @@ const Hero = () => {
             <div className="text-center">
               <div
                 className="text-3xl md:text-4xl font-bold text-white mb-2"
-                style={{ fontFamily: poppins.style.fontFamily }}
+                style={{ fontFamily: "var(--font-primary)" }}
               >
-                10K+
+                {userCount}+
               </div>
               <div className="text-white/80 text-sm font-medium tracking-wide">
                 Happy Patients
@@ -65,7 +91,7 @@ const Hero = () => {
             <div className="text-center">
               <div
                 className="text-3xl md:text-4xl font-bold text-white mb-2"
-                style={{ fontFamily: poppins.style.fontFamily }}
+                style={{ fontFamily: "var(--font-primary)" }}
               >
                 24/7
               </div>
@@ -80,7 +106,7 @@ const Hero = () => {
         <div className="md:w-1/2 relative">
           <div className="relative rounded-3xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-500">
             <img
-              src="https://i.ibb.co.com/7x0r29bf/front-view-young-female-with-carpet-exercises-blue-wall.webp"
+              src="https://i.ibb.co/7x0r29bf/front-view-young-female-with-carpet-exercises-blue-wall.webp"
               alt="Woman practicing wellness exercises"
               className="w-full h-auto object-cover rounded-3xl"
             />
@@ -106,13 +132,13 @@ const Hero = () => {
                 <div>
                   <h3
                     className="font-bold text-gray-900 text-lg"
-                    style={{ fontFamily: poppins.style.fontFamily }}
+                    style={{ fontFamily: "var(--font-primary)" }}
                   >
                     Wellness Program
                   </h3>
                   <p
                     className="text-sm text-gray-600 font-medium"
-                    style={{ fontFamily: poppins.style.fontFamily }}
+                    style={{ fontFamily: "var(--font-primary)" }}
                   >
                     Personalized for you
                   </p>

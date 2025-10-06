@@ -26,7 +26,7 @@ const WelcomeBar = () => {
             </div>
             <div className="flex-1 min-w-0">
               <h1 className=" font-bold text-2xl md:text-4xl mb-2 bg-gradient-to-r from-[var(--fourground-color)] to-[var(--dashboard-blue)] bg-clip-text text-transparent leading-tight">
-                Welcome back, {user?.email}!
+                Welcome back, {user?.displayName}!
               </h1>
               <p className="text-[var(--fourground-color)]/70 text-sm md:text-xl font-medium">
                 Here's your health overview for today
@@ -67,7 +67,7 @@ const WelcomeBar = () => {
             className="group px-6 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-[var(--dashboard-blue)] to-[var(--dashboard-blue)]/90 hover:from-[var(--color-calm-blue)] hover:to-[var(--dashboard-blue)] shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center gap-2 border border-[var(--dashboard-blue)]/30"
           >
             <RefreshCw size={18} className="group-hover:rotate-180 transition-transform duration-500" />
-            <span>{userHealthStats ? "Update":"Add Health Stats"}</span>
+            <span>{userHealthStats ? "Update" : "Add Health Stats"}</span>
           </button>
         </div>
 
