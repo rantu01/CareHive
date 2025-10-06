@@ -1,10 +1,17 @@
+
 "use client";
+import { useUser } from "@/app/context/UserContext";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 export default function DoctorsPage() {
   const [doctors, setDoctors] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [bookedDoctors, setBookedDoctors] = useState([]);
+  const [selectedDoctor, setSelectedDoctor] = useState(null); // 👈 for modal
+  const { user } = useUser();
 
+  // Fetch all doctors
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
@@ -18,6 +25,80 @@ export default function DoctorsPage() {
     fetchDoctors();
   }, []);
 
+  // Fetch booked appointments
+  useEffect(() => {
+    const fetchBookedAppointments = async () => {
+      if (!user) {
+        setBookedDoctors([]);
+        return;
+      }
+      try {
+        const res = await fetch(`/api/appointments?userId=${user.uid}`);
+        const data = await res.json();
+        if (Array.isArray(data)) {
+          const bookedIds = data.map((appointment) => appointment.doctorId);
+          setBookedDoctors(bookedIds);
+        }
+      } catch (error) {
+        console.error("Error fetching booked appointments:", error);
+      }
+    };
+    fetchBookedAppointments();
+  }, [user]);
+
+  // Book appointment
+  const handleBookAppointment = async (doc) => {
+    if (!user) {
+      Swal.fire({
+        icon: "warning",
+        title: "Please Log In",
+        text: "You must be logged in to book an appointment.",
+        confirmButtonColor: "#3085d6",
+      });
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/appointments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: user.uid,
+          doctorId: doc._id,
+          doctorName: doc.personalInfo?.fullName || "Unknown Doctor",
+          specialist: doc.educationAndCredentials?.specialization || "General",
+          appointmentDate: new Date().toISOString(),
+        }),
+      });
+
+      const result = await res.json();
+
+      if (res.ok) {
+        setBookedDoctors((prev) => [...prev, doc._id]);
+        Swal.fire({
+          icon: "success",
+          title: "Appointment Booked!",
+          text: `You have successfully booked an appointment with Dr. ${doc.personalInfo?.fullName || "Doctor"}.`,
+          showConfirmButton: false,
+          timer: 1800,
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Failed",
+          text: result.error || "Could not book appointment.",
+        });
+      }
+    } catch (error) {
+      console.error("Error booking appointment:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Something went wrong",
+        text: "Unable to complete your request right now.",
+      });
+    }
+  };
+
   const filteredDoctors = doctors.filter((doc) =>
     doc.educationAndCredentials?.specialization
       ?.toLowerCase()
@@ -27,7 +108,10 @@ export default function DoctorsPage() {
   return (
     <div
       className="container mx-auto min-h-screen py-28 px-5"
-      style={{ fontFamily: "var(--font-primary)", color: "var(--fourground-color)" }}
+      style={{
+        fontFamily: "var(--font-primary)",
+        color: "var(--fourground-color)",
+      }}
     >
       {/* Header */}
       <div className="text-center mb-20">
@@ -40,10 +124,12 @@ export default function DoctorsPage() {
         >
           Meet Our <span className="text-6xl">E</span>xpert Doctors
         </h1>
-
         <p
           className="max-w-3xl mx-auto text-lg"
-          style={{ fontFamily: "var(--font-primary)", color: "var(--fourground-color)" }}
+          style={{
+            fontFamily: "var(--font-primary)",
+            color: "var(--fourground-color)",
+          }}
         >
           Find highly skilled medical professionals. Use the search to quickly
           locate your specialist.
@@ -60,7 +146,6 @@ export default function DoctorsPage() {
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full px-6 py-3 rounded-full shadow-lg focus:outline-none focus:ring-4 transition duration-300"
             style={{
-              
               border: "2px solid var(--dashboard-blue)",
               color: "var(--fourground-color)",
               fontFamily: "var(--font-primary)",
@@ -84,11 +169,8 @@ export default function DoctorsPage() {
           filteredDoctors.map((doc) => {
             const personal = doc.personalInfo || {};
             const education = doc.educationAndCredentials || {};
-            const experienceYears =
-              education.workExperience?.reduce(
-                (sum, exp) => sum + (exp.years || 0),
-                0
-              ) || 0;
+            const practice = doc.practiceInfo || {};
+            const isBooked = bookedDoctors.includes(doc._id);
 
             return (
               <div
@@ -97,36 +179,47 @@ export default function DoctorsPage() {
                 style={{
                   backgroundColor: "var(--dashboard-bg)",
                   borderColor: "var(--dashboard-border)",
-                  fontFamily: "var(--font-primary)",
                 }}
               >
                 {/* Card Header */}
-                <div className="px-6 py-5 flex flex-col items-start space-y-2">
-                  <h2
-                    className="text-2xl font-bold"
+                <div className="px-6 py-5 flex justify-between items-center">
+                  <div>
+                    <h2
+                      className="text-2xl font-bold"
+                      style={{
+                        fontFamily: "var(--font-heading)",
+                        color: "var(--fourground-color)",
+                      }}
+                    >
+                      {personal.fullName || "N/A"}
+                    </h2>
+                    <span
+                      className="inline-block px-3 py-1 mt-1 rounded-full text-sm font-semibold text-white"
+                      style={{
+                        background: "var(--color-light-green)",
+                      }}
+                    >
+                      {education.specialization || "General"}
+                    </span>
+                  </div>
+
+                  {/* Details Button */}
+                  <button
+                    onClick={() => setSelectedDoctor(doc)}
+                    className="px-3 py-2 rounded-full font-medium text-white text-sm transition-all duration-300 hover:scale-105"
                     style={{
-                      fontFamily: "var(--font-heading)",
-                      color: "var(--fourground-color)",
-                    }}
-                  >
-                    {personal.fullName || "N/A"}
-                  </h2>
-                  <span
-                    className="inline-block px-3 py-1 rounded-full text-sm font-semibold text-white whitespace-nowrap"
-                    style={{
-                      background: "var(--color-light-green)",
+                      backgroundColor: "var(--dashboard-blue)",
                       fontFamily: "var(--font-primary)",
                     }}
                   >
-                    {education.specialization || "General"}
-                  </span>
+                    Details
+                  </button>
                 </div>
 
                 {/* Doctor Info */}
                 <div className="p-6 flex flex-col flex-1 justify-between space-y-4">
-                  {/* Email & Phone */}
                   <div
-                    className="p-3 rounded-lg shadow-sm transition"
+                    className="p-3 rounded-lg shadow-sm"
                     style={{ backgroundColor: "var(--gray-color)" }}
                   >
                     <p>
@@ -138,9 +231,8 @@ export default function DoctorsPage() {
                     </p>
                   </div>
 
-                  {/* Education & Affiliation */}
                   <div
-                    className="p-3 rounded-lg shadow-sm transition"
+                    className="p-3 rounded-lg shadow-sm"
                     style={{ backgroundColor: "var(--gray-color)" }}
                   >
                     <p>
@@ -154,57 +246,24 @@ export default function DoctorsPage() {
                     </p>
                   </div>
 
-                  {/* Work Experience */}
-                  <div
-                    className="p-3 rounded-lg shadow-sm transition"
-                    style={{ backgroundColor: "var(--gray-color)" }}
-                  >
-                    <strong
-                      className="block mb-2 text-lg"
-                      style={{
-                        color: "var(--dashboard-blue)",
-                        fontFamily: "var(--font-alt)",
-                      }}
-                    >
-                      Work Experience:
-                    </strong>
-                    <ul className="list-disc list-inside text-sm">
-                      {education.workExperience?.length ? (
-                        education.workExperience.map((exp, i) => (
-                          <li key={i}>
-                            {exp.position} at {exp.hospitalName} (
-                            {exp.years || "N/A"} yrs)
-                          </li>
-                        ))
-                      ) : (
-                        <li>No experience data</li>
-                      )}
-                    </ul>
-                    {experienceYears >= 5 && (
-                      <span
-                        className="inline-block mt-2 px-2 py-1 text-xs font-bold rounded whitespace-nowrap"
-                        style={{
-                          backgroundColor: "var(--color-calm-blue)",
-                          color: "var(--color-white)",
-                          fontFamily: "var(--font-primary)",
-                        }}
-                      >
-                        Experienced ({experienceYears} yrs)
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Book Appointment Button */}
+                  {/* Book Button */}
                   <div className="mt-6">
                     <button
-                      className="w-full py-3 font-semibold rounded-full text-lg shadow-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl whitespace-nowrap"
+                      onClick={() => handleBookAppointment(doc)}
+                      disabled={isBooked}
+                      className={`w-full py-3 font-semibold rounded-full text-lg shadow-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl whitespace-nowrap ${
+                        isBooked
+                          ? "opacity-60 cursor-not-allowed"
+                          : "hover:bg-opacity-90"
+                      }`}
                       style={{
-                        backgroundColor: "var(--color-calm-blue)",
+                        backgroundColor: isBooked
+                          ? "gray"
+                          : "var(--color-calm-blue)",
                         color: "var(--color-white)",
-                        fontFamily: "var(--font-heading)",
                       }}
                     >
-                      Book Appointment
+                      {isBooked ? "Appointment Booked ✅" : "Book Appointment"}
                     </button>
                   </div>
                 </div>
@@ -212,17 +271,79 @@ export default function DoctorsPage() {
             );
           })
         ) : (
-          <p
-            className="col-span-full text-center text-lg font-medium"
-            style={{
-              color: "var(--dashboard-blue)",
-              fontFamily: "var(--font-primary)",
-            }}
-          >
+          <p className="col-span-full text-center text-lg font-medium">
             No doctors found for this specialization.
           </p>
         )}
       </div>
+
+      {/* MODAL */}
+      {selectedDoctor && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
+          <div
+            className="relative max-w-3xl w-full mx-4 rounded-3xl shadow-2xl overflow-y-auto max-h-[90vh]"
+            style={{
+              backgroundColor: "var(--dashboard-bg)",
+              color: "var(--fourground-color)",
+              border: "2px solid var(--dashboard-border)",
+            }}
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedDoctor(null)}
+              className="absolute top-4 right-4 text-2xl font-bold hover:scale-110 transition"
+              style={{ color: "var(--color-calm-blue)" }}
+            >
+              ✖
+            </button>
+
+            {/* Doctor Info */}
+            <div className="p-8 space-y-5">
+              <div className="flex flex-col items-center text-center">
+                <img
+                  src={selectedDoctor.practiceInfo?.profilePhoto || "/doctor-placeholder.png"}
+                  alt="Doctor"
+                  className="w-40 h-40 rounded-full mb-4 border-4"
+                  style={{ borderColor: "var(--dashboard-blue)" }}
+                />
+                <h2
+                  className="text-3xl font-extrabold"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
+                  {selectedDoctor.personalInfo?.fullName}
+                </h2>
+                <p>{selectedDoctor.educationAndCredentials?.specialization}</p>
+              </div>
+
+              <hr style={{ borderColor: "var(--dashboard-border)" }} />
+
+              <div className="space-y-2">
+                <h3 className="text-xl font-semibold">Personal Info</h3>
+                <p><strong>Email:</strong> {selectedDoctor.personalInfo?.email}</p>
+                <p><strong>Phone:</strong> {selectedDoctor.personalInfo?.contactNumber?.mobile}</p>
+                <p><strong>Address:</strong> {selectedDoctor.personalInfo?.address?.current}</p>
+              </div>
+
+              <div className="space-y-2">
+                <h3 className="text-xl font-semibold">Education & Experience</h3>
+                <p><strong>Degree:</strong> {selectedDoctor.educationAndCredentials?.medicalDegree}</p>
+                <p><strong>Post Graduate:</strong> {selectedDoctor.educationAndCredentials?.postGraduate}</p>
+                <p><strong>Affiliation:</strong> {selectedDoctor.educationAndCredentials?.currentAffiliation}</p>
+              </div>
+
+              <div className="space-y-2">
+                <h3 className="text-xl font-semibold">Practice Info</h3>
+                <p><strong>Clinic:</strong> {selectedDoctor.practiceInfo?.clinicAddress}</p>
+                <p><strong>Languages:</strong> {selectedDoctor.practiceInfo?.languagesSpoken?.join(", ")}</p>
+                <p>
+                  <strong>Fees:</strong> Online ৳{selectedDoctor.practiceInfo?.consultationFees?.online} | In-person ৳{selectedDoctor.practiceInfo?.consultationFees?.inPerson}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+
