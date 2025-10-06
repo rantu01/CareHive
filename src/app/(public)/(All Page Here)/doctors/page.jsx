@@ -136,7 +136,7 @@ export default function DoctorsPage() {
           }}
         >
           Find highly skilled medical professionals. Use the search to quickly
-          locate your specialist.
+          locate your specialist
         </p>
       </div>
 
