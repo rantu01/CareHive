@@ -1,10 +1,11 @@
 "use client"
 import axios from "axios";
 import { Calendar, Camera, Flag, Heart, Hospital, Mail, MapPin, MessageCircle, Phone, Upload, User } from "lucide-react";
-import { useState } from "react";
+import { use, useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import Home from "../../page";
+import { AuthContext } from "@/app/context/authContext";
 
 const Page = () => {
 
@@ -15,6 +16,8 @@ const Page = () => {
         watch,
         formState: { errors },
     } = useForm()
+
+    const {user} = use(AuthContext)
 
     const [formData, setFormData] = useState({});
 
@@ -43,7 +46,7 @@ const Page = () => {
         }
     }
 
-    console.log(spokenLanguage)
+
 
 
     const handleAvailableWeekDays = (e) => {
@@ -115,6 +118,8 @@ const Page = () => {
     const onSubmit = async (data) => {
 
         const formData = {
+
+            _id: { "$oid": `${user?.uid}` },
             personalInfo: {
                 fullName: data?.fullName,
                 dateOfBirth: data?.dob,
@@ -221,6 +226,8 @@ const Page = () => {
         { name: "Hindi", value: 'hindi' },
         { name: "English", value: 'english' },
     ]
+
+
     return (
         <div className="min-h-screen text-gray-900 mt-18 bg-[var(--gray-color)]">
 
@@ -236,7 +243,7 @@ const Page = () => {
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="max-w-6xl mx-auto mt-10 shadow-2xl rounded-2xl p-6 md:p-10 space-y-10"
-                // style={{ backgroundColor: 'var(--color-white)', borderWidth: '1px', borderColor: 'var(--dashboard-border)' }}
+            // style={{ backgroundColor: 'var(--color-white)', borderWidth: '1px', borderColor: 'var(--dashboard-border)' }}
             >
                 {/* Personal Info */}
 
