@@ -46,7 +46,7 @@ const Page = () => {
         }
     }
 
-    console.log(spokenLanguage)
+
 
 
     const handleAvailableWeekDays = (e) => {
@@ -226,6 +226,8 @@ const Page = () => {
         { name: "Hindi", value: 'hindi' },
         { name: "English", value: 'english' },
     ]
+
+
     return (
         <div className="min-h-screen text-gray-900 mt-18 bg-[var(--gray-color)]">
 

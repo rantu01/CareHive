@@ -16,83 +16,95 @@ const Page = () => {
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const { createUser } = UseAuth();
+  const { createUser,updateUser,setUser } = UseAuth();
   const router = useRouter();
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  // Reset errors
-  setNameError("");
-  setEmailError("");
-  setPasswordError("");
+    // Reset errors
+    setNameError("");
+    setEmailError("");
+    setPasswordError("");
 
-  let hasError = false;
-  if (!name) {
-    setNameError("Name is required");
-    hasError = true;
-  }
-  if (!email) {
-    setEmailError("Email is required");
-    hasError = true;
-  }
-  if (!password) {
-    setPasswordError("Password is required");
-    hasError = true;
-  } else if (password.length < 6) {
-    setPasswordError("Password must be at least 6 characters");
-    hasError = true;
-  }
+    let hasError = false;
+    if (!name) {
+      setNameError("Name is required");
+      hasError = true;
+    }
+    if (!email) {
+      setEmailError("Email is required");
+      hasError = true;
+    }
+    if (!password) {
+      setPasswordError("Password is required");
+      hasError = true;
+    } else if (password.length < 6) {
+      setPasswordError("Password must be at least 6 characters");
+      hasError = true;
+    }
 
-  if (hasError) return;
+    if (hasError) return;
 
-  try {
-    // 1. Create user in Firebase (or auth system)
-    const result = await createUser(email, password);
+    try {
+      // 1. Create user in Firebase (or auth system)
+      const result = await createUser(email, password);
 
-    // 2. Save user profile in MongoDB
-    const user = result?.user;
 
-    if (user?.email) {
-      await fetch("/api/users", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          email: user.email,
-          role: "user",
-        }),
+      // 2. Save user profile in MongoDB
+      const user = result?.user;
+
+      updateUser(name).then(() => {
+
+        setUser({ ...user, displayName: name });
+
+      }).catch(error => {
+        setUser(user)
+        errorSwal(error.message)
+      })
+
+
+
+      if (user?.email) {
+        await fetch("/api/users", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name,
+            email: user.email,
+            role: "user",
+          }),
+        });
+      }
+
+      Swal.fire({
+        icon: "success",
+        title: "Account Created",
+        text: "Welcome to CareHive!",
+        confirmButtonText: "Continue",
+        customClass: {
+          confirmButton:
+            "bg-[var(--dashboard-blue)] text-white px-4 py-2 rounded-lg hover:bg-blue-600",
+        },
+        buttonsStyling: false,
+      }).then(() => router.push("/"));
+    } catch (error) {
+      const errorCode = error.code;
+      if (errorCode === "auth/email-already-in-use") {
+        setEmailError("Email is already in use");
+      } else if (errorCode === "auth/invalid-email") {
+        setEmailError("Invalid email address");
+      } else if (errorCode === "auth/weak-password") {
+        setPasswordError("Password must be at least 6 characters");
+      }
+
+      Swal.fire({
+        icon: "error",
+        title: "Signup Failed",
+        text: error.message || "Please check your credentials and try again.",
       });
     }
-
-    Swal.fire({
-      icon: "success",
-      title: "Account Created",
-      text: "Welcome to CareHive!",
-      confirmButtonText: "Continue",
-      customClass: {
-        confirmButton:
-          "bg-[var(--dashboard-blue)] text-white px-4 py-2 rounded-lg hover:bg-blue-600",
-      },
-      buttonsStyling: false,
-    }).then(() => router.push("/"));
-  } catch (error) {
-    const errorCode = error.code;
-    if (errorCode === "auth/email-already-in-use") {
-      setEmailError("Email is already in use");
-    } else if (errorCode === "auth/invalid-email") {
-      setEmailError("Invalid email address");
-    } else if (errorCode === "auth/weak-password") {
-      setPasswordError("Password must be at least 6 characters");
-    }
-
-    Swal.fire({
-      icon: "error",
-      title: "Signup Failed",
-      text: error.message || "Please check your credentials and try again.",
-    });
-  }
-};
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-200 px-4 py-12">
