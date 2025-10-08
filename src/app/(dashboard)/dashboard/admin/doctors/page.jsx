@@ -9,7 +9,7 @@ export default function ManageDoctors() {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const res = await fetch("/api/doctors");
+        const res = await fetch("/api/doctors-admin-fetch");
         const data = await res.json();
         setDoctors(data);
       } catch (error) {

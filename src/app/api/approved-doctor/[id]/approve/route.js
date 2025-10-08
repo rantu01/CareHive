@@ -18,66 +18,38 @@ export async function POST(req, context) {
 
     const client = await clientPromise;
     const db = client.db("carehive");
-
-    const approvalColl = db.collection("approval-req");
-    const usersColl = db.collection("users");
     const doctorsColl = db.collection("doctors");
+    const usersColl = db.collection("users");
 
-    // 1️⃣ Find approval request
-    const request = await approvalColl.findOne({ _id: objectId });
-    if (!request) {
-      return NextResponse.json({ ok: false, error: "Request not found" }, { status: 404 });
+    // Find the doctor
+    const doctor = await doctorsColl.findOne({ _id: objectId });
+    if (!doctor) {
+      return NextResponse.json({ ok: false, error: "Doctor not found" }, { status: 404 });
     }
 
-    const userIdToUpdate = request.userId || request._id;
-
-    // 2️⃣ Prevent duplicate approval
-    const existingDoctor = await doctorsColl.findOne({ userId: userIdToUpdate });
-    if (existingDoctor) {
-      return NextResponse.json({
-        ok: false,
-        message: "Doctor already approved",
-      });
-    }
-
-    // 3️⃣ Insert doctor with status included
-    await doctorsColl.insertOne({
-      userId: userIdToUpdate,
-      personalInfo: request.personalInfo,
-      educationAndCredentials: request.educationAndCredentials,
-      licenseAndVerification: request.licenseAndVerification,
-      practiceInfo: request.practiceInfo,
-      status: {
-        isVerified: true,
-        adminRemarks: "Approved",
-        submittedAt: request.status?.submittedAt || new Date(),
-        approvedAt: new Date(),
-      },
-      createdAt: new Date(),
-    });
-
-    // 4️⃣ Update user role
-    await usersColl.updateOne(
-      { _id: new ObjectId(userIdToUpdate) },
-      { $set: { role: "doctor", updatedAt: new Date() } }
-    );
-
-    // 5️⃣ Update approval request status
-    await approvalColl.updateOne(
+    // Update doctor info after approval
+    await doctorsColl.updateOne(
       { _id: objectId },
       {
         $set: {
-          "status.isVerified": true,
-          "status.adminRemarks": "Approved",
-          "status.approvedAt": new Date(),
+          status: {
+            ...doctor.status,
+            isVerified: true,
+            adminRemarks: "Approved",
+            approvedAt: new Date(),
+          },
+          updatedAt: new Date(),
         },
       }
     );
 
-    return NextResponse.json({
-      ok: true,
-      message: "Doctor approved successfully",
-    });
+    // Update user role to doctor
+    await usersColl.updateOne(
+      { _id: new ObjectId(doctor.userId) },
+      { $set: { role: "doctor", updatedAt: new Date() } }
+    );
+
+    return NextResponse.json({ ok: true, message: "Doctor approved successfully" });
   } catch (err) {
     console.error("Approve error:", err);
     return NextResponse.json({ ok: false, error: err.message }, { status: 500 });
