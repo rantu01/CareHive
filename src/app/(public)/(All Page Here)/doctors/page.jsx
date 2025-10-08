@@ -1,4 +1,3 @@
-
 "use client";
 import { useUser } from "@/app/context/UserContext";
 import { useEffect, useState } from "react";
@@ -8,10 +7,9 @@ export default function DoctorsPage() {
   const [doctors, setDoctors] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [bookedDoctors, setBookedDoctors] = useState([]);
-  const [selectedDoctor, setSelectedDoctor] = useState(null); // 👈 for modal
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
   const { user } = useUser();
 
-  // Fetch all doctors
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
@@ -25,20 +23,13 @@ export default function DoctorsPage() {
     fetchDoctors();
   }, []);
 
-  // Fetch booked appointments
   useEffect(() => {
     const fetchBookedAppointments = async () => {
-      if (!user) {
-        setBookedDoctors([]);
-        return;
-      }
+      if (!user) return setBookedDoctors([]);
       try {
         const res = await fetch(`/api/appointments?userId=${user.uid}`);
         const data = await res.json();
-        if (Array.isArray(data)) {
-          const bookedIds = data.map((appointment) => appointment.doctorId);
-          setBookedDoctors(bookedIds);
-        }
+        if (Array.isArray(data)) setBookedDoctors(data.map((a) => a.doctorId));
       } catch (error) {
         console.error("Error fetching booked appointments:", error);
       }
@@ -46,7 +37,6 @@ export default function DoctorsPage() {
     fetchBookedAppointments();
   }, [user]);
 
-  // Book appointment
   const handleBookAppointment = async (doc) => {
     if (!user) {
       Swal.fire({
@@ -57,7 +47,6 @@ export default function DoctorsPage() {
       });
       return;
     }
-
     try {
       const res = await fetch("/api/appointments", {
         method: "POST",
@@ -70,9 +59,7 @@ export default function DoctorsPage() {
           appointmentDate: new Date().toISOString(),
         }),
       });
-
       const result = await res.json();
-
       if (res.ok) {
         setBookedDoctors((prev) => [...prev, doc._id]);
         Swal.fire({
@@ -108,31 +95,18 @@ export default function DoctorsPage() {
   return (
     <div
       className="container mx-auto min-h-screen py-28 px-5"
-      style={{
-        fontFamily: "var(--font-primary)",
-        color: "var(--fourground-color)",
-      }}
+      style={{ fontFamily: "var(--font-primary)", color: "var(--fourground-color)" }}
     >
       {/* Header */}
       <div className="text-center mb-20">
         <h1
           className="text-5xl font-extrabold mb-2"
-          style={{
-            fontFamily: "var(--font-heading)",
-            color: "var(--color-calm-blue)",
-          }}
+          style={{ fontFamily: "var(--font-heading)", color: "var(--color-calm-blue)" }}
         >
           Meet Our <span className="text-6xl">E</span>xpert Doctors
         </h1>
-        <p
-          className="max-w-3xl mx-auto text-lg"
-          style={{
-            fontFamily: "var(--font-primary)",
-            color: "var(--fourground-color)",
-          }}
-        >
-          Find highly skilled medical professionals. Use the search to quickly
-          locate your specialist.
+        <p className="max-w-3xl mx-auto text-lg">
+          Find highly skilled medical professionals. Use the search to quickly locate your specialist.
         </p>
       </div>
 
@@ -144,18 +118,13 @@ export default function DoctorsPage() {
             placeholder="🔍 Search by specialization..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-6 py-3 rounded-full shadow-lg focus:outline-none focus:ring-4 transition duration-300"
-            style={{
-              border: "2px solid var(--dashboard-blue)",
-              color: "var(--fourground-color)",
-              fontFamily: "var(--font-primary)",
-            }}
+            className="w-full px-6 py-3 rounded-full shadow-lg focus:outline-none focus:ring-4 backdrop-blur-md bg-gradient-to-r from-white/10 to-white/20 border border-white/20 text-white placeholder-white/70"
+            style={{ fontFamily: "var(--font-primary)" }}
           />
           {searchTerm && (
             <button
               onClick={() => setSearchTerm("")}
-              className="absolute right-5 top-1/2 transform -translate-y-1/2 transition-colors"
-              style={{ color: "var(--fourground-color)" }}
+              className="absolute right-5 top-1/2 transform -translate-y-1/2 hover:text-red-400 transition-colors"
             >
               ✖
             </button>
@@ -175,28 +144,21 @@ export default function DoctorsPage() {
             return (
               <div
                 key={doc._id}
-                className="flex flex-col rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 overflow-hidden border"
+                className="flex flex-col rounded-3xl overflow-hidden shadow-2xl hover:-translate-y-3 transform transition-all duration-500"
                 style={{
-                  backgroundColor: "var(--dashboard-bg)",
-                  borderColor: "var(--dashboard-border)",
+                  background: "linear-gradient(145deg, var(--dashboard-bg) 0%, var(--gray-color) 100%)",
+                  border: "1px solid var(--dashboard-border)",
+                  backdropFilter: "blur(10px)",
                 }}
               >
                 {/* Card Header */}
                 <div className="px-6 py-5 flex justify-between items-center">
                   <div>
-                    <h2
-                      className="text-2xl font-bold"
-                      style={{
-                        fontFamily: "var(--font-heading)",
-                        color: "var(--fourground-color)",
-                      }}
-                    >
-                      {personal.fullName || "N/A"}
-                    </h2>
+                    <h2 className="text-2xl font-bold">{personal.fullName || "N/A"}</h2>
                     <span
                       className="inline-block px-3 py-1 mt-1 rounded-full text-sm font-semibold text-white"
                       style={{
-                        background: "var(--color-light-green)",
+                        background: "linear-gradient(to right, var(--color-light-green), var(--dashboard-blue))",
                       }}
                     >
                       {education.specialization || "General"}
@@ -206,10 +168,9 @@ export default function DoctorsPage() {
                   {/* Details Button */}
                   <button
                     onClick={() => setSelectedDoctor(doc)}
-                    className="px-3 py-2 rounded-full font-medium text-white text-sm transition-all duration-300 hover:scale-105"
+                    className="px-3 py-2 rounded-full font-medium text-white text-sm shadow-md hover:scale-105 transition-all"
                     style={{
-                      backgroundColor: "var(--dashboard-blue)",
-                      fontFamily: "var(--font-primary)",
+                      background: "linear-gradient(to right, var(--dashboard-blue), var(--color-calm-blue))",
                     }}
                   >
                     Details
@@ -218,83 +179,40 @@ export default function DoctorsPage() {
 
                 {/* Doctor Info */}
                 <div className="p-6 flex flex-col flex-1 justify-between space-y-4">
-                  <div
-                    className="p-3 rounded-lg shadow-sm"
-                    style={{ backgroundColor: "var(--gray-color)" }}
-                  >
-                    <p>
-                      <strong>Email:</strong> {personal.email || "N/A"}
-                    </p>
-                    <p>
-                      <strong>Phone:</strong>{" "}
-                      {personal.contactNumber?.mobile || "N/A"}
-                    </p>
+                  <div className="p-3 rounded-lg shadow-sm" style={{ background: "var(--gray-color)/90" }}>
+                    <p><strong>Email:</strong> {personal.email || "N/A"}</p>
+                    <p><strong>Phone:</strong> {personal.contactNumber?.mobile || "N/A"}</p>
                   </div>
 
-                  <div
-                    className="p-3 rounded-lg shadow-sm"
-                    style={{ backgroundColor: "var(--gray-color)" }}
-                  >
-                    <p>
-                      <strong>Education:</strong>{" "}
-                      {education.medicalDegree || "N/A"},{" "}
-                      {education.postGraduate || "N/A"}
-                    </p>
-                    <p>
-                      <strong>Affiliation:</strong>{" "}
-                      {education.currentAffiliation || "N/A"}
-                    </p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                  <div className="p-3 rounded-lg shadow-sm" style={{ background: "var(--gray-color)/90" }}>
+                    <p><strong>Education:</strong> {education.medicalDegree || "N/A"}, {education.postGraduate || "N/A"}</p>
+                    <p><strong>Affiliation:</strong> {education.currentAffiliation || "N/A"}</p>
                   </div>
+
                   {/* Working Hours */}
                   {practice.workingHours && (
-                    <div
-                      className="p-3 rounded-lg shadow-sm"
-                      style={{ backgroundColor: "var(--gray-color)" }}
-                    >
+                    <div className="p-3 rounded-lg shadow-sm" style={{ background: "var(--gray-color)/90" }}>
                       <p className="font-semibold mb-1">Working Hours:</p>
                       <ul className="list-disc list-inside space-y-1">
                         {Object.entries(practice.workingHours).map(([day, hours]) => (
-                          <li key={day}>
-                            <strong className="capitalize">{day}:</strong> {hours}
-                          </li>
+                          <li key={day}><strong className="capitalize">{day}:</strong> {hours}</li>
                         ))}
                       </ul>
                     </div>
                   )}
-
 
                   {/* Book Button */}
                   <div className="mt-6">
                     <button
                       onClick={() => handleBookAppointment(doc)}
                       disabled={isBooked}
-                      className={`w-full py-3 font-semibold rounded-full text-lg shadow-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl whitespace-nowrap ${isBooked
-                          ? "opacity-60 cursor-not-allowed"
-                          : "hover:bg-opacity-90"
-                        }`}
+                      className={`w-full py-3 font-semibold rounded-full text-lg shadow-lg transition-all duration-500 transform hover:scale-105 whitespace-nowrap ${
+                        isBooked ? "opacity-60 cursor-not-allowed" : ""
+                      }`}
                       style={{
-                        backgroundColor: isBooked
+                        background: isBooked
                           ? "gray"
-                          : "var(--color-calm-blue)",
+                          : "linear-gradient(to right, var(--dashboard-blue), var(--color-calm-blue))",
                         color: "var(--color-white)",
                       }}
                     >
@@ -312,18 +230,13 @@ export default function DoctorsPage() {
         )}
       </div>
 
-      {/* MODAL */}
+      {/* Modal */}
       {selectedDoctor && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
           <div
-            className="relative max-w-3xl w-full mx-4 rounded-3xl shadow-2xl overflow-y-auto max-h-[90vh]"
-            style={{
-              backgroundColor: "var(--dashboard-bg)",
-              color: "var(--fourground-color)",
-              border: "2px solid var(--dashboard-border)",
-            }}
+            className="relative max-w-3xl w-full mx-4 rounded-3xl shadow-2xl overflow-y-auto max-h-[90vh] backdrop-blur-md border border-white/20"
+            style={{ background: "var(--dashboard-bg)" }}
           >
-            {/* Close Button */}
             <button
               onClick={() => setSelectedDoctor(null)}
               className="absolute top-4 right-4 text-2xl font-bold hover:scale-110 transition"
@@ -332,7 +245,6 @@ export default function DoctorsPage() {
               ✖
             </button>
 
-            {/* Doctor Info */}
             <div className="p-8 space-y-5">
               <div className="flex flex-col items-center text-center">
                 <img
@@ -341,16 +253,11 @@ export default function DoctorsPage() {
                   className="w-40 h-40 rounded-full mb-4 border-4"
                   style={{ borderColor: "var(--dashboard-blue)" }}
                 />
-                <h2
-                  className="text-3xl font-extrabold"
-                  style={{ fontFamily: "var(--font-heading)" }}
-                >
-                  {selectedDoctor.personalInfo?.fullName}
-                </h2>
+                <h2 className="text-3xl font-extrabold">{selectedDoctor.personalInfo?.fullName}</h2>
                 <p>{selectedDoctor.educationAndCredentials?.specialization}</p>
               </div>
 
-              <hr style={{ borderColor: "var(--dashboard-border)" }} />
+              <hr className="border-white/20" />
 
               <div className="space-y-2">
                 <h3 className="text-xl font-semibold">Personal Info</h3>
@@ -381,4 +288,3 @@ export default function DoctorsPage() {
     </div>
   );
 }
-
