@@ -244,18 +244,53 @@ export default function DoctorsPage() {
                       <strong>Affiliation:</strong>{" "}
                       {education.currentAffiliation || "N/A"}
                     </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                   </div>
+                  {/* Working Hours */}
+                  {practice.workingHours && (
+                    <div
+                      className="p-3 rounded-lg shadow-sm"
+                      style={{ backgroundColor: "var(--gray-color)" }}
+                    >
+                      <p className="font-semibold mb-1">Working Hours:</p>
+                      <ul className="list-disc list-inside space-y-1">
+                        {Object.entries(practice.workingHours).map(([day, hours]) => (
+                          <li key={day}>
+                            <strong className="capitalize">{day}:</strong> {hours}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
 
                   {/* Book Button */}
                   <div className="mt-6">
                     <button
                       onClick={() => handleBookAppointment(doc)}
                       disabled={isBooked}
-                      className={`w-full py-3 font-semibold rounded-full text-lg shadow-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl whitespace-nowrap ${
-                        isBooked
+                      className={`w-full py-3 font-semibold rounded-full text-lg shadow-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl whitespace-nowrap ${isBooked
                           ? "opacity-60 cursor-not-allowed"
                           : "hover:bg-opacity-90"
-                      }`}
+                        }`}
                       style={{
                         backgroundColor: isBooked
                           ? "gray"
