@@ -1,13 +1,16 @@
 // app/api/doctors/route.js
-// import clientPromise from "@/lib/mongodb";
-
 import clientPromise from "@/app/lib/mongodb";
 
 export async function GET() {
   try {
     const client = await clientPromise;
     const db = client.db("carehive");
-    const doctors = await db.collection("doctors").find({}).toArray();
+
+    // Fetch only verified doctors
+    const doctors = await db
+      .collection("doctors")
+      .find({ "status.isVerified": true }) // ✅ filter by verified status
+      .toArray();
 
     return Response.json(doctors);
   } catch (error) {
