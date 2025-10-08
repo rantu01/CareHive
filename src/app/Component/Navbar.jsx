@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import UseAuth from "../Hooks/UseAuth";
 import ThemeToggle from "./ThemeToggle";
+import WhatsAppButton from "./ContactWithAdmin/WhatsAppButton";
 
 // Navigation links configuration
 const navLinks = [

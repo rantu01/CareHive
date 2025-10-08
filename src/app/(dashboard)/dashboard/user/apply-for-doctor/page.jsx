@@ -27,9 +27,6 @@ const Page = () => {
     const [governmentIdPdf, setGovernmentIdPdf] = useState("")
 
 
-    console.log(licenseCertificatePdf, governmentIdPdf)
-
-
     const [timeLoop, setTimeLoop] = useState(0)
 
     const [doctorAvailableDays, setAvailableDays] = useState([])
@@ -128,7 +125,7 @@ const Page = () => {
                     mobile: data?.mobile,
                     whatsapp: data?.whatsapp
                 },
-                email: data?.email,
+                email: user?.email,
                 address: {
                     current: data?.presentAddress,
                     permanent: data?.permanentAddress
@@ -234,15 +231,14 @@ const Page = () => {
             {/* Header */}
             <header className="flex justify-center items-center gap-3 py-6 shadow-lg" style={{ background: 'linear-gradient(to right, var(--color-calm-blue), var(--dashboard-blue))', color: 'var(--color-white)' }}>
                 <Hospital size={40} />
-                <h1 className="text-2xl md:text-4xl font-bold tracking-wide">
+                <h1 className="text-xl md:text-4xl font-bold tracking-wide">
                     Doctor Registration Form
                 </h1>
             </header>
 
-            {/* Form */}
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="max-w-6xl mx-auto mt-10 shadow-2xl rounded-2xl p-6 md:p-10 space-y-10"
+                className="max-w-5xl mx-auto mt-10 shadow-2xl rounded-2xl p-6 md:p-10 space-y-10"
             // style={{ backgroundColor: 'var(--color-white)', borderWidth: '1px', borderColor: 'var(--dashboard-border)' }}
             >
                 {/* Personal Info */}
@@ -391,7 +387,8 @@ const Page = () => {
                                 <input
                                     type="email"
                                     placeholder="Email Address *"
-                                    {...register("email", { required: "Email is required" })}
+                                    value={user?.email}
+                                    disabled
                                     className="w-full px-4 py-3 rounded-lg focus:outline-none"
                                     style={{
                                         borderWidth: "2px",
@@ -399,9 +396,6 @@ const Page = () => {
                                         color: "var(--fourground-color)",
                                     }}
                                 />
-                                {errors.email && (
-                                    <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
-                                )}
                             </div>
 
                             {/* Marital Status */}
@@ -524,7 +518,7 @@ const Page = () => {
                             </div>
                         </div>
                     </div>
-                </section>
+                </section> 
                 {/* Education */}
                 <section>
                     <h2

@@ -141,12 +141,13 @@ export default function Topbar({ toggleSidebar }) {
           <div>
             <Link
               href={'/dashboard/user/apply-for-doctor'}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-[var(--dashboard-blue)] to-[var(--dashboard-blue)]/90 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer border border-[var(--dashboard-blue)]/30 hover:from-[var(--dashboard-blue)]/90 hover:to-[var(--dashboard-blue)]"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-[var(--dashboard-blue)] to-[var(--dashboard-blue)]/90 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer border border-[var(--dashboard-blue)]/30 hover:from-[var(--dashboard-blue)]/90 hover:to-[var(--dashboard-blue)] sm:px-4 sm:py-2 md:px-6 md:py-3 lg:px-8 lg:py-4"
             >
               <UserPlus size={18} />
-              <span>Become A Doctor</span>
+              <span className="text-sm sm:text-base lg:text-lg">Become A Doctor</span>
             </Link>
           </div>
+
         )}
       </div>
     </header>
