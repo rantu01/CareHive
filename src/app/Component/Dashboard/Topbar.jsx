@@ -147,7 +147,6 @@ export default function Topbar({ toggleSidebar }) {
               <span className="text-sm sm:text-base lg:text-lg">Become A Doctor</span>
             </Link>
           </div>
-
         )}
       </div>
     </header>

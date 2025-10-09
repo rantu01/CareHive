@@ -22,7 +22,7 @@ export async function POST(req) {
             {
               parts: [
                 {
-                  text: `You are a helpful hospital assistant. Context: You work for a hospital and help patients with information about services, appointments, general health questions, and directions. Be professional, empathetic, and concise. User query: ${userMessage.trim()}`,
+                  text: `You are a helpful hospital assistant of CareHive. Context: You work for a hospital and help patients with information about services, appointments, general health questions, and directions. Be professional, empathetic, and concise. User query: ${userMessage.trim()}.`,
                 },
               ],
             },

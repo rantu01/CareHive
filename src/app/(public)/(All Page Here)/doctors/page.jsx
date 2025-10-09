@@ -166,7 +166,7 @@ export default function DoctorsPage() {
       {/* Doctors Grid */}
       <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {filteredDoctors.length > 0 ? (
-          filteredDoctors.map((doc) => {
+          filteredDoctors?.map((doc) => {
             const personal = doc.personalInfo || {};
             const education = doc.educationAndCredentials || {};
             const practice = doc.practiceInfo || {};

@@ -17,7 +17,7 @@ const Page = () => {
         formState: { errors },
     } = useForm()
 
-    const {user} = use(AuthContext)
+    const { user } = use(AuthContext)
 
     const [formData, setFormData] = useState({});
 
@@ -33,6 +33,9 @@ const Page = () => {
     const [timeFrom, setTimeFrom] = useState('')
     const [slots, setSlots] = useState({});
     const [spokenLanguage, setSpokenLanguage] = useState([])
+
+
+    console.log("the slot is", slots)
 
     const handleSpokenLanguage = (e) => {
         if (e.target.value && e.target.checked) {
@@ -113,7 +116,7 @@ const Page = () => {
 
 
     const onSubmit = async (data) => {
-
+        console.log("mmmmmmm", data?.hospital)
         const formData = {
 
             _id: { "$oid": `${user?.uid}` },
@@ -152,7 +155,6 @@ const Page = () => {
                         years: `${data?.currentFrom}-${data?.currentTo}`
                     }
                 ],
-                currentAffiliation: data?.hospital
             },
 
             licenseAndVerification: {
@@ -172,7 +174,8 @@ const Page = () => {
                     inPerson: data?.offlineFee
                 },
                 languagesSpoken: spokenLanguage, // array
-                profilePhoto: profileImage
+                profilePhoto: profileImage,
+                clinicAddress:data?.hospital // where doctor want to apply
             },
 
             status: {
@@ -182,6 +185,8 @@ const Page = () => {
                 approvedAt: null
             }
         };
+
+        console.log(formData)
 
         try {
             const res = await axios.post("/api/approved-doctor", formData, {
@@ -518,7 +523,7 @@ const Page = () => {
                             </div>
                         </div>
                     </div>
-                </section> 
+                </section>
                 {/* Education */}
                 <section>
                     <h2
