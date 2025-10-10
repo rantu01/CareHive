@@ -9,6 +9,7 @@ import { navItems } from "./navItems";
 export default function DashboardLayout({ children, role = "default" }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  console.log(role)
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -34,6 +35,7 @@ export default function DashboardLayout({ children, role = "default" }) {
       <Sidebar
         items={navItems[role] || []}
         isCollapsed={isCollapsed}
+        role={role}
         mobileOpen={mobileOpen}
         onCloseMobile={() => setMobileOpen(false)}
       />
