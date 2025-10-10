@@ -1,6 +1,7 @@
 
 "use client";
 import { useUser } from "@/app/context/UserContext";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
@@ -48,54 +49,20 @@ export default function DoctorsPage() {
 
   // Book appointment
   const handleBookAppointment = async (doc) => {
-    if (!user) {
-      Swal.fire({
-        icon: "warning",
-        title: "Please Log In",
-        text: "You must be logged in to book an appointment.",
-        confirmButtonColor: "#3085d6",
-      });
-      return;
-    }
-
     try {
-      const res = await fetch("/api/appointments", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userId: user.uid,
-          doctorId: doc._id,
-          doctorName: doc.personalInfo?.fullName || "Unknown Doctor",
-          specialist: doc.educationAndCredentials?.specialization || "General",
-          appointmentDate: new Date().toISOString(),
-        }),
-      });
 
-      const result = await res.json();
+      const response=await axios.post('/api/payment',{
+        name:"Dip Chondo Partho",
+        price:1500
+      })
 
-      if (res.ok) {
-        setBookedDoctors((prev) => [...prev, doc._id]);
-        Swal.fire({
-          icon: "success",
-          title: "Appointment Booked!",
-          text: `You have successfully booked an appointment with Dr. ${doc.personalInfo?.fullName || "Doctor"}.`,
-          showConfirmButton: false,
-          timer: 1800,
-        });
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Failed",
-          text: result.error || "Could not book appointment.",
-        });
-      }
+      const responseData=await response.data
+      window.location.href=responseData.url
+      console.log("the response data",responseData.sucess)
+
+
     } catch (error) {
-      console.error("Error booking appointment:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Something went wrong",
-        text: "Unable to complete your request right now.",
-      });
+      console.log(error)
     }
   };
 
