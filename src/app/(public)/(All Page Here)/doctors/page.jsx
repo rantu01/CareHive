@@ -10,6 +10,7 @@ export default function DoctorsPage() {
   const [selectedDoctor, setSelectedDoctor] = useState(null);
   const { user } = useUser();
 
+  // Fetch all doctors
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
@@ -23,6 +24,7 @@ export default function DoctorsPage() {
     fetchDoctors();
   }, []);
 
+  // Fetch booked appointments
   useEffect(() => {
     const fetchBookedAppointments = async () => {
       if (!user) return setBookedDoctors([]);
@@ -37,6 +39,7 @@ export default function DoctorsPage() {
     fetchBookedAppointments();
   }, [user]);
 
+  // Book appointment
   const handleBookAppointment = async (doc) => {
     if (!user) {
       Swal.fire({
@@ -123,8 +126,9 @@ export default function DoctorsPage() {
           />
           {searchTerm && (
             <button
+              type="button"
               onClick={() => setSearchTerm("")}
-              className="absolute right-5 top-1/2 transform -translate-y-1/2 hover:text-red-400 transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/20 transition-colors z-10"
             >
               ✖
             </button>
