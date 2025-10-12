@@ -4,18 +4,11 @@ import clientPromise from "../../../../lib/mongodb";
 
 export async function POST(req, context) {
   try {
-    
+    // ✅ await params
     const { id } = await context.params;
 
     if (!id) {
       return NextResponse.json({ ok: false, error: "Missing ID" }, { status: 400 });
-    }
-
-    let objectId;
-    try {
-      objectId = new ObjectId(id);
-    } catch {
-      return NextResponse.json({ ok: false, error: "Invalid ID" }, { status: 400 });
     }
 
     const { remarks } = await req.json();
@@ -24,23 +17,28 @@ export async function POST(req, context) {
     const db = client.db("carehive");
     const approvalColl = db.collection("approval-req");
 
-    // 1️⃣ Check if request exists
-    const request = await approvalColl.findOne({ _id: objectId });
+    // Detect if ID is ObjectId or string
+    let query;
+    try {
+      query = { _id: new ObjectId(id) };
+    } catch {
+      query = { _id: id }; // fallback if stored as string
+    }
+
+    const request = await approvalColl.findOne(query);
     if (!request) {
       return NextResponse.json({ ok: false, error: "Request not found" }, { status: 404 });
     }
 
-    // 2️⃣ Update approval request status as rejected
-    await approvalColl.updateOne(
-      { _id: objectId },
-      {
-        $set: {
-          "status.isVerified": "Rejected",
-          "status.adminRemarks": remarks || "Rejected",
-          "status.approvedAt": null,
-        },
-      }
-    );
+    // Update request as rejected
+    await approvalColl.updateOne(query, {
+      $set: {
+        "status.isVerified": "Rejected",
+        "status.adminRemarks": remarks || "Rejected",
+        "status.approvedAt": null,
+        "status.rejectedAt": new Date(),
+      },
+    });
 
     return NextResponse.json({ ok: true, message: "Request rejected successfully" });
   } catch (err) {

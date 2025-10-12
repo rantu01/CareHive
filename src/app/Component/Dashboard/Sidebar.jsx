@@ -1,11 +1,14 @@
-// ----------------------------- Sidebar.jsx -----------------------------
 "use client";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import usePendingDoctorApprovals from "@/app/Hooks/usePendingDoctorApprovals";
 
-export default function Sidebar({ items = [], isCollapsed, mobileOpen, onCloseMobile }) {
+export default function Sidebar({ items = [], isCollapsed, mobileOpen, onCloseMobile, role }) {
   const pathname = usePathname();
+
+  // Get pending doctor approvals count (for admin only)
+  const { pendingCount } = usePendingDoctorApprovals(role);
+  
 
   return (
     <>
@@ -19,7 +22,7 @@ export default function Sidebar({ items = [], isCollapsed, mobileOpen, onCloseMo
       />
 
       <aside
-        className={`fixed top-0 left-0 h-screen pr-4  py-6 flex flex-col justify-between transition-all duration-300 ease-in-out overflow-y-auto z-50 transform ${
+        className={`fixed top-0 left-0 h-screen pr-4 py-6 flex flex-col justify-between transition-all duration-300 ease-in-out overflow-y-auto z-50 transform ${
           isCollapsed ? "w-16" : "w-64"
         } md:translate-x-0 ${mobileOpen ? "translate-x-0" : "-translate-x-full"}`}
         style={{ backgroundColor: "var(--sidebar-bg)", borderRight: "1px solid var(--dashboard-border)" }}
@@ -45,7 +48,7 @@ export default function Sidebar({ items = [], isCollapsed, mobileOpen, onCloseMo
 
           <ul className="menu space-y-2">
             {items.map((item) => (
-              <li key={item.path}>
+              <li key={item.path} className="relative">
                 <Link
                   href={item.path}
                   className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-300 ${
@@ -58,6 +61,16 @@ export default function Sidebar({ items = [], isCollapsed, mobileOpen, onCloseMo
                 >
                   {item.icon}
                   {!isCollapsed && <span>{item.name}</span>}
+
+                  {/* Badge for Doctor Approval */}
+                  {!isCollapsed && item.path === "/dashboard/admin/doctor-approval" && pendingCount > 0 && (
+                    <span
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[10px] font-bold text-white bg-red-500 rounded-full flex items-center justify-center px-2 py-0.5"
+                    >
+                      {pendingCount}
+                     
+                    </span>
+                  )}
                 </Link>
               </li>
             ))}
