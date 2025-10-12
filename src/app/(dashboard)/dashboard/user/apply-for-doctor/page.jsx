@@ -23,7 +23,11 @@ const Page = () => {
     const [doctorAvailableDays, setAvailableDays] = useState([]);
     const [slots, setSlots] = useState({});
     const [spokenLanguage, setSpokenLanguage] = useState([]);
-    const [patientLimit, setPatientLimit] = useState({})
+    const [patientLimit, setPatientLimit] = useState({});
+
+    const [doctorHospital, setDoctorHospital] = useState("")
+
+    console.log("doctor selected",doctorHospital)
 
     // Carousel state
     const [currentStep, setCurrentStep] = useState(0);
@@ -53,7 +57,7 @@ const Page = () => {
     };
 
     const onSubmit = async (data) => {
-        console.log("mmmmmmm", data?.hospital);
+
         const formData = {
             _id: { "$oid": `${user?.uid}` },
             personalInfo: {
@@ -109,7 +113,7 @@ const Page = () => {
                 },
                 languagesSpoken: spokenLanguage,
                 profilePhoto: profileImage,
-                clinicAddress: data?.hospital
+                clinicAddress: doctorHospital
             },
             status: {
                 isVerified: false,
@@ -118,8 +122,6 @@ const Page = () => {
                 approvedAt: null
             }
         };
-
-        console.log(formData);
 
         try {
             const res = await axios.post("/api/approved-doctor", formData, {
@@ -258,6 +260,7 @@ const Page = () => {
                                 {currentStep === 3 && (
                                     <div className="animate-fadeIn">
                                         <AvailableTimeSection
+                                            setDoctorHospital={setDoctorHospital}
                                             slots={slots}
                                             setSlots={setSlots}
                                             doctorAvailableDays={doctorAvailableDays}
