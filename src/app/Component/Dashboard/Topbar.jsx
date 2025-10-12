@@ -5,7 +5,6 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import ThemeToggle from "../ThemeToggle";
 import Link from "next/link";
 import useNotifications from "@/app/Hooks/useNotifications";
-import { toast } from "react-hot-toast";
 
 export default function Topbar({ toggleSidebar }) {
   const { user, loading, role } = useUser();
