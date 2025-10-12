@@ -1,24 +1,87 @@
 "use client";
 import { Bell, PanelLeft, UserPlus } from "lucide-react";
 import { useUser } from "../../context/UserContext";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import ThemeToggle from "../ThemeToggle";
 import Link from "next/link";
 import useNotifications from "@/app/Hooks/useNotifications";
-import usePendingDoctorApprovals from "@/app/Hooks/usePendingDoctorApprovals";
+import { toast } from "react-hot-toast";
 
 export default function Topbar({ toggleSidebar }) {
   const { user, loading, role } = useUser();
   const [openDropdown, setOpenDropdown] = useState(false);
   const dropdownRef = useRef(null);
 
-  // Firebase notifications
-  const fcmNotifications = useNotifications();
+  // Local notifications state
+  const [storedNotifications, setStoredNotifications] = useState([]);
 
-  // Admin notifications & pending count (using centralized hook)
-  const { pendingCount, adminNotifications } = usePendingDoctorApprovals(role);
+  // Memoized callback to handle incoming notification
+  const saveNotification = useCallback(
+    async (notification) => {
+      if (!user?.email || !notification?.title) return;
 
-  // Close dropdown when clicking outside
+      // 1️⃣ Optimistic update for immediate UI
+      const tempId = Date.now().toString();
+      setStoredNotifications((prev) => [
+        { ...notification, read: false, _id: tempId },
+        ...prev,
+      ]);
+
+      // 2️⃣ Show toast immediately
+      toast(`${notification.title}: ${notification.body}`, {
+        duration: 5000,
+        position: "top-right",
+      });
+
+      try {
+        const res = await fetch("/api/notifications", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            userEmail: user.email,
+            title: notification.title,
+            body: notification.body,
+            read: false,
+          }),
+        });
+        const data = await res.json();
+
+        if (data.success && data.notification) {
+          // Replace temp ID with real DB ID
+          setStoredNotifications((prev) =>
+            prev.map((n) => (n._id === tempId ? data.notification : n))
+          );
+        }
+      } catch (err) {
+        console.error("Failed to save notification:", err);
+      }
+    },
+    [user]
+  );
+
+  // Real-time FCM listener
+  useNotifications({ onNewNotification: user?.email ? saveNotification : undefined });
+
+  // Fetch existing notifications from DB on load
+  useEffect(() => {
+    if (!user?.email) return;
+
+    const fetchNotifications = async () => {
+      try {
+        const res = await fetch(`/api/notifications?email=${user.email}`);
+        const data = await res.json();
+        if (data.success && Array.isArray(data.notifications)) {
+          setStoredNotifications(data.notifications);
+        }
+      } catch (err) {
+        console.error("Failed to fetch notifications:", err);
+      }
+    };
+
+    fetchNotifications();
+  }, [user]);
+
+  // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -31,9 +94,27 @@ export default function Topbar({ toggleSidebar }) {
 
   if (loading) return null;
 
-  // Merge notifications: Firebase + Admin (if admin)
-  const notifications = role === "admin" ? [...fcmNotifications, ...adminNotifications] : fcmNotifications;
-  const unreadCount = notifications.length;
+  const unreadCount = storedNotifications.filter((n) => !n.read).length;
+
+  const handleMarkAsRead = async (n) => {
+    if (n.read) return;
+
+    try {
+      await fetch("/api/notifications", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: n._id, read: true }),
+      });
+
+      setStoredNotifications((prev) =>
+        prev.map((notif) =>
+          notif._id === n._id ? { ...notif, read: true } : notif
+        )
+      );
+    } catch (err) {
+      console.error("Failed to mark notification as read:", err);
+    }
+  };
 
   return (
     <header
@@ -67,15 +148,18 @@ export default function Topbar({ toggleSidebar }) {
         {/* Notification Bell */}
         <div className="relative" ref={dropdownRef}>
           <button
+            onClick={() => setOpenDropdown(!openDropdown)}
             className="cursor-pointer relative sm:w-10 sm:h-10 w-8 h-8 flex items-center justify-center rounded-lg transition-all duration-300 hover:scale-105 group"
             style={{
               color: "var(--fourground-color)",
               backgroundColor: "var(--gray-color)",
               boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
             }}
-            onClick={() => setOpenDropdown(!openDropdown)}
           >
-            <Bell size={20} className="group-hover:scale-110 transition-transform duration-300" />
+            <Bell
+              size={20}
+              className="group-hover:scale-110 transition-transform duration-300"
+            />
             {unreadCount > 0 && (
               <span
                 className="absolute -top-1 -right-1 text-white text-[10px] font-bold rounded-full flex items-center justify-center animate-pulse"
@@ -92,22 +176,53 @@ export default function Topbar({ toggleSidebar }) {
             )}
           </button>
 
-          {/* Dropdown */}
           {openDropdown && (
-            <div className="absolute right-0 mt-2 w-72 max-h-80 overflow-y-auto bg-white rounded-lg shadow-lg z-50">
-              {notifications.length === 0 ? (
-                <p className="text-gray-500 text-sm p-4">No notifications</p>
+            <div
+              className="absolute right-0 mt-2 w-72 max-h-80 overflow-y-auto rounded-lg shadow-lg z-50 transition-all duration-300"
+              style={{
+                backgroundColor: "var(--sidebar-bg)",
+                border: "1px solid var(--dashboard-border)",
+              }}
+            >
+              {storedNotifications.length === 0 ? (
+                <p
+                  className="text-sm p-4 text-center"
+                  style={{ color: "var(--fourground-color)" }}
+                >
+                  No notifications
+                </p>
               ) : (
-                notifications.map((n, i) => (
+                storedNotifications.map((n) => (
                   <div
-                    key={i}
-                    className="px-4 py-3 border-b last:border-none hover:bg-gray-50 cursor-pointer"
+                    key={n._id}
+                    className="px-4 py-3 border-b last:border-none cursor-pointer transition-colors duration-200"
+                    style={{
+                      backgroundColor: n.read
+                        ? "var(--sidebar-bg)"
+                        : "var(--notification-unread)",
+                      borderColor: "var(--dashboard-border)",
+                    }}
+                    onClick={() => handleMarkAsRead(n)}
                   >
-                    <p className="font-semibold text-gray-800 text-sm">
-                      {n.title || n.name || "Notification"}
+                    <p
+                      className="font-semibold text-sm"
+                      style={{
+                        color: n.read
+                          ? "var(--fourground-color-faded)"
+                          : "var(--fourground-color)",
+                      }}
+                    >
+                      {n.title}
                     </p>
-                    <p className="text-gray-600 text-xs">
-                      {n.body || n.email || "Pending action"}
+                    <p
+                      className="text-xs mt-0.5"
+                      style={{
+                        color: n.read
+                          ? "var(--fourground-color-faded)"
+                          : "var(--fourground-color)",
+                      }}
+                    >
+                      {n.body}
                     </p>
                   </div>
                 ))

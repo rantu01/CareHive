@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
 import clientPromise from "../../../../lib/mongodb";
+import { adminMessaging } from "../../../../firebase/firebaseAdmin"; // Firebase Admin import
 
 export async function POST(req, context) {
   try {
@@ -44,12 +45,32 @@ export async function POST(req, context) {
     );
 
     // Update user role to doctor
-    await usersColl.updateOne(
+    const userUpdateResult = await usersColl.updateOne(
       { _id: new ObjectId(doctor.userId) },
       { $set: { role: "doctor", updatedAt: new Date() } }
     );
 
-    return NextResponse.json({ ok: true, message: "Doctor approved successfully" });
+    // Fetch the user to get FCM token
+    const user = await usersColl.findOne({ _id: new ObjectId(doctor.userId) });
+
+    if (user && user.fcmToken) {
+      const message = {
+        notification: {
+          title: "Your Doctor Request is Approved ✅",
+          body: "Congratulations! Your request to become a doctor has been approved.",
+        },
+        token: user.fcmToken,
+      };
+
+      try {
+        await adminMessaging.messaging().send(message);
+        console.log("Notification sent successfully");
+      } catch (notifErr) {
+        console.error("Error sending notification:", notifErr);
+      }
+    }
+
+    return NextResponse.json({ ok: true, message: "Doctor approved successfully and notified" });
   } catch (err) {
     console.error("Approve error:", err);
     return NextResponse.json({ ok: false, error: err.message }, { status: 500 });
