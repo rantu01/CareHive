@@ -14,6 +14,27 @@ export default function DoctorsPage() {
   const [selectedDoctor, setSelectedDoctor] = useState(null); // 👈 for modal
   const { user } = useUser();
 
+
+
+  const handleBookAppointment = async (booking) => {
+    
+    try {
+
+      const response = await axios.post('/api/payment', booking)
+
+      const responseData = await response.data
+
+
+      console.log("the response data is 🔥🔥🔥🔥🔥🔥",responseData)
+      window.location.href = responseData.url
+      console.log("the response data", responseData.sucess)
+
+
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
   // Fetch all doctors
   useEffect(() => {
     const fetchDoctors = async () => {
@@ -124,7 +145,7 @@ export default function DoctorsPage() {
             const isBooked = bookedDoctors.includes(doc._id);
 
             return (
-                <DoctorCard key={doc._id} selectedDoctor={selectedDoctor} setSelectedDoctor={setSelectedDoctor} doc={doc} personal={personal} education={education} practice={practice} isBooked={isBooked}/>
+              <DoctorCard handleBookAppointment={handleBookAppointment} key={doc._id} selectedDoctor={selectedDoctor} setSelectedDoctor={setSelectedDoctor} doc={doc} personal={personal} education={education} practice={practice} isBooked={isBooked} />
             );
           })
         ) : (
@@ -135,9 +156,9 @@ export default function DoctorsPage() {
       </div>
 
       {/* MODAL */}
-      {selectedDoctor && <DoctorModal selectedDoctor={selectedDoctor} setSelectedDoctor={setSelectedDoctor}/>}
+      {selectedDoctor && <DoctorModal handleBookAppointment={handleBookAppointment} selectedDoctor={selectedDoctor} setSelectedDoctor={setSelectedDoctor} />}
 
-      
+
     </div>
   );
 }

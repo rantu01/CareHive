@@ -3,28 +3,6 @@ import React from 'react';
 
 const DoctorCard = ({ doc, personal, education, practice, isBooked, setSelectedDoctor }) => {
 
-
-
-    const handleBookAppointment = async (doc) => {
-
-        console.log("I am doc",doc)
-        try {
-
-            const response = await axios.post('/api/payment', {
-                name: "Dip Chondo Partho",
-                price: 1500
-            })
-
-            const responseData = await response.data
-            window.location.href = responseData.url
-            console.log("the response data", responseData.sucess)
-
-
-        } catch (error) {
-            console.log(error)
-        }
-    };
-
     return (
         <div
             className="flex flex-col rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden w-full max-w-sm"
@@ -85,7 +63,7 @@ const DoctorCard = ({ doc, personal, education, practice, isBooked, setSelectedD
                 </h2>
 
                 {/* Rating and Reviews */}
-                <div className="flex items-center gap-3">
+                {/* <div className="flex items-center gap-3">
                     <div className="flex items-center gap-1">
                         <span style={{ color: "#FFA500" }}>★★★★</span>
                         <span style={{ color: "var(--fourground-color)", opacity: 0.3 }}>★</span>
@@ -108,7 +86,7 @@ const DoctorCard = ({ doc, personal, education, practice, isBooked, setSelectedD
                         </span>
                         <span>14</span>
                     </div>
-                </div>
+                </div> */}
 
                 {/* Specialization */}
                 <p
@@ -118,10 +96,17 @@ const DoctorCard = ({ doc, personal, education, practice, isBooked, setSelectedD
                     {education.specialization || "General Practitioner"}
                 </p>
 
+                <p
+                    className="text-sm leading-relaxed"
+                    style={{ color: "var(--fourground-color)", opacity: 0.8 }}
+                >
+                    {practice.clinicAddress || "General Practitioner"}
+                </p>
+
                 {/* Action Buttons */}
                 <div className="flex gap-3 pt-2">
-                    <button
-                        onClick={() => handleBookAppointment(doc)}
+                    {/* <button
+                        onClick={() => handleBookAppointment()}
                         disabled={isBooked}
                         className={`py-3 px-4 font-semibold rounded-xl text-sm transition-all duration-300 cursor-pointer ${isBooked ? "opacity-60 cursor-not-allowed" : "hover:opacity-90"
                             }`}
@@ -131,7 +116,7 @@ const DoctorCard = ({ doc, personal, education, practice, isBooked, setSelectedD
                         }}
                     >
                         {isBooked ? "Booked ✅" : "Book appointment"}
-                    </button>
+                    </button> */}
 
                     <button
                         onClick={() => setSelectedDoctor(doc)}

@@ -2,8 +2,8 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import axios from "axios";
-import jsPDF from "jspdf";
 import { CheckCircle, Download, User, Mail, CreditCard, MapPin, Calendar, Clock, Building2, Stethoscope, FileText, BadgeCheck } from "lucide-react";
+import { pdfGenerator } from "@/app/utils/generatePdf";
 
 export default function PaymentSuccess() {
   const searchParams = useSearchParams();
@@ -30,147 +30,17 @@ export default function PaymentSuccess() {
     );
   }
 
-  // ✅ Generate Styled PDF
+  console.log("the payment is", payment)
+
   const handleDownloadPDF = () => {
-    const doc = new jsPDF();
-    const pageWidth = doc.internal.pageSize.width;
-
-    // Header Background (Green)
-    doc.setFillColor(144, 238, 144); // Light Green
-    doc.rect(0, 0, pageWidth, 45, 'F');
-
-    // Success Checkmark Circle
-    doc.setFillColor(255, 255, 255);
-    doc.circle(pageWidth / 2, 18, 8, 'F');
-    doc.setDrawColor(144, 238, 144);
-    doc.setLineWidth(2);
-    doc.circle(pageWidth / 2, 18, 8, 'S');
-
-    // Title
-    doc.setTextColor(0, 0, 0);
-    doc.setFontSize(24);
-    doc.setFont(undefined, 'bold');
-    doc.text("PAYMENT RECEIPT", pageWidth / 2, 38, { align: 'center' });
-
-    // Amount Paid Section (Blue Box)
-    doc.setFillColor(70, 130, 180); // Calm Blue
-    doc.roundedRect(15, 55, pageWidth - 30, 28, 3, 3, 'F');
-    doc.setTextColor(255, 255, 255);
-    doc.setFontSize(10);
-    doc.text("AMOUNT PAID", pageWidth / 2, 65, { align: 'center' });
-    doc.setFontSize(22);
-    doc.setFont(undefined, 'bold');
-    doc.text(
-      `${(payment.amount_total / 100).toFixed(2)} ${payment.currency.toUpperCase()}`,
-      pageWidth / 2,
-      77,
-      { align: 'center' }
-    );
-
-    let yPos = 95;
-
-    // Customer Information Section
-    doc.setFillColor(70, 130, 180); // Calm Blue
-    doc.rect(15, yPos, 3, 8, 'F');
-    doc.setTextColor(0, 0, 0);
-    doc.setFontSize(14);
-    doc.setFont(undefined, 'bold');
-    doc.text("Customer Information", 22, yPos + 6);
-    yPos += 12;
-
-    // Customer Details with styling
-    const customerDetails = [
-      { label: 'Name', value: payment.customer_details.name },
-      { label: 'Email', value: payment.customer_details.email },
-      { label: 'Payment Method', value: payment.payment_method_types?.[0]?.toUpperCase() || "-" },
-      { label: 'Address', value: payment.customer_details.address?.line1 || "-" },
-      { label: 'Country', value: payment.customer_details.address?.country || "-" },
-      { label: 'Postal Code', value: payment.customer_details.address?.postal_code || "-" }
-    ];
-
-    customerDetails.forEach((detail) => {
-      doc.setFillColor(243, 243, 243);
-      doc.roundedRect(15, yPos, pageWidth - 30, 12, 2, 2, 'F');
-      doc.setFontSize(9);
-      doc.setFont(undefined, 'bold');
-      doc.setTextColor(100, 100, 100);
-      doc.text(detail.label.toUpperCase(), 20, yPos + 4);
-      doc.setFontSize(10);
-      doc.setFont(undefined, 'normal');
-      doc.setTextColor(0, 0, 0);
-      doc.text(detail.value, 20, yPos + 9);
-      yPos += 14;
-    });
-
-    yPos += 3;
-
-    // Appointment Details Section
-    doc.setFillColor(144, 238, 144); // Light Green
-    doc.rect(15, yPos, 3, 8, 'F');
-    doc.setTextColor(0, 0, 0);
-    doc.setFontSize(14);
-    doc.setFont(undefined, 'bold');
-    doc.text("Appointment Details", 22, yPos + 6);
-    yPos += 12;
-
-    const appointmentDetails = [
-      { label: 'Doctor Name', value: payment.metadata.doctor_name || "-" },
-      { label: 'Hospital Name', value: payment.metadata.hospital_name || "-" },
-      { label: 'Booked Slot', value: payment.metadata.booked_slot || "-" },
-      { label: 'Booked At', value: payment.metadata.booked_at || "-" }
-    ];
-
-    appointmentDetails.forEach((detail) => {
-      doc.setFillColor(243, 243, 243);
-      doc.roundedRect(15, yPos, pageWidth - 30, 12, 2, 2, 'F');
-      doc.setFontSize(9);
-      doc.setFont(undefined, 'bold');
-      doc.setTextColor(100, 100, 100);
-      doc.text(detail.label.toUpperCase(), 20, yPos + 4);
-      doc.setFontSize(10);
-      doc.setFont(undefined, 'normal');
-      doc.setTextColor(0, 0, 0);
-      doc.text(detail.value, 20, yPos + 9);
-      yPos += 14;
-    });
-
-    yPos += 3;
-
-    // Session & Status
-    doc.setFillColor(243, 243, 243);
-    doc.roundedRect(15, yPos, pageWidth - 30, 18, 2, 2, 'F');
-    doc.setFontSize(8);
-    doc.setFont(undefined, 'bold');
-    doc.setTextColor(100, 100, 100);
-    doc.text("SESSION ID", 20, yPos + 5);
-    doc.setFontSize(8);
-    doc.setFont(undefined, 'normal');
-    doc.setTextColor(0, 0, 0);
-    doc.text(payment.id, 20, yPos + 10, { maxWidth: pageWidth - 40 });
-
-    // Status Badge
-    doc.setFillColor(144, 238, 144);
-    doc.roundedRect(pageWidth - 50, yPos + 3, 35, 8, 2, 2, 'F');
-    doc.setFontSize(9);
-    doc.setFont(undefined, 'bold');
-    doc.setTextColor(0, 0, 0);
-    doc.text(payment.payment_status.toUpperCase(), pageWidth - 32.5, yPos + 8, { align: 'center' });
-
-    // Footer
-    doc.setFontSize(10);
-    doc.setTextColor(100, 100, 100);
-    doc.setFont(undefined, 'italic');
-    doc.text("Thank you for your payment!", pageWidth / 2, 285, { align: 'center' });
-
-    doc.save("payment_receipt.pdf");
-  };
-
+    pdfGenerator(payment)
+  }
 
   return (
     <div className="min-h-screen px-4 py-12 md:py-16">
       <div className="max-w-5xl mx-auto">
         {/* Success Header Card */}
-        <div className="bg-gradient-to-br from-[var(--color-light-green)] via-[#7FE87F] to-[var(--color-light-green)] rounded-3xl shadow-2xl overflow-hidden mb-8 transform hover:scale-[1.01] transition-transform duration-300">
+        <div className="bg-gradient-to-br from-[var(--color-light-green)] via-[#7FE87F] to-[var(--color-light-green)] rounded-3xl shadow-2xl overflow-hidden mb-8 transform">
           <div className="px-8 py-12 md:py-16 text-center relative">
             <div className="absolute top-0 left-0 w-full h-full opacity-10">
               <div className="absolute top-10 left-10 w-32 h-32 bg-[var(--color-white)] rounded-full"></div>
@@ -228,7 +98,7 @@ export default function PaymentSuccess() {
                     </div>
                     <div className="flex-1">
                       <p className="text-xs text-[var(--fourground-color)] opacity-60 uppercase tracking-wider font-semibold mb-1">Name</p>
-                      <p className="text-[var(--fourground-color)] font-semibold text-lg">{payment.customer_details.name}</p>
+                      <p className="text-[var(--fourground-color)] font-semibold text-lg">{payment.metadata.patientName}</p>
                     </div>
                   </div>
                 </div>
@@ -240,7 +110,7 @@ export default function PaymentSuccess() {
                     </div>
                     <div className="flex-1">
                       <p className="text-xs text-[var(--fourground-color)] opacity-60 uppercase tracking-wider font-semibold mb-1">Email</p>
-                      <p className="text-[var(--fourground-color)] font-semibold break-all">{payment.customer_details.email}</p>
+                      <p className="text-[var(--fourground-color)] font-semibold break-all">{payment.metadata.patientEmail}</p>
                     </div>
                   </div>
                 </div>
@@ -264,8 +134,7 @@ export default function PaymentSuccess() {
                     </div>
                     <div className="flex-1">
                       <p className="text-xs text-[var(--fourground-color)] opacity-60 uppercase tracking-wider font-semibold mb-1">Address</p>
-                      <p className="text-[var(--fourground-color)] font-semibold">{payment.customer_details.address.line1}</p>
-                      <p className="text-[var(--fourground-color)] font-semibold mt-1">{payment.customer_details.address.country} - {payment.customer_details.address.postal_code}</p>
+                      <p className="text-[var(--fourground-color)] font-semibold">BD</p>
                     </div>
                   </div>
                 </div>
@@ -287,7 +156,7 @@ export default function PaymentSuccess() {
                     </div>
                     <div className="flex-1">
                       <p className="text-xs text-[var(--fourground-color)] opacity-60 uppercase tracking-wider font-semibold mb-1">Doctor Name</p>
-                      <p className="text-[var(--fourground-color)] font-semibold text-lg">{payment.metadata.doctor_name}</p>
+                      <p className="text-[var(--fourground-color)] font-semibold text-lg">{payment.metadata.doctorName}</p>
                     </div>
                   </div>
                 </div>
@@ -299,7 +168,7 @@ export default function PaymentSuccess() {
                     </div>
                     <div className="flex-1">
                       <p className="text-xs text-[var(--fourground-color)] opacity-60 uppercase tracking-wider font-semibold mb-1">Hospital Name</p>
-                      <p className="text-[var(--fourground-color)] font-semibold text-lg">{payment.metadata.hospital_name}</p>
+                      <p className="text-[var(--fourground-color)] font-semibold text-lg">{payment.metadata.hospitalName}</p>
                     </div>
                   </div>
                 </div>
@@ -311,7 +180,7 @@ export default function PaymentSuccess() {
                     </div>
                     <div className="flex-1">
                       <p className="text-xs text-[var(--fourground-color)] opacity-60 uppercase tracking-wider font-semibold mb-1">Booked Slot</p>
-                      <p className="text-[var(--fourground-color)] font-semibold">{payment.metadata.booked_slot}</p>
+                      <p className="text-[var(--fourground-color)] font-semibold">{payment.metadata.bookedSlot.toUpperCase()}</p>
                     </div>
                   </div>
                 </div>
@@ -323,7 +192,7 @@ export default function PaymentSuccess() {
                     </div>
                     <div className="flex-1">
                       <p className="text-xs text-[var(--fourground-color)] opacity-60 uppercase tracking-wider font-semibold mb-1">Booked At</p>
-                      <p className="text-[var(--fourground-color)] font-semibold">{payment.metadata.booked_at}</p>
+                      <p className="text-[var(--fourground-color)] font-semibold">{payment.metadata.bookedAt ? new Date(payment.metadata.bookedAt).toLocaleString() : "-"}</p>
                     </div>
                   </div>
                 </div>

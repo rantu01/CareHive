@@ -4,11 +4,9 @@ const stripe = new Stripe(process.env.NEXT_STRIPE_SECRET_KEY)
 
 
 export const POST = async (req) => {
+
     try {
-        const data = await req.json()
-        console.log("my data", data)
-
-
+        const data = await req.json();
         const customer = await stripe.customers.create({
             address: {
                 city: "Sylhet",
@@ -33,24 +31,17 @@ export const POST = async (req) => {
                         quantity: 1,
                         price_data: {
                             product_data: {
-                                name: data.name,
+                                name: data.doctorName,
                             },
                             currency: "BDT",
-                            unit_amount: data.price * 100
+                            unit_amount:data.fees * 100
 
                         }
                     }
                 ],
 
                 // Important: pass metadata here
-                metadata: {
-                    hospital_name: data.hospitalName || "Gachbari Ideal College",
-                    doctor_name: data.doctorName || "Monohora Monohor",
-                    booked_slot: data.slot || "12dj",
-                    booked_at: new Date()
-
-                },
-
+                metadata:data,
                 success_url: `http://localhost:3000/payment-success?session_id={CHECKOUT_SESSION_ID}`,
                 cancel_url: `http://localhost:3000/payment-cancel`,
             }
@@ -58,9 +49,11 @@ export const POST = async (req) => {
 
         // session id 
 
+        console.log("to the url is:",checkoutSession.url)
 
-        return NextResponse.json({ sucess: checkoutSession, url: checkoutSession.url })
+        return NextResponse.json({ success: true, url: checkoutSession.url })
     } catch (error) {
         return NextResponse.json({ "error": error })
     }
 }
+

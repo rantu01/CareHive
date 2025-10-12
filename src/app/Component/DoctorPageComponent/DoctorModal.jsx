@@ -1,6 +1,6 @@
 import AppointmentDropdown from "./AppoinmentDropDown";
 
-const DoctorModal = ({ selectedDoctor, setSelectedDoctor,handleBookAppointment,doc }) => {
+const DoctorModal = ({ selectedDoctor, setSelectedDoctor,handleBookAppointment }) => {
     if (!selectedDoctor) return null;
 
     return (
@@ -211,7 +211,7 @@ const DoctorModal = ({ selectedDoctor, setSelectedDoctor,handleBookAppointment,d
 
                             {/* Appointment Booking */}
                             <div className="bg-white bg-opacity-90 backdrop-blur-sm rounded-2xl p-6 shadow-lg w-full">
-                                <AppointmentDropdown selectedDoctor={selectedDoctor} />
+                                <AppointmentDropdown selectedDoctor={selectedDoctor} handleBookAppointment={handleBookAppointment} />
                             </div>
                         </div>
 
