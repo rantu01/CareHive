@@ -28,10 +28,10 @@ export default function Topbar({ toggleSidebar }) {
       ]);
 
       // 2️⃣ Show toast immediately
-      toast(`${notification.title}: ${notification.body}`, {
-        duration: 5000,
-        position: "top-right",
-      });
+      // toast(`${notification.title}: ${notification.body}`, {
+      //   duration: 5000,
+      //   position: "top-right",
+      // });
 
       try {
         const res = await fetch("/api/notifications", {
