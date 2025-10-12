@@ -9,7 +9,7 @@ export default function ManageDoctors() {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const res = await fetch("/api/doctors");
+        const res = await fetch("/api/doctors-admin-fetch");
         const data = await res.json();
         setDoctors(data);
       } catch (error) {
@@ -24,10 +24,10 @@ export default function ManageDoctors() {
   // Update doctor verification
   const toggleVerify = async (id, currentStatus) => {
     try {
-      const res = await fetch(`/api/doctors/${id}`, {
+      const res = await fetch(`/api/doctors-admin-fetch/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ "status.isVerified": !currentStatus }),
+        body: JSON.stringify({ status: { isVerified: !currentStatus } }), // send nested correctly
       });
 
       if (!res.ok) throw new Error("Failed to update doctor");
@@ -118,7 +118,9 @@ export default function ManageDoctors() {
                     toggleVerify(doctor._id, doctor.status?.isVerified)
                   }
                 >
-                  {doctor.status?.isVerified ? "Revoke Access" : "Approve Doctor"}
+                  {doctor.status?.isVerified
+                    ? "Revoke Access"
+                    : "Approve Doctor"}
                 </button>
               </div>
             </div>

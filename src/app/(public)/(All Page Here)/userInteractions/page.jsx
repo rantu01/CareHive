@@ -13,7 +13,7 @@ const UserInteractions = () => {
 
   const fetchBlogs = async () => {
     try {
-      setLoading(true);
+      // setLoading(true);
       const res = await fetch("/api/blogs");
       const data = await res.json();
       if (data.success) setBlogs(data.blogs);
@@ -278,7 +278,7 @@ const UserInteractions = () => {
                   />
                   <button
                     onClick={() => handleComment(blog._id)}
-                    className="flex items-center gap-2 px-6 py-3 rounded-full bg-[var(--color-light-green)] hover:shadow-md hover:scale-105 transition-all duration-300 text-[var(--color-black)] font-semibold"
+                    className="flex items-center gap-2 px-6 py-3 rounded-full bg-[var(--color-light-green)] hover:shadow-md hover:scale-105 transition-all duration-300 text-[var(--color-black)] font-semibold cursor-pointer"
                   >
                     <Send size={18} /> Post
                   </button>
