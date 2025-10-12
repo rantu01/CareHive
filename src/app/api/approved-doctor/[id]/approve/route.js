@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
 import clientPromise from "../../../../lib/mongodb";
-import { adminMessaging } from "../../../../firebase/firebaseAdmin"; // Firebase Admin import
+import admin from "../../../../firebase/firebaseAdmin";
+
+// Then in your code:
+await admin.messaging().send(message);
+
 
 export async function POST(req, context) {
   try {
@@ -63,7 +67,7 @@ export async function POST(req, context) {
       };
 
       try {
-        await adminMessaging.messaging().send(message);
+        await admin.messaging().send(message);
         console.log("Notification sent successfully");
       } catch (notifErr) {
         console.error("Error sending notification:", notifErr);
