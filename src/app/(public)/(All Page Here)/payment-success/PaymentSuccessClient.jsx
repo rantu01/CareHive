@@ -1,0 +1,187 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import axios from "axios";
+import {
+  CheckCircle,
+  Download,
+  User,
+  Mail,
+  CreditCard,
+  MapPin,
+  Calendar,
+  Clock,
+  Building2,
+  Stethoscope,
+  FileText,
+  BadgeCheck,
+} from "lucide-react";
+import { pdfGenerator } from "@/app/utils/generatePdf";
+
+export default function PaymentSuccessClient() {
+  const searchParams = useSearchParams();
+  const sessionId = searchParams.get("session_id");
+  const [payment, setPayment] = useState(null);
+
+  useEffect(() => {
+    if (sessionId) {
+      axios
+        .get(`/api/payment-session/${sessionId}`)
+        .then((res) => setPayment(res.data))
+        .catch((err) => console.error(err));
+    }
+  }, [sessionId]);
+
+  if (!payment) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[var(--color-white)]">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--color-calm-blue)] mb-4"></div>
+          <p className="text-[var(--fourground-color)] text-lg">Loading payment info...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const handleDownloadPDF = () => pdfGenerator(payment);
+
+  return (
+    <div className="min-h-screen px-4 py-12 md:py-16">
+      <div className="max-w-5xl mx-auto">
+        {/* Success Header */}
+        <div className="bg-gradient-to-br from-[var(--color-primary)] via-[#7FE87F] to-[var(--color-primary)] rounded-3xl shadow-2xl overflow-hidden mb-8 transform">
+          <div className="px-8 py-12 md:py-16 text-center relative">
+            <div className="absolute top-0 left-0 w-full h-full opacity-10">
+              <div className="absolute top-10 left-10 w-32 h-32 bg-[var(--color-white)] rounded-full"></div>
+              <div className="absolute bottom-10 right-10 w-40 h-40 bg-[var(--color-white)] rounded-full"></div>
+            </div>
+            <div className="relative z-10">
+              <div className="inline-flex items-center justify-center bg-[var(--color-white)] rounded-full w-24 h-24 mb-6 shadow-xl animate-bounce">
+                <CheckCircle size={56} className="text-[var(--color-primary)]" strokeWidth={2.5} />
+              </div>
+              <h1 className="text-4xl md:text-5xl font-bold text-[var(--color-black)] mb-3">
+                Payment Successful!
+              </h1>
+              <p className="text-[var(--color-black)] text-lg md:text-xl opacity-90 flex items-center justify-center gap-2">
+                <BadgeCheck size={24} />
+                Your appointment has been confirmed
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Main Card */}
+        <div className="rounded-3xl shadow-xl overflow-hidden border border-[var(--gray-color)]">
+          {/* Amount Section */}
+          <div className="bg-gradient-to-r from-[var(--color-calm-blue)] to-[#5A9FD4] px-8 py-8 text-center">
+            <div className="flex items-center justify-center gap-3 mb-3">
+              <FileText className="text-[var(--color-white)]" size={28} />
+              <p className="text-sm text-[var(--color-white)] uppercase tracking-widest font-semibold">
+                Total Amount Paid
+              </p>
+            </div>
+            <p className="text-5xl md:text-6xl font-bold text-[var(--color-white)] mb-1">
+              {(payment.amount_total / 100).toFixed(2)}
+            </p>
+            <p className="text-2xl text-[var(--color-white)] opacity-90 font-medium uppercase">
+              {payment.currency}
+            </p>
+          </div>
+
+          <div className="p-8 md:p-10">
+            {/* Payment Details */}
+            <div className="grid md:grid-cols-2 gap-8 mb-10">
+              {/* Customer Info */}
+              <div className="space-y-6">
+                <SectionHeader title="Customer Information" color="var(--color-calm-blue)" />
+                <InfoItem icon={<User />} label="Name" value={payment.metadata.patientName} />
+                <InfoItem icon={<Mail />} label="Email" value={payment.metadata.patientEmail} />
+                <InfoItem icon={<CreditCard />} label="Payment Method" value={payment.payment_method_types[0]} />
+                <InfoItem icon={<MapPin />} label="Address" value="BD" />
+              </div>
+
+              {/* Appointment Info */}
+              <div className="space-y-6">
+                <SectionHeader title="Appointment Details" color="var(--color-primary)" />
+                <InfoItem icon={<Stethoscope />} label="Doctor Name" value={payment.metadata.doctorName} />
+                <InfoItem icon={<Building2 />} label="Hospital Name" value={payment.metadata.hospitalName} />
+                <InfoItem icon={<Calendar />} label="Booked Slot" value={payment.metadata.bookedSlot.toUpperCase()} />
+                <InfoItem
+                  icon={<Clock />}
+                  label="Booked At"
+                  value={payment.metadata.bookedAt ? new Date(payment.metadata.bookedAt).toLocaleString() : "-"}
+                />
+              </div>
+            </div>
+
+            {/* Session Info */}
+            <div className="bg-[var(--gray-color)] rounded-2xl p-6 mb-8 border-l-4 border-[var(--color-calm-blue)]">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div className="flex-1">
+                  <p className="text-xs opacity-60 uppercase tracking-wider font-semibold mb-2">
+                    Session ID
+                  </p>
+                  <p className="font-mono text-sm break-all font-semibold">{payment.id}</p>
+                </div>
+                <div className="md:text-right">
+                  <p className="text-xs opacity-60 uppercase tracking-wider font-semibold mb-2">
+                    Payment Status
+                  </p>
+                  <span className="inline-flex items-center gap-2 bg-[var(--color-primary)] text-[var(--color-black)] px-5 py-2 rounded-full text-sm font-bold capitalize shadow-md">
+                    <CheckCircle size={16} />
+                    {payment.payment_status}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Download Button */}
+            <button
+              onClick={handleDownloadPDF}
+              className="w-full bg-gradient-to-r from-[var(--color-calm-blue)] to-[#5A9FD4] hover:from-[#5A9FD4] hover:to-[var(--color-calm-blue)] text-[var(--color-white)] font-bold py-5 px-8 rounded-2xl transition-all duration-300 flex items-center justify-center gap-4 shadow-xl hover:shadow-2xl transform hover:scale-[1.02] cursor-pointer group"
+            >
+              <Download size={28} className="group-hover:animate-bounce" />
+              <span className="text-xl">Download PDF Receipt</span>
+            </button>
+
+            {/* Footer */}
+            <div className="mt-8 text-center bg-[var(--gray-color)] rounded-xl p-6">
+              <p className="opacity-70 text-sm leading-relaxed">
+                Thank you for your payment! A confirmation email has been sent to{" "}
+                <span className="font-semibold text-[var(--color-calm-blue)]">
+                  {payment.customer_details.email}
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SectionHeader({ title, color }) {
+  return (
+    <div className="flex items-center gap-3 mb-6">
+      <div className="w-1 h-8" style={{ backgroundColor: color, borderRadius: "8px" }}></div>
+      <h3 className="text-2xl font-bold text-[var(--fourground-color)]">{title}</h3>
+    </div>
+  );
+}
+
+function InfoItem({ icon, label, value }) {
+  return (
+    <div className="group hover:bg-[var(--gray-color)] p-4 rounded-xl transition-all duration-200 cursor-pointer">
+      <div className="flex items-start gap-4">
+        <div className="bg-[var(--color-calm-blue)] bg-opacity-10 p-3 rounded-xl group-hover:scale-110 transition-transform duration-200">
+          {icon}
+        </div>
+        <div className="flex-1">
+          <p className="text-xs opacity-60 uppercase tracking-wider font-semibold mb-1">{label}</p>
+          <p className="font-semibold break-all text-lg">{value}</p>
+        </div>
+      </div>
+    </div>
+  );
+}

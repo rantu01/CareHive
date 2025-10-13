@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import UseAuth from "../Hooks/UseAuth";
 import ThemeToggle from "./ThemeToggle";
+import WhatsAppButton from "./ContactWithAdmin/WhatsAppButton";
 
 // Navigation links configuration
 const navLinks = [
@@ -58,7 +59,7 @@ const Navbar = () => {
             <div className="flex items-center">
               <div
                 className="w-10 h-10 rounded-full flex items-center justify-center"
-                style={{ backgroundColor: "var(--color-light-green)" }}
+                style={{ backgroundColor: "var(--color-primary)" }}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +131,7 @@ const Navbar = () => {
                     onClick={handleLogout}
                     className="font-medium py-2 px-3 lg:px-4 rounded-full transition duration-300 cursor-pointer hover:bg-green-600 whitespace-nowrap text-sm lg:text-base"
                     style={{
-                      backgroundColor: "var(--color-light-green)",
+                      backgroundColor: "var(--color-primary)",
                       color: "var(--color-white)",
                       fontWeight: 500,
                       fontFamily: "var(--font-primary)",
@@ -156,7 +157,7 @@ const Navbar = () => {
                     href="/signup"
                     className="font-medium py-2 px-3 lg:px-4 rounded-full transition duration-300 hover:bg-green-600 whitespace-nowrap text-sm lg:text-base"
                     style={{
-                      backgroundColor: "var(--color-light-green)",
+                      backgroundColor: "var(--color-primary)",
                       color: "var(--color-white)",
                       fontWeight: 500,
                       fontFamily: "var(--font-primary)",
@@ -255,7 +256,7 @@ const Navbar = () => {
                       onClick={handleLogout}
                       className="w-full font-medium py-2 px-4 rounded-full transition duration-300 cursor-pointer hover:bg-green-600"
                       style={{
-                        backgroundColor: "var(--color-light-green)",
+                        backgroundColor: "var(--color-primary)",
                         color: "var(--color-white)",
                         fontWeight: 500,
                       }}
@@ -280,7 +281,7 @@ const Navbar = () => {
                       href="/signup"
                       className="block font-medium py-2 px-4 rounded-full text-center transition duration-300 hover:bg-green-600 whitespace-nowrap"
                       style={{
-                        backgroundColor: "var(--color-light-green)",
+                        backgroundColor: "var(--color-primary)",
                         color: "var(--color-white)",
                         fontWeight: 500,
                       }}

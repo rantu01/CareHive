@@ -121,7 +121,7 @@ const ContactSection = () => {
                 backgroundColor: "var(--color-calm-blue)",
                 color: "var(--color-white)",
               }}
-              onMouseEnter={(e) => (e.target.style.backgroundColor = "var(--color-light-green)")}
+              onMouseEnter={(e) => (e.target.style.backgroundColor = "var(--color-primary)")}
               onMouseLeave={(e) => (e.target.style.backgroundColor = "var(--color-calm-blue)")}
             >
               Send Message

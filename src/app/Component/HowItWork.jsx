@@ -17,7 +17,7 @@ const steps = [
   {
     id: 2,
     title: "Explore & Track Health",
-    icon: <Activity className="w-7 h-7" style={{ color: "var(--color-light-green)" }} />,
+    icon: <Activity className="w-7 h-7" style={{ color: "var(--color-primary)" }} />,
     points: [
       "Track BMI, calories, and steps in the dashboard",
       "Get health reports and personalized recommendations",
@@ -84,7 +84,7 @@ const HowItWork = () => {
               whileTap={{ scale: 0.95, rotate: -1 }}
               className="p-6 rounded-2xl shadow-lg relative border transition"
               style={{
-                background: `linear-gradient(to bottom right, var(--color-light-green)/50, var(--color-white)/20, var(--color-calm-blue)/40)`,
+                background: `linear-gradient(to bottom right, var(--color-primary)/50, var(--color-white)/20, var(--color-calm-blue)/40)`,
                 borderColor: "var(--dashboard-border)",
               }}
             >
@@ -92,7 +92,7 @@ const HowItWork = () => {
               <div
                 className="absolute -top-5 -left-5 w-12 h-12 flex items-center justify-center rounded-full font-bold shadow-lg"
                 style={{
-                  background: `linear-gradient(to right, var(--color-light-green), var(--color-calm-blue))`,
+                  background: `linear-gradient(to right, var(--color-primary), var(--color-calm-blue))`,
                   color: "var(--color-white)",
                 }}
               >
@@ -104,7 +104,7 @@ const HowItWork = () => {
                 <div
                   className="p-4 rounded-full shadow-inner"
                   style={{
-                    background: `linear-gradient(to bottom right, var(--color-light-green), var(--color-calm-blue))`,
+                    background: `linear-gradient(to bottom right, var(--color-primary), var(--color-calm-blue))`,
                   }}
                 >
                   {step.icon}
