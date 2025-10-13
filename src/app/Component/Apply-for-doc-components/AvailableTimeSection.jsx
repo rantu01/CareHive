@@ -24,6 +24,7 @@ const AvailableTimeSection = ({
 
   const [areaBasedHospital, setAreaBased] = useState("dhaka")
   const [hospitals, setHospitals] = useState([])
+  const [consatlationType, setConsaltationType] = useState("both")
 
   const fetchHospitalData = async (areaType) => {
     try {
@@ -92,6 +93,53 @@ const AvailableTimeSection = ({
       [day]: limit || '0',
     }));
   };
+
+
+
+
+  const feeFields = (
+    <div className={`grid grid-cols-1 ${consatlationType === "both" ? "md:grid-cols-2" : ""} gap-4`}>
+      {(consatlationType === "offline" || consatlationType === "both") && (
+        <div>
+          <label htmlFor="offline-fee" className="block font-medium mb-2" style={{ color: 'var(--fourground-color)' }}>
+            Offline Fee
+          </label>
+          <input
+            type="number"
+            id="offline-fee"
+            placeholder="Offline Fee"
+            {...register("offlineFee", { required: consatlationType === "offline" || consatlationType === "both" })}
+            className="w-full p-3 rounded-lg focus:outline-none"
+            style={{
+              borderWidth: "2px",
+              borderColor: "var(--dashboard-border)",
+              color: "var(--fourground-color)",
+            }}
+          />
+        </div>
+      )}
+
+      {(consatlationType === "online" || consatlationType === "both") && (
+        <div>
+          <label htmlFor="online-fee" className="block font-medium mb-2" style={{ color: 'var(--fourground-color)' }}>
+            Online Fee
+          </label>
+          <input
+            type="number"
+            id="online-fee"
+            placeholder="Online Fee"
+            {...register("onlineFee", { required: consatlationType === "online" || consatlationType === "both" })}
+            className="w-full p-3 rounded-lg focus:outline-none"
+            style={{
+              borderWidth: "2px",
+              borderColor: "var(--dashboard-border)",
+              color: "var(--fourground-color)",
+            }}
+          />
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <section className="flex flex-col gap-6">
@@ -211,8 +259,11 @@ const AvailableTimeSection = ({
               borderWidth: '2px',
               borderColor: 'var(--dashboard-border)',
             }}
+
+            value={consatlationType}
+
+            onChange={(e) => setConsaltationType(e.target.value)}
           >
-            <option value="">Select...</option>
             <option value="online">Online</option>
             <option value="offline">Offline</option>
             <option value="both">Both</option>
@@ -223,7 +274,7 @@ const AvailableTimeSection = ({
         <div>
           <div className="flex items-center space-x-6 mt-2">
             <div className='flex-1'>
-              <label htmlFor="city" className="block text-lg text-gray-700 mb-2">
+              <label htmlFor="city" className="block text-lg mb-2" style={{ color: 'var(--fourground-color)' }}>
                 Select Your City
               </label>
               <select
@@ -233,6 +284,13 @@ const AvailableTimeSection = ({
                 id="city"
                 name="city"
                 className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+
+                style={{
+                  backgroundColor: 'var(--gray-color)',
+                  color: 'var(--fourground-color)',
+                  borderWidth: '2px',
+                  borderColor: 'var(--dashboard-border)',
+                }}
               >
                 <option >
                   Choose a city...
@@ -254,6 +312,13 @@ const AvailableTimeSection = ({
                 id="hospital"
                 name="hospital"
                 className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+
+                style={{
+                  backgroundColor: 'var(--gray-color)',
+                  color: 'var(--fourground-color)',
+                  borderWidth: '2px',
+                  borderColor: 'var(--dashboard-border)',
+                }}
               >
                 {hospitals?.map((hospital) => (
                   <option key={hospital._id} value={hospital.value}>
@@ -268,43 +333,7 @@ const AvailableTimeSection = ({
         </div>
 
         {/* Fees */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label htmlFor="offline-fee" className="block font-medium mb-2" style={{ color: 'var(--fourground-color)' }}>
-              Offline Fee
-            </label>
-            <input
-              type="number"
-              id="offline-fee"
-              placeholder="Offline Fee"
-              {...register("offlineFee", { required: true })}
-              className="w-full p-3 rounded-lg focus:outline-none"
-              style={{
-                borderWidth: "2px",
-                borderColor: "var(--dashboard-border)",
-                color: "var(--fourground-color)",
-              }}
-            />
-          </div>
-
-          <div>
-            <label htmlFor="online-fee" className="block font-medium mb-2" style={{ color: 'var(--fourground-color)' }}>
-              Online Fee
-            </label>
-            <input
-              type="number"
-              id="online-fee"
-              placeholder="Online Fee"
-              {...register("onlineFee", { required: true })}
-              className="w-full p-3 rounded-lg focus:outline-none"
-              style={{
-                borderWidth: "2px",
-                borderColor: "var(--dashboard-border)",
-                color: "var(--fourground-color)",
-              }}
-            />
-          </div>
-        </div>
+        {feeFields}
 
         {/* Spoken Languages */}
         <div>
