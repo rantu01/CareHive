@@ -38,7 +38,7 @@ const FeaturedServices = () => {
       {/* SKELETON: Using a solid light-green color instead of gradient blur */}
       <div 
         className="absolute -inset-1 rounded-2xl blur opacity-20 animate-pulse"
-        style={{ backgroundColor: "var(--color-light-green)" }}
+        style={{ backgroundColor: "var(--color-primary)" }}
       ></div>
       <div
         className="relative p-6 rounded-xl h-full min-h-[140px] backdrop-blur-sm"
@@ -79,18 +79,18 @@ const FeaturedServices = () => {
       {/* Enhanced Background Elements - Using light-green only */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -left-20 w-80 h-80 rounded-full opacity-10 blur-3xl"
-              style={{ backgroundColor: "var(--color-light-green)" }}></div>
+              style={{ backgroundColor: "var(--color-primary)" }}></div>
         <div className="absolute -bottom-40 -right-20 w-80 h-80 rounded-full opacity-10 blur-3xl"
-              style={{ backgroundColor: "var(--color-light-green)" }}></div>
+              style={{ backgroundColor: "var(--color-primary)" }}></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full opacity-5 blur-2xl"
-              style={{ backgroundColor: "var(--color-light-green)" }}></div>
+              style={{ backgroundColor: "var(--color-primary)" }}></div>
         
         {/* Animated Grid Pattern */}
         <div className="absolute inset-0 opacity-[0.02]"
               style={{
                 backgroundImage: `
-                  linear-gradient(var(--color-light-green) 1px, transparent 1px),
-                  linear-gradient(90deg, var(--color-light-green) 1px, transparent 1px)
+                  linear-gradient(var(--color-primary) 1px, transparent 1px),
+                  linear-gradient(90deg, var(--color-primary) 1px, transparent 1px)
                 `,
                 backgroundSize: '50px 50px',
                 backgroundPosition: 'center center'
@@ -106,7 +106,7 @@ const FeaturedServices = () => {
                 borderColor: "var(--dashboard-border)",
               }}>
             <span className="w-2 h-2 rounded-full animate-pulse"
-                  style={{ backgroundColor: "var(--color-light-green)" }}></span>
+                  style={{ backgroundColor: "var(--color-primary)" }}></span>
             <span className="text-sm font-medium"
                   style={{ color: "var(--color-calm-blue)" }}>
               Premium Healthcare Services
@@ -121,7 +121,7 @@ const FeaturedServices = () => {
             {/* 2. MEDICAL CARE TEXT: Set solid color */}
             <span 
               className="relative inline-block"
-              style={{ color: "var(--color-light-green)" }}
+              style={{ color: "var(--color-primary)" }}
             >
               Medical Care
               <svg 
@@ -130,7 +130,7 @@ const FeaturedServices = () => {
               >
                 <path
                   d="M10,10 C40,5 160,15 190,10"
-                  stroke="var(--color-light-green)" // Solid color underline
+                  stroke="var(--color-primary)" // Solid color underline
                   strokeWidth="3"
                   fill="none"
                   strokeLinecap="round"
@@ -158,7 +158,7 @@ const FeaturedServices = () => {
               <div className="flex items-center gap-3">
                 <span className="text-sm font-semibold px-3 py-1 rounded-full"
                       style={{
-                        backgroundColor: "var(--color-light-green)", // Kept for service count badge
+                        backgroundColor: "var(--color-primary)", // Kept for service count badge
                         color: "var(--color-white)",
                       }}>
                   {services.length} Services
@@ -177,8 +177,8 @@ const FeaturedServices = () => {
                   className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg disabled:opacity-30 disabled:cursor-not-allowed group"
                   style={{
                     backgroundColor: "var(--color-white)",
-                    border: "2px solid var(--color-light-green)", // Changed border
-                    color: "var(--color-light-green)", // Changed text color
+                    border: "2px solid var(--color-primary)", // Changed border
+                    color: "var(--color-primary)", // Changed text color
                   }}
                 >
                   <svg className="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" 
@@ -192,7 +192,7 @@ const FeaturedServices = () => {
                   disabled={isLoading || services.length <= 3}
                   className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg disabled:opacity-30 disabled:cursor-not-allowed group"
                   style={{
-                    backgroundColor: "var(--color-light-green)", // Changed background
+                    backgroundColor: "var(--color-primary)", // Changed background
                     color: "var(--fourground-color)", // Set text color for visibility
                   }}
                 >
@@ -225,7 +225,7 @@ const FeaturedServices = () => {
                           ? 'opacity-80' 
                           : 'opacity-30 group-hover:opacity-50'
                       }`}
-                      style={{ backgroundColor: "var(--color-light-green)" }}
+                      style={{ backgroundColor: "var(--color-primary)" }}
                     ></div>
                     
                     <div
@@ -250,7 +250,7 @@ const FeaturedServices = () => {
                               />
                             </div>
                             <div className="absolute -inset-2 rounded-2xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-500"
-                                style={{ backgroundColor: "var(--color-light-green)" }}></div>
+                                style={{ backgroundColor: "var(--color-primary)" }}></div>
                           </div>
                         </div>
 
@@ -316,7 +316,7 @@ const FeaturedServices = () => {
                                 style={{
                                   backgroundColor: activeService === index 
                                     ? "var(--color-calm-blue)" 
-                                    : "rgba(var(--color-light-green), 0.15)",
+                                    : "rgba(var(--color-primary), 0.15)",
                                   color: activeService === index 
                                     ? "var(--color-white)" 
                                     : "var(--color-calm-blue)",
@@ -354,7 +354,7 @@ const FeaturedServices = () => {
                 className="group relative px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl overflow-hidden"
                 style={{
                   color: "var(--color-white)",
-                  backgroundColor: "var(--color-light-green)",
+                  backgroundColor: "var(--color-primary)",
                 }}
               >
                 <span className="relative z-10 flex items-center gap-2">
@@ -368,7 +368,7 @@ const FeaturedServices = () => {
                 {/* Border Glow: Solid light-green blur */}
                 <div 
                   className="absolute -inset-0.5 rounded-2xl blur opacity-50 group-hover:opacity-100 transition-opacity duration-500 -z-10"
-                  style={{ backgroundColor: "var(--color-light-green)" }}
+                  style={{ backgroundColor: "var(--color-primary)" }}
                 ></div>
               </button>
             </div>
@@ -382,8 +382,8 @@ const FeaturedServices = () => {
                 {/* Enhanced Background Pattern - simplified to one color */}
                 <div className="absolute inset-0 opacity-[0.03]"
                       style={{
-                        backgroundImage: `radial-gradient(circle at 25px 25px, var(--color-light-green) 2%, transparent 0%), 
-                                           radial-gradient(circle at 75px 75px, var(--color-light-green) 2%, transparent 0%)`,
+                        backgroundImage: `radial-gradient(circle at 25px 25px, var(--color-primary) 2%, transparent 0%), 
+                                           radial-gradient(circle at 75px 75px, var(--color-primary) 2%, transparent 0%)`,
                         backgroundSize: '100px 100px'
                       }}></div>
 
@@ -411,7 +411,7 @@ const FeaturedServices = () => {
                   >
                     <div className="flex items-center gap-2 mb-3">
                       <span className="w-2 h-2 rounded-full animate-pulse"
-                            style={{ backgroundColor: "var(--color-light-green)" }}></span>
+                            style={{ backgroundColor: "var(--color-primary)" }}></span>
                       <span className="text-sm font-semibold uppercase tracking-wider opacity-70"
                             style={{ color: "var(--color-calm-blue)" }}>
                         Featured Service
@@ -420,7 +420,7 @@ const FeaturedServices = () => {
 
                     <h3
                       className="text-2xl font-bold mb-3"
-                      style={{ color: "var(--color-light-green)" }}
+                      style={{ color: "var(--color-primary)" }}
                     >
                       {visibleServices[activeService]?.service_name || "Premium Healthcare"}
                     </h3>
@@ -445,7 +445,7 @@ const FeaturedServices = () => {
                       <button
                         className="px-6 py-2 text-white text-sm font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-xl flex items-center gap-2 group"
                         style={{
-                          backgroundColor: "var(--color-light-green)",
+                          backgroundColor: "var(--color-primary)",
                         }}
                       >
                         Book Now
@@ -461,7 +461,7 @@ const FeaturedServices = () => {
                 {/* Enhanced Decorative Elements - unchanged color */}
                 <div className="absolute -top-4 -right-4 w-8 h-8 rounded-full opacity-60 animate-bounce"
                       style={{ 
-                        backgroundColor: "var(--color-light-green)",
+                        backgroundColor: "var(--color-primary)",
                         animationDelay: '0.2s'
                       }}></div>
                 <div className="absolute -bottom-4 -left-4 w-6 h-6 rounded-full opacity-60 animate-bounce"

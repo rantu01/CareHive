@@ -15,8 +15,8 @@ const KPIcard = ({ title, value, target = '' }) => {
 
   const getStatusColor = (status, title) => {
     if (title === "bp") {
-      return status === "Normal" ? "text-[var(--color-light-green)]" : 
-             status === "Low" ? "text-[var(--fourground-color)]/60" : "text-[var(--color-light-green)]";
+      return status === "Normal" ? "text-[var(--color-primary)]" : 
+             status === "Low" ? "text-[var(--fourground-color)]/60" : "text-[var(--color-primary)]";
     }
     return "text-[var(--fourground-color)]/60";
   };
@@ -35,11 +35,11 @@ const KPIcard = ({ title, value, target = '' }) => {
   };
 
   return (
-    <div className="group relative bg-gradient-to-br from-[var(--card-bg)] to-[var(--sidebar-bg)] rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-[var(--dashboard-border)] hover:border-[var(--color-light-green)]/30 backdrop-blur-sm overflow-hidden">
+    <div className="group relative bg-gradient-to-br from-[var(--card-bg)] to-[var(--sidebar-bg)] rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-[var(--dashboard-border)] hover:border-[var(--color-primary)]/30 backdrop-blur-sm overflow-hidden">
       
       {/* Decorative background elements */}
-      <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-[var(--color-light-green)]/10 to-transparent rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -translate-y-12 translate-x-12"></div>
-      <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-[var(--color-light-green)]/5 to-transparent rounded-full blur-lg -translate-y-8 -translate-x-8"></div>
+      <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-[var(--color-primary)]/10 to-transparent rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -translate-y-12 translate-x-12"></div>
+      <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-[var(--color-primary)]/5 to-transparent rounded-full blur-lg -translate-y-8 -translate-x-8"></div>
 
       <div className="relative z-10 flex justify-between items-center">
         {/* Left section */}
@@ -48,14 +48,14 @@ const KPIcard = ({ title, value, target = '' }) => {
             <p className="text-[var(--fourground-color)]/70 font-bold text-xs tracking-widest uppercase">
               {title.replace('-', ' ')}
             </p>
-            <div className="h-1 w-8 bg-gradient-to-r from-[var(--color-light-green)]/30 to-transparent rounded-full"></div>
+            <div className="h-1 w-8 bg-gradient-to-r from-[var(--color-primary)]/30 to-transparent rounded-full"></div>
           </div>
 
           <div className="space-y-2">
             {title === "bp" && (
               <div className="space-y-1">
                 <div className="flex items-baseline gap-3">
-                  <span className="text-3xl md:text-4xl font-black text-[var(--color-light-green)] tracking-tight">
+                  <span className="text-3xl md:text-4xl font-black text-[var(--color-primary)] tracking-tight">
                     {value}
                   </span>
                   <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(status, title)} bg-[var(--dashboard-border)]/30`}>
@@ -70,7 +70,7 @@ const KPIcard = ({ title, value, target = '' }) => {
             {title === "daily-step" && (
               <div className="space-y-1">
                 <div className="flex items-baseline gap-3">
-                  <span className="text-3xl md:text-4xl font-black text-[var(--color-light-green)] tracking-tight">
+                  <span className="text-3xl md:text-4xl font-black text-[var(--color-primary)] tracking-tight">
                     {value?.toLocaleString()}
                   </span>
                   <span className="text-sm text-[var(--fourground-color)]/60 font-medium">/ {target?.toLocaleString()}</span>
@@ -82,7 +82,7 @@ const KPIcard = ({ title, value, target = '' }) => {
                   </div>
                   <div className="w-full bg-[var(--dashboard-border)]/40 rounded-full h-2">
                     <div 
-                      className="bg-gradient-to-r from-[var(--color-light-green)] to-[var(--color-light-green)]/80 h-2 rounded-full transition-all duration-700 ease-out"
+                      className="bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary)]/80 h-2 rounded-full transition-all duration-700 ease-out"
                       style={{ width: `${getProgressPercentage()}%` }}
                     ></div>
                   </div>
@@ -93,7 +93,7 @@ const KPIcard = ({ title, value, target = '' }) => {
             {title === "heart-rate" && (
               <div className="space-y-1">
                 <div className="flex items-baseline gap-3">
-                  <span className="text-3xl md:text-4xl font-black text-[var(--color-light-green)] tracking-tight">
+                  <span className="text-3xl md:text-4xl font-black text-[var(--color-primary)] tracking-tight">
                     {value}
                   </span>
                   <span className="text-sm text-[var(--fourground-color)]/60 font-medium">bpm</span>
@@ -105,7 +105,7 @@ const KPIcard = ({ title, value, target = '' }) => {
             {title === "weight" && (
               <div className="space-y-1">
                 <div className="flex items-baseline gap-3">
-                  <span className="text-3xl md:text-4xl font-black text-[var(--color-light-green)] tracking-tight">
+                  <span className="text-3xl md:text-4xl font-black text-[var(--color-primary)] tracking-tight">
                     {value}
                   </span>
                   <span className="text-sm text-[var(--fourground-color)]/60 font-medium">kg</span>
@@ -119,15 +119,15 @@ const KPIcard = ({ title, value, target = '' }) => {
         {/* Right section (icon) */}
         <div className="flex-shrink-0 ml-4">
           <div className="relative">
-            <div className="bg-gradient-to-br from-[var(--color-light-green)] to-[var(--color-light-green)]/80 flex justify-center items-center p-4 rounded-2xl shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 border border-[var(--color-light-green)]/30">
+            <div className="bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary)]/80 flex justify-center items-center p-4 rounded-2xl shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 border border-[var(--color-primary)]/30">
               {iconsMap[title]}
             </div>
-            <div className="absolute inset-0 bg-[var(--color-light-green)]/20 rounded-2xl animate-pulse opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 scale-110"></div>
+            <div className="absolute inset-0 bg-[var(--color-primary)]/20 rounded-2xl animate-pulse opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 scale-110"></div>
           </div>
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--color-light-green)]/30 via-[var(--color-light-green)]/10 to-transparent"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--color-primary)]/30 via-[var(--color-primary)]/10 to-transparent"></div>
     </div>
   );
 };

@@ -146,7 +146,7 @@ export default function Profile() {
               <span
                 className="inline-block px-3 py-1 rounded-full text-sm font-medium"
                 style={{
-                  backgroundColor: "var(--color-light-green)",
+                  backgroundColor: "var(--color-primary)",
                   color: "var(--color-black)",
                 }}
               >
@@ -255,7 +255,7 @@ export default function Profile() {
                     disabled={saving}
                     className="px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 disabled:opacity-50"
                     style={{
-                      backgroundColor: "var(--color-light-green)",
+                      backgroundColor: "var(--color-primary)",
                       color: "var(--color-black)",
                     }}
                   >

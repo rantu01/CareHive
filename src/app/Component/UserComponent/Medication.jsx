@@ -117,7 +117,7 @@ const Medication = () => {
             <div className="p-3 bg-[var(--dashboard-blue)]/20 rounded-xl border border-[var(--dashboard-blue)]/30">
               <Pill className="text-[var(--dashboard-blue)]" size={24} />
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-[var(--color-light-green)]">
+            <h1 className="text-3xl md:text-4xl font-bold text-[var(--color-primary)]">
               Medications
             </h1>
           </div>
@@ -134,7 +134,7 @@ const Medication = () => {
 
         <button
           onClick={() => setOpen(!isOpen)}
-          className="group w-full lg:w-auto bg-[var(--color-light-green)] text-white rounded-xl flex items-center justify-center gap-3 px-6 py-4 md:py-4 cursor-pointer shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 font-semibold text-sm md:text-base relative z-10 border border-[var(--color-light-green)]/80"
+          className="group w-full lg:w-auto bg-[var(--color-primary)] text-white rounded-xl flex items-center justify-center gap-3 px-6 py-4 md:py-4 cursor-pointer shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 font-semibold text-sm md:text-base relative z-10 border border-[var(--color-primary)]/80"
         >
           <Plus size={20} className="group-hover:rotate-90 transition-transform duration-300" />
           <span>Add Medication</span>
@@ -153,7 +153,7 @@ const Medication = () => {
                   <div className="p-2.5 bg-[var(--dashboard-blue)]/15 rounded-xl">
                     <Pill className="text-[var(--dashboard-blue)]" size={24} />
                   </div>
-                  <h2 className="text-2xl font-bold text-[var(--color-light-green)] tracking-tight">
+                  <h2 className="text-2xl font-bold text-[var(--color-primary)] tracking-tight">
                     {med?.medicineName}
                   </h2>
                 </div>
@@ -216,7 +216,7 @@ const Medication = () => {
                   <Bell size={16} className="group-hover:animate-pulse" />
                   Remind
                 </button>
-                <button className="flex items-center gap-2 bg-[var(--color-light-green)]/20 border-2 border-[var(--color-light-green)]/30 px-4 py-2.5 rounded-xl cursor-pointer text-[var(--color-light-green)] transition-all duration-200 text-sm font-medium hover:scale-105 hover:shadow-md group">
+                <button className="flex items-center gap-2 bg-[var(--color-primary)]/20 border-2 border-[var(--color-primary)]/30 px-4 py-2.5 rounded-xl cursor-pointer text-[var(--color-primary)] transition-all duration-200 text-sm font-medium hover:scale-105 hover:shadow-md group">
                   <Check size={16} className="group-hover:animate-bounce" />
                   Mark Taken
                 </button>

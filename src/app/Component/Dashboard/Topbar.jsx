@@ -180,14 +180,14 @@ export default function Topbar({ toggleSidebar }) {
         {/* Search Bar */}
         <div className="hidden md:flex items-center relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <Search size={18} className="text-[var(--color-light-green)]" />
+            <Search size={18} className="text-[var(--color-primary)]" />
           </div>
           <input
             type="text"
             placeholder="Search..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 pr-4 py-2.5 w-64 rounded-xl border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[var(--color-light-green)] focus:border-transparent"
+            className="pl-10 pr-4 py-2.5 w-64 rounded-xl border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent"
             style={{
               backgroundColor: "var(--dashboard-bg)",
               borderColor: "var(--dashboard-border)",
@@ -204,7 +204,7 @@ export default function Topbar({ toggleSidebar }) {
           <Link
             href={"/dashboard/user/apply-for-doctor"}
             className="hidden sm:flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg group"
-            style={{ backgroundColor: "var(--color-light-green)" }}
+            style={{ backgroundColor: "var(--color-primary)" }}
           >
             <UserPlus size={18} className="transform group-hover:scale-110 transition-transform" />
             <span>Become A Doctor</span>
@@ -231,7 +231,7 @@ export default function Topbar({ toggleSidebar }) {
             {unreadCount > 0 && (
               <span
                 className="absolute -top-1 -right-1 text-white text-xs font-bold rounded-full flex items-center justify-center animate-pulse min-w-5 h-5 px-1"
-                style={{ backgroundColor: "var(--color-light-green)" }}
+                style={{ backgroundColor: "var(--color-primary)" }}
               >
                 {unreadCount > 9 ? "9+" : unreadCount}
               </span>
@@ -249,7 +249,7 @@ export default function Topbar({ toggleSidebar }) {
               {/* Notifications Header */}
               <div className="p-4 border-b" style={{ borderColor: "var(--dashboard-border)" }}>
                 <div className="flex items-center justify-between">
-                  <h3 className="font-semibold text-lg" style={{ color: "var(--color-light-green)" }}>
+                  <h3 className="font-semibold text-lg" style={{ color: "var(--color-primary)" }}>
                     Notifications
                   </h3>
                   {unreadCount > 0 && (
@@ -257,7 +257,7 @@ export default function Topbar({ toggleSidebar }) {
                       onClick={handleMarkAllAsRead}
                       className="text-sm font-medium px-3 py-1 rounded-lg transition-all duration-300 hover:scale-105"
                       style={{ 
-                        backgroundColor: "var(--color-light-green)",
+                        backgroundColor: "var(--color-primary)",
                         color: "var(--color-white)"
                       }}
                     >
@@ -292,14 +292,14 @@ export default function Topbar({ toggleSidebar }) {
                       <div className="flex items-start gap-3">
                         <div 
                           className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${
-                            n.read ? 'bg-transparent' : 'bg-[var(--color-light-green)]'
+                            n.read ? 'bg-transparent' : 'bg-[var(--color-primary)]'
                           }`}
                         ></div>
                         <div className="flex-1 min-w-0">
                           <p
                             className="font-semibold text-sm truncate"
                             style={{
-                              color: n.read ? "var(--fourground-color)" : "var(--color-light-green)",
+                              color: n.read ? "var(--fourground-color)" : "var(--color-primary)",
                             }}
                           >
                             {n.title}
@@ -327,7 +327,7 @@ export default function Topbar({ toggleSidebar }) {
                     href="/dashboard/notifications"
                     className="block text-center text-sm font-medium py-2 rounded-lg transition-all duration-300 hover:scale-105"
                     style={{ 
-                      backgroundColor: "var(--color-light-green)",
+                      backgroundColor: "var(--color-primary)",
                       color: "var(--color-white)"
                     }}
                   >
@@ -347,7 +347,7 @@ export default function Topbar({ toggleSidebar }) {
           >
             <div
               className="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg border-2"
-              style={{ borderColor: "var(--color-light-green)" }}
+              style={{ borderColor: "var(--color-primary)" }}
             >
               {user?.photoURL ? (
                 <img
@@ -359,7 +359,7 @@ export default function Topbar({ toggleSidebar }) {
                 <div
                   className="flex items-center justify-center w-full h-full text-sm font-semibold transition-colors duration-300"
                   style={{
-                    backgroundColor: "var(--color-light-green)",
+                    backgroundColor: "var(--color-primary)",
                     color: "var(--color-white)",
                   }}
                 >
@@ -371,13 +371,13 @@ export default function Topbar({ toggleSidebar }) {
             <div className="hidden sm:flex flex-col text-sm leading-tight text-left">
               <span
                 style={{ color: "var(--fourground-color)" }}
-                className="font-semibold transition-colors duration-300 group-hover:text-[var(--color-light-green)]"
+                className="font-semibold transition-colors duration-300 group-hover:text-[var(--color-primary)]"
               >
                 {user?.displayName || "No Name"}
               </span>
               <span
                 className="text-xs font-medium capitalize transition-colors duration-300"
-                style={{ color: "var(--color-light-green)" }}
+                style={{ color: "var(--color-primary)" }}
               >
                 {role || "User"}
               </span>
@@ -397,7 +397,7 @@ export default function Topbar({ toggleSidebar }) {
                 <div className="flex items-center gap-3">
                   <div
                     className="w-12 h-12 rounded-full overflow-hidden border-2"
-                    style={{ borderColor: "var(--color-light-green)" }}
+                    style={{ borderColor: "var(--color-primary)" }}
                   >
                     {user?.photoURL ? (
                       <img
@@ -409,7 +409,7 @@ export default function Topbar({ toggleSidebar }) {
                       <div
                         className="flex items-center justify-center w-full h-full text-lg font-semibold"
                         style={{
-                          backgroundColor: "var(--color-light-green)",
+                          backgroundColor: "var(--color-primary)",
                           color: "var(--color-white)",
                         }}
                       >
@@ -421,7 +421,7 @@ export default function Topbar({ toggleSidebar }) {
                     <p className="font-semibold" style={{ color: "var(--fourground-color)" }}>
                       {user?.displayName || "No Name"}
                     </p>
-                    <p className="text-sm capitalize" style={{ color: "var(--color-light-green)" }}>
+                    <p className="text-sm capitalize" style={{ color: "var(--color-primary)" }}>
                       {role || "User"}
                     </p>
                   </div>
@@ -434,7 +434,7 @@ export default function Topbar({ toggleSidebar }) {
                   href="/dashboard/profile"
                   className="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-300 hover:scale-105 hover:bg-[var(--gray-color)] group"
                 >
-                  <UserPlus size={18} style={{ color: "var(--color-light-green)" }} />
+                  <UserPlus size={18} style={{ color: "var(--color-primary)" }} />
                   <span style={{ color: "var(--fourground-color)" }}>My Profile</span>
                 </Link>
                 
@@ -442,7 +442,7 @@ export default function Topbar({ toggleSidebar }) {
                   href="/dashboard/settings"
                   className="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-300 hover:scale-105 hover:bg-[var(--gray-color)] group"
                 >
-                  <Settings size={18} style={{ color: "var(--color-light-green)" }} />
+                  <Settings size={18} style={{ color: "var(--color-primary)" }} />
                   <span style={{ color: "var(--fourground-color)" }}>Settings</span>
                 </Link>
               </div>
@@ -451,7 +451,7 @@ export default function Topbar({ toggleSidebar }) {
               <div className="p-3 border-t" style={{ borderColor: "var(--dashboard-border)" }}>
                 <button
                   className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg"
-                  style={{ backgroundColor: "var(--color-light-green)" }}
+                  style={{ backgroundColor: "var(--color-primary)" }}
                 >
                   <LogOut size={18} />
                   <span>Sign Out</span>

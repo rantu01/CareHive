@@ -75,7 +75,7 @@ export default function UserManagement() {
   const getRoleBadgeColor = (role) => {
     switch (role) {
       case "admin":
-        return "bg-[var(--color-light-green)] text-[var(--fourground-color)] border-[var(--dashboard-border)]";
+        return "bg-[var(--color-primary)] text-[var(--fourground-color)] border-[var(--dashboard-border)]";
       case "doctor":
         return "bg-[var(--dashboard-blue)] text-[var(--color-white)] border-[var(--dashboard-border)]";
       case "user":
@@ -104,7 +104,7 @@ export default function UserManagement() {
       <div className="mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-[var(--dashboard-blue)] to-[var(--color-light-green)] bg-clip-text text-transparent">
+            <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-[var(--dashboard-blue)] to-[var(--color-primary)] bg-clip-text text-transparent">
               User Management
             </h1>
             <p className="text-[var(--fourground-color)] mt-2">
@@ -211,7 +211,7 @@ export default function UserManagement() {
                 >
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
-                      <div className="w-10 h-10 bg-gradient-to-r from-[var(--dashboard-blue)] to-[var(--color-light-green)] rounded-full flex items-center justify-center text-[var(--color-white)] font-semibold shadow-sm">
+                      <div className="w-10 h-10 bg-gradient-to-r from-[var(--dashboard-blue)] to-[var(--color-primary)] rounded-full flex items-center justify-center text-[var(--color-white)] font-semibold shadow-sm">
                         {user.name ? user.name.charAt(0).toUpperCase() : "U"}
                       </div>
                       <div className="ml-4">

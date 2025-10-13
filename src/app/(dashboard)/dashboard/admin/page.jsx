@@ -71,7 +71,7 @@ export default function AdminDashboard() {
 
   const COLORS = [
     "var(--dashboard-blue)",
-    "var(--color-light-green)",
+    "var(--color-primary)",
     "var(--color-calm-blue)",
     "#8b5cf6",
     "#f59e0b",
@@ -87,7 +87,7 @@ export default function AdminDashboard() {
     return (
       <div className="flex justify-center items-center h-screen bg-[var(--dashboard-bg)]">
         <div className="flex flex-col items-center space-y-4">
-          <div className="w-16 h-16 border-4 border-[var(--color-light-green)] border-t-transparent rounded-full animate-spin"></div>
+          <div className="w-16 h-16 border-4 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin"></div>
           <p className="text-lg text-[var(--fourground-color)] font-semibold">Loading Admin Dashboard...</p>
         </div>
       </div>
@@ -100,7 +100,7 @@ export default function AdminDashboard() {
       <div className="mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-[var(--dashboard-blue)] to-[var(--color-light-green)] bg-clip-text text-transparent">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-[var(--dashboard-blue)] to-[var(--color-primary)] bg-clip-text text-transparent">
               Admin Dashboard
             </h1>
             <p className="text-[var(--fourground-color)] mt-2 opacity-80 text-lg">
@@ -111,8 +111,8 @@ export default function AdminDashboard() {
             <button
               className="px-6 py-3 rounded-xl font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-xl flex items-center gap-2 group"
               style={{
-                backgroundColor: "var(--color-light-green)",
-                background: "linear-gradient(135deg, var(--color-light-green), var(--color-calm-blue))",
+                backgroundColor: "var(--color-primary)",
+                background: "linear-gradient(135deg, var(--color-primary), var(--color-calm-blue))",
               }}
             >
               <span>Generate Report</span>
@@ -137,7 +137,7 @@ export default function AdminDashboard() {
                 : "text-[var(--fourground-color)] hover:bg-[var(--gray-color)]"
             }`}
             style={{
-              backgroundColor: activeTab === tab ? "var(--color-light-green)" : "transparent",
+              backgroundColor: activeTab === tab ? "var(--color-primary)" : "transparent",
             }}
           >
             {tab}
@@ -150,7 +150,7 @@ export default function AdminDashboard() {
         {[
           { title: "Total Users", value: stats.total, icon: "👥", color: "var(--dashboard-blue)" },
           { title: "Admin Users", value: stats.admins, icon: "⚡", color: "#ef4444" },
-          { title: "Regular Users", value: stats.users, icon: "😊", color: "var(--color-light-green)" },
+          { title: "Regular Users", value: stats.users, icon: "😊", color: "var(--color-primary)" },
           { title: "Active Users", value: stats.active, icon: "📈", color: "#8b5cf6" },
         ].map((stat, index) => (
           <div 
@@ -191,7 +191,7 @@ export default function AdminDashboard() {
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-5"
                style={{
-                 backgroundImage: `radial-gradient(circle at 25px 25px, var(--color-light-green) 2%, transparent 0%)`,
+                 backgroundImage: `radial-gradient(circle at 25px 25px, var(--color-primary) 2%, transparent 0%)`,
                  backgroundSize: '50px 50px'
                }}></div>
           
@@ -203,7 +203,7 @@ export default function AdminDashboard() {
               </div>
               <button
                 className="px-4 py-2 rounded-lg text-sm font-medium text-white transition-all duration-300 hover:scale-105"
-                style={{ backgroundColor: "var(--color-light-green)" }}
+                style={{ backgroundColor: "var(--color-primary)" }}
               >
                 Export Data
               </button>
@@ -257,7 +257,7 @@ export default function AdminDashboard() {
         <div className="bg-[var(--dashboard-bg)] rounded-2xl shadow-2xl border border-[var(--dashboard-border)] overflow-hidden relative">
           {/* Decorative Elements */}
           <div className="absolute -top-4 -right-4 w-8 h-8 rounded-full opacity-20"
-               style={{ backgroundColor: "var(--color-light-green)" }}></div>
+               style={{ backgroundColor: "var(--color-primary)" }}></div>
           <div className="absolute -bottom-4 -left-4 w-6 h-6 rounded-full opacity-20"
                style={{ backgroundColor: "var(--color-calm-blue)" }}></div>
           
@@ -269,12 +269,12 @@ export default function AdminDashboard() {
                   <p className="text-sm text-[var(--fourground-color)] opacity-70 mt-1">Manage all user accounts</p>
                 </div>
                 <div className="flex items-center gap-3 mt-3 sm:mt-0">
-                  <span className="bg-[var(--color-light-green)] text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg">
+                  <span className="bg-[var(--color-primary)] text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg">
                     {users.length} total users
                   </span>
                   <button
                     className="px-4 py-2 rounded-lg text-sm font-medium text-white transition-all duration-300 hover:scale-105 flex items-center gap-2"
-                    style={{ backgroundColor: "var(--color-light-green)" }}
+                    style={{ backgroundColor: "var(--color-primary)" }}
                   >
                     <span>Add User</span>
                     <span className="text-lg">+</span>
@@ -313,7 +313,7 @@ export default function AdminDashboard() {
                           <div 
                             className="w-10 h-10 rounded-xl flex items-center justify-center text-white font-medium mr-3 shadow-lg transition-transform duration-300 group-hover:scale-110"
                             style={{
-                              background: `linear-gradient(135deg, ${COLORS[index % COLORS.length]}, var(--color-light-green))`
+                              background: `linear-gradient(135deg, ${COLORS[index % COLORS.length]}, var(--color-primary))`
                             }}
                           >
                             {user.name ? user.name.charAt(0).toUpperCase() : "U"}
@@ -349,7 +349,7 @@ export default function AdminDashboard() {
                         <div className="flex items-center gap-2">
                           <button
                             className="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
-                            style={{ backgroundColor: "var(--color-light-green)" }}
+                            style={{ backgroundColor: "var(--color-primary)" }}
                             title="Edit User"
                           >
                             <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -382,7 +382,7 @@ export default function AdminDashboard() {
                   <button
                     className="px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                     style={{
-                      backgroundColor: currentPage === 1 ? "var(--gray-color)" : "var(--color-light-green)",
+                      backgroundColor: currentPage === 1 ? "var(--gray-color)" : "var(--color-primary)",
                       color: currentPage === 1 ? "var(--fourground-color)" : "white",
                       border: currentPage === 1 ? "1px solid var(--dashboard-border)" : "none",
                     }}
@@ -408,7 +408,7 @@ export default function AdminDashboard() {
                               : "text-[var(--fourground-color)] hover:bg-[var(--dashboard-border)]"
                           }`}
                           style={{
-                            backgroundColor: currentPage === page ? "var(--color-light-green)" : "transparent",
+                            backgroundColor: currentPage === page ? "var(--color-primary)" : "transparent",
                           }}
                         >
                           {page}
@@ -420,7 +420,7 @@ export default function AdminDashboard() {
                   <button
                     className="px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                     style={{
-                      backgroundColor: currentPage === totalPages ? "var(--gray-color)" : "var(--color-light-green)",
+                      backgroundColor: currentPage === totalPages ? "var(--gray-color)" : "var(--color-primary)",
                       color: currentPage === totalPages ? "var(--fourground-color)" : "white",
                       border: currentPage === totalPages ? "1px solid var(--dashboard-border)" : "none",
                     }}
@@ -448,7 +448,7 @@ export default function AdminDashboard() {
           </div>
           <button
             className="px-4 py-2 rounded-lg text-sm font-medium text-white transition-all duration-300 hover:scale-105"
-            style={{ backgroundColor: "var(--color-light-green)" }}
+            style={{ backgroundColor: "var(--color-primary)" }}
           >
             View Details
           </button>
@@ -470,7 +470,7 @@ export default function AdminDashboard() {
               <Bar 
                 dataKey="users" 
                 radius={[4, 4, 0, 0]}
-                style={{ fill: "var(--color-light-green)" }}
+                style={{ fill: "var(--color-primary)" }}
               />
             </BarChart>
           </ResponsiveContainer>
