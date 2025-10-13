@@ -1,5 +1,8 @@
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> 763ce1607aac2d574a23a118786136d1f1e2b4d3
 "use client"
 import axios from "axios";
 import { Calendar, Camera, Flag, Heart, Hospital, Mail, MapPin, MessageCircle, Phone, Upload, User, ChevronLeft, ChevronRight } from "lucide-react";
@@ -58,6 +61,9 @@ const Page = () => {
     };
 
 
+<<<<<<< HEAD
+    // original
+=======
     //         const formData = {
     //             _id: { "$oid": `${user?.uid}` },
     //             personalInfo: {
@@ -156,6 +162,7 @@ const Page = () => {
     //         });
     //     }
     // };
+>>>>>>> 763ce1607aac2d574a23a118786136d1f1e2b4d3
 
 
     const onSubmit = async (data) => {
