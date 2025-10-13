@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 763ce1607aac2d574a23a118786136d1f1e2b4d3
 "use client"
 import axios from "axios";
 import { Calendar, Camera, Flag, Heart, Hospital, Mail, MapPin, MessageCircle, Phone, Upload, User, ChevronLeft, ChevronRight } from "lucide-react";
@@ -61,108 +56,7 @@ const Page = () => {
     };
 
 
-<<<<<<< HEAD
     // original
-=======
-    //         const formData = {
-    //             _id: { "$oid": `${user?.uid}` },
-    //             personalInfo: {
-    //                 fullName: data?.fullName,
-    //                 dateOfBirth: data?.dob,
-    //                 gender: data?.gender,
-    //                 contactNumber: {
-    //                     mobile: data?.mobile,
-    //                     whatsapp: data?.whatsapp
-    //                 },
-    //                 email: user?.email,
-    //                 address: {
-    //                     current: data?.presentAddress,
-    //                     permanent: data?.permanentAddress
-    //                 }
-    //             },
-    //             educationAndCredentials: {
-    //                 medicalDegree: data?.degreeName,
-    //                 postGraduate: data?.postGraduate,
-    //                 university: {
-    //                     name: data?.universityName,
-    //                     graduationYear: data?.graduationYear
-    //                 },
-    //                 specialization: data?.specialization,
-    //                 workExperience: [
-    //                     {
-    //                         hospitalName: data?.previousHospital,
-    //                         position: data?.previousPosition,
-    //                         years: `${data?.previousFrom}-${data?.previousTo}`
-    //                     },
-    //                     {
-    //                         hospitalName: data?.currentHospital,
-    //                         position: data?.currentPosition,
-    //                         years: `${data?.currentFrom}-${data?.currentTo}`
-    //                     }
-    //                 ],
-    //             },
-    //             licenseAndVerification: {
-    //                 medicalLicenseNumber: data?.medicalLicenseNumber,
-    //                 expiryDate: data?.expiryDate,
-    //                 documents: {
-    //                     licenseCertificate: licenseCertificatePdf,
-    //                     govtId: governmentIdPdf
-    //                 }
-    //             },
-    //             practiceInfo: {
-    //                 consultationType: data?.consultation,
-    //                 workingHours: slots,
-    //                 patientLimit: patientLimit,
-    //                 consultationFees: {
-    //                     online: data?.onlineFee,
-    //                     inPerson: data?.offlineFee
-    //                 },
-    //                 languagesSpoken: spokenLanguage,
-    //                 profilePhoto: profileImage,
-    //                 clinicAddress: doctorHospital
-    //             },
-    //             status: {
-    //                 isVerified: false,
-    //                 adminRemarks: "",
-    //                 submittedAt: new Date().toISOString(),
-    //                 approvedAt: null
-    //             }
-    //         };
-
-    //         try {
-    //             const res = await axios.post("/api/approved-doctor", formData, {
-    //                 headers: {
-    //                     "Content-Type": "application/json",
-    //                 },
-    //             });
-
-    //             Swal.fire({
-    //                 title: "✅ Successfully Submitted!",
-    //                 text: "Your approval request has been submitted.",
-    //                 icon: "success",
-    //                 confirmButtonText: "OK",
-    //             });
-
-    //             await fetch("/api/send-notification", {
-    //                 method: "POST",
-    //                 headers: { "Content-Type": "application/json" },
-    //                 body: JSON.stringify({
-    //                     targetRole: "admin",
-    //                     title: "New Doctor Application Received",
-    //                     body: `${ data?.fullName } has applied for doctor approval.`,
-    //             }),
-    //         });
-
-    //     } catch (err) {
-    //         Swal.fire({
-    //             title: "❌ Submission Failed",
-    //             text: err.response?.data?.message || err.message || "Something went wrong.",
-    //             icon: "error",
-    //             confirmButtonText: "Try Again",
-    //         });
-    //     }
-    // };
->>>>>>> 763ce1607aac2d574a23a118786136d1f1e2b4d3
 
 
     const onSubmit = async (data) => {
