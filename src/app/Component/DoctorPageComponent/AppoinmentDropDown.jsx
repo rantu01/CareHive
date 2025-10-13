@@ -3,7 +3,7 @@ import { use, useState } from "react";
 
 const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
 
-    console.log("dropdown", selectedDoctor)
+    console.log("dropdown",)
 
     const [selectedSlot, setSelectedSlot] = useState("");
     const [meetingType, setMeetingType] = useState("inPerson");
@@ -13,7 +13,7 @@ const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
         console.log(type);
     };
 
-    const {user}=use(AuthContext)
+    const { user } = use(AuthContext)
     // console.log(user)
     const booking = {
         doctorName: selectedDoctor.personalInfo.fullName,
@@ -22,13 +22,72 @@ const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
         meetingType: meetingType,
         docId: selectedDoctor._id,
         patientName: user.displayName,
-        patientEmail:user.email,
+        patientEmail: user.email,
         fees: selectedDoctor.practiceInfo.consultationFees[meetingType],
-        bookedAt:new Date()
+        bookedAt: new Date()
     }
 
 
     const workingHours = selectedDoctor.practiceInfo?.workingHours || {};
+
+
+    const consultationType = selectedDoctor.practiceInfo?.consultationType;
+
+    const meetingButtons = (
+        <div className={`grid ${consultationType === "both" ? "grid-cols-2" : "grid-cols-1"} gap-3`}>
+            {(consultationType === "inPerson" || consultationType === "both") && (
+                <button
+                    onClick={() => handleMeetingType("inPerson")}
+                    className={`relative p-4 rounded-xl border-2 transition-all duration-300 ${meetingType === "inPerson" ? "scale-105" : "hover:scale-102"
+                        }`}
+                    style={{
+                        backgroundColor: meetingType === "inPerson" ? 'var(--color-calm-blue)' : 'var(--dashboard-bg)',
+                        borderColor: meetingType === "inPerson" ? 'var(--color-calm-blue)' : 'var(--dashboard-border)',
+                        color: meetingType === "inPerson" ? 'white' : 'var(--fourground-color)',
+                    }}
+                >
+                    <div className="flex flex-col items-center gap-2">
+                        <span className="text-2xl">🏥</span>
+                        <span className="font-semibold text-sm">In-Person</span>
+                        <span className="text-xs opacity-80">
+                            ৳{selectedDoctor.practiceInfo?.consultationFees?.inPerson}
+                        </span>
+                    </div>
+                    {meetingType === "inPerson" && (
+                        <div className="absolute top-2 right-2 w-5 h-5 bg-white rounded-full flex items-center justify-center">
+                            <span className="text-xs">✓</span>
+                        </div>
+                    )}
+                </button>
+            )}
+
+            {(consultationType === "online" || consultationType === "both") && (
+                <button
+                    onClick={() => handleMeetingType("online")}
+                    className={`relative p-4 rounded-xl border-2 transition-all duration-300 ${meetingType === "online" ? "scale-105" : "hover:scale-102"
+                        }`}
+                    style={{
+                        backgroundColor: meetingType === "online" ? 'var(--color-calm-blue)' : 'var(--dashboard-bg)',
+                        borderColor: meetingType === "online" ? 'var(--color-calm-blue)' : 'var(--dashboard-border)',
+                        color: meetingType === "online" ? 'white' : 'var(--fourground-color)',
+                    }}
+                >
+                    <div className="flex flex-col items-center gap-2">
+                        <span className="text-2xl">💻</span>
+                        <span className="font-semibold text-sm">Online</span>
+                        <span className="text-xs opacity-80">
+                            ৳{selectedDoctor.practiceInfo?.consultationFees?.online}
+                        </span>
+                    </div>
+                    {meetingType === "online" && (
+                        <div className="absolute top-2 right-2 w-5 h-5 bg-white rounded-full flex items-center justify-center">
+                            <span className="text-xs">✓</span>
+                        </div>
+                    )}
+                </button>
+            )}
+        </div>
+    );
 
     return (
         <div className="space-y-5">
@@ -37,55 +96,7 @@ const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
                 <label className="block text-base font-semibold" style={{ color: 'var(--fourground-color)' }}>
                     Consultation Type
                 </label>
-                <div className="grid grid-cols-2 gap-3">
-                    <button
-                        onClick={() => handleMeetingType("inPerson")}
-                        className={`relative p-4 rounded-xl border-2 transition-all duration-300 ${meetingType === "inPerson" ? "scale-105" : "hover:scale-102"
-                            }`}
-                        style={{
-                            backgroundColor: meetingType === "inPerson" ? 'var(--color-calm-blue)' : 'var(--dashboard-bg)',
-                            borderColor: meetingType === "inPerson" ? 'var(--color-calm-blue)' : 'var(--dashboard-border)',
-                            color: meetingType === "inPerson" ? 'white' : 'var(--fourground-color)',
-                        }}
-                    >
-                        <div className="flex flex-col items-center gap-2">
-                            <span className="text-2xl">🏥</span>
-                            <span className="font-semibold text-sm">In-Person</span>
-                            <span className="text-xs opacity-80">
-                                ৳{selectedDoctor.practiceInfo?.consultationFees?.inPerson}
-                            </span>
-                        </div>
-                        {meetingType === "inPerson" && (
-                            <div className="absolute top-2 right-2 w-5 h-5 bg-white rounded-full flex items-center justify-center">
-                                <span className="text-xs">✓</span>
-                            </div>
-                        )}
-                    </button>
-
-                    <button
-                        onClick={() => handleMeetingType("online")}
-                        className={`relative p-4 rounded-xl border-2 transition-all duration-300 ${meetingType === "online" ? "scale-105" : "hover:scale-102"
-                            }`}
-                        style={{
-                            backgroundColor: meetingType === "online" ? 'var(--color-calm-blue)' : 'var(--dashboard-bg)',
-                            borderColor: meetingType === "online" ? 'var(--color-calm-blue)' : 'var(--dashboard-border)',
-                            color: meetingType === "online" ? 'white' : 'var(--fourground-color)',
-                        }}
-                    >
-                        <div className="flex flex-col items-center gap-2">
-                            <span className="text-2xl">💻</span>
-                            <span className="font-semibold text-sm">Online</span>
-                            <span className="text-xs opacity-80">
-                                ৳{selectedDoctor.practiceInfo?.consultationFees?.online}
-                            </span>
-                        </div>
-                        {meetingType === "online" && (
-                            <div className="absolute top-2 right-2 w-5 h-5 bg-white rounded-full flex items-center justify-center">
-                                <span className="text-xs">✓</span>
-                            </div>
-                        )}
-                    </button>
-                </div>
+                {meetingButtons}
             </div>
 
             {/* Time Slot Selection */}
