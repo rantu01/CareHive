@@ -161,7 +161,7 @@ export default function Topbar({ toggleSidebar }) {
       }}
     >
       {/* Left Section */}
-      <div className="flex items-center gap-3 sm:gap-4">
+      <div className="flex ml-4 items-center gap-3 sm:gap-4">
         <button
           onClick={toggleSidebar}
           className="cursor-pointer w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-105 group"

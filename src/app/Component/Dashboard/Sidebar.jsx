@@ -89,7 +89,7 @@ export default function Sidebar({ items = [], isCollapsed, mobileOpen, onCloseMo
           </div>
 
           {/* Collapse Toggle Button */}
-          <div className="px-4 mb-6">
+          {/* <div className="px-4 mb-6">
             <button
               onClick={onToggleCollapse}
               className="w-full flex items-center justify-center p-2 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg"
@@ -100,7 +100,7 @@ export default function Sidebar({ items = [], isCollapsed, mobileOpen, onCloseMo
             >
               {isCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
             </button>
-          </div>
+          </div> */}
 
           {/* Enhanced Navigation Menu */}
           <ul className="menu space-y-2 px-3">
