@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { FaEnvelope, FaPhone, FaClock } from "react-icons/fa";
 
 const ContactSection = () => {
   const handleSubmit = (e) => {
@@ -9,17 +10,15 @@ const ContactSection = () => {
 
   return (
     <section
-      className="py-16 px-6 transition-colors duration-500 linear-gradient(to right, var(--color-calm-blue), var(--color-white))"
-      style={{
-        background: "var(--dashboard-bg)",
-      }}
+      className="py-16 px-6 bg-gradient-to-r from-calm-blue to-white min-h-screen flex items-center justify-center"
+      style={{ backgroundColor: "var(--dashboard-bg)" }}
     >
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        {/* Left: Glass Form */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 w-full max-w-6xl">
+        {/* Left: Contact Form */}
         <div
-          className="backdrop-blur-lg p-8 rounded-3xl shadow-lg border transition-colors duration-500"
+          className="backdrop-blur-lg p-10 rounded-3xl shadow-xl border transition-colors duration-500"
           style={{
-            backgroundColor: "rgba(255,255,255,0.2)",
+            backgroundColor: "rgba(255,255,255,0.15)",
             borderColor: "var(--dashboard-border)",
           }}
         >
@@ -41,7 +40,6 @@ const ContactSection = () => {
           </p>
 
           <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-6">
-            {/* Name */}
             <div>
               <label
                 htmlFor="fullName"
@@ -60,12 +58,15 @@ const ContactSection = () => {
                   borderColor: "var(--dashboard-border)",
                   color: "var(--fourground-color)",
                 }}
-                onFocus={(e) => (e.target.style.borderColor = "var(--color-calm-blue)")}
-                onBlur={(e) => (e.target.style.borderColor = "var(--dashboard-border)")}
+                onFocus={(e) =>
+                  (e.target.style.borderColor = "var(--color-calm-blue)")
+                }
+                onBlur={(e) =>
+                  (e.target.style.borderColor = "var(--dashboard-border)")
+                }
               />
             </div>
 
-            {/* Email */}
             <div>
               <label
                 htmlFor="email"
@@ -84,12 +85,15 @@ const ContactSection = () => {
                   borderColor: "var(--dashboard-border)",
                   color: "var(--fourground-color)",
                 }}
-                onFocus={(e) => (e.target.style.borderColor = "var(--color-calm-blue)")}
-                onBlur={(e) => (e.target.style.borderColor = "var(--dashboard-border)")}
+                onFocus={(e) =>
+                  (e.target.style.borderColor = "var(--color-calm-blue)")
+                }
+                onBlur={(e) =>
+                  (e.target.style.borderColor = "var(--dashboard-border)")
+                }
               />
             </div>
 
-            {/* Message */}
             <div>
               <label
                 htmlFor="message"
@@ -100,7 +104,7 @@ const ContactSection = () => {
               </label>
               <textarea
                 id="message"
-                rows="4"
+                rows="5"
                 placeholder="Write your message..."
                 required
                 className="w-full px-0 py-2 border-b-2 bg-transparent placeholder-gray-400 focus:outline-none transition-colors duration-300"
@@ -108,35 +112,100 @@ const ContactSection = () => {
                   borderColor: "var(--dashboard-border)",
                   color: "var(--fourground-color)",
                 }}
-                onFocus={(e) => (e.target.style.borderColor = "var(--color-calm-blue)")}
-                onBlur={(e) => (e.target.style.borderColor = "var(--dashboard-border)")}
+                onFocus={(e) =>
+                  (e.target.style.borderColor = "var(--color-calm-blue)")
+                }
+                onBlur={(e) =>
+                  (e.target.style.borderColor = "var(--dashboard-border)")
+                }
               ></textarea>
             </div>
 
-            {/* Button */}
             <button
               type="submit"
-              className="py-2 px-6 rounded-lg font-medium transition-colors duration-300"
+              className="py-3 px-6 rounded-lg font-medium transition-colors duration-300"
               style={{
                 backgroundColor: "var(--color-calm-blue)",
                 color: "var(--color-white)",
               }}
-              onMouseEnter={(e) => (e.target.style.backgroundColor = "var(--color-light-green)")}
-              onMouseLeave={(e) => (e.target.style.backgroundColor = "var(--color-calm-blue)")}
+              onMouseEnter={(e) =>
+                (e.target.style.backgroundColor = "var(--color-light-green)")
+              }
+              onMouseLeave={(e) =>
+                (e.target.style.backgroundColor = "var(--color-calm-blue)")
+              }
             >
               Send Message
             </button>
           </form>
         </div>
 
-        {/* Right: Image */}
-        <div className="flex justify-center md:justify-end">
-          <img
-            src="https://i.ibb.co.com/B5Ks6ZXV/mobail.png"
-            alt="Contact Illustration"
-            className="w-full max-w-md"
-          />
-        </div>
+        {/* Right: Info Cards + Map */}
+<div className="flex flex-col gap-6">
+  {/* Info Cards */}
+  <div className="flex flex-col gap-4">
+    {/* Email Card */}
+    <div className="flex items-center gap-4 p-5 rounded-2xl shadow-lg backdrop-blur-lg transform transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:shadow-2xl"
+      style={{ backgroundColor: "rgba(255, 255, 255, 0.85)" }}
+    >
+      <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
+        <FaEnvelope className="text-2xl text-blue-600" />
+      </div>
+      <div>
+        <h4 className="text-xl font-semibold text-gray-800">Email Us</h4>
+        <p className="text-gray-600 opacity-90">contact@company.com</p>
+      </div>
+    </div>
+
+    {/* Phone Card */}
+    <div className="flex items-center gap-4 p-5 rounded-2xl shadow-lg backdrop-blur-lg transform transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:shadow-2xl"
+      style={{ backgroundColor: "rgba(255, 255, 255, 0.85)" }}
+    >
+      <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
+        <FaPhone className="text-2xl text-blue-600" />
+      </div>
+      <div>
+        <h4 className="text-xl font-semibold text-gray-800">Call Us</h4>
+        <p className="text-gray-600 opacity-90">+1 234 567 890</p>
+      </div>
+    </div>
+
+    {/* Office Hours Card */}
+    <div className="flex items-center gap-4 p-5 rounded-2xl shadow-lg backdrop-blur-lg transform transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:shadow-2xl"
+      style={{ backgroundColor: "rgba(255, 255, 255, 0.85)" }}
+    >
+      <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
+        <FaClock className="text-2xl text-blue-600" />
+      </div>
+      <div>
+        <h4 className="text-xl font-semibold text-gray-800">Office Hours</h4>
+        <p className="text-gray-600 opacity-90">Mon - Fri, 9:00 AM - 6:00 PM</p>
+      </div>
+    </div>
+  </div>
+
+  {/* Map */}
+  <div
+    className="backdrop-blur-lg rounded-3xl shadow-xl overflow-hidden border mt-6"
+    style={{
+      backgroundColor: "rgba(255,255,255,0.85)",
+      borderColor: "var(--dashboard-border)",
+      minHeight: "300px",
+    }}
+  >
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.902!2d90.412521!3d23.810331!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c7b0c7c5c5f1%3A0x1a5a1c1c1a1b1b1b!2sDhaka%2C%20Bangladesh!5e0!3m2!1sen!2sbd!4v1700000000000!5m2!1sen!2sbd"
+      width="100%"
+      height="100%"
+      style={{ border: 0 }}
+      allowFullScreen=""
+      loading="lazy"
+      referrerPolicy="no-referrer-when-downgrade"
+      title="Office Location"
+    ></iframe>
+  </div>
+</div>
+
       </div>
     </section>
   );
