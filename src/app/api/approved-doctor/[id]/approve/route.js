@@ -4,7 +4,7 @@ import clientPromise from "../../../../lib/mongodb";
 
 export async function POST(req, context) {
   try {
-    const { id } = await context.params;
+    const { id } = context.params;
     if (!id) {
       return NextResponse.json({ ok: false, error: "Missing ID" }, { status: 400 });
     }
@@ -23,9 +23,11 @@ export async function POST(req, context) {
 
     // Find the doctor
     const doctor = await doctorsColl.findOne({ _id: objectId });
-    if (!doctor) {
-      return NextResponse.json({ ok: false, error: "Doctor not found" }, { status: 404 });
+    if (!doctor || !doctor.personalInfo?.email) {
+      return NextResponse.json({ ok: false, error: "Doctor not found or email missing" }, { status: 404 });
     }
+
+    const email = doctor.personalInfo.email;
 
     // Update doctor info after approval
     await doctorsColl.updateOne(
@@ -43,9 +45,9 @@ export async function POST(req, context) {
       }
     );
 
-    // Update user role to doctor
+    // Update user role to doctor using email
     await usersColl.updateOne(
-      { _id: new ObjectId(doctor.userId) },
+      { email },
       { $set: { role: "doctor", updatedAt: new Date() } }
     );
 
