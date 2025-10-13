@@ -71,7 +71,7 @@ export default function DoctorsPage() {
   }, [user]);
 
 
-  const filteredDoctors = doctors?.filter((doc) =>
+  const filteredDoctors = doctors.filter((doc) =>
     doc.educationAndCredentials?.specialization
       ?.toLowerCase()
       .includes(searchTerm.toLowerCase())
