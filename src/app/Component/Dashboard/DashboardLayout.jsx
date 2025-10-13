@@ -62,6 +62,7 @@ export default function DashboardLayout({ children, role = "default" }) {
       <Sidebar
         items={dynamicItems}
         isCollapsed={isCollapsed}
+        role={role}
         mobileOpen={mobileOpen}
         onCloseMobile={() => setMobileOpen(false)}
       />

@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 
 export default function ManageDoctors() {
   const [doctors, setDoctors] = useState([]);
@@ -14,6 +15,7 @@ export default function ManageDoctors() {
         setDoctors(data);
       } catch (error) {
         console.error("Error fetching doctors:", error);
+        toast.error("Failed to load doctors");
       } finally {
         setLoading(false);
       }
@@ -21,18 +23,19 @@ export default function ManageDoctors() {
     fetchDoctors();
   }, []);
 
-  // Update doctor verification
-  const toggleVerify = async (id, currentStatus) => {
+  // Update doctor verification and send notification
+  const toggleVerify = async (id, currentStatus, email) => {
     try {
-      const res = await fetch(`/api/doctors/${id}`, {
+      // 1️⃣ Update the doctor status in DB
+      const res = await fetch(`/api/doctors-admin-fetch/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ "status.isVerified": !currentStatus }),
+        body: JSON.stringify({ status: { isVerified: !currentStatus } }),
       });
 
       if (!res.ok) throw new Error("Failed to update doctor");
 
-      // Update UI immediately
+      // 2️⃣ Update UI immediately
       setDoctors((prev) =>
         prev.map((doc) =>
           doc._id === id
@@ -40,8 +43,35 @@ export default function ManageDoctors() {
             : doc
         )
       );
+
+      // 3️⃣ Send notification to the doctor
+      const notificationTitle = !currentStatus
+        ? "Your account has been approved ✅"
+        : "Your account access has been revoked ❌";
+      const notificationBody = !currentStatus
+        ? "You can now access all features as a verified doctor."
+        : "You no longer have access to doctor features.";
+
+      const notifRes = await fetch("/api/send-notification", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          targetEmail: email,
+          title: notificationTitle,
+          body: notificationBody,
+        }),
+      });
+
+      const notifData = await notifRes.json();
+
+      if (notifData.success) {
+        toast.success("Notification sent successfully!");
+      } else {
+        toast.error("Failed to send notification");
+      }
     } catch (error) {
       console.error("Error updating doctor:", error);
+      toast.error("Something went wrong");
     }
   };
 
@@ -115,10 +145,16 @@ export default function ManageDoctors() {
                       : "bg-[var(--color-calm-blue)] text-[var(--color-white)] hover:bg-[var(--color-light-green)] hover:text-[var(--fourground-color)]"
                   }`}
                   onClick={() =>
-                    toggleVerify(doctor._id, doctor.status?.isVerified)
+                    toggleVerify(
+                      doctor._id,
+                      doctor.status?.isVerified,
+                      doctor.personalInfo?.email
+                    )
                   }
                 >
-                  {doctor.status?.isVerified ? "Revoke Access" : "Approve Doctor"}
+                  {doctor.status?.isVerified
+                    ? "Revoke Access"
+                    : "Approve Doctor"}
                 </button>
               </div>
             </div>
