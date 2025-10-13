@@ -32,38 +32,58 @@ const userFeatures = [
 const UserFeatures = () => {
   return (
     <div
-      className="p-8 min-h-screen"
+      className="p-8"
       style={{ backgroundColor: "var(--gray-color)" }}
     >
-      <h1
-        className="text-4xl font-bold text-center mb-10"
-        style={{ color: "var(--fourground-color)" }}
-      >
-        User Features
-      </h1>
+      {/* Main Title */}
+      <div className="mb-10 text-left md:text-center">
+        <h1
+          className="text-4xl md:text-5xl font-extrabold mb-2"
+          style={{ 
+            background: "linear-gradient(90deg, #4f46e5, #3b82f6)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent"
+          }}
+        >
+          User Features
+        </h1>
+        <p
+          className="text-md md:text-lg text-gray-500"
+          style={{ color: "var(--fourground-color)" }}
+        >
+          আমাদের প্ল্যাটফর্মে ইউজাররা যে সুবিধাগুলো পাবে তার একটি সংক্ষিপ্ত তালিকা।
+        </p>
+      </div>
 
+      {/* Feature Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {userFeatures.map((feature, index) => (
           <div
             key={index}
-            className="p-6 rounded-2xl shadow-lg transition transform hover:-translate-y-2 hover:shadow-2xl"
-            style={{ backgroundColor: "var(--dashboard-bg)", borderColor: "var(--dashboard-border)", borderWidth: "1px" }}
+            className="p-6 rounded-3xl border transition transform hover:-translate-y-1 hover:scale-105 hover:shadow-xl relative"
+            style={{
+              backgroundColor: "var(--dashboard-bg)",
+              borderImageSlice: 1,
+              borderWidth: "1px",
+              borderStyle: "solid",
+              borderImageSource: "linear-gradient(90deg, #4f46e5, #3b82f6)",
+            }}
           >
             <div
-              className="text-5xl mb-4"
+              className="text-5xl mb-4 text-center"
               style={{ color: "var(--color-calm-blue)" }}
             >
               {feature.icon}
             </div>
             <h2
-              className="text-xl font-semibold mb-2"
+              className="text-xl font-semibold mb-2 text-center"
               style={{ color: "var(--fourground-color)" }}
             >
               {feature.title}
             </h2>
             <p
-              className="text-gray-600"
-              style={{ color: "var(--fourground-color)" }}
+              className="text-center text-gray-500"
+              style={{ color: "var(--fourground-color)", lineHeight: "1.5" }}
             >
               {feature.description}
             </p>
