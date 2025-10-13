@@ -49,8 +49,6 @@ export const POST = async (req) => {
 
         // session id 
 
-        console.log("to the url is:",checkoutSession.url)
-
         return NextResponse.json({ success: true, url: checkoutSession.url })
     } catch (error) {
         return NextResponse.json({ "error": error })
