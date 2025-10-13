@@ -31,7 +31,7 @@ const Hero = () => {
   }, []);
   return (
     <section
-      className="relative bg-gradient-to-b from-[var(--color-calm-blue)] to-[var(--color-light-green)] min-h-screen flex items-center pt-16 pb-12"
+      className="relative bg-gradient-to-b from-[var(--color-calm-blue)] to-[var(--color-primary)] min-h-screen flex items-center pt-16 pb-12"
       style={{ fontFamily: "var(--font-primary)" }}
     >
       <div className="container mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center gap-2">
@@ -42,7 +42,7 @@ const Hero = () => {
             style={{ fontFamily: "var(--font-heading)" }}
           >
             Your Journey to Better Health{" "}
-            <span className="text-[var(--color-light-green)]">Starts Here</span>
+            <span className="text-[var(--color-primary)]">Starts Here</span>
           </h1>
           <p className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed font-light">
             Connect with healthcare professionals, track your wellness, and
@@ -113,7 +113,7 @@ const Hero = () => {
             {/* Overlay card */}
             <div className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm p-5 rounded-2xl shadow-xl max-w-xs border border-white/20">
               <div className="flex items-center">
-                <div className="bg-[var(--color-light-green)] p-3 rounded-full mr-4 shadow-md">
+                <div className="bg-[var(--color-primary)] p-3 rounded-full mr-4 shadow-md">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-6 w-6 text-white"

@@ -13,9 +13,9 @@ const UserDashboard = () => {
   return (
     <div className="min-h-screen bg-[var(--dashboard-bg)] relative overflow-hidden">
       {/* Decorative Background Elements */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--color-light-green)]/5 rounded-full blur-3xl -translate-y-48 translate-x-48"></div>
-      <div className="absolute bottom-0 left-0 w-80 h-80 bg-[var(--color-light-green)]/5 rounded-full blur-2xl translate-y-40 -translate-x-40"></div>
-      <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-[var(--color-light-green)]/10 rounded-full blur-3xl -translate-x-32 -translate-y-32"></div>
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--color-primary)]/5 rounded-full blur-3xl -translate-y-48 translate-x-48"></div>
+      <div className="absolute bottom-0 left-0 w-80 h-80 bg-[var(--color-primary)]/5 rounded-full blur-2xl translate-y-40 -translate-x-40"></div>
+      <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-[var(--color-primary)]/10 rounded-full blur-3xl -translate-x-32 -translate-y-32"></div>
 
       <div className="relative z-10 w-full p-4 md:p-6 lg:p-8 space-y-8 md:space-y-12">
         {/* Welcome Section */}
@@ -26,7 +26,7 @@ const UserDashboard = () => {
         {/* KPI Cards Grid */}
         <div className="space-y-4">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-1 h-8 bg-[var(--color-light-green)] rounded-full"></div>
+            <div className="w-1 h-8 bg-[var(--color-primary)] rounded-full"></div>
             <h2 className="text-2xl md:text-3xl font-bold text-[var(--fourground-color)]">
               Health Metrics
             </h2>
@@ -50,7 +50,7 @@ const UserDashboard = () => {
         {/* Main Content Grid */}
         <div className="space-y-4">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-1 h-8 bg-[var(--color-light-green)] rounded-full"></div>
+            <div className="w-1 h-8 bg-[var(--color-primary)] rounded-full"></div>
             <h2 className="text-2xl md:text-3xl font-bold text-[var(--fourground-color)]">
               Activity Center
             </h2>
@@ -70,7 +70,7 @@ const UserDashboard = () => {
         {/* Goals Section */}
         <div className="space-y-4">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-1 h-8 bg-[var(--color-light-green)] rounded-full"></div>
+            <div className="w-1 h-8 bg-[var(--color-primary)] rounded-full"></div>
             <h2 className="text-2xl md:text-3xl font-bold text-[var(--fourground-color)]">
               Recent Goals
             </h2>
@@ -86,17 +86,17 @@ const UserDashboard = () => {
         <div className="pt-8 border-t border-[var(--dashboard-border)]/30">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
             <div className="p-4 rounded-xl bg-[var(--card-bg)] border border-[var(--dashboard-border)]/50">
-              <p className="text-2xl font-bold text-[var(--color-light-green)]">
+              <p className="text-2xl font-bold text-[var(--color-primary)]">
                 {userHealthStats?.length || 0}
               </p>
               <p className="text-sm text-[var(--fourground-color)]/60 font-medium">Active Metrics</p>
             </div>
             <div className="p-4 rounded-xl bg-[var(--card-bg)] border border-[var(--dashboard-border)]/50">
-              <p className="text-2xl font-bold text-[var(--color-light-green)]">100%</p>
+              <p className="text-2xl font-bold text-[var(--color-primary)]">100%</p>
               <p className="text-sm text-[var(--fourground-color)]/60 font-medium">Dashboard Health</p>
             </div>
             <div className="p-4 rounded-xl bg-[var(--card-bg)] border border-[var(--dashboard-border)]/50">
-              <p className="text-2xl font-bold text-[var(--color-light-green)]">Live</p>
+              <p className="text-2xl font-bold text-[var(--color-primary)]">Live</p>
               <p className="text-sm text-[var(--fourground-color)]/60 font-medium">Data Sync</p>
             </div>
           </div>

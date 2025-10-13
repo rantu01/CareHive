@@ -80,7 +80,7 @@ export default function ReportPage() {
           <div
             className="w-16 h-16 sm:w-20 sm:h-20 rounded-full animate-spin border-4 border-t-transparent" // 💡 Smaller spinner on mobile
             style={{
-              borderColor: "var(--color-light-green)",
+              borderColor: "var(--color-primary)",
               borderTopColor: "transparent",
             }}
           ></div>
@@ -147,7 +147,7 @@ export default function ReportPage() {
         <div className="text-center lg:text-left">
           <h1
             className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2 sm:mb-4" // 💡 Smaller h1 on mobile
-            style={{ color: "var(--color-light-green)" }}
+            style={{ color: "var(--color-primary)" }}
           >
             Management Report
           </h1>
@@ -158,7 +158,7 @@ export default function ReportPage() {
             Comprehensive overview of platform statistics, user activities, and content management
           </p>
           <div className="flex items-center gap-2 mt-3 justify-center lg:justify-start">
-            <div className="w-2 h-2 rounded-full bg-[var(--color-light-green)] animate-pulse"></div>
+            <div className="w-2 h-2 rounded-full bg-[var(--color-primary)] animate-pulse"></div>
             <span className="text-xs sm:text-sm opacity-70" style={{ color: "var(--fourground-color)" }}>
               Last updated: {new Date().toLocaleDateString()}
             </span>
@@ -169,7 +169,7 @@ export default function ReportPage() {
           <button
             onClick={printReport}
             className="px-4 py-2 sm:px-6 sm:py-3 rounded-xl font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center gap-2 group justify-center text-sm sm:text-base"
-            style={{ backgroundColor: "var(--color-light-green)" }}
+            style={{ backgroundColor: "var(--color-primary)" }}
           >
             <svg className="w-4 h-4 sm:w-5 sm:h-5 transform group-hover:scale-110 transition-transform" 
               fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -182,7 +182,7 @@ export default function ReportPage() {
           <button
             onClick={exportToPDF}
             className="px-4 py-2 sm:px-6 sm:py-3 rounded-xl font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center gap-2 group justify-center text-sm sm:text-base"
-            style={{ backgroundColor: "var(--color-light-green)" }}
+            style={{ backgroundColor: "var(--color-primary)" }}
           >
             <svg className="w-4 h-4 sm:w-5 sm:h-5 transform group-hover:scale-110 transition-transform" 
               fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -208,7 +208,7 @@ export default function ReportPage() {
                 : "text-[var(--fourground-color)] hover:bg-[var(--gray-color)]"
             }`}
             style={{
-              backgroundColor: activeTab === tab ? "var(--color-light-green)" : "transparent",
+              backgroundColor: activeTab === tab ? "var(--color-primary)" : "transparent",
             }}
           >
             {tab}
@@ -260,7 +260,7 @@ export default function ReportPage() {
           >
             {/* Background Effect */}
             <div 
-              className="absolute -inset-1 bg-gradient-to-r from-[var(--color-light-green)] to-emerald-400 rounded-2xl blur opacity-10 group-hover:opacity-20 transition-opacity duration-500"
+              className="absolute -inset-1 bg-gradient-to-r from-[var(--color-primary)] to-emerald-400 rounded-2xl blur opacity-10 group-hover:opacity-20 transition-opacity duration-500"
             ></div>
             
             <div className="relative z-10">
@@ -269,7 +269,7 @@ export default function ReportPage() {
                   <p className="text-xs sm:text-sm font-semibold opacity-70 mb-0.5 sm:mb-1" style={{ color: "var(--fourground-color)" }}>
                     {stat.title}
                   </p>
-                  <p className="text-2xl sm:text-3xl font-bold" style={{ color: "var(--color-light-green)" }}> {/* 💡 Smaller text on mobile */}
+                  <p className="text-2xl sm:text-3xl font-bold" style={{ color: "var(--color-primary)" }}> {/* 💡 Smaller text on mobile */}
                     {stat.value}
                   </p>
                 </div>
@@ -303,7 +303,7 @@ export default function ReportPage() {
         >
           <h2
             className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 flex items-center gap-3"
-            style={{ color: "var(--color-light-green)" }}
+            style={{ color: "var(--color-primary)" }}
           >
             <span>👥</span>
             User Role Distribution
@@ -320,12 +320,12 @@ export default function ReportPage() {
                     <div 
                       className="h-2 rounded-full transition-all duration-500"
                       style={{ 
-                        backgroundColor: "var(--color-light-green)",
+                        backgroundColor: "var(--color-primary)",
                         width: `${(count / stats.totalUsers) * 100}%`
                       }}
                     ></div>
                   </div>
-                  <span className="font-bold w-6 text-right" style={{ color: "var(--color-light-green)" }}>
+                  <span className="font-bold w-6 text-right" style={{ color: "var(--color-primary)" }}>
                     {count}
                   </span>
                 </div>
@@ -344,7 +344,7 @@ export default function ReportPage() {
         >
           <h2
             className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 flex items-center gap-3"
-            style={{ color: "var(--color-light-green)" }}
+            style={{ color: "var(--color-primary)" }}
           >
             <span>📊</span>
             Platform Overview
@@ -352,7 +352,7 @@ export default function ReportPage() {
           {/* Grid adapts from 2 columns for quick stats */}
           <div className="grid grid-cols-2 gap-3 sm:gap-4"> {/* 💡 Reduced gap on mobile */}
             <div className="text-center p-3 sm:p-4 rounded-xl bg-[var(--gray-color)]"> {/* 💡 Reduced padding on mobile */}
-              <div className="text-xl sm:text-2xl font-bold" style={{ color: "var(--color-light-green)" }}>
+              <div className="text-xl sm:text-2xl font-bold" style={{ color: "var(--color-primary)" }}>
                 {stats.adminCount}
               </div>
               <div className="text-xs sm:text-sm opacity-70" style={{ color: "var(--fourground-color)" }}>
@@ -360,7 +360,7 @@ export default function ReportPage() {
               </div>
             </div>
             <div className="text-center p-3 sm:p-4 rounded-xl bg-[var(--gray-color)]">
-              <div className="text-xl sm:text-2xl font-bold" style={{ color: "var(--color-light-green)" }}>
+              <div className="text-xl sm:text-2xl font-bold" style={{ color: "var(--color-primary)" }}>
                 {stats.regularUserCount}
               </div>
               <div className="text-xs sm:text-sm opacity-70" style={{ color: "var(--fourground-color)" }}>
@@ -368,7 +368,7 @@ export default function ReportPage() {
               </div>
             </div>
             <div className="text-center p-3 sm:p-4 rounded-xl bg-[var(--gray-color)]">
-              <div className="text-xl sm:text-2xl font-bold" style={{ color: "var(--color-light-green)" }}>
+              <div className="text-xl sm:text-2xl font-bold" style={{ color: "var(--color-primary)" }}>
                 {recentUsers.length}
               </div>
               <div className="text-xs sm:text-sm opacity-70" style={{ color: "var(--fourground-color)" }}>
@@ -376,7 +376,7 @@ export default function ReportPage() {
               </div>
             </div>
             <div className="text-center p-3 sm:p-4 rounded-xl bg-[var(--gray-color)]">
-              <div className="text-xl sm:text-2xl font-bold" style={{ color: "var(--color-light-green)" }}>
+              <div className="text-xl sm:text-2xl font-bold" style={{ color: "var(--color-primary)" }}>
                 {stats.totalUsers > 0 ? `${Math.round((stats.totalDoctors / stats.totalUsers) * 100)}%` : '0%'}
               </div>
               <div className="text-xs sm:text-sm opacity-70" style={{ color: "var(--fourground-color)" }}>
@@ -398,7 +398,7 @@ export default function ReportPage() {
         <div className="p-4 sm:p-6 border-b" style={{ borderColor: "var(--dashboard-border)", backgroundColor: "var(--gray-color)" }}> {/* 💡 Reduced padding on mobile */}
           <h2
             className="text-lg sm:text-xl font-semibold flex items-center gap-3"
-            style={{ color: "var(--color-light-green)" }}
+            style={{ color: "var(--color-primary)" }}
           >
             <span>🆕</span>
             Recent User Registrations
@@ -440,7 +440,7 @@ export default function ReportPage() {
                     <div className="flex items-center gap-3">
                       <div 
                         className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center text-white font-semibold shadow-md text-sm" // 💡 Smaller avatar on mobile
-                        style={{ backgroundColor: "var(--color-light-green)" }}
+                        style={{ backgroundColor: "var(--color-primary)" }}
                       >
                         {user.name?.charAt(0)?.toUpperCase() || "U"}
                       </div>
@@ -458,7 +458,7 @@ export default function ReportPage() {
                     <span 
                       className="px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-xs font-semibold capitalize"
                       style={{ 
-                        backgroundColor: user.role === 'admin' ? 'var(--color-light-green)' : 'var(--gray-color)',
+                        backgroundColor: user.role === 'admin' ? 'var(--color-primary)' : 'var(--gray-color)',
                         color: user.role === 'admin' ? 'var(--color-white)' : 'var(--fourground-color)'
                       }}
                     >
@@ -491,7 +491,7 @@ export default function ReportPage() {
           <div className="p-4 sm:p-6 border-b" style={{ borderColor: "var(--dashboard-border)", backgroundColor: "var(--gray-color)" }}>
             <h2
               className="text-lg sm:text-xl font-semibold flex items-center gap-3"
-              style={{ color: "var(--color-light-green)" }}
+              style={{ color: "var(--color-primary)" }}
             >
               <span>📝</span>
               Recent Blog Posts
@@ -556,7 +556,7 @@ export default function ReportPage() {
           <div className="p-4 sm:p-6 border-b" style={{ borderColor: "var(--dashboard-border)", backgroundColor: "var(--gray-color)" }}>
             <h2
               className="text-lg sm:text-xl font-semibold flex items-center gap-3"
-              style={{ color: "var(--color-light-green)" }}
+              style={{ color: "var(--color-primary)" }}
             >
               <span>🛠️</span>
               Recent Services
@@ -601,7 +601,7 @@ export default function ReportPage() {
                       <span 
                         className="px-2 py-0.5 rounded-full text-xs font-semibold capitalize"
                         style={{ 
-                          backgroundColor: "var(--color-light-green)",
+                          backgroundColor: "var(--color-primary)",
                           color: "var(--color-white)"
                         }}
                       >

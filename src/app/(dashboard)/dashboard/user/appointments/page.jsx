@@ -12,7 +12,7 @@ const page = () => {
                 {/* Header Section */}
                 <header className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-4">
                     <div className="space-y-2">
-                        <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[var(--color-light-green)] to-emerald-500 bg-clip-text text-transparent">
+                        <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[var(--color-primary)] to-emerald-500 bg-clip-text text-transparent">
                             Appointments
                         </h1>
                         <p className="text-[var(--fourground-color)]/60 text-base md:text-lg">
@@ -25,7 +25,7 @@ const page = () => {
                             </span>
                         </div>
                     </div>
-                    <button className="w-full lg:w-auto px-6 py-3 gap-3 rounded-xl font-semibold text-white bg-gradient-to-r from-[var(--color-light-green)] to-emerald-500 hover:from-emerald-500 hover:to-[var(--color-light-green)] shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center cursor-pointer group">
+                    <button className="w-full lg:w-auto px-6 py-3 gap-3 rounded-xl font-semibold text-white bg-gradient-to-r from-[var(--color-primary)] to-emerald-500 hover:from-emerald-500 hover:to-[var(--color-primary)] shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center cursor-pointer group">
                         <Calendar className="group-hover:rotate-12 transition-transform duration-300" size={20} />
                         <span>Book Appointment</span>
                     </button>
@@ -36,10 +36,10 @@ const page = () => {
                     {appointmentData?.map(({ doctorName, specialist, doctorId }) => (
                         <div 
                             key={doctorId} 
-                            className="group backdrop-blur-sm shadow-lg hover:shadow-2xl rounded-2xl p-6 md:p-8 border border-[var(--dashboard-border)]/30 hover:border-[var(--color-light-green)]/30 transition-all duration-300 relative overflow-hidden"
+                            className="group backdrop-blur-sm shadow-lg hover:shadow-2xl rounded-2xl p-6 md:p-8 border border-[var(--dashboard-border)]/30 hover:border-[var(--color-primary)]/30 transition-all duration-300 relative overflow-hidden"
                         >
                             {/* Decorative Elements */}
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[var(--color-light-green)]/5 to-transparent rounded-full blur-2xl -translate-y-16 translate-x-16"></div>
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[var(--color-primary)]/5 to-transparent rounded-full blur-2xl -translate-y-16 translate-x-16"></div>
                             <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-emerald-400/5 to-transparent rounded-full blur-xl translate-y-12 -translate-x-12"></div>
 
                             <div className="relative z-10">
@@ -48,7 +48,7 @@ const page = () => {
                                     {/* Doctor Info Section */}
                                     <div className="flex gap-6 items-center flex-1">
                                         <div className="relative">
-                                            <div className="w-16 h-16 bg-gradient-to-br from-[var(--color-light-green)] to-emerald-500 rounded-2xl flex justify-center items-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                            <div className="w-16 h-16 bg-gradient-to-br from-[var(--color-primary)] to-emerald-500 rounded-2xl flex justify-center items-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                                                 <User className="w-8 h-8 text-white" />
                                             </div>
                                             <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-white flex items-center justify-center">
@@ -56,7 +56,7 @@ const page = () => {
                                             </div>
                                         </div>
                                         <div className="space-y-1 flex-1">
-                                            <p className="text-[var(--fourground-color)] font-bold text-xl group-hover:text-[var(--color-light-green)] transition-colors duration-300">
+                                            <p className="text-[var(--fourground-color)] font-bold text-xl group-hover:text-[var(--color-primary)] transition-colors duration-300">
                                                 Dr. {doctorName}
                                             </p>
                                             <p className="text-[var(--fourground-color)]/60 text-base font-medium">
@@ -71,8 +71,8 @@ const page = () => {
                                             <Camera size={20} className="text-green-600 group-hover/btn:scale-110 transition-transform duration-300" />
                                             <span className="text-[var(--fourground-color)] font-semibold">Video Call</span>
                                         </button>
-                                        <button className="group/btn flex gap-3 items-center px-6 py-3 bg-gradient-to-r from-[var(--color-light-green)]/10 to-emerald-500/10 hover:from-[var(--color-light-green)]/20 hover:to-emerald-500/20 border-2 border-[var(--color-light-green)]/20 hover:border-[var(--color-light-green)]/40 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer">
-                                            <Phone size={20} className="text-[var(--color-light-green)] group-hover/btn:scale-110 transition-transform duration-300" />
+                                        <button className="group/btn flex gap-3 items-center px-6 py-3 bg-gradient-to-r from-[var(--color-primary)]/10 to-emerald-500/10 hover:from-[var(--color-primary)]/20 hover:to-emerald-500/20 border-2 border-[var(--color-primary)]/20 hover:border-[var(--color-primary)]/40 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer">
+                                            <Phone size={20} className="text-[var(--color-primary)] group-hover/btn:scale-110 transition-transform duration-300" />
                                             <span className="text-[var(--fourground-color)] font-semibold">Call</span>
                                         </button>
                                     </div>
@@ -82,7 +82,7 @@ const page = () => {
                                 <div className="md:hidden space-y-4">
                                     <div className="flex gap-4 items-center">
                                         <div className="relative">
-                                            <div className="w-14 h-14 bg-gradient-to-br from-[var(--color-light-green)] to-emerald-500 rounded-xl flex justify-center items-center shadow-lg">
+                                            <div className="w-14 h-14 bg-gradient-to-br from-[var(--color-primary)] to-emerald-500 rounded-xl flex justify-center items-center shadow-lg">
                                                 <User className="w-7 h-7 text-white" />
                                             </div>
                                             <div className="absolute -bottom-0.5 -right-0.5 w-5 h-5 bg-green-500 rounded-full border-2 border-white flex items-center justify-center">
@@ -115,8 +115,8 @@ const page = () => {
                                             <Camera size={18} className="text-green-600" />
                                             <span className="text-[var(--fourground-color)] font-medium text-sm">Video</span>
                                         </button>
-                                        <button className="flex gap-2 items-center justify-center px-4 py-3 bg-gradient-to-r from-[var(--color-light-green)]/10 to-emerald-500/10 border-2 border-[var(--color-light-green)]/20 rounded-xl shadow-md transition-all duration-300 cursor-pointer">
-                                            <Phone size={18} className="text-[var(--color-light-green)]" />
+                                        <button className="flex gap-2 items-center justify-center px-4 py-3 bg-gradient-to-r from-[var(--color-primary)]/10 to-emerald-500/10 border-2 border-[var(--color-primary)]/20 rounded-xl shadow-md transition-all duration-300 cursor-pointer">
+                                            <Phone size={18} className="text-[var(--color-primary)]" />
                                             <span className="text-[var(--fourground-color)] font-medium text-sm">Call</span>
                                         </button>
                                     </div>
@@ -129,12 +129,12 @@ const page = () => {
                 {/* Empty State */}
                 {(!appointmentData || appointmentData.length === 0) && (
                     <div className="text-center py-16">
-                        <div className="w-24 h-24 bg-[var(--color-light-green)]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <Calendar size={40} className="text-[var(--color-light-green)]/50" />
+                        <div className="w-24 h-24 bg-[var(--color-primary)]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <Calendar size={40} className="text-[var(--color-primary)]/50" />
                         </div>
                         <h3 className="text-xl font-semibold text-[var(--fourground-color)] mb-2">No appointments yet</h3>
                         <p className="text-[var(--fourground-color)]/60 mb-6">Book your first appointment to get started</p>
-                        <button className="px-6 py-3 bg-[var(--color-light-green)] text-white rounded-xl font-medium hover:bg-emerald-500 transition-colors">
+                        <button className="px-6 py-3 bg-[var(--color-primary)] text-white rounded-xl font-medium hover:bg-emerald-500 transition-colors">
                             Book Now
                         </button>
                     </div>
