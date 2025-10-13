@@ -10,6 +10,8 @@ export default function PaymentSuccess() {
   const sessionId = searchParams.get("session_id");
   const [payment, setPayment] = useState(null);
 
+  const [patientSerial, setPatientSerial] = useState(0)
+
   useEffect(() => {
     if (sessionId) {
       axios
@@ -18,6 +20,22 @@ export default function PaymentSuccess() {
         .catch((err) => console.error(err));
     }
   }, [sessionId]);
+
+
+  useEffect(() => {
+
+    const paymentSucess = async () => {
+      const response = await axios.post('/api/appointments', payment?.metadata)
+      setPatientSerial(response?.data?.serialNo)
+    }
+
+
+    if (payment) {
+      paymentSucess()
+    }
+  }, [payment]);
+
+
 
   if (!payment) {
     return (
@@ -30,10 +48,11 @@ export default function PaymentSuccess() {
     );
   }
 
-  console.log("the payment is", payment)
+
+
 
   const handleDownloadPDF = () => {
-    pdfGenerator(payment)
+    pdfGenerator(payment, patientSerial)
   }
 
   return (
@@ -215,7 +234,25 @@ export default function PaymentSuccess() {
                 </div>
               </div>
             </div>
-
+            {/* Patient Serial Number Card */}
+            <div className="group bg-gradient-to-r from-[var(--color-light-green)]/20 to-[#7FE87F]/20 border border-[var(--color-light-green)] rounded-2xl p-6 mb-8 transition-all duration-300 hover:shadow-lg">
+              <div className="flex items-start gap-4">
+                <div className="bg-[var(--color-light-green)] bg-opacity-20 p-3 rounded-xl group-hover:scale-110 transition-transform duration-200">
+                  <User size={24} className="text-[#2D8F2D]" strokeWidth={2} />
+                </div>
+                <div className="flex-1">
+                  <p className="text-xs text-[var(--fourground-color)] opacity-60 uppercase tracking-wider font-semibold mb-1">
+                    Your Serial Number
+                  </p>
+                  <p className="text-[var(--fourground-color)] font-bold text-3xl md:text-4xl">
+                    #{patientSerial || '—'}
+                  </p>
+                  <p className="text-sm text-[var(--fourground-color)] opacity-70 mt-2">
+                    Please arrive early and mention this number at the reception.
+                  </p>
+                </div>
+              </div>
+            </div>
             {/* Download Button */}
             <button
               onClick={handleDownloadPDF}
@@ -224,7 +261,6 @@ export default function PaymentSuccess() {
               <Download size={28} className="group-hover:animate-bounce" />
               <span className="text-xl">Download PDF Receipt</span>
             </button>
-
             {/* Footer Note */}
             <div className="mt-8 text-center bg-[var(--gray-color)] rounded-xl p-6">
               <p className="text-[var(--fourground-color)] opacity-70 text-sm leading-relaxed">
