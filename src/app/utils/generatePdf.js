@@ -1,198 +1,168 @@
 import jsPDF from "jspdf";
 
-export const pdfGenerator = (payment) => {
+export const pdfGenerator = (payment, sl) => {
     const doc = new jsPDF();
     const pageWidth = doc.internal.pageSize.width;
 
-    // Modern Color Palette
+    // Modern Minimal Color Palette
     const colors = {
-        primary: [99, 102, 241],      // Indigo
-        secondary: [139, 92, 246],    // Purple
-        accent: [236, 72, 153],       // Pink
-        success: [34, 197, 94],       // Green
-        dark: [15, 23, 42],           // Slate Dark
-        light: [248, 250, 252],       // Slate Light
-        gray: [148, 163, 184],        // Slate Gray
+        primary: [59, 130, 246],      // Blue-600
+        secondary: [107, 114, 128],   // Gray-500
+        accent: [239, 68, 68],        // Red-500
+        success: [16, 185, 129],      // Emerald-500
+        dark: [31, 41, 55],           // Gray-800
+        light: [249, 250, 251],       // Gray-50
+        border: [229, 231, 235],      // Gray-200
         white: [255, 255, 255]
     };
 
-    // Gradient-style Header with diagonal split
+    // Clean Header
     doc.setFillColor(...colors.primary);
-    doc.rect(0, 0, pageWidth, 50, 'F');
+    doc.rect(0, 0, pageWidth, 35, 'F');
+    
+    // Title
+    doc.setTextColor(...colors.white);
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "bold");
+    doc.text("PAYMENT RECEIPT", pageWidth / 2, 22, { align: 'center' });
 
-    // Accent triangle overlay
-    doc.setFillColor(...colors.secondary);
-    doc.triangle(pageWidth, 0, pageWidth, 50, pageWidth - 40, 0, 'F');
-
-    // Modern success icon circle
+    // Amount Card - Compact
+    const amountY = 45;
     doc.setFillColor(...colors.white);
-    doc.circle(pageWidth / 2, 20, 10, 'F');
-
-    // Inner success circle with shadow effect
-    doc.setFillColor(...colors.success);
-    doc.circle(pageWidth / 2, 20, 7, 'F');
-
-    // Checkmark
-    doc.setDrawColor(...colors.white);
-    doc.setLineWidth(1.5);
-    doc.line(pageWidth / 2 - 3, 20, pageWidth / 2 - 1, 22);
-    doc.line(pageWidth / 2 - 1, 22, pageWidth / 2 + 3, 18);
-
-    // Title with shadow effect
-    doc.setTextColor(30, 30, 40);
-    doc.setFontSize(26);
-    doc.setFont(undefined, 'bold');
-    doc.text("PAYMENT RECEIPT", pageWidth / 2 + 0.3, 41.3, { align: 'center' });
-    doc.setTextColor(...colors.white);
-    doc.text("PAYMENT RECEIPT", pageWidth / 2, 41, { align: 'center' });
-
-    // Modern Amount Card with gradient effect
-    const cardY = 60;
-    doc.setFillColor(...colors.primary);
-    doc.roundedRect(20, cardY, pageWidth - 40, 35, 5, 5, 'F');
-
-    // Accent bar on amount card
-    doc.setFillColor(...colors.accent);
-    doc.roundedRect(20, cardY, 4, 35, 2, 2, 'F');
-
+    doc.setDrawColor(...colors.border);
+    doc.setLineWidth(0.5);
+    doc.roundedRect(20, amountY, pageWidth - 40, 25, 5, 5, 'FD');
+    
     // Amount label
-    doc.setTextColor(...colors.white);
-    doc.setFontSize(10);
-    doc.setFont(undefined, 'normal');
-    doc.text("TOTAL AMOUNT PAID", pageWidth / 2, cardY + 12, { align: 'center' });
-
+    doc.setTextColor(...colors.secondary);
+    doc.setFontSize(9);
+    doc.setFont("helvetica", "bold");
+    doc.text("TOTAL AMOUNT", pageWidth / 2, amountY + 10, { align: 'center' });
+    
     // Amount value
-    doc.setFontSize(28);
-    doc.setFont(undefined, 'bold');
+    doc.setTextColor(...colors.dark);
+    doc.setFontSize(18);
+    doc.setFont("helvetica", "bold");
     doc.text(
         `${(payment.amount_total / 100).toFixed(2)} ${payment.currency.toUpperCase()}`,
         pageWidth / 2,
-        cardY + 26,
+        amountY + 19,
         { align: 'center' }
     );
 
-    let yPos = 105;
+    let yPos = 80;
 
-    // Customer Information Section with modern header
-    doc.setFillColor(...colors.dark);
-    doc.roundedRect(20, yPos, pageWidth - 40, 10, 3, 3, 'F');
-    doc.setTextColor(...colors.white);
-    doc.setFontSize(12);
-    doc.setFont(undefined, 'bold');
-    doc.text("Customer Information", 26, yPos + 6.5);
-    yPos += 15;
-
-    const customerDetails = [
-        { label: 'Name', value: payment.metadata.patientName },
-        { label: 'Email', value: payment.metadata.patientEmail },
-        { label: 'Payment Method', value: payment.payment_method_types?.[0]?.toUpperCase() || "-" },
-    ];
-
-    customerDetails.forEach((detail, index) => {
-        // Alternating subtle backgrounds
-        if (index % 2 === 0) {
-            doc.setFillColor(...colors.light);
-            doc.roundedRect(20, yPos, pageWidth - 40, 13, 2, 2, 'F');
-        }
-
-        // Border accent
-        doc.setDrawColor(...colors.primary);
-        doc.setLineWidth(0.3);
-        doc.line(20, yPos + 13, pageWidth - 20, yPos + 13);
-
-        doc.setFontSize(8);
-        doc.setFont(undefined, 'bold');
-        doc.setTextColor(...colors.gray);
-        doc.text(detail.label.toUpperCase(), 26, yPos + 5);
-
-        doc.setFontSize(11);
-        doc.setFont(undefined, 'normal');
-        doc.setTextColor(...colors.dark);
-        doc.text(detail.value, 26, yPos + 10);
-        yPos += 13;
-    });
-
-    yPos += 8;
-
-    // Appointment Details Section
-    doc.setFillColor(...colors.primary);
-    doc.roundedRect(20, yPos, pageWidth - 40, 10, 3, 3, 'F');
-    doc.setTextColor(...colors.white);
-    doc.setFontSize(12);
-    doc.setFont(undefined, 'bold');
-    doc.text("Appointment Details", 26, yPos + 6.5);
-    yPos += 15;
-
-    const appointmentDetails = [
-        { label: 'Doctor Name', value: payment.metadata.doctorName || "-" },
-        { label: 'Hospital Name', value: payment.metadata.hospitalName || "-" },
-        { label: 'Booked Slot', value: payment.metadata.bookedSlot.toUpperCase() || "-" },
-        { label: 'Booked At', value: payment.metadata.bookedAt ? new Date(payment.metadata.bookedAt).toLocaleString() : "-" }
-    ];
-
-    appointmentDetails.forEach((detail, index) => {
-        if (index % 2 === 0) {
-            doc.setFillColor(...colors.light);
-            doc.roundedRect(20, yPos, pageWidth - 40, 13, 2, 2, 'F');
-        }
-
-        doc.setDrawColor(...colors.primary);
-        doc.setLineWidth(0.3);
-        doc.line(20, yPos + 13, pageWidth - 20, yPos + 13);
-
-        doc.setFontSize(8);
-        doc.setFont(undefined, 'bold');
-        doc.setTextColor(...colors.gray);
-        doc.text(detail.label.toUpperCase(), 26, yPos + 5);
-
-        doc.setFontSize(11);
-        doc.setFont(undefined, 'normal');
-        doc.setTextColor(...colors.dark);
-        doc.text(detail.value, 26, yPos + 10);
-        yPos += 13;
-    });
-
-    yPos += 8;
-
-    // Session ID & Status Card
+    // Combined Information Section
     doc.setFillColor(...colors.light);
-    doc.roundedRect(20, yPos, pageWidth - 40, 20, 3, 3, 'F');
-
-    // Left border accent
-    doc.setFillColor(...colors.secondary);
-    doc.roundedRect(20, yPos, 3, 20, 1.5, 1.5, 'F');
-
-    doc.setFontSize(7);
-    doc.setFont(undefined, 'bold');
-    doc.setTextColor(...colors.gray);
-    doc.text("SESSION ID", 28, yPos + 6);
-
-    doc.setFontSize(8);
-    doc.setFont(undefined, 'normal');
+    doc.roundedRect(20, yPos, pageWidth - 40, 12, 3, 3, 'F');
+    
     doc.setTextColor(...colors.dark);
-    doc.text(payment.id, 28, yPos + 11, { maxWidth: pageWidth - 80 });
-
-    // Modern status badge
-    doc.setFillColor(...colors.success);
-    doc.roundedRect(pageWidth - 58, yPos + 5, 38, 10, 5, 5, 'F');
-    doc.setFontSize(9);
-    doc.setFont(undefined, 'bold');
-    doc.setTextColor(...colors.white);
-    doc.text(payment.payment_status.toUpperCase(), pageWidth - 39, yPos + 11, { align: 'center' });
-
-    // Modern Footer with decorative line
-    yPos = 280;
-    doc.setDrawColor(...colors.primary);
-    doc.setLineWidth(0.5);
-    doc.line(pageWidth / 2 - 30, yPos, pageWidth / 2 + 30, yPos);
-
     doc.setFontSize(10);
-    doc.setTextColor(...colors.gray);
-    doc.setFont(undefined, 'normal');
-    doc.text("Thank you for your payment!", pageWidth / 2, yPos + 6, { align: 'center' });
+    doc.setFont("helvetica", "bold");
+    doc.text("INFORMATION", 26, yPos + 8);
 
+    yPos += 18;
+
+    // All details in one compact table
+    const allDetails = [
+        { label: 'Patient Name', value: payment.metadata.patientName },
+        { label: 'Email', value: payment.metadata.patientEmail },
+        { label: 'Payment Method', value: payment.payment_method_types?.[0]?.toUpperCase() || "N/A" },
+        { label: 'Doctor', value: payment.metadata.doctorName || "N/A" },
+        { label: 'Hospital', value: payment.metadata.hospitalName || "N/A" },
+        { label: 'Time Slot', value: payment.metadata.bookedSlot || "N/A" },
+        { label: 'Booked On', value: payment.metadata.bookedAt ? new Date(payment.metadata.bookedAt).toLocaleDateString() : "N/A" }
+    ];
+
+    allDetails.forEach((detail, index) => {
+        const isEven = index % 2 === 0;
+        
+        if (isEven) {
+            doc.setFillColor(...colors.light);
+            doc.roundedRect(20, yPos, pageWidth - 40, 10, 2, 2, 'F');
+        }
+
+        // Label
+        doc.setTextColor(...colors.secondary);
+        doc.setFontSize(7);
+        doc.setFont("helvetica", "bold");
+        doc.text(detail.label.toUpperCase(), 26, yPos + 6);
+
+        // Value
+        doc.setTextColor(...colors.dark);
+        doc.setFontSize(9);
+        doc.setFont("helvetica", "normal");
+        doc.text(detail.value, 100, yPos + 6, { maxWidth: pageWidth - 110 });
+
+        yPos += 10;
+    });
+
+    yPos += 8;
+
+    // Compact Status & Serial Section
+    doc.setFillColor(...colors.white);
+    doc.setDrawColor(...colors.border);
+    doc.setLineWidth(0.5);
+    doc.roundedRect(20, yPos, pageWidth - 40, 25, 5, 5, 'FD');
+
+    // Serial Number
+    doc.setTextColor(...colors.secondary);
+    doc.setFontSize(7);
+    doc.setFont("helvetica", "bold");
+    doc.text("SERIAL NO", 26, yPos + 8);
+    
+    doc.setTextColor(...colors.primary);
+    doc.setFontSize(14);
+    doc.setFont("helvetica", "bold");
+    doc.text(`#${sl || '—'}`, 26, yPos + 18);
+
+    // Status
+    doc.setTextColor(...colors.secondary);
+    doc.setFontSize(7);
+    doc.setFont("helvetica", "bold");
+    doc.text("STATUS", pageWidth - 40, yPos + 8, { align: 'right' });
+    
+    // Status badge
+    const statusColor = payment.payment_status === 'succeeded' ? colors.success : colors.accent;
+    doc.setFillColor(...statusColor);
+    doc.roundedRect(pageWidth - 50, yPos + 10, 30, 10, 5, 5, 'F');
+    
+    doc.setTextColor(...colors.white);
     doc.setFontSize(8);
-    doc.text("This is an automated receipt", pageWidth / 2, yPos + 11, { align: 'center' });
+    doc.setFont("helvetica", "bold");
+    doc.text(payment.payment_status.toUpperCase(), pageWidth - 35, yPos + 16, { align: 'center' });
+
+    yPos += 32;
+
+    // Session ID (if space)
+    if (yPos < 250) {
+        doc.setFillColor(...colors.light);
+        doc.roundedRect(20, yPos, pageWidth - 40, 15, 3, 3, 'F');
+        
+        doc.setTextColor(...colors.secondary);
+        doc.setFontSize(7);
+        doc.setFont("helvetica", "bold");
+        doc.text("SESSION ID", 26, yPos + 7);
+        
+        doc.setTextColor(...colors.dark);
+        doc.setFontSize(8);
+        doc.setFont("helvetica", "normal");
+        doc.text(payment.id, 26, yPos + 12, { maxWidth: pageWidth - 50 });
+    }
+
+    // Compact Footer
+    const footerY = 270;
+    doc.setDrawColor(...colors.border);
+    doc.setLineWidth(0.3);
+    doc.line(20, footerY, pageWidth - 20, footerY);
+
+    doc.setTextColor(...colors.secondary);
+    doc.setFontSize(8);
+    doc.setFont("helvetica", "normal");
+    doc.text("Thank you for your payment", pageWidth / 2, footerY + 6, { align: 'center' });
+    
+    doc.setFontSize(6);
+    doc.text("Automated receipt • " + new Date().toLocaleDateString(), pageWidth / 2, footerY + 10, { align: 'center' });
 
     doc.save("payment_receipt.pdf");
 };

@@ -1,16 +1,21 @@
 import { AuthContext } from "@/app/context/authContext";
 import { use, useState } from "react";
+import Swal from "sweetalert2";
 
 const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
 
-    console.log("dropdown",)
+
 
     const [selectedSlot, setSelectedSlot] = useState("");
     const [meetingType, setMeetingType] = useState("inPerson");
 
+    const selectedDay = selectedSlot.split("-")[0];
+
+
+
+
     const handleMeetingType = (type) => {
         setMeetingType(type);
-        console.log(type);
     };
 
     const { user } = use(AuthContext)
@@ -25,6 +30,15 @@ const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
         patientEmail: user.email,
         fees: selectedDoctor.practiceInfo.consultationFees[meetingType],
         bookedAt: new Date()
+    }
+
+    const handleBooking = (booking) => {
+        if (selectedDoctor.practiceInfo.patientLimit[selectedDay] === 0) {
+            Swal.fire("Slot is full")
+            return
+        } else {
+            return handleBookAppointment(booking)
+        }
     }
 
 
@@ -141,7 +155,7 @@ const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
             {/* Book Button */}
             {selectedSlot && (
                 <button
-                    onClick={() => handleBookAppointment(booking)}
+                    onClick={() => handleBooking(booking)}
                     className="w-full py-3 rounded-xl font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer"
                     style={{ backgroundColor: 'var(--color-calm-blue)' }}
                 >

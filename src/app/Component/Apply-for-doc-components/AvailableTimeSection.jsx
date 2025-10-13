@@ -4,6 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
+import Swal from 'sweetalert2';
 
 const AvailableTimeSection = ({
   patientLimit,
@@ -31,7 +32,7 @@ const AvailableTimeSection = ({
       const response = await axios.post('/api/hospital-list', { areaType })
       return response.data.hospitals
     } catch (error) {
-      console.log(error)
+      Swal.fire(error)
     }
   }
 
@@ -42,7 +43,7 @@ const AvailableTimeSection = ({
       setHospitals(data)
     },
     onError: () => {
-      console.log("Something Error")
+      Swal.fire("Something Error")
     }
   })
 
