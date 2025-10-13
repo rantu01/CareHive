@@ -2,7 +2,6 @@ import clientPromise from "../../lib/mongodb";
 import { ObjectId } from "mongodb";
 
 // GET all users
-// GET user(s)
 export async function GET(req) {
   try {
     const { searchParams } = new URL(req.url);
