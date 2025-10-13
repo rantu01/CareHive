@@ -9,37 +9,37 @@
   --font-heading: 'Poppins', sans-serif;     /* For logo / headings */
   --font-alt: 'Montserrat', sans-serif;      /* Optional alternative font */
 
-  /* Calm Blue */
-  --color-calm-blue: #4682B4;
+  /* Calm Blue - More modern blue */
+  --color-calm-blue: #3b82f6;
 
-  /* Black */
-  --color-black: #000000;
+  /* Black - Softer black */
+  --color-black: #111827;
 
   /* White */
   --color-white: #FFFFFF;
 
-  /* Light Green */
-  --color-light-green: #90EE90;
+  /* Light Green - More pleasant green */
+  --color-light-green: #10b981;
 
-  /* Dashboard colors */
-  --dashboard-blue: #3199ee;
+  /* Dashboard colors - Better blue */
+  --dashboard-blue: #2563eb;
 
-  /* Gray */
-  --sidebar-bg: #fafafa;
+  /* Gray - Improved gray shades */
+  --sidebar-bg: #f8fafc;
   --dashboard-bg: #ffffff;
-  --dashboard-border: #d6d6d6;
+  --dashboard-border: #e2e8f0;
 
-  /* Font color */
-  --fourground-color: #020613;
+  /* Font color - Better contrast */
+  --fourground-color: #1e293b;
 
-  /* Gray color */
-  --gray-color: #f3f3f3;
+  /* Gray color - Softer gray */
+  --gray-color: #f1f5f9;
 }
 
 .dark {
-  --sidebar-bg: #1a1a1a;
-  --dashboard-bg: #080808;
-  --dashboard-border: #7a7a7a;
-  --fourground-color: #fff;
-  --gray-color: #313131;
+  --sidebar-bg: #0f172a;
+  --dashboard-bg: #1e293b;
+  --dashboard-border: #334155;
+  --fourground-color: #f1f5f9;
+  --gray-color: #334155;
 }
