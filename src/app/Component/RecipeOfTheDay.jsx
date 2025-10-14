@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+// Recipes data
 const recipes = [
   {
     image: "https://i.ibb.co.com/DfBZgYRc/salad.jpg",
@@ -28,7 +29,7 @@ const recipes = [
     },
   },
   {
-    image: "https://source.unsplash.com/400x250/?smoothie",
+    image: "https://i.ibb.co.com/JFtB0BLz/fresh-jush.jpg",
     title: { bn: "ফ্রেশ ফ্রুট স্মুদি", en: "Fresh Fruit Smoothie" },
     description: {
       bn: "প্রাকৃতিক ফল দিয়ে পুষ্টিকর স্মুদি তৈরি করুন।",
@@ -52,7 +53,7 @@ const recipes = [
     },
   },
   {
-    image: "https://source.unsplash.com/400x250/?soup",
+    image: "https://i.ibb.co/pjNs5Ym9/light-soup.jpg",
     title: { bn: "হালকা সূপ", en: "Light Soup" },
     description: {
       bn: "শরীরকে হাইড্রেট রাখার জন্য হালকা সূপ বানান।",
@@ -76,7 +77,7 @@ const recipes = [
     },
   },
   {
-    image: "https://source.unsplash.com/400x250/?oatmeal",
+    image: "https://i.ibb.co/mCsXD2QP/oatmeal.jpg",
     title: { bn: "হালকা ওটমিল", en: "Light Oatmeal" },
     description: {
       bn: "সকালবেলার জন্য পুষ্টিকর ওটমিল বানান।",
@@ -100,7 +101,7 @@ const recipes = [
     },
   },
   {
-    image: "https://source.unsplash.com/400x250/?juice",
+    image: "https://i.ibb.co/fzm7gb7G/fresh-natural-jusce.jpg",
     title: { bn: "ফ্রেশ জুস", en: "Fresh Juice" },
     description: {
       bn: "প্রাকৃতিক ফলের রস দিয়ে হাইড্রেটেড থাকুন।",
@@ -124,7 +125,7 @@ const recipes = [
     },
   },
   {
-    image: "https://source.unsplash.com/400x250/?yogurt",
+    image: "https://i.ibb.co/B522p96p/yogurt.jpg",
     title: { bn: "দই", en: "Yogurt" },
     description: {
       bn: "দই খেয়ে হজম ভালো রাখুন।",
@@ -150,93 +151,107 @@ const recipes = [
 ];
 
 const RecipeOfTheDay = () => {
-  const [lang, setLang] = useState("bn");
   const [expandedIndex, setExpandedIndex] = useState(null);
+  const [langs, setLangs] = useState(Array(recipes.length).fill("en"));
 
-  const toggleExpanded = (index) => {
+  const toggleLang = (index) => {
+    setLangs((prev) =>
+      prev.map((l, i) => (i === index ? (l === "bn" ? "en" : "bn") : l))
+    );
+  };
+
+  const toggleExpand = (index) => {
     setExpandedIndex(expandedIndex === index ? null : index);
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
-      <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-        {lang === "bn" ? "আজকের রেসিপি" : "Recipes of the Day"}
+    <div className="min-h-screen p-8 bg-[var(--dashboard-bg)]">
+      <h2 className="text-4xl font-extrabold text-center mb-10 text-[var(--fourground-color)]">
+        Recipe of the Day 🍽️
       </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {recipes.map((recipe, index) => (
-          <div
-            key={index}
-            className="rounded-2xl shadow-md border p-4 flex flex-col gap-3"
-            style={{
-              borderColor: "var(--dashboard-border)",
-              backgroundColor: "var(--dashboard-bg)",
-            }}
-          >
-            {/* Image */}
-            <img
-              src={recipe.image}
-              alt={recipe.title[lang]}
-              className="rounded-xl w-full object-cover h-40"
-            />
+      <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8 max-w-7xl mx-auto">
+        {recipes.map((recipe, index) => {
+          const lang = langs[index];
+          const isExpanded = expandedIndex === index;
 
-            {/* Title */}
-            <h3 className="text-xl font-bold text-gray-800">
-              🍎 {recipe.title[lang]}
-            </h3>
+          return (
+            <motion.div
+  key={index}
+  className="relative rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 bg-[var(--color-white)] dark:bg-[var(--dashboard-bg)] border border-[var(--dashboard-border)]"
+>
+  {/* Image with zoom */}
+  <motion.div
+    className="relative overflow-hidden"
+    whileHover={{ scale: 1.05 }}
+    transition={{ duration: 0.4 }}
+  >
+    <motion.img
+      src={recipe.image}
+      alt={recipe.title[lang]}
+      className="w-full h-56 object-cover"
+      animate={{ scale: isExpanded ? 1.08 : 1 }}
+      transition={{ duration: 0.4 }}
+    />
+  </motion.div>
 
-            {/* Description */}
-            <p className="text-gray-700">{recipe.description[lang]}</p>
+  <div className="p-6">
+    {/* Title + language toggle */}
+    <div className="flex justify-between items-center mb-3">
+      <h3 className="text-xl font-bold text-[var(--fourground-color)]">
+        {recipe.title[lang]}
+      </h3>
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          toggleLang(index);
+        }}
+        className="text-[var(--dashboard-blue)] text-sm font-semibold underline hover:text-[var(--color-calm-blue)]"
+      >
+        {lang === "bn" ? "EN" : "BN"}
+      </button>
+    </div>
 
-            {/* Nutrition */}
-            <p className="text-green-600 font-medium">{recipe.nutrition[lang]}</p>
+    <p className="text-[var(--fourground-color)] mb-2">
+      {recipe.description[lang]}
+    </p>
 
-            {/* Buttons Row */}
-            <div className="flex justify-between items-center mt-2">
-              {/* Read More / Collapse (Underline) */}
-              <span
-                onClick={() => toggleExpanded(index)}
-                className="text-green-600 font-medium cursor-pointer underline hover:text-green-700 transition"
-              >
-                {expandedIndex === index
-                  ? lang === "bn"
-                    ? "কমাও ↑"
-                    : "Collapse ↑"
-                  : lang === "bn"
-                  ? "বিস্তারিত পড়ুন →"
-                  : "Read More →"}
-              </span>
+    <button
+      onClick={() => toggleExpand(index)}
+      className="mt-2 text-[var(--dashboard-blue)] font-semibold underline hover:text-[var(--color-calm-blue)]"
+    >
+      {isExpanded ? "Show Less" : "Read More"}
+    </button>
 
-              {/* Language Toggle */}
-              <span
-                onClick={() => setLang(lang === "bn" ? "en" : "bn")}
-                className="text-blue-600 font-medium cursor-pointer underline hover:text-blue-700 transition"
-              >
-                {lang === "bn" ? "English" : "বাংলা"}
-              </span>
-            </div>
+    {/* Expanded content only for this card */}
+    <AnimatePresence>
+      {isExpanded && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          exit={{ opacity: 0, height: 0 }}
+          transition={{ duration: 0.4 }}
+          className="mt-4"
+        >
+          <p className="font-semibold mb-2 text-[var(--fourground-color)]">
+            {recipe.nutrition[lang]}
+          </p>
+          <ul className="text-[var(--fourground-color)] list-disc ml-5">
+            {recipe.benefits[lang].map((benefit, i) => (
+              <li key={i}>{benefit}</li>
+            ))}
+          </ul>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  </div>
+</motion.div>
 
-            {/* Expanded Section */}
-            <AnimatePresence>
-              {expandedIndex === index && (
-                <motion.ul
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="list-disc list-inside space-y-1 text-gray-700 mt-2"
-                >
-                  {recipe.benefits[lang].map((item, i) => (
-                    <li key={i}>{item}</li>
-                  ))}
-                </motion.ul>
-              )}
-            </AnimatePresence>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
 };
-
 
 export default RecipeOfTheDay;
