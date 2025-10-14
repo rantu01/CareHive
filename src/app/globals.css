@@ -10,7 +10,7 @@
   --font-alt: 'Montserrat', sans-serif;      /* Optional alternative font */
 
   /* Calm Blue - More modern blue */
-  --color-calm-blue: #3b82f6;
+  --color-calm-blue: #3b7f81;
 
   /* Black - Softer black */
   --color-black: #111827;
@@ -19,7 +19,7 @@
   --color-white: #FFFFFF;
 
   /* Light Green - More pleasant green */
-  --color-light-green: #10b981;
+  --color-primary: #19b4b4;
 
   /* Dashboard colors - Better blue */
   --dashboard-blue: #2563eb;

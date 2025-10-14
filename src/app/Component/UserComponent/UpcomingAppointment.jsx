@@ -4,6 +4,7 @@ import { Calendar, UserRound, Clock, Video, MapPin, ChevronRight } from "lucide-
 import Link from "next/link";
 import { use, useState } from "react";
 import { DashBoardDataContext } from "./UserDashBoardDataContext/DashboardDataContext";
+import { formatDate } from "@/app/utils/appoinmentPageFn";
 
 const UpcomingAppointment = () => {
     const { appointmentData } = use(DashBoardDataContext);
@@ -30,20 +31,20 @@ const UpcomingAppointment = () => {
                     {/* Header */}
                     <header className="flex justify-between items-center mb-8 ">
                         <div className="flex gap-4 items-center">
-                            <div className="p-3 bg-[var(--color-light-green)] rounded-2xl shadow-lg">
+                            <div className="p-3 bg-[var(--color-primary)] rounded-2xl shadow-lg">
                                 <Calendar className="text-white" size={24} />
                             </div>
                             <div>
-                                <h2 className="font-bold text-[var(--color-light-green)] text-lg md:text-xl">
+                                <h2 className="font-bold text-[var(--color-primary)] text-lg md:text-xl">
                                     Upcoming Appointments
                                 </h2>
-                                <p className="text-[var(--color-light-green)]/60 text-sm">
-                                    Next 3 scheduled appointments
+                                <p className="text-[var(--color-primary)] text-sm">
+                                    Next {appointmentData?.length} scheduled appointments
                                 </p>
                             </div>
-                        </div>
+                        </div> 
                         <Link href='/dashboard/user/appointments'
-                            className="group text-sm md:text-lg px-2 md:px-4 py-2 bg-[var(--color-light-green)] text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center gap-2"
+                            className="group text-sm md:text-lg px-2 md:px-4 py-2 bg-[var(--color-primary)] text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center gap-2"
                         >
                             <div className="flex items-center">
                                 <span className="text-[10px] md:text-[1rem]">View All</span>
@@ -64,7 +65,7 @@ const UpcomingAppointment = () => {
                                     You have not booked any appointments yet
                                 </p>
                                 <Link
-                                    href={"/hello"}
+                                    href={"/doctors"}
                                     className="group px-6 py-3 bg-[var(--color-light-green)] text-white rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center gap-2"
                                 >
                                     <Calendar size={18} />
@@ -76,7 +77,7 @@ const UpcomingAppointment = () => {
                         {/* Appointments List */}
                         {appointmentData?.slice(0, 3)?.map((appointment, index) => (
                             <div
-                                key={appointment?.doctorName}
+                                key={appointment?.bookedAt}
                                 className="group bg-[var(--dashboard-bg)] p-4 md:p-5 rounded-2xl border-2 border-[var(--dashboard-border)] shadow-md hover:shadow-lg hover:border-[var(--color-light-green)]/30 transition-all duration-300 hover:-translate-y-1"
                             >
                                 {/* Desktop Layout */}
@@ -84,40 +85,41 @@ const UpcomingAppointment = () => {
                                     {/* Doctor Info */}
                                     <div className="flex items-center gap-4 flex-1">
                                         <div className="relative">
-                                            <div className="bg-[var(--color-light-green)] p-3 rounded-2xl shadow-lg group-hover:scale-110 transition-transform duration-300">
-                                                <UserRound className="text-white" size={22} />
+                                            <div className="bg-[var(--color-primary)] p-3 rounded-2xl shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                                <UserRound className="text-[var(--white)] " size={22} />
                                             </div>
                                             {/* Online Status Indicator */}
-                                            <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-[var(--color-light-green)] rounded-full border-2 border-white">
-                                                <div className="w-1.5 h-1.5 bg-white rounded-full mx-auto mt-0.5"></div>
-                                            </div>
+                                            {/* <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-[var(--color-primary)]">
+                                                <div className="w-1.5 h-1.5  rounded-full mx-auto mt-0.5"></div>
+                                            </div> */}
                                         </div>
 
                                         <div className="space-y-1 flex-1 min-w-0">
-                                            <p className="font-bold text-[var(--color-light-green)] text-lg group-hover:text-[var(--color-light-green)] transition-colors duration-300">
+                                            <p className="font-bold text-[var(--color-primary)] text-lg  transition-colors duration-300">
                                                 Dr. {appointment?.doctorName}
                                             </p>
                                             <p className="text-[var(--color-light-green)]/70 text-sm font-medium">
                                                 {appointment?.specialist}
                                             </p>
-                                            <div className="flex items-center gap-4 text-xs text-[var(--color-light-green)]/60">
+                                            <div className="flex items-center gap-4 text-xs text-[var(--color-primary)]/60">
                                                 <div className="flex items-center gap-1">
                                                     <Clock size={12} />
-                                                    <span>{formatAppointmentDate(appointment.appointmentDate)}</span>
+                                                    <span>{formatDate(appointment?.bookedAt)}</span>
                                                 </div>
                                                 <div className="flex items-center gap-1">
                                                     <MapPin size={12} />
-                                                    <span>Virtual</span>
+                                                    <span>{appointment?.meetingType.toUpperCase()}</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     {/* Join Button */}
-                                    <button className="group/btn px-4 py-2 bg-[var(--color-light-green)] text-white rounded-xl font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center gap-2">
+
+                                    {appointment?.meetingType !== "inPerson" && <button className="group/btn px-4 py-2 bg-[var(--color-primary)] text-white rounded-xl font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center gap-2">
                                         <Video size={16} className="group-hover/btn:scale-110 transition-transform duration-300" />
                                         <span>Join</span>
-                                    </button>
+                                    </button>}
                                 </div>
 
                                 {/* Mobile Layout */}
@@ -148,7 +150,7 @@ const UpcomingAppointment = () => {
                                     <div className="flex items-center gap-4 text-xs text-[var(--color-light-green)]/60 bg-[var(--dashboard-border)]/10 p-2 rounded-lg">
                                         <div className="flex items-center gap-1">
                                             <Clock size={12} className="text-[var(--color-light-green)]" />
-                                            <span>{formatAppointmentDate(appointment.appointmentDate)}</span>
+                                            <span>{formatDate(appointment?.bookedAt)}</span>
                                         </div>
                                         <div className="flex items-center gap-1">
                                             <MapPin size={12} className="text-[var(--color-light-green)]" />
@@ -157,10 +159,10 @@ const UpcomingAppointment = () => {
                                     </div>
 
                                     {/* Join Button - Full Width */}
-                                    <button className="group/btn w-full px-4 py-2.5 bg-[var(--color-light-green)] text-white rounded-xl font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center gap-2">
+                                    {appointment?.meetingType !== "inPerson" && <button className="group/btn w-full px-4 py-2.5 bg-[var(--color-light-green)] text-white rounded-xl font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center gap-2">
                                         <Video size={16} className="group-hover/btn:scale-110 transition-transform duration-300" />
                                         <span>Join Video Call</span>
-                                    </button>
+                                    </button>}
                                 </div>
                             </div>
                         ))}

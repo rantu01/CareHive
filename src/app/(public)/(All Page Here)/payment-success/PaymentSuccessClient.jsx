@@ -23,7 +23,9 @@ export default function PaymentSuccessClient() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
   const [payment, setPayment] = useState(null);
+  const [patientSerial, setPatientSerial] = useState(0)
 
+  
   useEffect(() => {
     if (sessionId) {
       axios
@@ -32,6 +34,20 @@ export default function PaymentSuccessClient() {
         .catch((err) => console.error(err));
     }
   }, [sessionId]);
+
+
+  useEffect(() => {
+
+    const paymentSucess = async () => {
+      const response = await axios.post('/api/appointments', payment?.metadata)
+      setPatientSerial(response?.data?.serialNo)
+    }
+
+    if (payment) {
+      paymentSucess()
+    }
+  }, [payment]);
+
 
   if (!payment) {
     return (
@@ -44,13 +60,15 @@ export default function PaymentSuccessClient() {
     );
   }
 
-  const handleDownloadPDF = () => pdfGenerator(payment);
+  const handleDownloadPDF = () => {
+    pdfGenerator(payment, patientSerial)
+  }
 
   return (
     <div className="min-h-screen px-4 py-12 md:py-16">
       <div className="max-w-5xl mx-auto">
         {/* Success Header */}
-        <div className="bg-gradient-to-br from-[var(--color-light-green)] via-[#7FE87F] to-[var(--color-light-green)] rounded-3xl shadow-2xl overflow-hidden mb-8 transform">
+        <div className="bg-gradient-to-br from-[var(--color-primary)] via-[#7FE87F] to-[var(--color-primary)] rounded-3xl shadow-2xl overflow-hidden mb-8 transform">
           <div className="px-8 py-12 md:py-16 text-center relative">
             <div className="absolute top-0 left-0 w-full h-full opacity-10">
               <div className="absolute top-10 left-10 w-32 h-32 bg-[var(--color-white)] rounded-full"></div>
@@ -58,7 +76,7 @@ export default function PaymentSuccessClient() {
             </div>
             <div className="relative z-10">
               <div className="inline-flex items-center justify-center bg-[var(--color-white)] rounded-full w-24 h-24 mb-6 shadow-xl animate-bounce">
-                <CheckCircle size={56} className="text-[var(--color-light-green)]" strokeWidth={2.5} />
+                <CheckCircle size={56} className="text-[var(--color-primary)]" strokeWidth={2.5} />
               </div>
               <h1 className="text-4xl md:text-5xl font-bold text-[var(--color-black)] mb-3">
                 Payment Successful!
@@ -103,7 +121,7 @@ export default function PaymentSuccessClient() {
 
               {/* Appointment Info */}
               <div className="space-y-6">
-                <SectionHeader title="Appointment Details" color="var(--color-light-green)" />
+                <SectionHeader title="Appointment Details" color="var(--color-primary)" />
                 <InfoItem icon={<Stethoscope />} label="Doctor Name" value={payment.metadata.doctorName} />
                 <InfoItem icon={<Building2 />} label="Hospital Name" value={payment.metadata.hospitalName} />
                 <InfoItem icon={<Calendar />} label="Booked Slot" value={payment.metadata.bookedSlot.toUpperCase()} />
@@ -128,14 +146,31 @@ export default function PaymentSuccessClient() {
                   <p className="text-xs opacity-60 uppercase tracking-wider font-semibold mb-2">
                     Payment Status
                   </p>
-                  <span className="inline-flex items-center gap-2 bg-[var(--color-light-green)] text-[var(--color-black)] px-5 py-2 rounded-full text-sm font-bold capitalize shadow-md">
+                  <span className="inline-flex items-center gap-2 bg-[var(--color-primary)] text-[var(--color-black)] px-5 py-2 rounded-full text-sm font-bold capitalize shadow-md">
                     <CheckCircle size={16} />
                     {payment.payment_status}
                   </span>
                 </div>
               </div>
             </div>
-
+            <div className="group bg-gradient-to-r from-[var(--color-light-green)]/20 to-[#7FE87F]/20 border border-[var(--color-light-green)] rounded-2xl p-6 mb-8 transition-all duration-300 hover:shadow-lg">
+              <div className="flex items-start gap-4">
+                <div className="bg-[var(--color-light-green)] bg-opacity-20 p-3 rounded-xl group-hover:scale-110 transition-transform duration-200">
+                  <User size={24} className="text-[#2D8F2D]" strokeWidth={2} />
+                </div>
+                <div className="flex-1">
+                  <p className="text-xs text-[var(--fourground-color)] opacity-60 uppercase tracking-wider font-semibold mb-1">
+                    Your Serial Number
+                  </p>
+                  <p className="text-[var(--fourground-color)] font-bold text-3xl md:text-4xl">
+                    #{patientSerial || '—'}
+                  </p>
+                  <p className="text-sm text-[var(--fourground-color)] opacity-70 mt-2">
+                    Please arrive early and mention this number at the reception.
+                  </p>
+                </div>
+              </div>
+            </div>
             {/* Download Button */}
             <button
               onClick={handleDownloadPDF}

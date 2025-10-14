@@ -40,7 +40,7 @@ const DoctorCard = ({ doc, personal, education, practice, isBooked, setSelectedD
                     <div
                         className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-medium"
                         style={{
-                            backgroundColor: "var(--color-light-green)",
+                            backgroundColor: "var(--color-primary)",
                             color: "var(--color-white)",
                         }}
                     >
@@ -80,7 +80,7 @@ const DoctorCard = ({ doc, personal, education, practice, isBooked, setSelectedD
                     >
                         <span
                             className="w-5 h-5 rounded-full flex items-center justify-center text-xs"
-                            style={{ backgroundColor: "var(--color-light-green)", color: "var(--color-white)" }}
+                            style={{ backgroundColor: "var(--color-primary)", color: "var(--color-white)" }}
                         >
                             ✓
                         </span>
@@ -100,8 +100,9 @@ const DoctorCard = ({ doc, personal, education, practice, isBooked, setSelectedD
                     className="text-sm leading-relaxed"
                     style={{ color: "var(--fourground-color)", opacity: 0.8 }}
                 >
-                    {practice.clinicAddress || "General Practitioner"}
+                    {practice.clinicAddress ? `${practice.clinicAddress.slice(0, 27)}${practice.clinicAddress.length > 27 ? '...' : ''}` : "General Practitioner"}
                 </p>
+
 
                 {/* Action Buttons */}
                 <div className="flex gap-3 pt-2">
