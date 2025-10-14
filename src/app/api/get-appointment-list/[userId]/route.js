@@ -2,12 +2,13 @@ import clientPromise from "../../../lib/mongodb";
 import { NextResponse } from "next/server";
 
 
-export async function GET(request,{params}) {
+export async function GET(request, { params }) {
 
   try {
 
-    const {userId}=await params
+    const { userId } = await params
 
+    console.log("hitting the appoinment booking", userId)
     if (!userId) {
       return NextResponse.json(
         { error: "User ID is required" },
@@ -20,6 +21,7 @@ export async function GET(request,{params}) {
     const userAppointmentsCollection = db.collection("userAppointments")
     const doctorList = await userAppointmentsCollection.find({ userId: userId }).toArray();
 
+    console.log("the doctor list is", doctorList, userId)
 
     return NextResponse.json(doctorList);
   } catch (error) {

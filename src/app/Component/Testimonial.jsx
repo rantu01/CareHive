@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { FaQuoteLeft, FaStar } from "react-icons/fa";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-// Testimonials Data
 const testimonials = [
   {
     name: "Rahim Hasan",
@@ -102,6 +101,15 @@ const Testimonial = () => {
               <div className="w-12 h-12 bg-[var(--color-primary)] rounded-full flex items-center justify-center">
                 <FaQuoteLeft className="text-white text-xl" />
               </div>
+              <p className="text-[var(--fourground-color)] italic text-lg mb-4 leading-relaxed">
+                {t.quote}
+              </p>
+              <h3 className="font-semibold text-[var(--fourground-color)] text-xl mb-1">
+                {t.name}
+              </h3>
+              <span className="text-sm text-[var(--color-calm-blue)] uppercase tracking-wide">
+                {t.designation}
+              </span>
             </div>
 
             <div className="text-center">

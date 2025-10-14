@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sun, Moon, Activity, Droplets, Heart, Sparkles } from "lucide-react";
 
@@ -69,9 +69,14 @@ const DailyWellnessCheckIn = () => {
   const [showModal, setShowModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false); // New state for error
 
-  const generateTips = () => {
-    const tips = [];
-    if (!selectedMood) return tips;
+  // Detect browser language
+  useEffect(() => {
+    const browserLang = navigator.language.startsWith("bn") ? "bn" : "en";
+    setLang(browserLang);
+  }, []);
+
+  const tips = useMemo(() => {
+    if (!selectedMood) return [];
     const moodObj = moods.find((m) => m.emoji === selectedMood);
     if (!moodObj) return tips;
 

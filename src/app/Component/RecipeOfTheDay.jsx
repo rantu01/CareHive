@@ -91,6 +91,7 @@ const recipes = [
   },
 ];
 
+
 const RecipeOfTheDay = () => {
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [hoveredIndex, setHoveredIndex] = useState(null);

@@ -13,7 +13,6 @@ const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
 
 
 
-
     const handleMeetingType = (type) => {
         setMeetingType(type);
     };
@@ -29,11 +28,13 @@ const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
         patientName: user.displayName,
         patientEmail: user.email,
         fees: selectedDoctor.practiceInfo.consultationFees[meetingType],
-        bookedAt: new Date()
+        bookedAt: new Date(),
+        userId:user?.uid
     }
 
     const handleBooking = (booking) => {
-        if (selectedDoctor.practiceInfo.patientLimit[selectedDay] === 0) {
+        console.log(selectedDoctor.practiceInfo.patientLimit[selectedDay])
+        if (selectedDoctor.practiceInfo.patientLimit[selectedDay] == 0) {
             Swal.fire("Slot is full")
             return
         } else {
