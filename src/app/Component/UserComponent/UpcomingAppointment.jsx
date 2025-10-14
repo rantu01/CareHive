@@ -47,7 +47,7 @@ const UpcomingAppointment = () => {
                             className="group text-sm md:text-lg px-2 md:px-4 py-2 bg-[var(--color-primary)] text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center gap-2"
                         >
                             <div className="flex items-center">
-                                <span className="text-[10px] md:text-[1rem] text-[var(--fourground-color)]">View All</span>
+                                <span className="text-[10px] md:text-[1rem]">View All</span>
                                 <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
                             </div>
                         </Link>

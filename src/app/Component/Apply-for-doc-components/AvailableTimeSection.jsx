@@ -17,7 +17,8 @@ const AvailableTimeSection = ({
   doctorAvailableDays,
   spokenLanguage,
   setSpokenLanguage,
-  setDoctorHospital
+  setDoctorHospital,
+  setDoctorHospitalId
 }) => {
 
 
@@ -40,6 +41,7 @@ const AvailableTimeSection = ({
     mutationFn: fetchHospitalData,
     onSuccess: (data) => {
       setDoctorHospital(data[0]?.name)
+      setDoctorHospitalId(data[0]?._id)
       setHospitals(data)
     },
     onError: () => {
@@ -309,7 +311,13 @@ const AvailableTimeSection = ({
                 Hospital Name
               </label>
               <select
-                onChange={(e) => setDoctorHospital(e.target.value)}
+                onChange={(e) => {
+                  const selectedHospital = hospitals.find(h => h._id === e.target.value);
+                  if (selectedHospital) {
+                    setDoctorHospital(selectedHospital.name);
+                    setDoctorHospitalId(selectedHospital._id);
+                  }
+                }}
                 id="hospital"
                 name="hospital"
                 className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -322,7 +330,8 @@ const AvailableTimeSection = ({
                 }}
               >
                 {hospitals?.map((hospital) => (
-                  <option key={hospital._id} value={hospital.value}>
+
+                  <option key={hospital._id} value={hospital._id}>
                     {hospital.name}
                   </option>
                 ))}
