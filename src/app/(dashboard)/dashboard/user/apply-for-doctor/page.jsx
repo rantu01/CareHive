@@ -26,8 +26,11 @@ const Page = () => {
     const [patientLimit, setPatientLimit] = useState({});
 
     const [doctorHospital, setDoctorHospital] = useState("")
+    const [doctorHospitalId,setDoctorHospitalId]=useState("")
 
 
+    console.log("doctor hospital id",doctorHospitalId)
+    console.log("doctor hospital ",doctorHospital)
     // Carousel state
     const [currentStep, setCurrentStep] = useState(0);
 
@@ -116,7 +119,8 @@ const Page = () => {
                 },
                 languagesSpoken: spokenLanguage,
                 profilePhoto: profileImage,
-                clinicAddress: doctorHospital
+                clinicAddress: doctorHospital,
+                clinicId:doctorHospitalId
             },
             status: {
                 isVerified: false,
@@ -275,6 +279,7 @@ const Page = () => {
                                     <div className="animate-fadeIn">
                                         <AvailableTimeSection
                                             setDoctorHospital={setDoctorHospital}
+                                            setDoctorHospitalId={setDoctorHospitalId}
                                             slots={slots}
                                             setSlots={setSlots}
                                             doctorAvailableDays={doctorAvailableDays}

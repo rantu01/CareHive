@@ -31,20 +31,20 @@ const UpcomingAppointment = () => {
                     {/* Header */}
                     <header className="flex justify-between items-center mb-8 ">
                         <div className="flex gap-4 items-center">
-                            <div className="p-3 bg-[var(--color-light-green)] rounded-2xl shadow-lg">
+                            <div className="p-3 bg-[var(--color-primary)] rounded-2xl shadow-lg">
                                 <Calendar className="text-white" size={24} />
                             </div>
                             <div>
-                                <h2 className="font-bold text-[var(--color-light-green)] text-lg md:text-xl">
+                                <h2 className="font-bold text-[var(--color-primary)] text-lg md:text-xl">
                                     Upcoming Appointments
                                 </h2>
-                                <p className="text-[var(--color-light-green)]/60 text-sm">
+                                <p className="text-[var(--color-primary)] text-sm">
                                     Next {appointmentData?.length} scheduled appointments
                                 </p>
                             </div>
-                        </div>
+                        </div> 
                         <Link href='/dashboard/user/appointments'
-                            className="group text-sm md:text-lg px-2 md:px-4 py-2 bg-[var(--color-light-green)] text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center gap-2"
+                            className="group text-sm md:text-lg px-2 md:px-4 py-2 bg-[var(--color-primary)] text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center gap-2"
                         >
                             <div className="flex items-center">
                                 <span className="text-[10px] md:text-[1rem]">View All</span>
@@ -85,23 +85,23 @@ const UpcomingAppointment = () => {
                                     {/* Doctor Info */}
                                     <div className="flex items-center gap-4 flex-1">
                                         <div className="relative">
-                                            <div className="bg-[var(--color-light-green)] p-3 rounded-2xl shadow-lg group-hover:scale-110 transition-transform duration-300">
-                                                <UserRound className="text-white" size={22} />
+                                            <div className="bg-[var(--color-primary)] p-3 rounded-2xl shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                                <UserRound className="text-[var(--white)] " size={22} />
                                             </div>
                                             {/* Online Status Indicator */}
-                                            <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-[var(--color-light-green)] rounded-full border-2 border-white">
-                                                <div className="w-1.5 h-1.5 bg-white rounded-full mx-auto mt-0.5"></div>
-                                            </div>
+                                            {/* <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-[var(--color-primary)]">
+                                                <div className="w-1.5 h-1.5  rounded-full mx-auto mt-0.5"></div>
+                                            </div> */}
                                         </div>
 
                                         <div className="space-y-1 flex-1 min-w-0">
-                                            <p className="font-bold text-[var(--color-light-green)] text-lg group-hover:text-[var(--color-light-green)] transition-colors duration-300">
+                                            <p className="font-bold text-[var(--color-primary)] text-lg  transition-colors duration-300">
                                                 Dr. {appointment?.doctorName}
                                             </p>
                                             <p className="text-[var(--color-light-green)]/70 text-sm font-medium">
                                                 {appointment?.specialist}
                                             </p>
-                                            <div className="flex items-center gap-4 text-xs text-[var(--color-light-green)]/60">
+                                            <div className="flex items-center gap-4 text-xs text-[var(--color-primary)]/60">
                                                 <div className="flex items-center gap-1">
                                                     <Clock size={12} />
                                                     <span>{formatDate(appointment?.bookedAt)}</span>
@@ -116,7 +116,7 @@ const UpcomingAppointment = () => {
 
                                     {/* Join Button */}
 
-                                    {appointment?.meetingType !== "inPerson" && <button className="group/btn px-4 py-2 bg-[var(--color-light-green)] text-white rounded-xl font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center gap-2">
+                                    {appointment?.meetingType !== "inPerson" && <button className="group/btn px-4 py-2 bg-[var(--color-primary)] text-white rounded-xl font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center gap-2">
                                         <Video size={16} className="group-hover/btn:scale-110 transition-transform duration-300" />
                                         <span>Join</span>
                                     </button>}

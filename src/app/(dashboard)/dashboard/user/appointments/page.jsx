@@ -18,7 +18,7 @@ const page = () => {
                 {/* Header Section */}
                 <header className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-6 sm:mb-8 md:mb-10 gap-3 sm:gap-4 md:gap-6">
                     <div className="space-y-1.5 sm:space-y-2 md:space-y-3">
-                        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-[var(--color-light-green)] to-emerald-500 bg-clip-text text-transparent">
+                        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold  text-[var(--color-primary)] bg-clip-text">
                             My Appointments
                         </h1>
                         <p className="text-[var(--fourground-color)]/60 text-sm sm:text-base md:text-lg">
@@ -31,7 +31,7 @@ const page = () => {
                             </span>
                         </div>
                     </div>
-                    <Link href={"/doctors"} className="w-full lg:w-auto px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 gap-2 sm:gap-3 rounded-xl font-semibold text-sm sm:text-base text-white bg-gradient-to-r from-[var(--color-light-green)] to-emerald-500 hover:from-emerald-500 hover:to-[var(--color-light-green)] shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center cursor-pointer group">
+                    <Link href={"/doctors"} className="w-full lg:w-auto px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 gap-2 sm:gap-3 rounded-xl font-semibold text-sm sm:text-base text-white bg-[var(--color-primary)] hover:to-[var(--color-light-green)] shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center cursor-pointer group">
                         <Calendar className="group-hover:rotate-12 transition-transform duration-300 w-4 h-4 sm:w-5 sm:h-5" />
                         <span>Book New Appointment</span>
                     </Link>
@@ -54,7 +54,7 @@ const page = () => {
                                     {/* Left Section - Doctor Info */}
                                     <div className="flex gap-3 sm:gap-4 md:gap-5 items-start flex-1">
                                         <div className="relative flex-shrink-0">
-                                            <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-gradient-to-br from-[var(--color-light-green)] to-emerald-500 rounded-xl sm:rounded-2xl flex justify-center items-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                            <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-[var(--color-primary)] rounded-xl sm:rounded-2xl flex justify-center items-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                                                 <User className="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white" />
                                             </div>
                                             <div className="absolute -bottom-1 -right-1 w-5 h-5 sm:w-6 sm:h-6 bg-green-500 rounded-full border-2 border-white flex items-center justify-center shadow-md">
@@ -64,7 +64,7 @@ const page = () => {
                                         
                                         <div className="space-y-2 sm:space-y-2.5 md:space-y-3 flex-1 min-w-0">
                                             <div>
-                                                <p className="text-[var(--fourground-color)] font-bold text-base sm:text-lg md:text-xl lg:text-2xl group-hover:text-[var(--color-light-green)] transition-colors duration-300 truncate">
+                                                <p className="text-[var(--fourground-color)] font-bold text-base sm:text-lg md:text-xl lg:text-2xl transition-colors duration-300 truncate">
                                                     Dr. {doctorName}
                                                 </p>
                                                 <div className="flex items-center gap-1.5 sm:gap-2 mt-1 sm:mt-1.5">
@@ -78,8 +78,8 @@ const page = () => {
                                             {/* Appointment Details Grid */}
                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 pt-2 sm:pt-3">
                                                 <div className="flex items-center gap-2 sm:gap-2.5 bg-[var(--dashboard-border)]/10 px-2.5 sm:px-3 py-2 sm:py-2.5 rounded-lg sm:rounded-xl">
-                                                    <div className="p-1.5 sm:p-2 bg-[var(--color-light-green)]/10 rounded-lg">
-                                                        <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[var(--color-light-green)]" />
+                                                    <div className="p-1.5 sm:p-2 bg-emerald-500/10 rounded-lg">
+                                                        <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[var(--color-primary)]" />
                                                     </div>
                                                     <div className="min-w-0 flex-1">
                                                         <p className="text-[var(--fourground-color)]/50 text-[10px] sm:text-xs font-medium">Booked On</p>
@@ -132,12 +132,12 @@ const page = () => {
                                     <div className="flex flex-col gap-2.5 sm:gap-3 lg:min-w-[200px]">
                                         {meetingType === "online" ? (
                                             <button className="group/btn flex gap-2 sm:gap-2.5 md:gap-3 items-center justify-center px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-green-500/10 to-emerald-500/10 hover:from-green-500/20 hover:to-emerald-500/20 border-2 border-green-500/20 hover:border-green-500/40 rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer">
-                                                <Video className="w-4 h-4 sm:w-5 sm:h-5 text-green-600 group-hover/btn:scale-110 transition-transform duration-300" />
+                                                <Video className="w-4 h-4 sm:w-5 text-[var(--color-primary)] sm:h-5 group-hover/btn:scale-110 transition-transform duration-300" />
                                                 <span className="text-[var(--fourground-color)] font-semibold text-sm sm:text-base">Join Video Call</span>
                                             </button>
                                         ) : (
-                                            <button className="group/btn flex gap-2 sm:gap-2.5 md:gap-3 items-center justify-center px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-[var(--color-light-green)]/10 to-emerald-500/10 hover:from-[var(--color-light-green)]/20 hover:to-emerald-500/20 border-2 border-[var(--color-light-green)]/20 hover:border-[var(--color-light-green)]/40 rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer">
-                                                <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--color-light-green)] group-hover/btn:scale-110 transition-transform duration-300" />
+                                            <button className="group/btn flex gap-2 sm:gap-2.5 md:gap-3 items-center justify-center px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-green-500/10 to-emerald-500/10 hover:from-green-500/20 hover:to-emerald-500/20 border-2 border-green-500/20 hover:border-green-500/40 rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer">
+                                                <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--color-primary)] group-hover/btn:scale-110 transition-transform duration-300" />
                                                 <span className="text-[var(--fourground-color)] font-semibold text-sm sm:text-base">In-Person Visit</span>
                                             </button>
                                         )}
