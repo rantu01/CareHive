@@ -67,46 +67,29 @@ const DailyWellnessCheckIn = () => {
   const [water, setWater] = useState(2);
   const [exercise, setExercise] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [showErrorModal, setShowErrorModal] = useState(false); // New state for error
-
-  // Detect browser language
-  useEffect(() => {
-    const browserLang = navigator.language.startsWith("bn") ? "bn" : "en";
-    setLang(browserLang);
-  }, []);
+  const [showErrorModal, setShowErrorModal] = useState(false);
 
   const tips = useMemo(() => {
     if (!selectedMood) return [];
     const moodObj = moods.find((m) => m.emoji === selectedMood);
-    if (!moodObj) return tips;
+    if (!moodObj) return [];
 
-    // Mood tips
-    tips.push(...moodObj.tips);
+    const allTips = [...moodObj.tips];
 
-    // Sleep, water, exercise tips
-    if (sleep < 7) tips.push("Aim for 7-8 hours of quality sleep tonight 🛌 (Sleep goal)");
-    if (water < 2) tips.push("Increase your water intake throughout the day 💧 (Hydration goal)");
-    if (!exercise) tips.push("Try to include some light movement today 🏃‍♂️ (Movement goal)");
+    if (sleep < 7) allTips.push("Aim for 7-8 hours of quality sleep tonight 🛌 (Sleep goal)");
+    if (water < 2) allTips.push("Increase your water intake throughout the day 💧 (Hydration goal)");
+    if (!exercise) allTips.push("Try to include some light movement today 🏃‍♂️ (Movement goal)");
 
-    // Ensure tips are unique and limit
-    const uniqueTips = Array.from(new Set(tips));
-
-    return uniqueTips.slice(0, 5); // Limit to 5 tips
-  };
+    return Array.from(new Set(allTips)).slice(0, 5); // unique & limit to 5
+  }, [selectedMood, sleep, water, exercise]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!selectedMood) {
-      // Use the custom error modal instead of alert
       setShowErrorModal(true);
       return;
     }
-    // Only show the tips modal if a mood is selected
     setShowModal(true);
-  };
-
-  const getMoodColor = (moodEmoji) => {
-    return selectedMood === moodEmoji ? "var(--color-primary)" : "var(--dashboard-border)";
   };
 
   return (
@@ -256,7 +239,7 @@ const DailyWellnessCheckIn = () => {
         </motion.button>
       </motion.form>
 
-      {/* --- TIPS MODAL (The 'SweetAlert' replacement) --- */}
+      {/* Tips Modal */}
       <AnimatePresence>
         {showModal && (
           <motion.div
@@ -265,30 +248,26 @@ const DailyWellnessCheckIn = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             style={{ backgroundColor: "rgba(0,0,0,0.3)" }}
-            onClick={() => setShowModal(false)} // Close modal on backdrop click
+            onClick={() => setShowModal(false)}
           >
             <motion.div
               className="bg-white rounded-3xl shadow-2xl border border-[var(--dashboard-border)] max-w-md w-full overflow-hidden"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+              onClick={(e) => e.stopPropagation()}
             >
-              {/* Modal Header */}
               <div className="bg-[var(--color-primary)] p-6 text-center">
                 <h3 className="text-2xl font-bold text-white flex items-center justify-center gap-3">
                   <Sparkles className="w-6 h-6" />
                   Your Wellness Tips
                 </h3>
-                <p className="text-white opacity-90 mt-1">
-                  Personalized recommendations for your day
-                </p>
+                <p className="text-white opacity-90 mt-1">Personalized recommendations for your day</p>
               </div>
 
-              {/* Tips List */}
               <div className="p-6 max-h-96 overflow-y-auto">
                 <div className="space-y-4">
-                  {generateTips().map((tip, index) => (
+                  {tips.map((tip, index) => (
                     <motion.div
                       key={index}
                       initial={{ opacity: 0, x: -20 }}
@@ -299,15 +278,12 @@ const DailyWellnessCheckIn = () => {
                       <div className="w-6 h-6 bg-[var(--color-primary)] text-white rounded-full flex items-center justify-center text-sm font-bold mt-0.5 flex-shrink-0">
                         {index + 1}
                       </div>
-                      <p className="text-[var(--fourground-color)] leading-relaxed text-sm">
-                        {tip}
-                      </p>
+                      <p className="text-[var(--fourground-color)] leading-relaxed text-sm">{tip}</p>
                     </motion.div>
                   ))}
                 </div>
               </div>
 
-              {/* Close Button */}
               <div className="p-6 border-t border-[var(--dashboard-border)]">
                 <motion.button
                   whileHover={{ scale: 1.02 }}
@@ -323,7 +299,7 @@ const DailyWellnessCheckIn = () => {
         )}
       </AnimatePresence>
 
-      {/* --- ERROR MODAL (Custom Alert) --- */}
+      {/* Error Modal */}
       <AnimatePresence>
         {showErrorModal && (
           <motion.div
@@ -331,7 +307,7 @@ const DailyWellnessCheckIn = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            style={{ backgroundColor: "rgba(255, 99, 71, 0.3)" }} // A soft tomato red backdrop
+            style={{ backgroundColor: "rgba(255, 99, 71, 0.3)" }}
             onClick={() => setShowErrorModal(false)}
           >
             <motion.div
@@ -343,13 +319,11 @@ const DailyWellnessCheckIn = () => {
             >
               <div className="bg-red-500 p-6">
                 <p className="text-4xl">⚠️</p>
-                <h3 className="text-xl font-bold text-white mt-2">
-                  Oops! Missing Mood
-                </h3>
+                <h3 className="text-xl font-bold text-white mt-2">Oops! Missing Mood</h3>
               </div>
               <div className="p-6">
                 <p className="text-[var(--fourground-color)] mb-4">
-                  Please select your **current mood** before getting personalized tips.
+                  Please select your <strong>current mood</strong> before getting personalized tips.
                 </p>
                 <motion.button
                   whileHover={{ scale: 1.02 }}

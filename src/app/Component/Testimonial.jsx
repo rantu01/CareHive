@@ -57,7 +57,9 @@ const Testimonial = () => {
   };
 
   const prevTestimonial = () => {
-    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setCurrentIndex(
+      (prev) => (prev - 1 + testimonials.length) % testimonials.length
+    );
   };
 
   const renderStars = (rating) => {
@@ -102,13 +104,13 @@ const Testimonial = () => {
                 <FaQuoteLeft className="text-white text-xl" />
               </div>
               <p className="text-[var(--fourground-color)] italic text-lg mb-4 leading-relaxed">
-                {t.quote}
+                {testimonials[currentIndex].quote}
               </p>
               <h3 className="font-semibold text-[var(--fourground-color)] text-xl mb-1">
-                {t.name}
+                {testimonials[currentIndex].name}
               </h3>
               <span className="text-sm text-[var(--color-calm-blue)] uppercase tracking-wide">
-                {t.designation}
+                {testimonials[currentIndex].designation}
               </span>
             </div>
 
