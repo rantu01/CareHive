@@ -1,125 +1,185 @@
 "use client";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Sparkles, RefreshCw, Play, Zap } from "lucide-react";
 
 export default function QuickHealthTips() {
   const tipsList = [
-    "💧 Drink at least 8 glasses of water daily.",
-    "🚶 Take a 10-minute walk after meals to improve digestion.",
-    "😴 Aim for 7-8 hours of quality sleep every night.",
-    "🥦 Eat more vegetables and fruits for vitamins and minerals.",
-    "🧘 Practice deep breathing for 5 minutes to reduce stress.",
-    "⏱️ Take short breaks from the screen every 30 minutes.",
-    "🏋️ Add strength training exercises at least twice a week.",
-    "🍵 Avoid too much caffeine in the evening for better sleep.",
-    "📏 Maintain a good posture while sitting to protect your back.",
-    "😊 Keep a gratitude journal to boost your mental health.",
-    "🥤 Replace sugary drinks with water or herbal tea.",
-    "🌞 Get 10–15 minutes of sunlight daily for Vitamin D.",
-    "🍎 Start your day with a healthy breakfast for energy.",
-    "🚰 Drink water before meals to help control appetite.",
+    "💧 Drink at least 8 glasses of water daily for optimal hydration.",
+    "🚶 Take a 10-minute walk after meals to improve digestion and metabolism.",
+    "😴 Aim for 7-8 hours of quality sleep every night for better recovery.",
+    "🥦 Eat more vegetables and fruits for essential vitamins and minerals.",
+    "🧘 Practice deep breathing for 5 minutes daily to reduce stress levels.",
+    "⏱️ Take short breaks from screens every 30 minutes to protect your eyes.",
+    "🏋️ Add strength training exercises at least twice a week for muscle health.",
+    "🍵 Avoid too much caffeine in the evening for better sleep quality.",
+    "📏 Maintain good posture while sitting to protect your spine and back.",
+    "😊 Keep a gratitude journal to boost mental health and positivity.",
+    "🥤 Replace sugary drinks with water or herbal tea for better health.",
+    "🌞 Get 10–15 minutes of sunlight daily for Vitamin D synthesis.",
+    "🍎 Start your day with a healthy breakfast for sustained energy.",
+    "🚰 Drink water before meals to help control appetite and portions.",
     "🚴 Engage in at least 150 minutes of physical activity weekly.",
-    "🥗 Include protein in every meal for muscle health.",
-    "🍊 Eat citrus fruits for Vitamin C and stronger immunity.",
+    "🥗 Include protein in every meal for muscle maintenance and satiety.",
+    "🍊 Eat citrus fruits for Vitamin C and stronger immune system.",
     "🛌 Maintain a consistent sleep schedule even on weekends.",
-    "📱 Limit screen time before bedtime for better sleep.",
-    "🧴 Use sunscreen daily to protect your skin.",
-    "😃 Smile more often – it reduces stress naturally.",
-    "🧂 Reduce salt intake to keep your blood pressure balanced.",
-    "🥜 Add nuts and seeds to your snacks for healthy fats.",
-    "🥩 Avoid processed meats – go for lean protein instead.",
-    "🦷 Brush and floss daily to maintain oral health.",
-    "🎵 Listen to music to boost mood and reduce anxiety.",
-    "🚭 Avoid smoking and limit alcohol consumption.",
-    "🌿 Add green tea to your diet for antioxidants.",
-    "🥑 Eat avocados – they’re packed with healthy fats.",
-    "📚 Read for 20 minutes daily to relax your mind.",
+    "📱 Limit screen time before bedtime for better sleep quality.",
+    "🧴 Use sunscreen daily to protect your skin from UV damage.",
+    "😃 Smile more often – it naturally reduces stress and boosts mood.",
+    "🧂 Reduce salt intake to maintain healthy blood pressure levels.",
+    "🥜 Add nuts and seeds to snacks for healthy fats and nutrients.",
+    "🥩 Choose lean protein over processed meats for better health.",
+    "🦷 Brush and floss daily to maintain optimal oral health.",
+    "🎵 Listen to music regularly to boost mood and reduce anxiety.",
+    "🚭 Avoid smoking and limit alcohol consumption for longevity.",
+    "🌿 Add green tea to your diet for antioxidants and metabolism.",
+    "🥑 Eat avocados regularly for healthy fats and nutrients.",
+    "📚 Read for 20 minutes daily to relax and stimulate your mind.",
     "🏞️ Spend time outdoors to reduce stress and refresh your mind.",
-    "🤸 Stretch your body every morning to improve flexibility.",
-    "📖 Plan your meals ahead to avoid unhealthy eating.",
+    "🤸 Stretch every morning to improve flexibility and circulation.",
+    "📖 Plan meals ahead to avoid unhealthy eating choices.",
   ];
 
   const [dailyTips, setDailyTips] = useState([]);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  useEffect(() => {
+  const refreshTips = () => {
+    setIsRefreshing(true);
     const shuffled = [...tipsList].sort(() => 0.5 - Math.random());
     setDailyTips(shuffled.slice(0, 3));
+    setTimeout(() => setIsRefreshing(false), 1000);
+  };
+
+  useEffect(() => {
+    refreshTips();
   }, []);
 
   return (
-    <div className="relative mx-auto mt-12  p-6 sm:px-6 lg:px-8">
-      <div className="flex flex-col md:flex-row gap-6 md:gap-10">
-        {/* Left Column: Tips */}
-        <div
-          className="flex-1 z-10 p-6 sm:p-8 md:p-10 flex flex-col gap-6 rounded-2xl"
-          style={{ background: "var(--color-calm-blue)", color: "var(--color-white)" }}
+    <div className="max-w-6xl mx-auto px-4">
+      <div className="text-center mb-12">
+        <div className="inline-flex items-center gap-3 mb-4">
+          <div className="w-4 h-0.5 bg-[var(--color-primary)]"></div>
+          <span className="text-[var(--color-primary)] font-semibold text-sm uppercase tracking-wider">
+            Daily Wellness
+          </span>
+          <div className="w-4 h-0.5 bg-[var(--color-primary)]"></div>
+        </div>
+        
+        <h2 className="text-4xl font-bold mb-6 text-[var(--color-primary)] font-heading flex items-center justify-center gap-4">
+          <Sparkles className="w-8 h-8" />
+          Quick Health Tips
+          <Zap className="w-8 h-8" />
+        </h2>
+        
+        <p className="text-xl text-[var(--fourground-color)] max-w-2xl mx-auto leading-relaxed opacity-80">
+          Stay motivated with small, actionable health reminders updated daily to keep you on track.
+        </p>
+      </div>
+
+      <div className="grid lg:grid-cols-2 gap-8">
+        {/* Tips Section */}
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="bg-white rounded-3xl shadow-xl border border-[var(--dashboard-border)] p-8"
         >
-          <motion.h2
-            className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center md:text-left"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-          >
-            Quick Health Tips Feed
-          </motion.h2>
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-[var(--color-primary)] rounded-xl flex items-center justify-center">
+                <Sparkles className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold text-[var(--color-primary)]">
+                  Today's Tips
+                </h3>
+                <p className="text-[var(--fourground-color)] opacity-70">
+                  Fresh health advice daily
+                </p>
+              </div>
+            </div>
+            
+            <motion.button
+              onClick={refreshTips}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              disabled={isRefreshing}
+              className="p-3 bg-[var(--color-primary)] text-white rounded-xl hover:bg-[var(--color-calm-blue)] transition-all duration-300 disabled:opacity-50"
+            >
+              <RefreshCw className={`w-5 h-5 ${isRefreshing ? 'animate-spin' : ''}`} />
+            </motion.button>
+          </div>
 
-          <motion.p
-            className="text-center md:text-left text-base sm:text-lg"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.7 }}
-          >
-            Stay motivated with small, actionable health reminders.
-          </motion.p>
-
-          <ul className="space-y-4">
-            <AnimatePresence>
+          <div className="space-y-4">
+            <AnimatePresence mode="wait">
               {dailyTips.map((tip, index) => (
-                <motion.li
-                  key={index}
-                  initial={{ opacity: 0, y: 15, scale: 0.95 }}
+                <motion.div
+                  key={`${tip}-${index}`}
+                  initial={{ opacity: 0, y: 20, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -15, scale: 0.95 }}
-                  transition={{ duration: 0.5, delay: index * 0.2 }}
-                  className="border rounded-xl p-4 sm:p-5 shadow-lg backdrop-blur-sm"
-                  style={{
-                    background: "var(--dashboard-bg)",
-                    borderColor: "var(--dashboard-border)",
-                    color: "var(--fourground-color)",
-                  }}
+                  exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="p-4 rounded-xl border-2 border-[var(--dashboard-border)] bg-[var(--gray-color)] hover:border-[var(--color-primary)] transition-all duration-300 group hover:shadow-lg"
                 >
-                  <span className="font-medium text-sm sm:text-base">{tip}</span>
-                </motion.li>
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 bg-[var(--color-primary)] text-white rounded-full flex items-center justify-center text-sm font-bold mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                      {index + 1}
+                    </div>
+                    <p className="text-[var(--fourground-color)] leading-relaxed font-medium">
+                      {tip}
+                    </p>
+                  </div>
+                </motion.div>
               ))}
             </AnimatePresence>
-          </ul>
+          </div>
 
-          <motion.p
-            className="mt-4 text-center md:text-left text-sm sm:text-base"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 0.6 }}
-            style={{ color: "var(--gray-color)" }}
-          >
-            💡 Refresh the page to get new health tips!
-          </motion.p>
-        </div>
+          <div className="mt-6 p-4 bg-[var(--color-primary)] bg-opacity-10 rounded-xl border border-[var(--color-primary)] border-opacity-30">
+            <p className="text-sm  font-medium text-center">
+              🔄 Click the refresh button for new health tips!
+            </p>
+          </div>
+        </motion.div>
 
-        {/* Right Column: Video */}
-        <div className="flex-1 relative min-h-[220px] sm:min-h-[280px] md:min-h-[320px] rounded-2xl overflow-hidden">
-          <iframe
-            src="https://player.vimeo.com/video/1119895598?autoplay=1&loop=1&muted=1&background=1#t=0s"
-            title="Health Video"
-            className="w-full h-full object-cover rounded-2xl"
-            frameBorder="0"
-            allow="autoplay; fullscreen; picture-in-picture"
-            allowFullScreen
-          ></iframe>
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{ background: "var(--dashboard-blue)/20" }}
-          ></div>
-        </div>
+        {/* Video Section */}
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="bg-white rounded-3xl shadow-xl border border-[var(--dashboard-border)] overflow-hidden"
+        >
+          <div className="p-6 border-b border-[var(--dashboard-border)]">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-[var(--color-primary)] rounded-xl flex items-center justify-center">
+                <Play className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold text-[var(--color-primary)]">
+                  Wellness Video
+                </h3>
+                <p className="text-[var(--fourground-color)] opacity-70">
+                  Quick health inspiration
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="relative aspect-video">
+            <iframe
+              src="https://player.vimeo.com/video/1119895598?autoplay=1&loop=1&muted=1&background=1#t=0s"
+              title="Health and Wellness Inspiration"
+              className="w-full h-full"
+              frameBorder="0"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowFullScreen
+            />
+            <div className="absolute inset-0 pointer-events-none border-4 border-transparent rounded-3xl" />
+          </div>
+          
+          <div className="p-4 bg-[var(--gray-color)] border-t border-[var(--dashboard-border)]">
+            <p className="text-sm text-[var(--fourground-color)] text-center opacity-70">
+              Watch for daily health motivation and wellness tips
+            </p>
+          </div>
+        </motion.div>
       </div>
     </div>
   );
