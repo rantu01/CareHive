@@ -100,8 +100,9 @@ const DoctorCard = ({ doc, personal, education, practice, isBooked, setSelectedD
                     className="text-sm leading-relaxed"
                     style={{ color: "var(--fourground-color)", opacity: 0.8 }}
                 >
-                    {practice.clinicAddress || "General Practitioner"}
+                    {practice.clinicAddress ? `${practice.clinicAddress.slice(0, 27)}${practice.clinicAddress.length > 27 ? '...' : ''}` : "General Practitioner"}
                 </p>
+
 
                 {/* Action Buttons */}
                 <div className="flex gap-3 pt-2">

@@ -61,19 +61,19 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-md z-50 p-4 sm:p-6 md:p-8">
+    <div className="fixed inset-0 flex items-center justify-center bg-black/70 backdrop-blur-md z-50 p-4 sm:p-6 md:p-8">
       <div className="bg-gradient-to-br from-[var(--dashboard-bg)] to-[var(--card-bg)] w-full max-w-[90vw] lg:max-w-2xl max-h-[90vh] rounded-3xl shadow-2xl border-2 border-[var(--dashboard-border)] relative">
         {/* Decorative Background Elements */}
-        <div className="absolute top-0 right-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gradient-to-bl from-[var(--dashboard-blue)]/15 to-transparent rounded-full blur-2xl -translate-y-12 translate-x-12"></div>
-        <div className="absolute bottom-0 left-0 w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-gradient-to-tr from-[var(--dashboard-blue)]/10 to-transparent rounded-full blur-xl translate-y-10 -translate-x-10"></div>
+        <div className="absolute top-0 right-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gradient-to-bl from-[var(--color-primary)]/15 to-transparent rounded-full blur-2xl -translate-y-12 translate-x-12"></div>
+        <div className="absolute bottom-0 left-0 w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-gradient-to-tr from-[var(--color-primary)]/10 to-transparent rounded-full blur-xl translate-y-10 -translate-x-10"></div>
 
         <div className="relative z-10">
           {/* Header */}
           <div className="px-4 sm:px-6 py-4 sm:py-5 border-b-2 border-[var(--dashboard-border)]/50 bg-gradient-to-r from-[var(--card-bg)] to-[var(--sidebar-bg)] rounded-t-3xl">
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-2 sm:gap-3">
-                <div className="p-2 bg-[var(--dashboard-blue)]/20 rounded-xl">
-                  <Activity className="text-[var(--dashboard-blue)]" size={20} />
+                <div className="p-2 bg-[var(--color-primary)]/20 rounded-xl">
+                  <Activity className="text-[var(--color-primary)]" size={20} />
                 </div>
                 <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-[var(--fourground-color)]">
                   Update Health Data
@@ -85,7 +85,7 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
               >
                 <X
                   size={20}
-                  className="text-[var(--fourground-color)]/60 group-hover:text-[var(--dashboard-blue)] transition-colors duration-300"
+                  className="text-[var(--fourground-color)]/60 group-hover:text-[var(--color-primary)] transition-colors duration-300"
                 />
               </button>
             </div>
@@ -96,7 +96,7 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
             {/* Blood Pressure */}
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <Activity className="text-[var(--dashboard-blue)]" size={16} />
+                <Activity className="text-[var(--color-primary)]" size={16} />
                 <label
                   htmlFor="bloodPressure"
                   className="text-xs sm:text-sm font-semibold text-[var(--fourground-color)] uppercase tracking-wide"
@@ -111,14 +111,14 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
                 type="text"
                 placeholder="120/80"
                 required
-                className="w-full p-2 sm:p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]/30 focus:border-[var(--dashboard-blue)] transition-all duration-300"
+                className="w-full p-2 sm:p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-all duration-300"
               />
             </div>
 
             {/* Daily Step */}
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <TrendingUp className="text-[var(--dashboard-blue)]" size={16} />
+                <TrendingUp className="text-[var(--color-primary)]" size={16} />
                 <label
                   htmlFor="dailyStep"
                   className="text-xs sm:text-sm font-semibold text-[var(--fourground-color)] uppercase tracking-wide"
@@ -133,14 +133,14 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
                 type="text"
                 placeholder="8000"
                 required
-                className="w-full p-2 sm:p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]/30 focus:border-[var(--dashboard-blue)] transition-all duration-300"
+                className="w-full p-2 sm:p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-all duration-300"
               />
             </div>
 
             {/* Daily Step Target */}
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <TrendingUp className="text-[var(--dashboard-blue)]" size={16} />
+                <TrendingUp className="text-[var(--color-primary)]" size={16} />
                 <label
                   htmlFor="dailyStepTarget"
                   className="text-xs sm:text-sm font-semibold text-[var(--fourground-color)] uppercase tracking-wide"
@@ -155,14 +155,14 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
                 type="text"
                 placeholder="10000"
                 required
-                className="w-full p-2 sm:p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]/30 focus:border-[var(--dashboard-blue)] transition-all duration-300"
+                className="w-full p-2 sm:p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-all duration-300"
               />
             </div>
 
             {/* Heart Rate */}
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <Heart className="text-[var(--dashboard-blue)]" size={16} />
+                <Heart className="text-[var(--color-primary)]" size={16} />
                 <label
                   htmlFor="heartRate"
                   className="text-xs sm:text-sm font-semibold text-[var(--fourground-color)] uppercase tracking-wide"
@@ -177,14 +177,14 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
                 type="text"
                 placeholder="72"
                 required
-                className="w-full p-2 sm:p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]/30 focus:border-[var(--dashboard-blue)] transition-all duration-300"
+                className="w-full p-2 sm:p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-all duration-300"
               />
             </div>
 
             {/* Weight */}
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <Weight className="text-[var(--dashboard-blue)]" size={16} />
+                <Weight className="text-[var(--color-primary)]" size={16} />
                 <label
                   htmlFor="weight"
                   className="text-xs sm:text-sm font-semibold text-[var(--fourground-color)] uppercase tracking-wide"
@@ -199,22 +199,22 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
                 type="text"
                 placeholder="70"
                 required
-                className="w-full p-2 sm:p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)]/30 focus:border-[var(--dashboard-blue)] transition-all duration-300"
+                className="w-full p-2 sm:p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-all duration-300"
               />
             </div>
 
             {/* Error Message */}
             {invalidInputError && (
-              <div className="flex items-center gap-2 p-2 sm:p-3 bg-[var(--dashboard-blue)]/10 border border-[var(--dashboard-blue)]/30 rounded-xl">
-                <AlertCircle className="text-[var(--dashboard-blue)]" size={16} />
-                <p className="text-xs sm:text-sm text-[var(--dashboard-blue)] font-medium">{invalidInputError}</p>
+              <div className="flex items-center gap-2 p-2 sm:p-3 bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/30 rounded-xl">
+                <AlertCircle className="text-[var(--color-primary)]" size={16} />
+                <p className="text-xs sm:text-sm text-[var(--color-primary)] font-medium">{invalidInputError}</p>
               </div>
             )}
 
             {/* Submit Button */}
             <button
               type="submit"
-              className="group w-full bg-gradient-to-r from-[var(--dashboard-blue)] to-[var(--dashboard-blue)]/90 text-white py-2 sm:py-3 rounded-xl font-semibold hover:from-[var(--dashboard-blue)]/90 hover:to-[var(--dashboard-blue)] shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 text-sm sm:text-base"
+              className="group w-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary)]/90 text-white py-2 sm:py-3 rounded-xl font-semibold hover:from-[var(--color-primary)]/90 hover:to-[var(--color-primary)] shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 text-sm sm:text-base"
             >
               <Save size={18} className="group-hover:scale-110 transition-transform duration-300" />
               <span>Update Health Data</span>
