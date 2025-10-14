@@ -117,7 +117,7 @@ const NutritionAdvisor = () => {
         <div className="grid md:grid-cols-2 gap-6">
           {["breakfast", "lunch", "dinner", "snacks"].map((meal) => (
             <div key={meal} className="space-y-2">
-              <label className="block font-semibold text-[var(--fourground-color)] capitalize flex items-center gap-2">
+              <label className="font-semibold text-[var(--fourground-color)] capitalize flex items-center gap-2">
                 <Target className="w-4 h-4 text-[var(--color-primary)]" />
                 {meal.charAt(0).toUpperCase() + meal.slice(1)}
               </label>
