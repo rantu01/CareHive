@@ -10,7 +10,7 @@ const ContactSection = () => {
 
   return (
     <section
-      className="py-16 px-6 bg-gradient-to-r from-calm-blue to-white min-h-screen flex items-center justify-center"
+      className="py-16 px-6 bg-[var(--gray-color)] min-h-screen flex items-center justify-center container mx-auto"
       style={{ backgroundColor: "var(--dashboard-bg)" }}
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 w-full max-w-6xl">

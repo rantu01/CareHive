@@ -7,6 +7,7 @@ import MoodBasedHealth from "../Component/MoodBasedHealth";
 import NutritionAdvisor from "../Component/NutritionAdvisor";
 import RecipeOfTheDay from "../Component/RecipeOfTheDay";
 import Testimonial from "../Component/Testimonial";
+import WellnessSection from "../Component/WellnessSection";
 
 
 export default function Home() {
@@ -15,12 +16,11 @@ export default function Home() {
       <Hero></Hero>
       <FeaturedServices></FeaturedServices>
       <HowItWork></HowItWork>
-      <ContactSection></ContactSection>
       <Testimonial></Testimonial>
-      <MoodBasedHealth></MoodBasedHealth>
-      <DailyWellnessCheckIn></DailyWellnessCheckIn>
+      <WellnessSection></WellnessSection>
       <RecipeOfTheDay></RecipeOfTheDay>
       <NutritionAdvisor></NutritionAdvisor>
+      <ContactSection></ContactSection>
     </div>
   );
 }

@@ -42,7 +42,7 @@ const Hero = () => {
             style={{ fontFamily: "var(--font-heading)" }}
           >
             Your Journey to Better Health{" "}
-            <span className="text-[var(--color-primary)]">Starts Here</span>
+            <span className="text-[#48ffff]">Starts Here</span>
           </h1>
           <p className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed font-light">
             Connect with healthcare professionals, track your wellness, and
@@ -51,13 +51,13 @@ const Hero = () => {
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start w-full">
             <button
-              className="w-full sm:w-auto bg-white text-[var(--color-calm-blue)] hover:bg-gray-50 font-semibold py-2 px-6 sm:py-3 sm:px-6 rounded-full text-sm sm:text-base transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 whitespace-nowrap"
+              className="w-full sm:w-auto bg-white text-[var(--color-primary)] hover:bg-gray-50 font-semibold py-2 px-6 sm:py-3 sm:px-6 rounded-full text-sm sm:text-base transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 whitespace-nowrap"
               style={{ fontFamily: "var(--font-primary)" }}
             >
               <Link href="/doctors">Book an Appointment</Link>
             </button>
             <button
-              className="w-full sm:w-auto bg-transparent border-2 border-white text-white hover:bg-white hover:text-[var(--color-calm-blue)] font-semibold py-2 px-6 sm:py-3 sm:px-6 rounded-full text-sm sm:text-base transition-all duration-300 transform hover:-translate-y-0.5 whitespace-nowrap"
+              className="w-full sm:w-auto bg-transparent border-2 border-white text-white hover:bg-white hover:text-[var(--color-primary)] font-semibold py-2 px-6 sm:py-3 sm:px-6 rounded-full text-sm sm:text-base transition-all duration-300 transform hover:-translate-y-0.5 whitespace-nowrap"
               style={{ fontFamily: "var(--font-primary)" }}
             >
               Explore Wellness Programs
