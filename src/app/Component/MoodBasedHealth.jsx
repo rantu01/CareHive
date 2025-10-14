@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { MdFormatColorReset } from "react-icons/md";
+import { IoIosSwitch } from "react-icons/io";
 
 const moodData = {
   "😊": {
@@ -21,8 +23,8 @@ const moodData = {
       bn: "সুখ সংক্রামক — সেটি ছড়িয়ে দাও 🌼",
       en: "Happiness is contagious — spread it around 🌼",
     },
-    bgColor: "var(--light-green)",      // global variable
-    borderColor: "var(--color-light-green)",
+    bgColor: "var(--light-green)",
+    borderColor: "var(--color-primary)",
     textColor: "var(--fourground-color)",
   },
   "😞": {
@@ -43,7 +45,7 @@ const moodData = {
       bn: "অন্ধকার রাতও শেষ হবে, সূর্য আবার উঠবে ☀️",
       en: "Even the darkest night will end and the sun will rise ☀️",
     },
-    bgColor: "var(--dashboard-bg)",  // global variable
+    bgColor: "var(--dashboard-bg)",
     borderColor: "var(--dashboard-blue)",
     textColor: "var(--fourground-color)",
   },
@@ -98,28 +100,36 @@ const MoodBasedHealth = () => {
   const [lang, setLang] = useState("bn");
 
   return (
-    <div className="flex flex-col items-center justify-center py-12 px-4 text-center bg-gradient-to-b from-white via-green-50 to-white">
+    <div className="flex flex-col items-center justify-center py-16 px-4 text-center min-h-screen bg-gradient-to-b from-[var(--gray-color)] via-[var(--dashboard-bg)] to-[var(--gray-color)] font-[var(--font-primary)]">
       {/* Header */}
-      <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-800 mb-4">
-        🌿 Mood-Based Health Recommendations
+      <h2
+        className="text-3xl sm:text-4xl font-extrabold mb-6 flex items-center justify-center"
+        style={{ fontFamily: "var(--font-heading)" }}
+      >
+        <span style={{ color: "var(--color-black)", marginRight: "8px" }}>
+          Daily
+        </span>
+        <span style={{ color: "var(--color-primary)" }}>Wellness Check-In 🌿</span>
       </h2>
-      <p className="text-gray-600 mb-8 text-lg max-w-xl">
+
+      <p className="text-[var(--fourground-color)] mb-10 text-lg max-w-xl leading-relaxed">
         {lang === "bn"
           ? "তোমার বর্তমান মুড সিলেক্ট করো — আমরা তোমার জন্য ব্যক্তিগত হেলথ টিপস দেব 💫"
           : "Select your current mood — we’ll share personalized health tips 💫"}
       </p>
 
       {/* Mood Buttons */}
-      <div className="flex gap-5 mb-10 flex-wrap justify-center">
+      <div className="flex gap-6 mb-10 flex-wrap justify-center">
         {Object.keys(moodData).map((emoji) => (
           <motion.button
             key={emoji}
-            whileTap={{ scale: 0.9 }}
-            whileHover={{ scale: 1.1 }}
-            className={`text-5xl p-4 rounded-2xl shadow-lg border transition-all duration-300 ${
+            whileTap={{ scale: 0.9, rotate: -5 }}
+            whileHover={{ scale: 1.15, rotate: 5 }}
+            transition={{ type: "spring", stiffness: 200 }}
+            className={`text-5xl p-4 rounded-2xl shadow-md border transition-all duration-300 ${
               selectedMood === emoji
-                ? "bg-gray-200 border-gray-400"
-                : "bg-white border-gray-200 hover:bg-gray-100"
+                ? "bg-[var(--light-green)] border-[var(--color-primary)] shadow-lg"
+                : "bg-[var(--dashboard-bg)] border-[var(--dashboard-border)] hover:bg-[var(--gray-color)]"
             }`}
             onClick={() => setSelectedMood(emoji)}
           >
@@ -129,41 +139,63 @@ const MoodBasedHealth = () => {
       </div>
 
       {/* Mood Card */}
-      {selectedMood && (
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="max-w-lg p-8 rounded-3xl border-2 shadow-xl"
-          style={{
-            backgroundColor: moodData[selectedMood].bgColor,
-            borderColor: moodData[selectedMood].borderColor,
-            color: moodData[selectedMood].textColor,
-          }}
-        >
-          <h3 className="text-3xl font-semibold mb-4">
-            {moodData[selectedMood].title[lang]} Mood 💬
-          </h3>
-          <ul className="space-y-3 text-left list-disc list-inside mb-4">
-            {moodData[selectedMood].tips[lang].map((tip, i) => (
-              <li key={i}>{tip}</li>
-            ))}
-          </ul>
-          <div className="italic text-sm border-t pt-3 mb-5">
-            💡 <span>{moodData[selectedMood].quote[lang]}</span>
-          </div>
-
-          {/* Language Toggle */}
-          <motion.button
-            whileTap={{ scale: 0.95 }}
-            whileHover={{ scale: 1.05 }}
-            onClick={() => setLang(lang === "bn" ? "en" : "bn")}
-            className="mt-3 px-5 py-2 bg-green-600 text-white rounded-full shadow-md hover:bg-green-700 transition"
+      <AnimatePresence mode="wait">
+        {selectedMood && (
+          <motion.div
+            key={selectedMood}
+            initial={{ opacity: 0, y: 40, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ type: "spring", duration: 0.6 }}
+            className="max-w-lg p-8 rounded-3xl border-2 shadow-xl"
+            style={{
+              backgroundColor: moodData[selectedMood].bgColor,
+              borderColor: moodData[selectedMood].borderColor,
+              color: moodData[selectedMood].textColor,
+            }}
           >
-            {lang === "bn" ? "Switch to English 🇬🇧" : "বাংলায় দেখুন 🇧🇩"}
-          </motion.button>
-        </motion.div>
-      )}
+            <h3 className="text-3xl font-semibold mb-4">
+              {moodData[selectedMood].title[lang]} Mood 💬
+            </h3>
+            <ul className="space-y-3 text-left list-disc list-inside mb-4">
+              {moodData[selectedMood].tips[lang].map((tip, i) => (
+                <li key={i}>{tip}</li>
+              ))}
+            </ul>
+            <div className="italic text-sm border-t pt-3 mb-5 opacity-90">
+              💡 <span>{moodData[selectedMood].quote[lang]}</span>
+            </div>
+
+            {/* Language & Reset Buttons with Icons */}
+            <div className="flex justify-center gap-3">
+              <motion.button
+                whileTap={{ scale: 0.95 }}
+                whileHover={{
+                  scale: 1.05,
+                  backgroundColor: "var(--light-green)",
+                  color: "#000",
+                }}
+                onClick={() => setLang(lang === "bn" ? "en" : "bn")}
+                className="px-5 py-2 rounded-full shadow-md font-medium flex items-center gap-2 transition"
+                style={{ backgroundColor: "var(--color-primary)", color: "#fff" }}
+              >
+                <IoIosSwitch className="w-5 h-5" />
+                {lang === "bn" ? "Switch to English" : "বাংলায় দেখুন"}
+              </motion.button>
+
+              <motion.button
+                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.05 }}
+                onClick={() => setSelectedMood(null)}
+                className="px-4 py-2 bg-[var(--gray-color)] text-[var(--fourground-color)] rounded-full font-medium flex items-center gap-2 hover:bg-[var(--dashboard-border)] transition"
+              >
+                <MdFormatColorReset className="w-5 h-5" />
+                Reset
+              </motion.button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

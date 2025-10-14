@@ -1,11 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { IoIosSwitch } from "react-icons/io";
+import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from "react-icons/md";
 
 // Recipes data
 const recipes = [
   {
-    image: "https://i.ibb.co.com/DfBZgYRc/salad.jpg",
+    image: "https://i.ibb.co/DfBZgYRc/salad.jpg",
     title: { bn: "গ্রিলড সবজি সালাদ", en: "Grilled Veggie Salad" },
     description: {
       bn: "তাজা সবজি দিয়ে ৫ মিনিটে স্বাস্থ্যকর সালাদ বানান।",
@@ -29,7 +31,7 @@ const recipes = [
     },
   },
   {
-    image: "https://i.ibb.co.com/JFtB0BLz/fresh-jush.jpg",
+    image: "https://i.ibb.co/JFtB0BLz/fresh-jush.jpg",
     title: { bn: "ফ্রেশ ফ্রুট স্মুদি", en: "Fresh Fruit Smoothie" },
     description: {
       bn: "প্রাকৃতিক ফল দিয়ে পুষ্টিকর স্মুদি তৈরি করুন।",
@@ -150,6 +152,7 @@ const recipes = [
   },
 ];
 
+
 const RecipeOfTheDay = () => {
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [langs, setLangs] = useState(Array(recipes.length).fill("en"));
@@ -165,8 +168,14 @@ const RecipeOfTheDay = () => {
   };
 
   return (
-    <div className="min-h-screen p-8 bg-[var(--dashboard-bg)]">
-      <h2 className="text-4xl font-extrabold text-center mb-10 text-[var(--fourground-color)]">
+    <div
+      className="min-h-screen p-8"
+      style={{ backgroundColor: "var(--dashboard-bg)" }}
+    >
+      <h2
+        className="text-4xl font-extrabold text-center mb-10"
+        style={{ color: "var(--fourground-color)", fontFamily: "var(--font-heading)" }}
+      >
         Recipe of the Day 🍽️
       </h2>
 
@@ -177,76 +186,94 @@ const RecipeOfTheDay = () => {
 
           return (
             <motion.div
-  key={index}
-  className="relative rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 bg-[var(--color-white)] dark:bg-[var(--dashboard-bg)] border border-[var(--dashboard-border)]"
->
-  {/* Image with zoom */}
-  <motion.div
-    className="relative overflow-hidden"
-    whileHover={{ scale: 1.05 }}
-    transition={{ duration: 0.4 }}
-  >
-    <motion.img
-      src={recipe.image}
-      alt={recipe.title[lang]}
-      className="w-full h-56 object-cover"
-      animate={{ scale: isExpanded ? 1.08 : 1 }}
-      transition={{ duration: 0.4 }}
-    />
-  </motion.div>
+              key={index}
+              className="relative rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+              style={{
+                backgroundColor: "var(--color-white)",
+                border: `1px solid var(--dashboard-border)`,
+              }}
+            >
+              {/* Image */}
+              <motion.div
+                className="overflow-hidden"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.4 }}
+              >
+                <motion.img
+                  src={recipe.image}
+                  alt={recipe.title[lang]}
+                  className="w-full h-56 object-cover"
+                  animate={{ scale: isExpanded ? 1.08 : 1 }}
+                  transition={{ duration: 0.4 }}
+                />
+              </motion.div>
 
-  <div className="p-6">
-    {/* Title + language toggle */}
-    <div className="flex justify-between items-center mb-3">
-      <h3 className="text-xl font-bold text-[var(--fourground-color)]">
-        {recipe.title[lang]}
-      </h3>
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          toggleLang(index);
-        }}
-        className="text-[var(--dashboard-blue)] text-sm font-semibold underline hover:text-[var(--color-calm-blue)]"
-      >
-        {lang === "bn" ? "EN" : "BN"}
-      </button>
-    </div>
+              <div className="p-6">
+                {/* Title + Language toggle */}
+                <div className="flex justify-between items-center mb-3">
+                  <h3
+                    className="text-xl font-bold"
+                    style={{ color: "var(--fourground-color)", fontFamily: "var(--font-primary)" }}
+                  >
+                    {recipe.title[lang]}
+                  </h3>
+                  <motion.button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleLang(index);
+                    }}
+                    className="text-sm font-semibold flex items-center space-x-1"
+                    style={{ color: "var(--dashboard-blue)" }}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <IoIosSwitch />
+                    <span>{lang === "bn" ? "EN" : "BN"}</span>
+                  </motion.button>
+                </div>
 
-    <p className="text-[var(--fourground-color)] mb-2">
-      {recipe.description[lang]}
-    </p>
+                <p style={{ color: "var(--fourground-color)" }}>{recipe.description[lang]}</p>
 
-    <button
-      onClick={() => toggleExpand(index)}
-      className="mt-2 text-[var(--dashboard-blue)] font-semibold underline hover:text-[var(--color-calm-blue)]"
-    >
-      {isExpanded ? "Show Less" : "Read More"}
-    </button>
+                <motion.button
+                  onClick={() => toggleExpand(index)}
+                  className="mt-2 font-semibold flex items-center space-x-1"
+                  style={{ color: "var(--dashboard-blue)" }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span>{isExpanded ? "Show Less" : "Read More"}</span>
+                  {isExpanded ? <MdOutlineKeyboardArrowUp /> : <MdOutlineKeyboardArrowDown />}
+                </motion.button>
 
-    {/* Expanded content only for this card */}
-    <AnimatePresence>
-      {isExpanded && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: 0.4 }}
-          className="mt-4"
-        >
-          <p className="font-semibold mb-2 text-[var(--fourground-color)]">
-            {recipe.nutrition[lang]}
-          </p>
-          <ul className="text-[var(--fourground-color)] list-disc ml-5">
-            {recipe.benefits[lang].map((benefit, i) => (
-              <li key={i}>{benefit}</li>
-            ))}
-          </ul>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  </div>
-</motion.div>
-
+                {/* Expanded content */}
+                <AnimatePresence>
+                  {isExpanded && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.4 }}
+                      className="mt-4"
+                    >
+                      <p
+                        className="font-semibold mb-2"
+                        style={{ color: "var(--fourground-color)" }}
+                      >
+                        {recipe.nutrition[lang]}
+                      </p>
+                      <ul
+                        className="list-disc ml-5"
+                        style={{ color: "var(--fourground-color)" }}
+                      >
+                        {recipe.benefits[lang].map((benefit, i) => (
+                          <li key={i}>{benefit}</li>
+                        ))}
+                      </ul>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </motion.div>
           );
         })}
       </div>
