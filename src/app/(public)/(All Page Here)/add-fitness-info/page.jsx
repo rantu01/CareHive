@@ -28,7 +28,7 @@ export default function AdminToolsPage() {
           }}>
           <span
             className="w-2 h-2 rounded-full animate-pulse"
-            style={{ backgroundColor: "var(--color-light-green)" }}
+            style={{ backgroundColor: "green" }}
           ></span>
           <span
             className="text-sm font-medium"
@@ -80,11 +80,8 @@ export default function AdminToolsPage() {
           {/* Add Gym Plans Button */}
           <Link
             href="/add-gym-plans"
-            className="group relative px-10 py-5 rounded-2xl font-semibold text-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl overflow-hidden"
-            style={{
-              color: "var(--color-white)",
-              backgroundColor: "var(--color-light-green)",
-            }}
+            className="group relative bg-white border border-solid border-green-900 px-10 py-5 rounded-2xl font-semibold text-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl overflow-hidden"
+            
           >
             <span className="relative z-10 flex items-center gap-2">
               Add Gym Training Plans
