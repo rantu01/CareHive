@@ -4,6 +4,7 @@ import { Calendar, UserRound, Clock, Video, MapPin, ChevronRight } from "lucide-
 import Link from "next/link";
 import { use, useState } from "react";
 import { DashBoardDataContext } from "./UserDashBoardDataContext/DashboardDataContext";
+import { formatDate } from "@/app/utils/appoinmentPageFn";
 
 const UpcomingAppointment = () => {
     const { appointmentData } = use(DashBoardDataContext);
@@ -38,7 +39,7 @@ const UpcomingAppointment = () => {
                                     Upcoming Appointments
                                 </h2>
                                 <p className="text-[var(--color-light-green)]/60 text-sm">
-                                    Next 3 scheduled appointments
+                                    Next {appointmentData?.length} scheduled appointments
                                 </p>
                             </div>
                         </div>
@@ -64,7 +65,7 @@ const UpcomingAppointment = () => {
                                     You have not booked any appointments yet
                                 </p>
                                 <Link
-                                    href={"/hello"}
+                                    href={"/doctors"}
                                     className="group px-6 py-3 bg-[var(--color-light-green)] text-white rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center gap-2"
                                 >
                                     <Calendar size={18} />
@@ -76,7 +77,7 @@ const UpcomingAppointment = () => {
                         {/* Appointments List */}
                         {appointmentData?.slice(0, 3)?.map((appointment, index) => (
                             <div
-                                key={appointment?.doctorName}
+                                key={appointment?.bookedAt}
                                 className="group bg-[var(--dashboard-bg)] p-4 md:p-5 rounded-2xl border-2 border-[var(--dashboard-border)] shadow-md hover:shadow-lg hover:border-[var(--color-light-green)]/30 transition-all duration-300 hover:-translate-y-1"
                             >
                                 {/* Desktop Layout */}
@@ -103,21 +104,22 @@ const UpcomingAppointment = () => {
                                             <div className="flex items-center gap-4 text-xs text-[var(--color-light-green)]/60">
                                                 <div className="flex items-center gap-1">
                                                     <Clock size={12} />
-                                                    <span>{formatAppointmentDate(appointment.appointmentDate)}</span>
+                                                    <span>{formatDate(appointment?.bookedAt)}</span>
                                                 </div>
                                                 <div className="flex items-center gap-1">
                                                     <MapPin size={12} />
-                                                    <span>Virtual</span>
+                                                    <span>{appointment?.meetingType.toUpperCase()}</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     {/* Join Button */}
-                                    <button className="group/btn px-4 py-2 bg-[var(--color-light-green)] text-white rounded-xl font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center gap-2">
+
+                                    {appointment?.meetingType !== "inPerson" && <button className="group/btn px-4 py-2 bg-[var(--color-light-green)] text-white rounded-xl font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center gap-2">
                                         <Video size={16} className="group-hover/btn:scale-110 transition-transform duration-300" />
                                         <span>Join</span>
-                                    </button>
+                                    </button>}
                                 </div>
 
                                 {/* Mobile Layout */}
@@ -148,7 +150,7 @@ const UpcomingAppointment = () => {
                                     <div className="flex items-center gap-4 text-xs text-[var(--color-light-green)]/60 bg-[var(--dashboard-border)]/10 p-2 rounded-lg">
                                         <div className="flex items-center gap-1">
                                             <Clock size={12} className="text-[var(--color-light-green)]" />
-                                            <span>{formatAppointmentDate(appointment.appointmentDate)}</span>
+                                            <span>{formatDate(appointment?.bookedAt)}</span>
                                         </div>
                                         <div className="flex items-center gap-1">
                                             <MapPin size={12} className="text-[var(--color-light-green)]" />
@@ -157,10 +159,10 @@ const UpcomingAppointment = () => {
                                     </div>
 
                                     {/* Join Button - Full Width */}
-                                    <button className="group/btn w-full px-4 py-2.5 bg-[var(--color-light-green)] text-white rounded-xl font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center gap-2">
+                                    {appointment?.meetingType !== "inPerson" && <button className="group/btn w-full px-4 py-2.5 bg-[var(--color-light-green)] text-white rounded-xl font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center gap-2">
                                         <Video size={16} className="group-hover/btn:scale-110 transition-transform duration-300" />
                                         <span>Join Video Call</span>
-                                    </button>
+                                    </button>}
                                 </div>
                             </div>
                         ))}

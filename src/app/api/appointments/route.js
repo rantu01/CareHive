@@ -6,27 +6,10 @@ export async function POST(request) {
   try {
     const body = await request.json();
 
-    const {
-      bookedAt,
-      bookedSlot,
-      docId,
-      doctorName,
-      fees,
-      hospitalName,
-      meetingType,
-      patientEmail,
-      patientName,
-    } = body;
+    const {bookedAt,bookedSlot,docId,doctorName,fees,hospitalName,meetingType,patientEmail,patientName,userId} = body;
 
 
-    if (
-      !docId ||
-      !doctorName ||
-      !hospitalName ||
-      !patientEmail ||
-      !patientName ||
-      !bookedSlot
-    ) {
+    if (!docId || !doctorName || !hospitalName || !patientEmail || !patientName || !bookedSlot || !userId) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
@@ -92,18 +75,19 @@ export async function POST(request) {
       patientEmail,
       patientName,
       serialNo: serialNo,
+      userId
     };
 
     // 9️⃣ Save appointment
-    const existing = await userAppointmentsCollection.findOne({ patientEmail });
+    const existing = await userAppointmentsCollection.findOne({ userId });
     if (existing) {
       await userAppointmentsCollection.updateOne(
-        { patientEmail },
+        { userId },
         { $push: { appointmentDetails: appointmentData } }
       );
     } else {
       await userAppointmentsCollection.insertOne({
-        patientEmail,
+        userId,
         appointmentDetails: [appointmentData],
       });
     }
@@ -131,6 +115,7 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get("userId");
 
+    console.log(userId)
     if (!userId) {
       return NextResponse.json(
         { error: "Missing userId" },
