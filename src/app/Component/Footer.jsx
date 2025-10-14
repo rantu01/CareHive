@@ -7,7 +7,7 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <div className="flex items-center mb-6">
-              <div className="w-12 h-12 rounded-full bg-[var(--color-light-green)] flex items-center justify-center mr-3">
+              <div className="w-12 h-12 rounded-full bg-[var(--color-primary)] flex items-center justify-center mr-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6 text-white"
@@ -32,7 +32,7 @@ const Footer = () => {
             <div className="flex space-x-4">
               <a
                 href="#"
-                className="bg-[var(--color-light-green)] hover:bg-black p-2 rounded-full transition duration-300"
+                className="bg-[var(--color-primary)] hover:bg-black p-2 rounded-full transition duration-300"
               >
                 {/* Facebook */}
                 <svg
@@ -56,7 +56,7 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-6 relative inline-block">
               Quick Links
-              <span className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-[var(--color-light-green)]"></span>
+              <span className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-[var(--color-primary)]"></span>
             </h3>
             <ul className="space-y-3">
               <li>
@@ -114,7 +114,7 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-6 relative inline-block">
               Our Services
-              <span className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-[var(--color-light-green)]"></span>
+              <span className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-[var(--color-primary)]"></span>
             </h3>
             <ul className="space-y-3">
               <li>
@@ -154,13 +154,13 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-6 relative inline-block">
               Contact Us
-              <span className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-[var(--color-light-green)]"></span>
+              <span className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-[var(--color-primary)]"></span>
             </h3>
             <ul className="space-y-4">
               <li className="flex items-start">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 text-[var(--color-light-green)] mr-3 mt-1"
+                  className="h-5 w-5 text-[var(--color-primary)] mr-3 mt-1"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -183,7 +183,7 @@ const Footer = () => {
               <li className="flex items-start">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 text-[var(--color-light-green)] mr-3 mt-1"
+                  className="h-5 w-5 text-[var(--color-primary)] mr-3 mt-1"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -200,7 +200,7 @@ const Footer = () => {
               <li className="flex items-start">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 text-[var(--color-light-green)] mr-3 mt-1"
+                  className="h-5 w-5 text-[var(--color-primary)] mr-3 mt-1"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -227,7 +227,7 @@ const Footer = () => {
                   placeholder="Your email address"
                   className="px-4 py-2 rounded-l-lg focus:outline-none text-gray-800 w-full"
                 />
-                <button className="bg-[var(--color-light-green)] hover:bg-black px-4 py-2 rounded-r-lg transition duration-300">
+                <button className="bg-[var(--color-primary)] hover:bg-black px-4 py-2 rounded-r-lg transition duration-300">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-5 w-5 text-white"
@@ -249,7 +249,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom Footer */}
-        <div className="border-t border-[var(--color-light-green)] pt-8 flex flex-col md:flex-row justify-between items-center">
+        <div className="border-t border-[var(--color-primary)] pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm mb-4 md:mb-0">
             © {new Date().getFullYear()} CareHive. All rights reserved.
           </p>

@@ -76,7 +76,7 @@ const GoalProgress = () => {
             <div className="p-3 bg-[var(--dashboard-blue)]/20 rounded-xl border border-[var(--dashboard-blue)]/30">
               <Target className="text-[var(--dashboard-blue)]" size={24} />
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-[var(--color-light-green)]">
+            <h1 className="text-3xl md:text-4xl font-bold text-[var(--color-primary)]">
               Goal & Progress
             </h1>
           </div>
@@ -95,7 +95,7 @@ const GoalProgress = () => {
 
         <button
           onClick={() => setIsOpen(true)}
-          className="group w-full lg:w-auto bg-[var(--color-light-green)] text-white rounded-xl flex items-center justify-center gap-3 px-6 py-4 cursor-pointer shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 font-semibold text-base relative z-10 border border-[var(--color-light-green)]/80"
+          className="group w-full lg:w-auto bg-[var(--color-primary)] text-white rounded-xl flex items-center justify-center gap-3 px-6 py-4 cursor-pointer shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 font-semibold text-base relative z-10 border border-[var(--color-primary)]/80"
         >
           <Plus size={20} className="group-hover:rotate-90 transition-transform duration-300" />
           <span>Add New Goal</span>
@@ -113,7 +113,7 @@ const GoalProgress = () => {
               <X size={20} />
             </button>
 
-            <h2 className="text-lg font-bold mb-4 text-[var(--color-light-green)]">Add New Goal</h2>
+            <h2 className="text-lg font-bold mb-4 text-[var(--color-primary)]">Add New Goal</h2>
 
             <form onSubmit={handleAddNewGoal} className="space-y-4">
               {/* Title */}
@@ -124,7 +124,7 @@ const GoalProgress = () => {
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="Goal title"
-                  className="w-full border border-[var(--dashboard-border)] rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-light-green)]"
+                  className="w-full border border-[var(--dashboard-border)] rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
                   required
                 />
               </div>
@@ -137,7 +137,7 @@ const GoalProgress = () => {
                   value={goal}
                   onChange={(e) => setGoal(e.target.value)}
                   placeholder="Target"
-                  className="w-full border border-[var(--dashboard-border)] rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-light-green)]"
+                  className="w-full border border-[var(--dashboard-border)] rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
                   required
                 />
               </div>
@@ -148,7 +148,7 @@ const GoalProgress = () => {
                 <select
                   onChange={(e) => setMeasurement(e.target.value)}
                   value={measurement}
-                  className="w-full border border-[var(--dashboard-border)] rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-light-green)]"
+                  className="w-full border border-[var(--dashboard-border)] rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
                 >
                   <option value="m">M</option>
                   <option value="kg">Kg</option>
@@ -159,7 +159,7 @@ const GoalProgress = () => {
 
               <button
                 type="submit"
-                className="bg-[var(--color-light-green)] text-white px-4 py-2 rounded w-full hover:opacity-90 cursor-pointer"
+                className="bg-[var(--color-primary)] text-white px-4 py-2 rounded w-full hover:opacity-90 cursor-pointer"
               >
                 Save Goal
               </button>

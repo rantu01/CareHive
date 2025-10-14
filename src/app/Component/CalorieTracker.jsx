@@ -241,7 +241,7 @@ export default function CalorieTracker() {
             style={{
               width: `${Math.min((totalCalories / dailyGoal) * 100, 100)}%`,
               background:
-                totalCalories > dailyGoal ? "tomato" : "var(--color-light-green)",
+                totalCalories > dailyGoal ? "tomato" : "var(--color-primary)",
             }}
           ></div>
         </div>
@@ -253,7 +253,7 @@ export default function CalorieTracker() {
           className="font-semibold"
           style={{
             color:
-              remainingCalories < 0 ? "tomato" : "var(--color-light-green)",
+              remainingCalories < 0 ? "tomato" : "var(--color-primary)",
           }}
         >
           Remaining: {remainingCalories} kcal

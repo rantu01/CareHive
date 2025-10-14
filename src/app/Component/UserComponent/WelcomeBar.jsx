@@ -20,14 +20,14 @@ const WelcomeBar = () => {
         <div className="relative z-10 flex flex-col flex-1">
           {/* Main Welcome Content */}
           <div className="flex items-center gap-4 mb-4">
-            <div className="flex-shrink-0 w-16 h-16 bg-[var(--color-light-green)] rounded-2xl flex items-center justify-center shadow-lg">
+            <div className="flex-shrink-0 w-16 h-16 bg-[var(--color-primary)] rounded-2xl flex items-center justify-center shadow-lg">
               <User className="text-white" size={28} />
             </div>
             <div className="flex-1 min-w-0">
-              <h1 className="font-bold text-2xl md:text-4xl mb-2 text-[var(--color-light-green)] leading-tight">
+              <h1 className="font-bold text-2xl md:text-4xl mb-2 text-[var(--color-primary)] leading-tight">
                 Welcome back, {user?.displayName}!
               </h1>
-              <p className="text-[var(--color-light-green)]/70 text-sm md:text-xl font-medium">
+              <p className="text-[var(--color-primary)]/70 text-sm md:text-xl font-medium">
                 Here's your health overview for today
               </p>
             </div>
@@ -36,7 +36,7 @@ const WelcomeBar = () => {
           {/* Additional Context Information */}
           <div className="flex items-center gap-6 text-sm text-[var(--fourground-color)]/60">
             <div className="flex items-center gap-2">
-              <Calendar size={16} className="text-[var(--color-light-green)]" />
+              <Calendar size={16} className="text-[var(--color-primary)]" />
               <span>{new Date().toLocaleDateString('en-US', {
                 weekday: 'long',
                 year: 'numeric',
@@ -48,9 +48,9 @@ const WelcomeBar = () => {
 
           {/* Status Indicator */}
           <div className="flex items-center gap-2 mt-3">
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-[var(--color-light-green)]/10 rounded-full border border-[var(--color-light-green)]/20">
-              <div className="w-2 h-2 bg-[var(--color-light-green)] rounded-full animate-pulse"></div>
-              <span className="text-[var(--color-light-green)] text-xs font-semibold">Health Dashboard Active</span>
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-[var(--color-primary)]/10 rounded-full border border-[var(--color-primary)]/20">
+              <div className="w-2 h-2 bg-[var(--color-primary)] rounded-full animate-pulse"></div>
+              <span className="text-[var(--color-primary)] text-xs font-semibold">Health Dashboard Active</span>
             </div>
           </div>
         </div>
@@ -59,7 +59,7 @@ const WelcomeBar = () => {
         <div className="relative z-10 self-start md:self-auto">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="group px-6 py-3 rounded-xl font-semibold text-white bg-[var(--color-light-green)] hover:bg-[var(--color-light-green)] shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center gap-2 border border-[var(--color-light-green)]/30"
+            className="group px-6 py-3 rounded-xl font-semibold text-white bg-[var(--color-primary)] hover:bg-[var(--color-primary)] shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center gap-2 border border-[var(--color-primary)]/30"
           >
             <RefreshCw size={18} className="group-hover:rotate-180 transition-transform duration-500" />
             <span>{userHealthStats ? "Update" : "Add Health Stats"}</span>

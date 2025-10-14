@@ -43,7 +43,7 @@ export default function Sidebar({ items = [], isCollapsed, mobileOpen, onCloseMo
             onClick={onCloseMobile}
             className="p-2 rounded-xl transition-all duration-300 hover:scale-110"
             style={{
-              backgroundColor: "var(--color-light-green)",
+              backgroundColor: "var(--color-primary)",
               color: "var(--color-white)",
             }}
           >
@@ -75,14 +75,14 @@ export default function Sidebar({ items = [], isCollapsed, mobileOpen, onCloseMo
             <Link href="/" className="flex items-center gap-3 group">
               <div
                 className="w-12 h-12 rounded-2xl flex items-center justify-center text-white font-bold text-lg shadow-lg transition-transform duration-300 group-hover:scale-110"
-                style={{ backgroundColor: "var(--color-light-green)" }}
+                style={{ backgroundColor: "var(--color-primary)" }}
               >
                 CH
               </div>
               <div>
                 <h1
                   className="text-2xl font-bold"
-                  style={{ color: "var(--color-light-green)" }}
+                  style={{ color: "var(--color-primary)" }}
                 >
                   CareHive
                 </h1>
@@ -105,7 +105,7 @@ export default function Sidebar({ items = [], isCollapsed, mobileOpen, onCloseMo
             <Link href="/" className="group">
               <div
                 className="w-12 h-12 rounded-2xl flex items-center justify-center text-white font-bold text-lg shadow-lg transition-transform duration-300 group-hover:scale-110 mx-auto"
-                style={{ backgroundColor: "var(--color-light-green)" }}
+                style={{ backgroundColor: "var(--color-primary)" }}
               >
                 CH
               </div>
@@ -128,7 +128,7 @@ export default function Sidebar({ items = [], isCollapsed, mobileOpen, onCloseMo
                   style={{
                     backgroundColor:
                       pathname === item.path
-                        ? "var(--color-light-green)"
+                        ? "var(--color-primary)"
                         : "transparent",
                     color:
                       pathname === item.path
@@ -184,7 +184,7 @@ export default function Sidebar({ items = [], isCollapsed, mobileOpen, onCloseMo
                     pendingCount > 0 && (
                       <span
                         className="text-xs font-bold text-white rounded-full flex items-center justify-center min-w-6 h-6 px-1.5 shadow-lg animate-pulse"
-                        style={{ backgroundColor: "var(--color-light-green)" }}
+                        style={{ backgroundColor: "var(--color-primary)" }}
                       >
                         {pendingCount > 9 ? "9+" : pendingCount}
                       </span>
@@ -196,7 +196,7 @@ export default function Sidebar({ items = [], isCollapsed, mobileOpen, onCloseMo
                     pendingCount > 0 && (
                       <span
                         className="absolute -top-1 -right-1 text-[10px] font-bold text-white rounded-full flex items-center justify-center min-w-4 h-4 px-0.5 shadow-lg animate-pulse"
-                        style={{ backgroundColor: "var(--color-light-green)" }}
+                        style={{ backgroundColor: "var(--color-primary)" }}
                       >
                         {pendingCount > 9 ? "9+" : pendingCount}
                       </span>
@@ -211,7 +211,7 @@ export default function Sidebar({ items = [], isCollapsed, mobileOpen, onCloseMo
                           <span
                             className="ml-2 text-xs px-1.5 py-0.5 rounded-full"
                             style={{
-                              backgroundColor: "var(--color-light-green)",
+                              backgroundColor: "var(--color-primary)",
                             }}
                           >
                             {pendingCount}
@@ -225,7 +225,7 @@ export default function Sidebar({ items = [], isCollapsed, mobileOpen, onCloseMo
                 {pathname === item.path && (
                   <div
                     className="absolute right-0 top-1/2 transform -translate-y-1/2 w-1 h-8 rounded-l-full"
-                    style={{ backgroundColor: "var(--color-light-green)" }}
+                    style={{ backgroundColor: "var(--color-primary)" }}
                   ></div>
                 )}
               </li>
@@ -241,9 +241,9 @@ export default function Sidebar({ items = [], isCollapsed, mobileOpen, onCloseMo
               <span
                 className="inline-block px-3 py-1.5 text-xs font-semibold rounded-full uppercase tracking-wide border"
                 style={{
-                  backgroundColor: "var(--color-light-green)",
+                  backgroundColor: "var(--color-primary)",
                   color: "var(--color-white)",
-                  borderColor: "var(--color-light-green)",
+                  borderColor: "var(--color-primary)",
                 }}
               >
                 {role}
@@ -261,7 +261,7 @@ export default function Sidebar({ items = [], isCollapsed, mobileOpen, onCloseMo
               color: "var(--fourground-color)",
               backgroundColor:
                 pathname === "/profile"
-                  ? "var(--color-light-green)"
+                  ? "var(--color-primary)"
                   : "transparent",
               border:
                 pathname === "/profile" ? "none" : "1px solid transparent",
@@ -285,12 +285,12 @@ export default function Sidebar({ items = [], isCollapsed, mobileOpen, onCloseMo
               className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold shadow-md transition-transform duration-300 group-hover:scale-110 ${
                 pathname === "/profile"
                   ? "bg-white"
-                  : "bg-[var(--color-light-green)]"
+                  : "bg-[var(--color-primary)]"
               }`}
               style={{
                 color:
                   pathname === "/profile"
-                    ? "var(--color-light-green)"
+                    ? "var(--color-primary)"
                     : "var(--color-white)",
               }}
             >
@@ -315,7 +315,7 @@ export default function Sidebar({ items = [], isCollapsed, mobileOpen, onCloseMo
               isCollapsed ? "justify-center" : ""
             }`}
             style={{
-              backgroundColor: "var(--color-light-green)",
+              backgroundColor: "var(--color-primary)",
               color: "var(--color-white)",
             }}
             onMouseEnter={(e) => {
@@ -345,7 +345,7 @@ export default function Sidebar({ items = [], isCollapsed, mobileOpen, onCloseMo
         </div>
 
         {/* Decorative Elements */}
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[var(--color-light-green)] to-transparent opacity-20"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[var(--color-primary)] to-transparent opacity-20"></div>
       </aside>
     </>
   );

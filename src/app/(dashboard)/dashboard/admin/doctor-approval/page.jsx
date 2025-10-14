@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 
 // Helper component for the modal's section title
 const ModalSectionTitle = ({ title }) => (
-  <h3 className="text-xl font-bold mb-3 border-b pb-2" style={{ color: "var(--color-light-green)", borderColor: "var(--dashboard-border)" }}>
+  <h3 className="text-xl font-bold mb-3 border-b pb-2" style={{ color: "var(--color-primary)", borderColor: "var(--dashboard-border)" }}>
     {title}
   </h3>
 );
@@ -19,7 +19,7 @@ const DetailItem = ({ label, value, isLink = false, linkText }) => (
         target="_blank" 
         rel="noopener noreferrer" 
         className="text-sm font-semibold hover:underline" 
-        style={{ color: "var(--color-light-green)" }}
+        style={{ color: "var(--color-primary)" }}
       >
         {linkText || "View Document"}
       </a>
@@ -73,7 +73,7 @@ export default function ApprovalRequestsPage() {
         text: "Failed to load approval requests",
         icon: "error",
         confirmButtonText: "OK",
-        confirmButtonColor: "var(--color-light-green)",
+        confirmButtonColor: "var(--color-primary)",
       });
     } finally {
       setLoading(false);
@@ -136,7 +136,7 @@ export default function ApprovalRequestsPage() {
       showCancelButton: true,
       confirmButtonText: "Yes, Approve",
       cancelButtonText: "Cancel",
-      confirmButtonColor: "var(--color-light-green)",
+      confirmButtonColor: "var(--color-primary)",
       cancelButtonColor: "#6b7280",
     });
 
@@ -166,7 +166,7 @@ export default function ApprovalRequestsPage() {
         title: data.ok ? "Approved!" : "Error",
         text: data.message || data.error,
         icon: data.ok ? "success" : "error",
-        confirmButtonColor: "var(--color-light-green)",
+        confirmButtonColor: "var(--color-primary)",
       });
 
       if (!notifData.success)
@@ -180,7 +180,7 @@ export default function ApprovalRequestsPage() {
         title: "Error",
         text: err.message || "Something went wrong",
         icon: "error",
-        confirmButtonColor: "var(--color-light-green)",
+        confirmButtonColor: "var(--color-primary)",
       });
     }
   }
@@ -234,7 +234,7 @@ export default function ApprovalRequestsPage() {
         title: "Application Rejected",
         text: "The doctor has been notified with the provided reason",
         icon: "success",
-        confirmButtonColor: "var(--color-light-green)",
+        confirmButtonColor: "var(--color-primary)",
       });
 
       if (!notifData.success)
@@ -248,7 +248,7 @@ export default function ApprovalRequestsPage() {
         title: "Error",
         text: err.message || "Something went wrong",
         icon: "error",
-        confirmButtonColor: "var(--color-light-green)",
+        confirmButtonColor: "var(--color-primary)",
       });
     }
   }
@@ -268,7 +268,7 @@ export default function ApprovalRequestsPage() {
     return (
       <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: "var(--dashboard-bg)" }}>
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-[var(--color-light-green)] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-16 h-16 border-4 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-lg font-semibold" style={{ color: "var(--fourground-color)" }}>Loading Applications...</p>
         </div>
       </div>
@@ -289,7 +289,7 @@ export default function ApprovalRequestsPage() {
             src={practiceInfo?.profilePhoto || "/placeholder.jpg"}
             alt={personalInfo?.fullName || "Doctor"}
             className="w-24 h-24 object-cover rounded-full border-4 shadow-xl"
-            style={{ borderColor: "var(--color-light-green)" }}
+            style={{ borderColor: "var(--color-primary)" }}
           />
           <div>
             <h2 className="text-3xl font-extrabold">{personalInfo?.fullName || "Name Unknown"}</h2>
@@ -369,7 +369,7 @@ export default function ApprovalRequestsPage() {
               {educationAndCredentials?.workExperience?.length > 0 ? (
                 educationAndCredentials.workExperience.map((exp, index) => (
                   <div key={index} className="border border-[var(--dashboard-border)] p-3 rounded-lg bg-[var(--dashboard-bg)]">
-                    <p className="font-semibold" style={{ color: "var(--color-light-green)" }}>{exp.position || 'Position N/A'}</p>
+                    <p className="font-semibold" style={{ color: "var(--color-primary)" }}>{exp.position || 'Position N/A'}</p>
                     <p className="text-sm opacity-90">{exp.hospitalName || 'Hospital N/A'}</p>
                     <p className="text-xs opacity-70 mt-1">{exp.years || 'Years N/A'}</p>
                   </div>
@@ -395,14 +395,14 @@ export default function ApprovalRequestsPage() {
     >
       {/* Enhanced Header */}
       <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold mb-4" style={{ color: "var(--color-light-green)" }}>
+        <h1 className="text-4xl font-bold mb-4" style={{ color: "var(--color-primary)" }}>
           Doctor Approval Requests
         </h1>
         <p className="text-lg opacity-80 max-w-2xl mx-auto">
           Review and manage pending doctor applications. Carefully evaluate each application before approval.
         </p>
         <div className="flex items-center justify-center gap-2 mt-3">
-          <div className="w-2 h-2 rounded-full bg-[var(--color-light-green)] animate-pulse"></div>
+          <div className="w-2 h-2 rounded-full bg-[var(--color-primary)] animate-pulse"></div>
           <span className="text-sm opacity-70">{filteredRequests.length} pending applications</span>
         </div>
       </div>
@@ -415,7 +415,7 @@ export default function ApprovalRequestsPage() {
             <label className="block text-sm font-semibold mb-2">Search Applications</label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg className="h-5 w-5 text-[var(--color-light-green)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="h-5 w-5 text-[var(--color-primary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
@@ -424,7 +424,7 @@ export default function ApprovalRequestsPage() {
                 placeholder="Search by name, email, specialization..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-[var(--dashboard-border)] rounded-xl bg-[var(--dashboard-bg)] focus:outline-none focus:ring-2 focus:ring-[var(--color-light-green)] focus:border-transparent transition-all duration-200"
+                className="w-full pl-10 pr-4 py-3 border border-[var(--dashboard-border)] rounded-xl bg-[var(--dashboard-bg)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all duration-200"
               />
             </div>
           </div>
@@ -435,7 +435,7 @@ export default function ApprovalRequestsPage() {
             <select
               value={specializationFilter}
               onChange={(e) => setSpecializationFilter(e.target.value)}
-              className="w-full px-4 py-3 border border-[var(--dashboard-border)] rounded-xl bg-[var(--dashboard-bg)] focus:outline-none focus:ring-2 focus:ring-[var(--color-light-green)] focus:border-transparent transition-all duration-200"
+              className="w-full px-4 py-3 border border-[var(--dashboard-border)] rounded-xl bg-[var(--dashboard-bg)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all duration-200"
             >
               <option value="all">All Specializations</option>
               {specializations.map(spec => (
@@ -450,7 +450,7 @@ export default function ApprovalRequestsPage() {
             <select
               value={consultationTypeFilter}
               onChange={(e) => setConsultationTypeFilter(e.target.value)}
-              className="w-full px-4 py-3 border border-[var(--dashboard-border)] rounded-xl bg-[var(--dashboard-bg)] focus:outline-none focus:ring-2 focus:ring-[var(--color-light-green)] focus:border-transparent transition-all duration-200"
+              className="w-full px-4 py-3 border border-[var(--dashboard-border)] rounded-xl bg-[var(--dashboard-bg)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all duration-200"
             >
               <option value="all">All Types</option>
               {consultationTypes.map(type => (
@@ -465,7 +465,7 @@ export default function ApprovalRequestsPage() {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="w-full px-4 py-3 border border-[var(--dashboard-border)] rounded-xl bg-[var(--dashboard-bg)] focus:outline-none focus:ring-2 focus:ring-[var(--color-light-green)] focus:border-transparent transition-all duration-200"
+              className="w-full px-4 py-3 border border-[var(--dashboard-border)] rounded-xl bg-[var(--dashboard-bg)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all duration-200"
             >
               <option value="newest">Newest First</option>
               <option value="oldest">Oldest First</option>
@@ -478,7 +478,7 @@ export default function ApprovalRequestsPage() {
         <div className="flex flex-wrap items-center justify-between mt-4 gap-3">
           <div className="flex flex-wrap gap-2">
             {searchTerm && (
-              <span className="px-3 py-1 bg-[var(--color-light-green)] text-white text-sm rounded-full flex items-center gap-1">
+              <span className="px-3 py-1 bg-[var(--color-primary)] text-white text-sm rounded-full flex items-center gap-1">
                 Search: "{searchTerm}"
                 <button onClick={() => setSearchTerm("")} className="ml-1 hover:opacity-70">×</button>
               </span>
@@ -501,7 +501,7 @@ export default function ApprovalRequestsPage() {
             <button
               onClick={clearFilters}
               className="px-4 py-2 text-sm font-medium text-white rounded-xl transition-all duration-300 hover:scale-105"
-              style={{ backgroundColor: "var(--color-light-green)" }}
+              style={{ backgroundColor: "var(--color-primary)" }}
             >
               Clear All Filters
             </button>
@@ -515,8 +515,8 @@ export default function ApprovalRequestsPage() {
           Showing {filteredRequests.length} of {requests.length} applications
         </p>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-[var(--color-light-green)] animate-pulse"></div>
-          <span className="text-sm font-medium" style={{ color: "var(--color-light-green)" }}>
+          <div className="w-3 h-3 rounded-full bg-[var(--color-primary)] animate-pulse"></div>
+          <span className="text-sm font-medium" style={{ color: "var(--color-primary)" }}>
             {filteredRequests.length} Pending Review
           </span>
         </div>
@@ -525,7 +525,7 @@ export default function ApprovalRequestsPage() {
       {/* Applications Grid */}
       {filteredRequests.length === 0 ? (
         <div className="text-center py-16 bg-[var(--gray-color)] rounded-2xl border border-[var(--dashboard-border)]">
-          <div className="w-24 h-24 mx-auto mb-6 rounded-3xl flex items-center justify-center text-4xl text-white shadow-lg" style={{ backgroundColor: "var(--color-light-green)" }}>
+          <div className="w-24 h-24 mx-auto mb-6 rounded-3xl flex items-center justify-center text-4xl text-white shadow-lg" style={{ backgroundColor: "var(--color-primary)" }}>
             👨‍⚕️
           </div>
           <h3 className="text-2xl font-bold mb-3" style={{ color: "var(--fourground-color)" }}>
@@ -541,7 +541,7 @@ export default function ApprovalRequestsPage() {
             <button
               onClick={clearFilters}
               className="px-6 py-3 rounded-xl font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg"
-              style={{ backgroundColor: "var(--color-light-green)" }}
+              style={{ backgroundColor: "var(--color-primary)" }}
             >
               Clear Filters
             </button>
@@ -564,13 +564,13 @@ export default function ApprovalRequestsPage() {
                   className="w-16 h-16 object-cover rounded-xl border-2 border-white shadow-lg group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-bold text-lg truncate group-hover:text-[var(--color-light-green)] transition-colors">
+                  <h3 className="font-bold text-lg truncate group-hover:text-[var(--color-primary)] transition-colors">
                     {req.personalInfo?.fullName || "Name not available"}
                   </h3>
                   <p className="text-sm opacity-70 truncate">
                     {req.personalInfo?.email || "Email not available"}
                   </p>
-                  <p className="text-sm font-medium mt-1" style={{ color: "var(--color-light-green)" }}>
+                  <p className="text-sm font-medium mt-1" style={{ color: "var(--color-primary)" }}>
                     {req.educationAndCredentials?.specialization || "General Practitioner"}
                   </p>
                 </div>
@@ -601,7 +601,7 @@ export default function ApprovalRequestsPage() {
                 <button
                   onClick={() => setSelectedDoctor(req)}
                   className="w-full py-3 rounded-xl font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 group"
-                  style={{ backgroundColor: "var(--color-light-green)" }}
+                  style={{ backgroundColor: "var(--color-primary)" }}
                 >
                   <svg className="w-4 h-4 transform group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -614,7 +614,7 @@ export default function ApprovalRequestsPage() {
                   <button
                     onClick={() => handleApprove(req._id, req.personalInfo?.email)}
                     className="py-2.5 rounded-xl font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center justify-center gap-1 text-sm"
-                    style={{ backgroundColor: "var(--color-light-green)" }}
+                    style={{ backgroundColor: "var(--color-primary)" }}
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"/>
@@ -652,7 +652,7 @@ export default function ApprovalRequestsPage() {
             <div className="sticky top-0 bg-[var(--dashboard-bg)] border-b border-[var(--dashboard-border)] p-6 rounded-t-2xl z-10">
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-2xl font-bold" style={{ color: "var(--color-light-green)" }}>
+                  <h2 className="text-2xl font-bold" style={{ color: "var(--color-primary)" }}>
                     Doctor Application Details
                   </h2>
                   <p className="opacity-70 mt-1">Review all information before making a decision</p>
@@ -678,7 +678,7 @@ export default function ApprovalRequestsPage() {
                 <button
                   onClick={() => handleApprove(selectedDoctor._id, selectedDoctor.personalInfo?.email)}
                   className="px-6 py-3 rounded-xl font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center gap-2"
-                  style={{ backgroundColor: "var(--color-light-green)" }}
+                  style={{ backgroundColor: "var(--color-primary)" }}
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"/>

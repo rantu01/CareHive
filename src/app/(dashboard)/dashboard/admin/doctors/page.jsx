@@ -109,7 +109,7 @@ export default function ManageDoctors() {
     return (
       <div className="flex justify-center items-center min-h-96">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-[var(--color-light-green)] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-16 h-16 border-4 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-lg font-semibold text-[var(--fourground-color)]">
             Loading doctors...
           </p>
@@ -127,7 +127,7 @@ export default function ManageDoctors() {
       <div className="mb-8">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
           <div className="text-center lg:text-left mb-6 lg:mb-0">
-            <h1 className="text-4xl sm:text-5xl font-bold text-[var(--color-light-green)] mb-4">
+            <h1 className="text-4xl sm:text-5xl font-bold text-[var(--color-primary)] mb-4">
               Doctor Management
             </h1>
             <p className="text-lg text-[var(--fourground-color)] opacity-80 max-w-2xl">
@@ -137,7 +137,7 @@ export default function ManageDoctors() {
           <div className="bg-[var(--dashboard-bg)] px-6 py-4 rounded-2xl shadow-lg border border-[var(--dashboard-border)] text-center">
             <div className="flex items-center justify-center space-x-4">
               <div className="text-center">
-                <div className="text-2xl font-bold text-[var(--color-light-green)]">{stats.total}</div>
+                <div className="text-2xl font-bold text-[var(--color-primary)]">{stats.total}</div>
                 <div className="text-sm text-[var(--fourground-color)] opacity-70">Total</div>
               </div>
               <div className="w-px h-8 bg-[var(--dashboard-border)]"></div>
@@ -166,7 +166,7 @@ export default function ManageDoctors() {
             <div className="relative group">
               <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                 <svg
-                  className="h-5 w-5 text-[var(--color-light-green)]"
+                  className="h-5 w-5 text-[var(--color-primary)]"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -184,7 +184,7 @@ export default function ManageDoctors() {
                 placeholder="Search by name or email..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="block w-full pl-12 pr-4 py-3 border border-[var(--dashboard-border)] rounded-xl bg-[var(--sidebar-bg)] text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/60 focus:outline-none focus:ring-2 focus:ring-[var(--color-light-green)] focus:border-transparent transition-all duration-200"
+                className="block w-full pl-12 pr-4 py-3 border border-[var(--dashboard-border)] rounded-xl bg-[var(--sidebar-bg)] text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/60 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all duration-200"
               />
             </div>
           </div>
@@ -197,7 +197,7 @@ export default function ManageDoctors() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="block w-full px-4 py-3 border border-[var(--dashboard-border)] rounded-xl bg-[var(--sidebar-bg)] text-[var(--fourground-color)] focus:outline-none focus:ring-2 focus:ring-[var(--color-light-green)] focus:border-transparent transition-all duration-200"
+              className="block w-full px-4 py-3 border border-[var(--dashboard-border)] rounded-xl bg-[var(--sidebar-bg)] text-[var(--fourground-color)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all duration-200"
             >
               <option value="all">All Status</option>
               <option value="verified">Verified Only</option>
@@ -218,7 +218,7 @@ export default function ManageDoctors() {
             <div
               className={`h-2 w-full ${
                 doctor.status?.isVerified
-                  ? "bg-[var(--color-light-green)]"
+                  ? "bg-[var(--color-primary)]"
                   : "bg-amber-400"
               }`}
             ></div>
@@ -227,11 +227,11 @@ export default function ManageDoctors() {
               {/* Doctor Header */}
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center space-x-4">
-                  <div className="w-14 h-14 bg-[var(--color-light-green)] rounded-2xl flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                  <div className="w-14 h-14 bg-[var(--color-primary)] rounded-2xl flex items-center justify-center text-white text-xl font-bold shadow-lg">
                     {doctor.personalInfo?.fullName?.charAt(0) || "D"}
                   </div>
                   <div>
-                    <h2 className="text-xl font-bold text-[var(--fourground-color)] group-hover:text-[var(--color-light-green)] transition-colors">
+                    <h2 className="text-xl font-bold text-[var(--fourground-color)] group-hover:text-[var(--color-primary)] transition-colors">
                       {doctor.personalInfo?.fullName || "Unnamed Doctor"}
                     </h2>
                     <p className="text-[var(--fourground-color)] opacity-70 text-sm mt-1">
@@ -292,7 +292,7 @@ export default function ManageDoctors() {
                 className={`w-full py-3.5 rounded-xl font-semibold text-white transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 group ${
                   doctor.status?.isVerified
                     ? "bg-rose-500 hover:bg-rose-600"
-                    : "bg-[var(--color-light-green)] hover:bg-emerald-600"
+                    : "bg-[var(--color-primary)] hover:bg-emerald-600"
                 }`}
                 onClick={() =>
                   toggleVerify(
@@ -325,7 +325,7 @@ export default function ManageDoctors() {
 
               {/* Quick Actions */}
               <div className="flex justify-between mt-4 pt-4 border-t border-[var(--gray-color)]">
-                <button className="text-xs text-[var(--color-light-green)] font-medium hover:underline transition-colors">
+                <button className="text-xs text-[var(--color-primary)] font-medium hover:underline transition-colors">
                   View Profile
                 </button>
                 <button className="text-xs text-[var(--color-calm-blue)] font-medium hover:underline transition-colors">
@@ -340,7 +340,7 @@ export default function ManageDoctors() {
       {/* Enhanced Empty State */}
       {filteredDoctors.length === 0 && !loading && (
         <div className="text-center py-16 bg-[var(--dashboard-bg)] rounded-2xl shadow-lg border border-[var(--dashboard-border)]">
-          <div className="w-24 h-24 mx-auto mb-6 rounded-3xl flex items-center justify-center text-4xl bg-[var(--color-light-green)] text-white shadow-lg">
+          <div className="w-24 h-24 mx-auto mb-6 rounded-3xl flex items-center justify-center text-4xl bg-[var(--color-primary)] text-white shadow-lg">
             👨‍⚕️
           </div>
           <h3 className="text-2xl font-bold text-[var(--fourground-color)] mb-3">
@@ -359,7 +359,7 @@ export default function ManageDoctors() {
                 setStatusFilter("all");
               }}
               className="px-6 py-3 rounded-xl font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg"
-              style={{ backgroundColor: "var(--color-light-green)" }}
+              style={{ backgroundColor: "var(--color-primary)" }}
             >
               Clear Filters
             </button>
