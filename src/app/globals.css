@@ -1,42 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
+
 @import "tailwindcss";
 @plugin "daisyui";
 
 :root {
-  /* Calm Blue */
-  --color-calm-blue: #4682B4;
+  /* Fonts */
+  --font-primary: 'Inter', sans-serif;       /* For body text / nav links */
+  --font-heading: 'Poppins', sans-serif;     /* For logo / headings */
+  --font-alt: 'Montserrat', sans-serif;      /* Optional alternative font */
 
-  /* Black */
-  --color-black: #000000;
+  /* Calm Blue - More modern blue */
+  --color-calm-blue: #3b82f6;
+
+  /* Black - Softer black */
+  --color-black: #111827;
 
   /* White */
   --color-white: #FFFFFF;
 
-  /* Light Green */
-  --color-light-green: #90EE90;
+  /* Light Green - More pleasant green */
+  --color-primary: #19b4b4;
 
-  /* dash board colors */
-  --dashboard-blue: #3199ee;
+  /* Dashboard colors - Better blue */
+  --dashboard-blue: #2563eb;
 
-  /* gray */ 
-  --sidebar-bg: #fafafa;
+  /* Gray - Improved gray shades */
+  --sidebar-bg: #f8fafc;
+  --dashboard-bg: #ffffff;
+  --dashboard-border: #e2e8f0;
 
-  /* dashboard bg */
-  --dashboard-bg: #ffffff;  
+  /* Font color - Better contrast */
+  --fourground-color: #1e293b;
 
-   --dashboard-border: #d6d6d6;
-
-   /* font color */
-   --fourground-color: #020613;
-
-   /* gray color*/
-   --gray-color: #f3f3f3;
-
+  /* Gray color - Softer gray */
+  --gray-color: #f1f5f9;
 }
 
 .dark {
-  --sidebar-bg: #1a1a1a;
-  --dashboard-bg: #080808;
-  --dashboard-border: #7a7a7a;
-  --fourground-color: #fff;
-  --gray-color: #313131;
+  --sidebar-bg: #0f172a;
+  --dashboard-bg: #1e293b;
+  --dashboard-border: #334155;
+  --fourground-color: #f1f5f9;
+  --gray-color: #334155;
 }

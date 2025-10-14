@@ -9,20 +9,13 @@ const AiHealthTips = () => {
   const { userHealthStats } = use(DashBoardDataContext);
   const userStats = userHealthStats;
 
-  console.log("ccccc", userStats)
-
-
   const notUserHealthStats = () => {
-
-    Swal.fire("Please set your health stats")
-
+    Swal.fire("Please set your health stats");
   }
 
   const fetchAiTips = async (userStats) => {
-
     const res = await axios.post("/api/dashboard-ai", { userStats });
     let data = res.data;
-    // In your route you are returning raw JSON string like: "[ ... ]"
     if (typeof data === "string") {
       try {
         data = JSON.parse(data);
@@ -38,32 +31,31 @@ const AiHealthTips = () => {
     data: aiTips = [],
     isLoading,
     isError,
-    refetch, // 🔑 this allows manual triggering
+    refetch,
   } = useQuery({
     queryKey: ["aiTips", userStats],
     queryFn: () => fetchAiTips(userStats),
-    enabled: false, // 🔑 don't run automatically
+    enabled: false,
   });
 
-  // Icon array for different tips
-  const tipIcons = [Heart, Activity, TrendingUp, Zap, Lightbulb, Brain];
+  const tipIcons = [Heart, Activity, TrendingUp, Zap, Brain, Lightbulb];
 
   return (
     <div className="bg-gradient-to-br from-[var(--dashboard-bg)] to-[var(--dashboard-bg)]/90 text-[var(--fourground-color)] py-8 px-6 rounded-3xl relative overflow-hidden">
       {/* Decorative Background Elements */}
-      <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-[var(--dashboard-blue)]/10 to-transparent rounded-full blur-3xl -translate-y-20 translate-x-20"></div>
-      <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-purple-400/10 to-transparent rounded-full blur-2xl translate-y-16 -translate-x-16"></div>
+      <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-[var(--color-primary)]/10 to-transparent rounded-full blur-3xl -translate-y-20 translate-x-20"></div>
+      <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-[var(--color-primary)]/5 to-transparent rounded-full blur-2xl translate-y-16 -translate-x-16"></div>
 
       <div className="relative z-10">
         {/* Header Section */}
         <div className="flex flex-col lg:flex-row gap-6 mb-8 items-start lg:items-center">
           <div className="flex-1 space-y-3">
             <div className="flex items-center gap-3">
-              <div className="p-3 bg-gradient-to-br from-[var(--dashboard-blue)] to-blue-600 rounded-2xl shadow-lg">
+              <div className="p-3 bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary)]/80 rounded-2xl shadow-lg">
                 <Brain className="text-white" size={28} />
               </div>
               <div>
-                <h2 className="text-3xl font-bold bg-gradient-to-r from-[var(--dashboard-blue)] to-purple-600 bg-clip-text text-transparent">
+                <h2 className="text-3xl font-bold bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary)]/80 bg-clip-text text-transparent">
                   AI Health Tips
                 </h2>
                 <p className="text-[var(--fourground-color)]/60 text-sm">
@@ -75,9 +67,9 @@ const AiHealthTips = () => {
 
           <button
             type="button"
-            onClick={userHealthStats? () => refetch():()=>notUserHealthStats()} // 🔑 trigger API call on button click
+            onClick={userHealthStats? () => refetch():()=>notUserHealthStats()}
             disabled={isLoading}
-            className="group px-6 py-3 rounded-xl text-white bg-gradient-to-r from-[var(--dashboard-blue)] to-blue-600 hover:from-blue-600 hover:to-purple-600 cursor-pointer shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-3 font-semibold"
+            className="group px-6 py-3 rounded-xl text-white bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary)]/80 hover:from-[var(--color-primary)]/80 hover:to-[var(--color-primary)]/90 cursor-pointer shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-3 font-semibold"
           >
             <div className="relative">
               <Sparkles className={`transition-all duration-300 ${isLoading ? 'opacity-0' : 'group-hover:rotate-12'}`} size={20} />
@@ -91,10 +83,10 @@ const AiHealthTips = () => {
         {isLoading && (
           <div className="flex items-center justify-center py-16 space-y-4">
             <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-[var(--dashboard-blue)] to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
+              <div className="w-16 h-16 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary)]/80 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
                 <Brain className="text-white animate-bounce" size={24} />
               </div>
-              <p className="text-lg font-semibold text-[var(--dashboard-blue)]">Analyzing your health data...</p>
+              <p className="text-lg font-semibold text-[var(--color-primary)]">Analyzing your health data...</p>
               <p className="text-sm text-[var(--fourground-color)]/60">Our AI is generating personalized tips for you</p>
             </div>
           </div>
@@ -132,15 +124,15 @@ const AiHealthTips = () => {
                   }}
                 >
                   {/* Card Gradient Overlay */}
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-[var(--dashboard-blue)]/10 to-transparent rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -translate-y-12 translate-x-12"></div>
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-[var(--color-primary)]/10 to-transparent rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -translate-y-12 translate-x-12"></div>
 
                   <div className="relative z-10">
                     {/* Tip Header */}
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="p-2.5 bg-gradient-to-br from-[var(--dashboard-blue)]/20 to-purple-500/20 rounded-xl border border-[var(--dashboard-blue)]/30 group-hover:scale-110 transition-transform duration-300">
-                        <IconComponent className="text-[var(--dashboard-blue)]" size={20} />
+                      <div className="p-2.5 bg-gradient-to-br from-[var(--color-primary)]/20 to-[var(--color-primary)]/50 rounded-xl border border-[var(--color-primary)]/30 group-hover:scale-110 transition-transform duration-300">
+                        <IconComponent className="text-[var(--color-primary)]" size={20} />
                       </div>
-                      <h3 className="text-lg font-bold text-[var(--dashboard-blue)] group-hover:text-purple-600 transition-colors duration-300">
+                      <h3 className="text-lg font-bold text-[var(--color-primary)] group-hover:text-[var(--color-primary)]/90 transition-colors duration-300">
                         Health Tip {index + 1}
                       </h3>
                     </div>
@@ -151,7 +143,7 @@ const AiHealthTips = () => {
                     </p>
 
                     {/* Decorative Bottom Border */}
-                    <div className="mt-4 h-1 bg-gradient-to-r from-[var(--dashboard-blue)]/20 via-purple-500/20 to-transparent rounded-full"></div>
+                    <div className="mt-4 h-1 bg-gradient-to-r from-[var(--color-primary)]/20 via-[var(--color-primary)]/10 to-transparent rounded-full"></div>
                   </div>
                 </div>
               );
@@ -162,8 +154,8 @@ const AiHealthTips = () => {
         {/* Empty State */}
         {!isLoading && !isError && aiTips.length === 0 && (
           <div className="text-center py-16">
-            <div className="w-20 h-20 bg-gradient-to-br from-[var(--dashboard-blue)]/20 to-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Lightbulb className="text-[var(--dashboard-blue)]" size={32} />
+            <div className="w-20 h-20 bg-gradient-to-br from-[var(--color-primary)]/20 to-[var(--color-primary)]/50 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Lightbulb className="text-[var(--color-primary)]" size={32} />
             </div>
             <h3 className="text-xl font-semibold text-[var(--fourground-color)] mb-2">Ready for AI Insights?</h3>
             <p className="text-[var(--fourground-color)]/60 mb-6 max-w-md mx-auto">

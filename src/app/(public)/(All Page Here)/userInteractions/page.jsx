@@ -13,7 +13,7 @@ const UserInteractions = () => {
 
   const fetchBlogs = async () => {
     try {
-      setLoading(true);
+      // setLoading(true);
       const res = await fetch("/api/blogs");
       const data = await res.json();
       if (data.success) setBlogs(data.blogs);
@@ -118,7 +118,7 @@ const UserInteractions = () => {
       <header className="text-center space-y-4">
         <h1 className="text-4xl md:text-5xl font-extrabold text-[var(--color-calm-blue)] relative inline-block">
           Community Blogs & Health Insights
-          <span className="absolute left-0 -bottom-2 w-full h-1 bg-[var(--color-light-green)] rounded-full"></span>
+          <span className="absolute left-0 -bottom-2 w-full h-1 bg-[var(--color-primary)] rounded-full"></span>
         </h1>
         <p className="text-base md:text-lg text-[var(--fourground-color)] opacity-80 max-w-2xl mx-auto leading-relaxed">
           Discover inspiring blogs, share your thoughts, and engage with the
@@ -156,7 +156,7 @@ const UserInteractions = () => {
                 onClick={() => handleLike(blog._id)}
                 className={`inline-flex px-4 py-2 rounded-lg items-center gap-2 font-medium transition-all duration-300 shadow-sm max-w-max ${
                   blog.likes?.some((l) => l.email === user?.email)
-                    ? "bg-[var(--color-light-green)] text-[var(--color-black)] hover:brightness-90"
+                    ? "bg-[var(--color-primary)] text-[var(--color-black)] hover:brightness-90"
                     : "bg-[var(--color-calm-blue)] text-white hover:brightness-90"
                 }`}
               >
@@ -205,7 +205,7 @@ const UserInteractions = () => {
                               onClick={() =>
                                 handleUpdateComment(blog._id, c._id)
                               }
-                              className="px-4 py-2 bg-[var(--color-light-green)] text-[var(--color-black)] rounded-lg font-medium hover:brightness-90 transition"
+                              className="px-4 py-2 bg-[var(--color-primary)] text-[var(--color-black)] rounded-lg font-medium hover:brightness-90 transition"
                             >
                               Save
                             </button>
@@ -278,7 +278,7 @@ const UserInteractions = () => {
                   />
                   <button
                     onClick={() => handleComment(blog._id)}
-                    className="flex items-center gap-2 px-6 py-3 rounded-full bg-[var(--color-light-green)] hover:shadow-md hover:scale-105 transition-all duration-300 text-[var(--color-black)] font-semibold"
+                    className="flex items-center gap-2 px-6 py-3 rounded-full bg-[var(--color-primary)] hover:shadow-md hover:scale-105 transition-all duration-300 text-[var(--color-black)] font-semibold cursor-pointer"
                   >
                     <Send size={18} /> Post
                   </button>

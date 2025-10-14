@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 const FeaturedServices = () => {
   const [services, setServices] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [activeService, setActiveService] = useState(0);
 
   useEffect(() => {
     async function fetchServices() {
@@ -21,205 +23,476 @@ const FeaturedServices = () => {
     fetchServices();
   }, []);
 
+  const nextService = () => {
+    setCurrentIndex((prev) => (prev + 3) % services.length);
+  };
+
+  const prevService = () => {
+    setCurrentIndex((prev) => (prev - 3 + services.length) % services.length);
+  };
+
+  const visibleServices = services.slice(currentIndex, currentIndex + 3);
+
   const ServiceSkeleton = () => (
-    <div
-      className="p-4 sm:p-6 rounded-2xl shadow-lg animate-pulse"
-      style={{
-        backgroundColor: "var(--dashboard-bg)",
-        border: "1px solid var(--dashboard-border)",
-      }}
-    >
-      <div
-        className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl mb-4 mx-auto"
-        style={{ backgroundColor: "var(--dashboard-bg)" }}
+    <div className="relative group mb-6">
+      {/* SKELETON: Using a solid light-green color instead of gradient blur */}
+      <div 
+        className="absolute -inset-1 rounded-2xl blur opacity-20 animate-pulse"
+        style={{ backgroundColor: "var(--color-primary)" }}
       ></div>
       <div
-        className="h-5 sm:h-6 rounded mb-3"
-        style={{ backgroundColor: "var(--dashboard-bg)" }}
-      ></div>
-      <div
-        className="h-3 sm:h-4 rounded mb-2"
-        style={{ backgroundColor: "var(--dashboard-bg)" }}
-      ></div>
-      <div
-        className="h-3 sm:h-4 rounded w-3/4"
-        style={{ backgroundColor: "var(--dashboard-bg)" }}
-      ></div>
+        className="relative p-6 rounded-xl h-full min-h-[140px] backdrop-blur-sm"
+        style={{
+          backgroundColor: "var(--dashboard-bg)",
+          border: "1px solid var(--dashboard-border)",
+        }}
+      >
+        <div className="flex items-start space-x-4">
+          <div
+            className="w-12 h-12 rounded-xl flex-shrink-0 animate-pulse"
+            style={{ backgroundColor: "var(--gray-color)" }}
+          ></div>
+          <div className="flex-1 space-y-3">
+            <div
+              className="h-5 rounded w-3/4 animate-pulse"
+              style={{ backgroundColor: "var(--gray-color)" }}
+            ></div>
+            <div
+              className="h-3 rounded w-full animate-pulse"
+              style={{ backgroundColor: "var(--gray-color)" }}
+            ></div>
+            <div
+              className="h-3 rounded w-2/3 animate-pulse"
+              style={{ backgroundColor: "var(--gray-color)" }}
+            ></div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 
   return (
     <section
-      className="py-12 sm:py-20 relative overflow-hidden"
+      className="py-16 sm:py-24 relative overflow-hidden"
       style={{ backgroundColor: "var(--dashboard-bg)" }}
     >
-      {/* Decorative elements */}
-      <div
-        className="absolute top-6 sm:top-10 left-6 sm:left-10 w-16 sm:w-24 h-16 sm:h-24 rounded-full opacity-50"
-        style={{ backgroundColor: "var(--color-light-green)" }}
-      ></div>
-      <div
-        className="absolute bottom-12 sm:bottom-20 right-8 sm:right-16 w-10 sm:w-16 h-10 sm:h-16 rounded-full opacity-50"
-        style={{ backgroundColor: "var(--color-calm-blue)" }}
-      ></div>
+      {/* Enhanced Background Elements - Using light-green only */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -left-20 w-80 h-80 rounded-full opacity-10 blur-3xl"
+              style={{ backgroundColor: "var(--color-primary)" }}></div>
+        <div className="absolute -bottom-40 -right-20 w-80 h-80 rounded-full opacity-10 blur-3xl"
+              style={{ backgroundColor: "var(--color-primary)" }}></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full opacity-5 blur-2xl"
+              style={{ backgroundColor: "var(--color-primary)" }}></div>
+        
+        {/* Animated Grid Pattern */}
+        <div className="absolute inset-0 opacity-[0.02]"
+              style={{
+                backgroundImage: `
+                  linear-gradient(var(--color-primary) 1px, transparent 1px),
+                  linear-gradient(90deg, var(--color-primary) 1px, transparent 1px)
+                `,
+                backgroundSize: '50px 50px',
+                backgroundPosition: 'center center'
+              }}></div>
+      </div>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="text-center mb-10 sm:mb-16">
+        {/* Enhanced Header */}
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 border backdrop-blur-sm"
+              style={{
+                backgroundColor: "rgba(var(--color-white), 0.8)",
+                borderColor: "var(--dashboard-border)",
+              }}>
+            <span className="w-2 h-2 rounded-full animate-pulse"
+                  style={{ backgroundColor: "var(--color-primary)" }}></span>
+            <span className="text-sm font-medium"
+                  style={{ color: "var(--color-calm-blue)" }}>
+              Premium Healthcare Services
+            </span>
+          </div>
+
           <h2
-            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4"
+            className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 tracking-tight"
             style={{ color: "var(--fourground-color)" }}
           >
-            Our{" "}
-            <span style={{ color: "var(--color-calm-blue)" }}>Healthcare</span>{" "}
-            Services
+            Exceptional{" "}
+            {/* 2. MEDICAL CARE TEXT: Set solid color */}
+            <span 
+              className="relative inline-block"
+              style={{ color: "var(--color-primary)" }}
+            >
+              Medical Care
+              <svg 
+                className="absolute -bottom-2 left-0 w-full h-3"
+                viewBox="0 0 200 20"
+              >
+                <path
+                  d="M10,10 C40,5 160,15 190,10"
+                  stroke="var(--color-primary)" // Solid color underline
+                  strokeWidth="3"
+                  fill="none"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </span>
           </h2>
           <p
-            className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto"
+            className="text-lg sm:text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed opacity-90"
             style={{ color: "var(--fourground-color)" }}
           >
-            Discover our comprehensive range of health and wellness services
-            designed to support your journey to better health.
+            Comprehensive healthcare solutions tailored to your needs with expert care and cutting-edge technology.
           </p>
         </div>
 
-        {isLoading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 sm:gap-8">
-            {[...Array(6)].map((_, i) => (
-              <ServiceSkeleton key={i} />
-            ))}
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
-            {services?.map((service, index) => (
-              <div
-                key={service._id || index}
-                className="rounded-2xl overflow-hidden shadow-lg transition-all duration-500 hover:-translate-y-2 group"
-                style={{
-                  backgroundColor: "var(--dashboard-bg)",
-                  border: "1px solid var(--dashboard-border)",
-                }}
-              >
-                {/* Image container */}
-                <div className="relative h-40 sm:h-48 md:h-52 overflow-hidden">
-                  <img
-                    src={service.image_url}
-                    alt={service.service_name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{
-                      background:
-                        "linear-gradient(to top, rgba(0,0,0,0.6), transparent)",
-                    }}
-                  ></div>
-
-                  {/* Service type badge */}
-                  <div className="absolute top-3 sm:top-4 left-3 sm:left-4">
-                    <span
-                      className="px-2 sm:px-3 py-0.5 sm:py-1 text-white text-[10px] sm:text-xs font-medium rounded-full"
-                      style={{ backgroundColor: "var(--color-calm-blue)" }}
-                    >
-                      {service.service_type}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-4 sm:p-5">
-                  <h3
-                    className="text-base sm:text-lg font-bold mb-2 line-clamp-1 group-hover:transition-colors duration-300"
-                    style={{ color: "var(--color-black)" }}
-                  >
-                    {service.service_name}
-                  </h3>
-                  <p
-                    className="text-sm sm:text-base mb-4 line-clamp-2"
-                    style={{ color: "var(--fourground-color)" }}
-                  >
-                    {service.description}
-                  </p>
-
-                  {/* Specialties */}
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {service.specialties?.slice(0, 3).map((specialty, i) => (
-                      <span
-                        key={i}
-                        className="px-2 py-0.5 sm:py-1 text-[11px] sm:text-xs rounded-full"
-                        style={{
-                          backgroundColor: "var(--color-light-green)/20",
-                          color: "var(--color-calm-blue)",
-                        }}
-                      >
-                        {specialty}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Action buttons */}
-                  <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3 sm:gap-0 pt-3 border-t"
-                       style={{ borderColor: "var(--dashboard-border)" }}>
-                    <button
-                      className="text-sm font-medium flex items-center justify-center sm:justify-start transition-colors duration-300"
-                      style={{ color: "var(--color-calm-blue)" }}
-                    >
-                      Learn More
-                      <svg
-                        className="w-4 h-4 ml-1"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M9 5l7 7-7 7"
-                        ></path>
-                      </svg>
-                    </button>
-
-                    <button
-                      className="px-4 py-2 text-white text-sm font-medium rounded-lg transition-shadow duration-300"
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          {/* Left Side - Enhanced Services Cards */}
+          <div className="relative">
+            {/* Enhanced Navigation - changed button colors */}
+            <div className="flex justify-between items-center mb-8 p-4 rounded-2xl backdrop-blur-sm border"
+                  style={{
+                    backgroundColor: "rgba(var(--color-white), 0.5)",
+                    borderColor: "var(--dashboard-border)",
+                  }}>
+              <div className="flex items-center gap-3">
+                <span className="text-sm font-semibold px-3 py-1 rounded-full"
                       style={{
-                        background: `linear-gradient(to right, var(--color-light-green), var(--color-calm-blue))`,
+                        backgroundColor: "var(--color-primary)", // Kept for service count badge
+                        color: "var(--color-white)",
+                      }}>
+                  {services.length} Services
+                </span>
+                <span className="text-sm opacity-70"
+                      style={{ color: "var(--fourground-color)" }}>
+                  Showing {Math.min(3, services.length)} of {services.length}
+                </span>
+              </div>
+
+              <div className="flex space-x-3">
+                {/* PREV BUTTON: Changed to light-green border and text */}
+                <button
+                  onClick={prevService}
+                  disabled={isLoading || services.length <= 3}
+                  className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg disabled:opacity-30 disabled:cursor-not-allowed group"
+                  style={{
+                    backgroundColor: "var(--color-white)",
+                    border: "2px solid var(--color-primary)", // Changed border
+                    color: "var(--color-primary)", // Changed text color
+                  }}
+                >
+                  <svg className="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" 
+                       fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                {/* NEXT BUTTON: Changed to solid light-green background */}
+                <button
+                  onClick={nextService}
+                  disabled={isLoading || services.length <= 3}
+                  className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg disabled:opacity-30 disabled:cursor-not-allowed group"
+                  style={{
+                    backgroundColor: "var(--color-primary)", // Changed background
+                    color: "var(--fourground-color)", // Set text color for visibility
+                  }}
+                >
+                  <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" 
+                       fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            {/* Enhanced Services Cards */}
+            <div className="space-y-6">
+              {isLoading ? (
+                [...Array(3)].map((_, i) => <ServiceSkeleton key={i} />)
+              ) : (
+                visibleServices.map((service, index) => (
+                  <div
+                    key={service._id || index}
+                    className={`relative group cursor-pointer transition-all duration-500 ${
+                      activeService === index ? 'transform -translate-y-2' : 'hover:-translate-y-1'
+                    }`}
+                    onMouseEnter={() => setActiveService(index)}
+                    onClick={() => setActiveService(index)}
+                  >
+                    {/* CARD BORDER: Solid light-green blur */}
+                    <div 
+                      className={`absolute -inset-0.5 rounded-2xl blur transition-all duration-500 ${
+                        activeService === index 
+                          ? 'opacity-80' 
+                          : 'opacity-30 group-hover:opacity-50'
+                      }`}
+                      style={{ backgroundColor: "var(--color-primary)" }}
+                    ></div>
+                    
+                    <div
+                      className="relative p-6 rounded-2xl transition-all duration-500 backdrop-blur-sm"
+                      style={{
+                        backgroundColor: "var(--dashboard-bg)",
+                        border: "1px solid var(--dashboard-border)",
+                        boxShadow: activeService === index 
+                          ? "0 20px 40px rgba(0,0,0,0.1)" 
+                          : "0 4px 20px rgba(0,0,0,0.05)",
                       }}
                     >
-                      Book Now
-                    </button>
+                      <div className="flex items-start space-x-4">
+                        {/* Enhanced Service Icon - solid color for blur */}
+                        <div className="relative flex-shrink-0">
+                          <div className="relative group-hover:scale-110 transition-transform duration-500">
+                            <div className="w-16 h-16 rounded-2xl overflow-hidden relative">
+                              <img
+                                src={service.image_url}
+                                alt={service.service_name}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                            <div className="absolute -inset-2 rounded-2xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-500"
+                                style={{ backgroundColor: "var(--color-primary)" }}></div>
+                          </div>
+                        </div>
+
+                        {/* Enhanced Content - unchanged colors */}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-start justify-between mb-3">
+                            <h3
+                              className="text-xl font-bold pr-4 transition-colors duration-300 truncate"
+                              style={{ 
+                                color: activeService === index 
+                                  ? "var(--color-calm-blue)" 
+                                  : "var(--fourground-color)" 
+                              }}
+                            >
+                              {service.service_name}
+                            </h3>
+                            
+                            {/* Animated Arrow - unchanged colors, kept blue for contrast/branding */}
+                            <div className={`transform transition-all duration-300 ${
+                              activeService === index 
+                                ? 'translate-x-1 scale-110' 
+                                : 'translate-x-0 scale-100'
+                            }`}>
+                              <div className="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300"
+                                    style={{
+                                      backgroundColor: activeService === index 
+                                        ? "var(--color-calm-blue)" 
+                                        : "var(--gray-color)",
+                                      color: activeService === index 
+                                        ? "var(--color-white)" 
+                                        : "var(--color-calm-blue)",
+                                    }}>
+                                <svg
+                                  className="w-4 h-4"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+                                  ></path>
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
+
+                          <p
+                            className="text-base mb-4 line-clamp-2 leading-relaxed opacity-90"
+                            style={{ color: "var(--fourground-color)" }}
+                          >
+                            {service.description}
+                          </p>
+
+                          {/* Enhanced Specialties - unchanged colors */}
+                          <div className="flex flex-wrap gap-2">
+                            {service.specialties?.slice(0, 3).map((specialty, i) => (
+                              <span
+                                key={i}
+                                className="px-3 py-1 text-xs font-medium rounded-full transition-all duration-300 hover:scale-105"
+                                style={{
+                                  backgroundColor: activeService === index 
+                                    ? "var(--color-calm-blue)" 
+                                    : "rgba(var(--color-primary), 0.15)",
+                                  color: activeService === index 
+                                    ? "var(--color-white)" 
+                                    : "var(--color-calm-blue)",
+                                  border: activeService === index 
+                                    ? "none" 
+                                    : "1px solid rgba(var(--color-calm-blue), 0.2)",
+                                }}
+                              >
+                                {specialty}
+                              </span>
+                            ))}
+                            {service.specialties && service.specialties.length > 3 && (
+                              <span
+                                className="px-3 py-1 text-xs font-medium rounded-full transition-all duration-300"
+                                style={{
+                                  backgroundColor: "var(--gray-color)",
+                                  color: "var(--fourground-color)",
+                                }}
+                              >
+                                +{service.specialties.length - 3} more
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+
+            {/* Enhanced View All Button - already light-green */}
+            <div className="text-center mt-12">
+              <button
+                className="group relative px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl overflow-hidden"
+                style={{
+                  color: "var(--color-white)",
+                  backgroundColor: "var(--color-primary)",
+                }}
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  Explore All Services
+                  <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" 
+                       fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                  </svg>
+                </span>
+                
+                {/* Border Glow: Solid light-green blur */}
+                <div 
+                  className="absolute -inset-0.5 rounded-2xl blur opacity-50 group-hover:opacity-100 transition-opacity duration-500 -z-10"
+                  style={{ backgroundColor: "var(--color-primary)" }}
+                ></div>
+              </button>
+            </div>
+          </div>
+
+          {/* Right Side - Enhanced Featured Image */}
+          <div className="relative">
+            <div className="sticky top-24">
+              {/* Enhanced Main Image Container */}
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl group">
+                {/* Enhanced Background Pattern - simplified to one color */}
+                <div className="absolute inset-0 opacity-[0.03]"
+                      style={{
+                        backgroundImage: `radial-gradient(circle at 25px 25px, var(--color-primary) 2%, transparent 0%), 
+                                           radial-gradient(circle at 75px 75px, var(--color-primary) 2%, transparent 0%)`,
+                        backgroundSize: '100px 100px'
+                      }}></div>
+
+                {isLoading ? (
+                  <div className="w-full h-[600px] bg-gray-200 animate-pulse rounded-3xl"></div>
+                ) : (
+                  <div className="relative overflow-hidden rounded-3xl">
+                    <img
+                      src={visibleServices[activeService]?.image_url || "/api/placeholder/600/600"}
+                      alt={visibleServices[activeService]?.service_name || "Healthcare Service"}
+                      className="w-full h-[600px] object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                  </div>
+                )}
+                
+                {/* Enhanced Floating Info Card */}
+                <div className="absolute bottom-6 left-6 right-6 z-20 transform transition-transform duration-500 group-hover:translate-y-[-10px]">
+                  <div
+                    className="p-6 rounded-2xl backdrop-blur-xl border transition-all duration-500 shadow-2xl"
+                    style={{
+                      backgroundColor: "rgba(var(--dashboard-bg), 0.85)",
+                      border: "1px solid rgba(var(--dashboard-border), 0.5)",
+                      backdropFilter: "blur(20px)",
+                    }}
+                  >
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="w-2 h-2 rounded-full animate-pulse"
+                            style={{ backgroundColor: "var(--color-primary)" }}></span>
+                      <span className="text-sm font-semibold uppercase tracking-wider opacity-70"
+                            style={{ color: "var(--color-calm-blue)" }}>
+                        Featured Service
+                      </span>
+                    </div>
+
+                    <h3
+                      className="text-2xl font-bold mb-3"
+                      style={{ color: "var(--color-primary)" }}
+                    >
+                      {visibleServices[activeService]?.service_name || "Premium Healthcare"}
+                    </h3>
+                    <p
+                      className="text-base mb-6 leading-relaxed opacity-90"
+                      style={{ color: "var(--fourground-color)" }}
+                    >
+                      {visibleServices[activeService]?.description || "Experience world-class healthcare services with our expert team and cutting-edge technology."}
+                    </p>
+                    
+                    <div className="flex items-center justify-between">
+                      <span
+                        className="px-4 py-2 text-white text-sm font-bold rounded-lg shadow-lg transition-all duration-300 hover:scale-105"
+                        style={{ 
+                          backgroundColor: "var(--color-calm-blue)", // Kept blue for contrast
+                        }}
+                      >
+                        {visibleServices[activeService]?.service_type || "Professional Care"}
+                      </span>
+                      
+                      {/* BOOK NOW BUTTON: already light-green */}
+                      <button
+                        className="px-6 py-2 text-white text-sm font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-xl flex items-center gap-2 group"
+                        style={{
+                          backgroundColor: "var(--color-primary)",
+                        }}
+                      >
+                        Book Now
+                        <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" 
+                              fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                        </svg>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        )}
 
-        {/* CTA */}
-        <div className="text-center mt-12 sm:mt-16">
-          <p
-            className="text-base sm:text-lg mb-4 sm:mb-6"
-            style={{ color: "var(--fourground-color)" }}
-          >
-            Can't find what you're looking for?
-          </p>
-          <button
-            className="px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-semibold transition-colors duration-300 shadow-md hover:shadow-lg"
-            style={{
-              color: "var(--color-calm-blue)",
-              backgroundColor: "var(--color-white)",
-              border: "2px solid var(--color-calm-blue)",
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.backgroundColor = "var(--color-calm-blue)";
-              e.currentTarget.style.color = "var(--color-white)";
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.backgroundColor = "var(--color-white)";
-              e.currentTarget.style.color = "var(--color-calm-blue)";
-            }}
-          >
-            Explore All Services
-          </button>
+                {/* Enhanced Decorative Elements - unchanged color */}
+                <div className="absolute -top-4 -right-4 w-8 h-8 rounded-full opacity-60 animate-bounce"
+                      style={{ 
+                        backgroundColor: "var(--color-primary)",
+                        animationDelay: '0.2s'
+                      }}></div>
+                <div className="absolute -bottom-4 -left-4 w-6 h-6 rounded-full opacity-60 animate-bounce"
+                      style={{ 
+                        backgroundColor: "var(--color-calm-blue)", // Kept blue for visual distinction
+                        animationDelay: '0.4s'
+                      }}></div>
+              </div>
+
+              {/* Progress Indicator - unchanged colors, kept blue for contrast */}
+              <div className="flex justify-center mt-6 space-x-2">
+                {services.slice(0, 5).map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      setActiveService(index);
+                      setCurrentIndex(Math.max(0, index - 1));
+                    }}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      activeService === index ? 'scale-125' : 'scale-100'
+                    }`}
+                    style={{
+                      backgroundColor: activeService === index 
+                        ? "var(--color-calm-blue)" 
+                        : "var(--dashboard-border)",
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
