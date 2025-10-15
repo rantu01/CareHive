@@ -2,6 +2,7 @@ import AboutUs from "../Component/AboutUs";
 import ContactSection from "../Component/ContactSection";
 import DailyWellnessCheckIn from "../Component/DailyWellnessCheckIn";
 import FeaturedServices from "../Component/FeaturedServices";
+import FeaturesSection from "../Component/FeaturesSection";
 import Hero from "../Component/Hero";
 import HowItWork from "../Component/HowItWork";
 import MoodBasedHealth from "../Component/MoodBasedHealth";
@@ -22,6 +23,7 @@ export default function Home() {
       <WellnessSection></WellnessSection>
       <RecipeOfTheDay></RecipeOfTheDay>
       <NutritionAdvisor></NutritionAdvisor>
+      <FeaturesSection/>
       <AboutUs></AboutUs>
       <QuestionSection></QuestionSection>
       <ContactSection></ContactSection>
