@@ -419,7 +419,6 @@ const Medication = () => {
                           type="checkbox"
                           value={day.value}
                           name="day-checkbox"
-                          required
                           onChange={(e) => handleMedicineTakingWeekdays(e)}
                           className="w-4 h-4 text-[var(--color-primary)] bg-[var(--sidebar-bg)] border-[var(--dashboard-border)] rounded focus:ring-[var(--color-primary)] focus:ring-2"
                         />
