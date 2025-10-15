@@ -1,4 +1,6 @@
 "use client";
+import Link from "next/link";
+
 
 const Footer = () => {
   return (
@@ -58,7 +60,7 @@ const Footer = () => {
                   viewBox="0 0 24 24"
                   fill="currentColor"
                 >
-                  <path d="M24 4.557a9.828 9.828 0 01-2.828.775A4.932 4.932 0 0023.337 3a9.864 9.864 0 01-3.127 1.195 4.924 4.924 0 00-8.391 4.482A13.978 13.978 0 011.671 3.149a4.922 4.922 0 001.524 6.574 4.903 4.903 0 01-2.229-.616c-.054 2.28 1.581 4.415 3.949 4.89a4.935 4.935 0 01-2.224.085 4.927 4.927 0 004.6 3.417A9.867 9.867 0 010 19.54a13.93 13.93 0 007.548 2.212c9.057 0 14.009-7.496 14.009-13.986 0-.213-.004-.425-.014-.636A10.012 10.012 0 0024 4.557z"/>
+                  <path d="M24 4.557a9.828 9.828 0 01-2.828.775A4.932 4.932 0 0023.337 3a9.864 9.864 0 01-3.127 1.195 4.924 4.924 0 00-8.391 4.482A13.978 13.978 0 011.671 3.149a4.922 4.922 0 001.524 6.574 4.903 4.903 0 01-2.229-.616c-.054 2.28 1.581 4.415 3.949 4.89a4.935 4.935 0 01-2.224.085 4.927 4.927 0 004.6 3.417A9.867 9.867 0 010 19.54a13.93 13.93 0 007.548 2.212c9.057 0 14.009-7.496 14.009-13.986 0-.213-.004-.425-.014-.636A10.012 10.012 0 0024 4.557z" />
                 </svg>
               </a>
               {/* Add more social icons as needed */}
@@ -69,19 +71,23 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-6 relative inline-block">
               Quick Links
-              <span
-                className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-[var(--color-primary)]"
-              ></span>
+              <span className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-[var(--color-primary)]"></span>
             </h3>
             <ul className="space-y-2">
-              {["Home", "Doctors", "Wellness", "Hospitals", "Tips", "Blog"].map((item, idx) => (
+              {[
+                { label: "Home", href: "/" },
+                { label: "Doctors", href: "/doctors" },
+                { label: "Wellness", href: "/wellness" },
+                { label: "Hospitals", href: "/hospitals" },
+                { label: "Blog", href: "/userInteractions" },
+              ].map((item, idx) => (
                 <li key={idx}>
-                  <a
-                    href="#"
+                  <Link
+                    href={item.href}
                     className="hover:text-[var(--color-primary)] transition duration-300"
                   >
-                    {item}
-                  </a>
+                    {item.label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -91,9 +97,7 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-6 relative inline-block">
               Our Services
-              <span
-                className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-[var(--color-primary)]"
-              ></span>
+              <span className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-[var(--color-primary)]"></span>
             </h3>
             <ul className="space-y-2">
               {[
@@ -120,9 +124,7 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-6 relative inline-block">
               Contact Us
-              <span
-                className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-[var(--color-primary)]"
-              ></span>
+              <span className="absolute bottom-0 left-0 w-1/2 h-0.5 bg-[var(--color-primary)]"></span>
             </h3>
             <ul className="space-y-3 text-sm">
               <li>123 Health Avenue, Wellness City, 10001</li>
@@ -138,7 +140,12 @@ const Footer = () => {
             © {new Date().getFullYear()} CareHive. All rights reserved.
           </p>
           <div className="flex space-x-4">
-            {["Privacy Policy", "Terms of Service", "Cookie Policy", "Disclaimer"].map((item, idx) => (
+            {[
+              "Privacy Policy",
+              "Terms of Service",
+              "Cookie Policy",
+              "Disclaimer",
+            ].map((item, idx) => (
               <a
                 key={idx}
                 href="#"
