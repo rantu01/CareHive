@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { HelpCircle, Lightbulb } from "lucide-react";
 
 const questions = [
   {
@@ -33,38 +34,58 @@ const QuestionSection = () => {
   };
 
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-8 py-8">
-      {/* Section Title */}
-       <div className="relative z-10 text-center mb-12">
-    <div className="inline-flex items-center gap-3 mb-4 justify-center">
-      <div className="w-4 h-0.5 bg-[var(--color-primary)]"></div>
-      <span className="text-[var(--color-primary)] font-semibold text-sm uppercase tracking-wider">
-        FAQ
-      </span>
-      <div className="w-4 h-0.5 bg-[var(--color-primary)]"></div>
-    </div>
+    <section className="max-w-7xl mx-auto px-4 sm:px-8 py-16 text-center w-full">
+      {/* === Section Title === */}
+      <div className="relative z-10 mb-12">
+        <div className="inline-flex items-center gap-3 mb-4 justify-center">
+          <div className="w-4 h-0.5 bg-[var(--color-primary)]"></div>
+          <span className="text-[var(--color-primary)] font-semibold text-sm uppercase tracking-wider">
+            FAQ
+          </span>
+          <div className="w-4 h-0.5 bg-[var(--color-primary)]"></div>
+        </div>
 
-    <h2 className="text-4xl font-bold mb-4 text-[var(--color-primary)] flex items-center justify-center gap-3">
-      <span className="text-4xl">❓</span>
-      Frequently Asked Questions
-      <span className="text-4xl">💡</span>
-    </h2>
+       <h2 className="text-4xl font-bold mb-4 flex items-center justify-center gap-4">
+  <HelpCircle className="w-10 h-10 text-[var(--color-primary)] opacity-80" />
+  
+  <span className="text-[var(--color-primary)]">
+    Frequently Asked Questions
+  </span>
+<div className="relative w-16 h-16 flex items-center justify-center">
+  {/* Subtle glow */}
+  <div
+    className="absolute inset-0 rounded-full bg-[var(--color-primary)] opacity-30"
+    style={{ filter: 'blur(15px)' }}
+  ></div>
 
-    <p className="text-lg text-[var(--fourground-color)] opacity-80 max-w-2xl mx-auto">
-      Find answers to the most common questions about maintaining your health and wellness.
-    </p>
-  </div>
-      <div className="space-y-6">
+  {/* Icon Centered */}
+  <Lightbulb className="relative w-10 h-10 text-[var(--color-primary)]" />
+</div>
+
+
+
+
+</h2>
+
+
+        <p className="text-lg text-[var(--fourground-color)] opacity-80 max-w-4xl mx-auto">
+          Find answers to the most common questions about maintaining your
+          health and wellness. Get clear, concise guidance from our expert team.
+        </p>
+      </div>
+
+      {/* === Question List (Full Width, Optimized Height) === */}
+      <div className="space-y-6 w-full text-left">
         {questions.map((item, index) => (
-          <div key={index} className="relative group">
-            {/* Blurry Filter Border */}
+          <div key={index} className="relative group w-full">
+            {/* Soft Glow Border */}
             <div
-              className="absolute -inset-0.5 rounded-2xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-300"
+              className="absolute -inset-0.5 rounded-2xl blur opacity-40 transition-opacity duration-300"
               style={{ backgroundColor: "var(--color-primary)" }}
             ></div>
 
             <div
-              className="relative p-6 rounded-2xl transition-all duration-500 shadow-md hover:shadow-lg"
+              className="relative p-4 md:p-6 rounded-2xl transition-all duration-500 shadow-md hover:shadow-lg w-full"
               style={{
                 backgroundColor: "var(--dashboard-bg)",
                 border: "1px solid var(--dashboard-border)",
@@ -75,17 +96,13 @@ const QuestionSection = () => {
               <button
                 onClick={() => toggleQuestion(index)}
                 className="w-full text-left flex justify-between items-center focus:outline-none"
-                style={{
-                  color: "var(--fourground-color)",
-                  fontFamily: "var(--font-primary)",
-                  backgroundColor: "transparent",
-                }}
+                style={{ backgroundColor: "transparent" }}
               >
-                <span className="font-medium">{item.question}</span>
+                <span className="font-medium text-lg md:text-xl">{item.question}</span>
                 <motion.span
                   animate={{ rotate: activeIndex === index ? 45 : 0 }}
                   transition={{ duration: 0.3 }}
-                  className="text-xl"
+                  className="text-2xl md:text-3xl"
                   style={{ color: "var(--color-primary)" }}
                 >
                   +
@@ -99,7 +116,7 @@ const QuestionSection = () => {
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3 }}
-                    className="mt-4 text-sm leading-relaxed"
+                    className="mt-4 text-sm md:text-base leading-relaxed"
                   >
                     {item.answer}
                   </motion.div>
@@ -109,6 +126,42 @@ const QuestionSection = () => {
           </div>
         ))}
       </div>
+
+      {/* === Flicker Animation for Lightbulb === */}
+    
+<style jsx>{`
+  @keyframes light-glow {
+    0%, 100% {
+      opacity: 0.7;
+      filter: drop-shadow(0 0 8px var(--color-primary))
+              drop-shadow(0 0 16px var(--color-primary))
+              drop-shadow(0 0 24px var(--color-primary));
+    }
+    25% {
+      opacity: 1;
+      filter: drop-shadow(0 0 16px var(--color-primary))
+              drop-shadow(0 0 32px var(--color-primary))
+              drop-shadow(0 0 48px var(--color-primary));
+    }
+    50% {
+      opacity: 0.85;
+      filter: drop-shadow(0 0 12px var(--color-primary))
+              drop-shadow(0 0 24px var(--color-primary))
+              drop-shadow(0 0 36px var(--color-primary));
+    }
+    75% {
+      opacity: 1;
+      filter: drop-shadow(0 0 16px var(--color-primary))
+              drop-shadow(0 0 32px var(--color-primary))
+              drop-shadow(0 0 48px var(--color-primary));
+    }
+  }
+
+  .animate-light-glow {
+    animation: light-glow 2s ease-in-out infinite;
+  }
+`}</style>
+
     </section>
   );
 };
