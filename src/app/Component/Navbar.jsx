@@ -12,7 +12,6 @@ const navLinks = [
   { label: "Doctors", href: "/doctors" },
   { label: "Wellness", href: "/wellness" },
   { label: "Hospitals", href: "/hospitals" },
-  { label: "Tips", href: "/health-tips" },
   { label: "Blog", href: "/userInteractions" },
 ];
 
@@ -34,14 +33,17 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Dynamic styles
   const textColor = scrolled ? "var(--color-primary)" : "var(--color-white)";
-  const bgColor = scrolled ? "var(--color-white)" : "var(--color-calm-blue)";
   const logoColor = scrolled ? "var(--color-primary)" : "var(--color-white)";
+  const bgColor = scrolled
+    ? "var(--color-white)"
+    : "transparent"; // transparent when not scrolled
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled ? "py-3 shadow-lg" : "py-4"
+      className={`fixed w-full z-50 transition-all duration-500 ${
+        scrolled ? "py-3 shadow-lg backdrop-blur-md" : "py-5"
       }`}
       style={{
         backgroundColor: bgColor,
@@ -55,7 +57,10 @@ const Navbar = () => {
             <div className="flex items-center">
               <div
                 className="w-10 h-10 rounded-full flex items-center justify-center"
-                style={{ backgroundColor: "var(--color-primary)" }}
+                style={{
+                  backgroundColor: "var(--color-primary)",
+                  transition: "background-color 0.3s ease",
+                }}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +92,6 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center justify-end flex-grow ml-8">
-            {/* Links */}
             <div className="flex items-center space-x-1 lg:space-x-2 flex-nowrap">
               {navLinks.map((link, idx) => {
                 const isActive =
@@ -105,7 +109,6 @@ const Navbar = () => {
                     }}
                   >
                     {link.label}
-                    {/* ✅ শুধুমাত্র underline active হলে */}
                     {isActive && (
                       <span
                         className="absolute bottom-0 left-1/2 transform -translate-x-1/2 h-0.5 w-3/4"
@@ -243,7 +246,6 @@ const Navbar = () => {
                 );
               })}
 
-              {/* Auth Section */}
               <div className="pt-4 mt-2 border-t border-[var(--dashboard-border)] flex flex-col space-y-3">
                 {user ? (
                   <>
