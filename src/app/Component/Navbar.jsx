@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import UseAuth from "../Hooks/UseAuth";
 import ThemeToggle from "./ThemeToggle";
-import WhatsAppButton from "./ContactWithAdmin/WhatsAppButton";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -33,21 +32,21 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Dynamic styles
-  const textColor = scrolled ? "var(--color-primary)" : "var(--color-white)";
-  const logoColor = scrolled ? "var(--color-primary)" : "var(--color-white)";
-  const bgColor = scrolled
-    ? "var(--color-white)"
-    : "transparent"; // transparent when not scrolled
+  // ✅ Transparent only on Home page when not scrolled
+  const isHome = pathname === "/";
+  const bgColor = isHome && !scrolled ? "transparent" : "var(--color-calm-blue)";
+  const textColor = isHome && !scrolled ? "var(--color-white)" : "var(--color-white)";
+  const logoColor = isHome && !scrolled ? "var(--color-white)" : "var(--color-white)";
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-500 ${
-        scrolled ? "py-3 shadow-lg backdrop-blur-md" : "py-5"
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        scrolled || !isHome ? "py-3 shadow-lg" : "py-4"
       }`}
       style={{
         backgroundColor: bgColor,
         fontFamily: "var(--font-primary)",
+        backdropFilter: isHome && !scrolled ? "blur(4px)" : "none",
       }}
     >
       <div className="container mx-auto px-4 md:px-6">
@@ -57,10 +56,7 @@ const Navbar = () => {
             <div className="flex items-center">
               <div
                 className="w-10 h-10 rounded-full flex items-center justify-center"
-                style={{
-                  backgroundColor: "var(--color-primary)",
-                  transition: "background-color 0.3s ease",
-                }}
+                style={{ backgroundColor: "var(--color-primary)" }}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -102,7 +98,7 @@ const Navbar = () => {
                   <Link
                     key={idx}
                     href={link.href}
-                    className={`relative px-3 py-2 text-sm lg:text-base font-medium transition-all duration-300`}
+                    className="relative px-3 py-2 text-sm lg:text-base font-medium transition-all duration-300"
                     style={{
                       color: textColor,
                       fontWeight: isActive ? 600 : 500,
@@ -112,9 +108,7 @@ const Navbar = () => {
                     {isActive && (
                       <span
                         className="absolute bottom-0 left-1/2 transform -translate-x-1/2 h-0.5 w-3/4"
-                        style={{
-                          backgroundColor: "var(--color-primary)",
-                        }}
+                        style={{ backgroundColor: "var(--color-primary)" }}
                       ></span>
                     )}
                   </Link>
@@ -246,6 +240,7 @@ const Navbar = () => {
                 );
               })}
 
+              {/* Auth Section */}
               <div className="pt-4 mt-2 border-t border-[var(--dashboard-border)] flex flex-col space-y-3">
                 {user ? (
                   <>

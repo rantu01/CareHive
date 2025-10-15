@@ -16,31 +16,12 @@ import {
 export const navItems = {
   user: [
     { name: "Overview", path: "/dashboard/user", icon: <Home size={18} /> },
-    {
-      name: "Health Stats",
-      path: "/dashboard/user/health-stats",
-      icon: <BarChart size={18} />,
-    },
-    {
-      name: "Appointments",
-      path: "/dashboard/user/appointments",
-      icon: <Calendar size={18} />,
-    },
-    {
-      name: "Medications",
-      path: "/dashboard/user/medications",
-      icon: <Pill size={18} />,
-    },
-    {
-      name: "Goals & Progress",
-      path: "/dashboard/user/goals",
-      icon: <Activity size={18} />,
-    },
-    {
-      name: "Report Analyzer",
-      path: "/dashboard/user/report-analyzer",
-      icon: <Clipboard size={24} />,
-    },
+    { name: "Health Stats", path: "/dashboard/user/health-stats", icon: <BarChart size={18} /> },
+    { name: "Appointments", path: "/dashboard/user/appointments", icon: <Calendar size={18} /> },
+    { name: "Medications", path: "/dashboard/user/medications", icon: <Pill size={18} /> },
+    { name: "Goals & Progress", path: "/dashboard/user/goals", icon: <Activity size={18} /> },
+    { name: "Report Analyzer", path: "/dashboard/user/report-analyzer", icon: <Clipboard size={24} /> },
+    { name: "chat With doctor", path: "/dashboard/user/doctor-chat", icon: <Clipboard size={24} /> },
   ],
   doctor: [
     { name: "Overview", path: "/dashboard/doctor", icon: <Home size={18} /> },
