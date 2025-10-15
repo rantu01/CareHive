@@ -21,6 +21,7 @@ export const navItems = {
     { name: "Medications", path: "/dashboard/user/medications", icon: <Pill size={18} /> },
     { name: "Goals & Progress", path: "/dashboard/user/goals", icon: <Activity size={18} /> },
     { name: "Report Analyzer", path: "/dashboard/user/report-analyzer", icon: <Clipboard size={24} /> },
+    { name: "chat With doctor", path: "/dashboard/user/doctor-chat", icon: <Clipboard size={24} /> },
   ],
   doctor: [
     { name: "Overview", path: "/dashboard/doctor", icon: <Home size={18} /> },
@@ -32,6 +33,7 @@ export const navItems = {
     { name: "Appointments", path: "/dashboard/doctor/appointments", icon: <Calendar size={18} /> },
     { name: "Patients", path: "/dashboard/doctor/patients", icon: <Users size={18} /> },
     { name: "Create Post", path: "/dashboard/doctor/doctors-social-post", icon: <PlusSquare size={18} /> },
+    { name: "chat", path: "/dashboard/doctor/messages", icon: <PlusSquare size={18} /> },
   ],
   admin: [
     { name: "Dashboard Overview", path: "/dashboard/admin", icon: <BarChart size={18} /> },
