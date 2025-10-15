@@ -98,7 +98,7 @@ useEffect(() => {
           Available Time Slots
         </h2>
         <button
-          className="btn btn-sm md:btn-md bg-[var(--dashboard-blue)] text-white border-none hover:opacity-90 flex items-center gap-2"
+          className="btn btn-sm md:btn-md bg-[var(--color-primary)] text-white border-none hover:opacity-90 flex items-center gap-2"
           onClick={() => {
             setEditSlot({});
             setDay("monday");
@@ -124,7 +124,7 @@ useEffect(() => {
             >
               {/* Day Header */}
               <div className="flex items-center gap-2 mb-3">
-                <div className="bg-[var(--dashboard-blue)] text-white p-2 rounded-lg">
+                <div className="bg-[var(--color-primary)] text-white p-2 rounded-lg">
                   <Calendar className="w-6 h-6" />
                 </div>
                 <div>
@@ -148,7 +148,7 @@ useEffect(() => {
               {/* Action Buttons */}
               <div className="flex justify-end gap-2">
                 <button
-                  className="btn btn-xs bg-blue-100 text-blue-600 hover:bg-blue-200 border-none rounded-lg flex items-center gap-1"
+                  className="btn btn-xs bg-blue-100 text-[var(--color-primary)] hover:bg-blue-200 border-none rounded-lg flex items-center gap-1"
                   onClick={() => {
                     setEditSlot({ day: dayKey, time: timeRange });
                     setDay(dayKey);
@@ -177,7 +177,7 @@ useEffect(() => {
         <dialog className="modal modal-open">
           <div className="modal-box max-w-md">
             <h3 className="font-bold text-lg flex items-center gap-2 mb-2 bg-[var(--sidebar-bg)] text-[var(--fourground-color)]">
-              <Edit className="w-5 h-5 text-blue-500" />
+              <Edit className="w-5 h-5 text-[var(--color-primary)]" />
               {editSlot.day ? "Edit Time Slot" : "Add New Slot"}
             </h3>
             <p className="text-sm text-gray-400 mb-4">
@@ -241,7 +241,7 @@ useEffect(() => {
                 Cancel
               </button>
               <button
-                className="btn btn-sm bg-blue-500 text-white hover:bg-blue-600"
+                className="btn btn-sm text-white bg-[var(--color-primary)] hover:bg-[#18cfcf]"
                 onClick={handleSave}
               >
                 Save

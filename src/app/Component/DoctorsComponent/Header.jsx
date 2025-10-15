@@ -19,7 +19,7 @@ export default function Header() {
     year: "numeric",
   });
   return (
-    <div className="bg-gradient-to-r from-[var(--dashboard-blue)] to-cyan-400 p-6 rounded-xl shadow-md text-white">
+    <div className="bg-gradient-to-r from-[var(--color-primary)] to-cyan-400 p-6 rounded-xl shadow-md text-white">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         {/* Left Section */}
         <div>
