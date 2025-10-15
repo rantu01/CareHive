@@ -20,21 +20,21 @@ const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
     const { user } = use(AuthContext)
     // console.log(user)
     const booking = {
-        doctorName: selectedDoctor.personalInfo.fullName,
-        hospitalName: selectedDoctor.practiceInfo.clinicAddress,
+        doctorName: selectedDoctor?.personalInfo?.fullName,
+        hospitalName: selectedDoctor.practiceInfo?.clinicAddress,
         bookedSlot: selectedSlot,
         meetingType: meetingType,
-        docId: selectedDoctor._id,
-        patientName: user.displayName,
-        patientEmail: user.email,
-        fees: selectedDoctor.practiceInfo.consultationFees[meetingType],
+        docId: selectedDoctor?._id,
+        patientName: user?.displayName,
+        patientEmail: user?.email,
+        fees: selectedDoctor?.practiceInfo?.consultationFees[meetingType],
         bookedAt: new Date(),
         userId:user?.uid
     }
 
     const handleBooking = (booking) => {
         console.log(selectedDoctor.practiceInfo.patientLimit[selectedDay])
-        if (selectedDoctor.practiceInfo.patientLimit[selectedDay] == 0) {
+        if (selectedDoctor?.practiceInfo?.patientLimit[selectedDay] == 0) {
             Swal.fire("Slot is full")
             return
         } else {
@@ -43,10 +43,10 @@ const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
     }
 
 
-    const workingHours = selectedDoctor.practiceInfo?.workingHours || {};
+    const workingHours = selectedDoctor?.practiceInfo?.workingHours || {};
 
 
-    const consultationType = selectedDoctor.practiceInfo?.consultationType;
+    const consultationType = selectedDoctor?.practiceInfo?.consultationType;
 
     const meetingButtons = (
         <div className={`grid ${consultationType === "both" ? "grid-cols-2" : "grid-cols-1"} gap-3`}>
