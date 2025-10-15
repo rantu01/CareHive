@@ -1,77 +1,131 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaQuoteLeft, FaStar } from "react-icons/fa";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
-const testimonials = [
-  {
-    name: "Rahim Hasan",
-    designation: "CEO, HealthPlus",
-    photo: "https://randomuser.me/api/portraits/men/32.jpg",
-    quote: "We've achieved outstanding results working with you!",
-    rating: 5,
-  },
-  {
-    name: "Selina Akter",
-    designation: "Wellness Coach",
-    photo: "https://randomuser.me/api/portraits/women/44.jpg",
-    quote: "The service is truly excellent, life has become much easier.",
-    rating: 5,
-  },
-  {
-    name: "Arif Chowdhury",
-    designation: "Fitness Trainer",
-    photo: "https://randomuser.me/api/portraits/men/56.jpg",
-    quote: "The advice is very effective and fruitful.",
-    rating: 4,
-  },
-  {
-    name: "Nadia Karim",
-    designation: "Nutritionist",
-    photo: "https://randomuser.me/api/portraits/women/65.jpg",
-    quote: "Implementing the suggestions truly yields results.",
-    rating: 5,
-  },
-  {
-    name: "Imran Ali",
-    designation: "Health Consultant",
-    photo: "https://randomuser.me/api/portraits/men/78.jpg",
-    quote: "Professional service, very satisfied.",
-    rating: 4,
-  },
-  {
-    name: "Farzana Akter",
-    designation: "Yoga Instructor",
-    photo: "https://randomuser.me/api/portraits/women/12.jpg",
-    quote: "My lifestyle has improved through this service.",
-    rating: 5,
-  },
-];
+import Swal from "sweetalert2";
+import { useUser } from "../context/UserContext";
 
 const Testimonial = () => {
+  const [testimonials, setTestimonials] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const { user } = useUser();
+
+  useEffect(() => {
+    fetchTestimonials();
+  }, []);
+
+  const fetchTestimonials = async () => {
+    try {
+      const res = await fetch("/api/testimonials");
+      const data = await res.json();
+      if (data.success) setTestimonials(data.testimonials);
+    } catch (error) {
+      console.error("Error fetching testimonials:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleShare = async () => {
+    if (!user) {
+      Swal.fire({
+        icon: "warning",
+        title: "Login Required",
+        text: "Please login to share your testimonial!",
+        confirmButtonColor: "var(--color-primary)",
+      });
+      return;
+    }
+
+    const { value: formValues } = await Swal.fire({
+      title: "Share Your Experience",
+      html: `
+        <input id="swal-name" class="swal2-input" placeholder="Your Name" />
+        <input id="swal-designation" class="swal2-input" placeholder="Your Designation (optional)" />
+        <input id="swal-photo" class="swal2-input" placeholder="Photo URL (optional)" />
+        <textarea id="swal-quote" class="swal2-textarea" placeholder="Write your testimonial"></textarea>
+        <input id="swal-rating" class="swal2-input" type="number" placeholder="Rating (1-5)" min="1" max="5" />
+      `,
+      focusConfirm: false,
+      preConfirm: () => {
+        const name = document.getElementById("swal-name").value.trim();
+        const designation = document.getElementById("swal-designation").value.trim();
+        const photo = document.getElementById("swal-photo").value.trim();
+        const quote = document.getElementById("swal-quote").value.trim();
+        const rating = parseInt(document.getElementById("swal-rating").value);
+
+        if (!quote || rating < 1 || rating > 5) {
+          Swal.showValidationMessage("Please provide a testimonial and a valid rating (1–5).");
+        }
+
+        return { name, designation, photo, quote, rating };
+      },
+    });
+
+    if (formValues) {
+      try {
+        const res = await fetch("/api/testimonials", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...formValues,
+            email: user.email,
+          }),
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          Swal.fire("Thank you!", "Your testimonial has been submitted!", "success");
+          setTestimonials((prev) => [data.testimonial, ...prev]);
+        } else {
+          Swal.fire("Error", data.message || "Failed to post testimonial", "error");
+        }
+      } catch (error) {
+        console.error("Error posting testimonial:", error);
+      }
+    }
+  };
+
+  const renderStars = (rating) =>
+    Array.from({ length: 5 }).map((_, index) => (
+      <FaStar
+        key={index}
+        className={`w-4 h-4 ${index < rating ? "text-yellow-400" : "text-gray-300"}`}
+      />
+    ));
 
   const nextTestimonial = () => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
   };
 
   const prevTestimonial = () => {
-    setCurrentIndex(
-      (prev) => (prev - 1 + testimonials.length) % testimonials.length
-    );
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   };
 
-  const renderStars = (rating) => {
-    return Array.from({ length: 5 }).map((_, index) => (
-      <FaStar
-        key={index}
-        className={`w-4 h-4 ${
-          index < rating ? "text-yellow-400" : "text-gray-300"
-        }`}
-      />
-    ));
-  };
+  if (loading)
+    return (
+      <div className="py-20 text-center text-[var(--fourground-color)]">
+        <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--color-primary)]"></div>
+        <p className="mt-4 text-lg">Loading testimonials...</p>
+      </div>
+    );
+
+  if (testimonials.length === 0)
+    return (
+      <section className="py-20 text-center">
+        <h2 className="text-3xl font-semibold text-[var(--fourground-color)] mb-4">
+          No testimonials yet
+        </h2>
+        <button
+          onClick={handleShare}
+          className="bg-[var(--color-primary)] text-white px-6 py-3 rounded-xl hover:bg-[var(--color-calm-blue)] transition-all duration-300"
+        >
+          Be the first to share your experience
+        </button>
+      </section>
+    );
 
   return (
     <section className="py-20 bg-[var(--gray-color)] dark:bg-[var(--dashboard-bg)] container mx-auto">
@@ -98,22 +152,6 @@ const Testimonial = () => {
         {/* Main Testimonial Card */}
         <div className="max-w-4xl mx-auto mb-12">
           <div className="relative bg-white dark:bg-[var(--sidebar-bg)] rounded-3xl shadow-2xl p-8 md:p-12 border border-[var(--dashboard-border)]">
-            {/* Quote Icon */}
-            <div className="absolute -top-6 left-1/2 transform -translate-x-1/2">
-              <div className="w-12 h-12 bg-[var(--color-primary)] rounded-full flex items-center justify-center">
-                <FaQuoteLeft className="text-white text-xl" />
-              </div>
-              <p className="text-[var(--fourground-color)] italic text-lg mb-4 leading-relaxed">
-                {testimonials[currentIndex].quote}
-              </p>
-              <h3 className="font-semibold text-[var(--fourground-color)] text-xl mb-1">
-                {testimonials[currentIndex].name}
-              </h3>
-              <span className="text-sm text-[var(--color-calm-blue)] uppercase tracking-wide">
-                {testimonials[currentIndex].designation}
-              </span>
-            </div>
-
             <div className="text-center">
               {/* Rating Stars */}
               <div className="flex justify-center gap-1 mb-6">
@@ -188,9 +226,7 @@ const Testimonial = () => {
                 </div>
               </div>
 
-              <div className="flex gap-1 mb-3">
-                {renderStars(testimonial.rating)}
-              </div>
+              <div className="flex gap-1 mb-3">{renderStars(testimonial.rating)}</div>
 
               <p className="text-[var(--fourground-color)] text-sm leading-relaxed">
                 "{testimonial.quote}"
@@ -201,7 +237,10 @@ const Testimonial = () => {
 
         {/* CTA Button */}
         <div className="text-center">
-          <button className="bg-[var(--color-primary)] text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-[var(--color-calm-blue)] transition-all duration-300 hover:shadow-lg hover:scale-105 inline-flex items-center gap-3">
+          <button
+            onClick={handleShare}
+            className="bg-[var(--color-primary)] text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-[var(--color-calm-blue)] transition-all duration-300 hover:shadow-lg hover:scale-105 inline-flex items-center gap-3"
+          >
             Share Your Experience
             <FaQuoteLeft className="w-4 h-4" />
           </button>

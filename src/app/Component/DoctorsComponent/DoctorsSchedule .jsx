@@ -62,7 +62,7 @@ export default function DoctorsSchedule() {
             <Calendar className="w-5 h-5" />
             Today&apos;s Schedule
           </h2>
-          <button className="btn btn-sm rounded-lg bg-blue-600 hover:bg-blue-700 border-none text-white">
+          <button className="btn btn-sm rounded-lg bg-[var(--color-primary)] hover:bg-[#18cfcf] border-none text-white">
             View Calendar
           </button>
         </div>
@@ -75,7 +75,7 @@ export default function DoctorsSchedule() {
             >
               {/* Left section */}
               <div className="flex items-center gap-3">
-                <div className="bg-[var(--dashboard-blue)] p-2 rounded-full">
+                <div className="bg-[var(--color-primary)] p-2 rounded-full">
                   <User className="w-5 h-5 text-white" />
                 </div>
                 <div>
@@ -101,7 +101,7 @@ export default function DoctorsSchedule() {
                     <span className="px-3 py-1 text-xs rounded-full bg-gray-600 text-white">
                       in-progress
                     </span>
-                    <button className="btn btn-sm bg-blue-600 hover:bg-blue-700 border-none text-white flex items-center gap-1">
+                    <button className="btn btn-sm bg-[var(--color-primary)] hover:bg-[#18cfcf] border-none text-white flex items-center gap-1">
                       <Video className="w-4 h-4" /> Join
                     </button>
                   </>
@@ -138,7 +138,7 @@ export default function DoctorsSchedule() {
                 <span className="text-xs text-[var(--fourground-color)]">{msg.time}</span>
               </div>
               <p className="text-sm text-[var(--fourground-color)]">{msg.message}</p>
-              <button className="self-start btn btn-xs rounded-lg bg-blue-600 hover:bg-blue-700 border-none text-white">
+              <button className="self-start btn btn-xs rounded-lg bg-[var(--color-primary)] hover:bg-[#18cfcf] border-none text-white">
                 Reply
               </button>
             </div>

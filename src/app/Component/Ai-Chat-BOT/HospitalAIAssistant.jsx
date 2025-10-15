@@ -31,20 +31,11 @@ export default function HospitalAIAssistant() {
   }, [isOpen]);
 
   const generateContent = async (userMessage) => {
-
     try {
-      const response = await axios.post("/api/hospital-chat-bot", {userMessage})
-
-
-
-      const data = response?.data?.message
-
-      if (data) {
-        const aiResponse = data
-        return aiResponse;
-      } else {
-        throw new Error('Invalid response format');
-      }
+      const response = await axios.post("/api/hospital-chat-bot", { userMessage });
+      const data = response?.data?.message;
+      if (data) return data;
+      throw new Error('Invalid response format');
     } catch (error) {
       return 'I apologize, but I\'m having trouble connecting right now. Please try again in a moment or contact our front desk at (555) 123-4567.';
     }
@@ -52,20 +43,11 @@ export default function HospitalAIAssistant() {
 
   const handleSendMessage = async () => {
     if (!inputMessage.trim() || isLoading) return;
-
     const userMessage = inputMessage.trim();
     setInputMessage('');
-
-
-    // Add user message
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
     setIsLoading(true);
-
-    // Get AI response
     const aiResponse = await generateContent(userMessage);
-
-
-    // Add AI response
     setMessages(prev => [...prev, { role: 'assistant', content: aiResponse }]);
     setIsLoading(false);
   };
@@ -83,7 +65,11 @@ export default function HospitalAIAssistant() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-full p-4 shadow-2xl hover:shadow-blue-500/50 hover:scale-110 transition-all duration-300 group relative"
+          className="text-white rounded-full p-4 shadow-2xl hover:scale-110 transition-all duration-300 group relative"
+          style={{
+            background: 'var(--color-primary)',
+            boxShadow: '0 4px 12px rgba(25, 180, 180, 0.4)',
+          }}
           aria-label="Open chat assistant"
         >
           <MessageCircle className="w-6 h-6" />
@@ -98,14 +84,19 @@ export default function HospitalAIAssistant() {
       {isOpen && (
         <div className="bg-white rounded-2xl shadow-2xl w-96 h-[600px] flex flex-col overflow-hidden border border-gray-200 animate-in slide-in-from-bottom-4 duration-300 max-w-[calc(100vw-3rem)] sm:w-96">
           {/* Header */}
-          <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-4 flex items-center justify-between">
+          <div
+            className="text-white p-4 flex items-center justify-between"
+            style={{
+              background: 'var(--color-primary)',
+            }}
+          >
             <div className="flex items-center gap-3">
               <div className="bg-white/20 p-2 rounded-full backdrop-blur-sm">
                 <Bot className="w-5 h-5" />
               </div>
               <div>
                 <h3 className="font-semibold text-lg">CareHive Assistant</h3>
-                <p className="text-xs text-blue-100 flex items-center gap-1">
+                <p className="text-xs text-white/80 flex items-center gap-1">
                   <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
                   Online
                 </p>
@@ -120,19 +111,21 @@ export default function HospitalAIAssistant() {
             </button>
           </div>
 
-          {/* Messages Container */}
+          {/* Messages */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
             {messages.map((message, index) => (
               <div
                 key={index}
-                className={`flex gap-3 ${message.role === 'user' ? 'flex-row-reverse' : 'flex-row'
-                  }`}
+                className={`flex gap-3 ${message.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}
               >
                 <div
-                  className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${message.role === 'user'
-                      ? 'bg-blue-600'
-                      : 'bg-gradient-to-br from-blue-500 to-blue-600'
-                    }`}
+                  className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center`}
+                  style={{
+                    background:
+                      message.role === 'user'
+                        ? 'var(--color-primary)'
+                        : 'var(--color-primary)',
+                  }}
                 >
                   {message.role === 'user' ? (
                     <User className="w-4 h-4 text-white" />
@@ -141,10 +134,17 @@ export default function HospitalAIAssistant() {
                   )}
                 </div>
                 <div
-                  className={`max-w-[75%] rounded-2xl px-4 py-3 ${message.role === 'user'
-                      ? 'bg-blue-600 text-white rounded-tr-none'
+                  className={`max-w-[75%] rounded-2xl px-4 py-3 ${
+                    message.role === 'user'
+                      ? 'text-white rounded-tr-none'
                       : 'bg-white text-gray-800 rounded-tl-none shadow-sm border border-gray-100'
-                    }`}
+                  }`}
+                  style={{
+                    background:
+                      message.role === 'user'
+                        ? 'var(--color-primary)'
+                        : undefined,
+                  }}
                 >
                   <p className="text-sm leading-relaxed whitespace-pre-wrap break-words">
                     {message.content}
@@ -153,15 +153,21 @@ export default function HospitalAIAssistant() {
               </div>
             ))}
 
-            {/* Loading indicator */}
+            {/* Loading */}
             {isLoading && (
               <div className="flex gap-3">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
+                <div
+                  className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center"
+                  style={{ background: 'var(--color-primary)' }}
+                >
                   <Bot className="w-4 h-4 text-white" />
                 </div>
                 <div className="bg-white rounded-2xl rounded-tl-none px-4 py-3 shadow-sm border border-gray-100">
                   <div className="flex gap-1 items-center">
-                    <Loader2 className="w-4 h-4 text-blue-600 animate-spin" />
+                    <Loader2
+                      className="w-4 h-4 animate-spin"
+                      style={{ color: 'var(--color-primary)' }}
+                    />
                     <span className="text-sm text-gray-500 ml-2">Typing...</span>
                   </div>
                 </div>
@@ -170,7 +176,7 @@ export default function HospitalAIAssistant() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input Area */}
+          {/* Input */}
           <div className="p-4 bg-white border-t border-gray-200">
             <div className="flex gap-2">
               <input
@@ -180,13 +186,19 @@ export default function HospitalAIAssistant() {
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Type your message..."
-                className="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                className="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:border-transparent text-sm"
+                style={{
+                  '--tw-ring-color': 'var(--color-primary)',
+                }}
                 disabled={isLoading}
               />
               <button
                 onClick={handleSendMessage}
                 disabled={!inputMessage.trim() || isLoading}
-                className="bg-blue-600 text-white p-3 rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                className="text-white p-3 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                style={{
+                  background: 'var(--color-primary)',
+                }}
                 aria-label="Send message"
               >
                 <Send className="w-5 h-5" />
@@ -201,4 +213,3 @@ export default function HospitalAIAssistant() {
     </div>
   );
 }
-

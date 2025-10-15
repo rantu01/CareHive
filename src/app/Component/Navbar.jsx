@@ -5,14 +5,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import UseAuth from "../Hooks/UseAuth";
 import ThemeToggle from "./ThemeToggle";
-import WhatsAppButton from "./ContactWithAdmin/WhatsAppButton";
 
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "Doctors", href: "/doctors" },
   { label: "Wellness", href: "/wellness" },
   { label: "Hospitals", href: "/hospitals" },
-  { label: "Tips", href: "/health-tips" },
   { label: "Blog", href: "/userInteractions" },
 ];
 
@@ -34,18 +32,21 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const textColor = scrolled ? "var(--color-primary)" : "var(--color-white)";
-  const bgColor = scrolled ? "var(--color-white)" : "var(--color-calm-blue)";
-  const logoColor = scrolled ? "var(--color-primary)" : "var(--color-white)";
+  // ✅ Transparent only on Home page when not scrolled
+  const isHome = pathname === "/";
+  const bgColor = isHome && !scrolled ? "transparent" : "var(--color-calm-blue)";
+  const textColor = isHome && !scrolled ? "var(--color-white)" : "var(--color-white)";
+  const logoColor = isHome && !scrolled ? "var(--color-white)" : "var(--color-white)";
 
   return (
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled ? "py-3 shadow-lg" : "py-4"
+        scrolled || !isHome ? "py-3 shadow-lg" : "py-4"
       }`}
       style={{
         backgroundColor: bgColor,
         fontFamily: "var(--font-primary)",
+        backdropFilter: isHome && !scrolled ? "blur(4px)" : "none",
       }}
     >
       <div className="container mx-auto px-4 md:px-6">
@@ -87,7 +88,6 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center justify-end flex-grow ml-8">
-            {/* Links */}
             <div className="flex items-center space-x-1 lg:space-x-2 flex-nowrap">
               {navLinks.map((link, idx) => {
                 const isActive =
@@ -98,20 +98,17 @@ const Navbar = () => {
                   <Link
                     key={idx}
                     href={link.href}
-                    className={`relative px-3 py-2 text-sm lg:text-base font-medium transition-all duration-300`}
+                    className="relative px-3 py-2 text-sm lg:text-base font-medium transition-all duration-300"
                     style={{
                       color: textColor,
                       fontWeight: isActive ? 600 : 500,
                     }}
                   >
                     {link.label}
-                    {/* ✅ শুধুমাত্র underline active হলে */}
                     {isActive && (
                       <span
                         className="absolute bottom-0 left-1/2 transform -translate-x-1/2 h-0.5 w-3/4"
-                        style={{
-                          backgroundColor: "var(--color-primary)",
-                        }}
+                        style={{ backgroundColor: "var(--color-primary)" }}
                       ></span>
                     )}
                   </Link>

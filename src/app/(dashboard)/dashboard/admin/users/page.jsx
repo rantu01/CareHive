@@ -1,5 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
+import { Trash2, Edit3, Users, UserCog, User2, ShieldCheck } from "lucide-react";
 
 export default function UserManagement() {
   const [users, setUsers] = useState([]);
@@ -7,6 +9,7 @@ export default function UserManagement() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [roleFilter, setRoleFilter] = useState("all");
+  const [stats, setStats] = useState({ total: 0, admins: 0, doctors: 0, users: 0 });
 
   // Fetch all users
   const fetchUsers = async () => {
@@ -15,6 +18,17 @@ export default function UserManagement() {
       const res = await fetch("/api/users");
       const data = await res.json();
       setUsers(data);
+
+      const admins = data.filter((user) => user.role === "admin").length;
+      const doctors = data.filter((user) => user.role === "doctor").length;
+      const regularUsers = data.filter((user) => user.role === "user").length;
+
+      setStats({
+        total: data.length,
+        admins,
+        doctors,
+        users: regularUsers,
+      });
     } catch (error) {
       console.error("Failed to fetch users:", error);
     } finally {
@@ -35,34 +49,55 @@ export default function UserManagement() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(editingUser),
       });
+      Swal.fire({
+        icon: "success",
+        title: "Updated!",
+        text: "User information has been updated successfully.",
+        timer: 1500,
+        showConfirmButton: false,
+      });
       setEditingUser(null);
       fetchUsers();
     } catch (error) {
       console.error("Failed to update user:", error);
+      Swal.fire("Error", "Failed to update user!", "error");
     }
   };
 
   // Delete user
   const handleDelete = async (id) => {
-    if (
-      !confirm(
-        "Are you sure you want to delete this user? This action cannot be undone."
-      )
-    )
-      return;
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "var(--color-primary)",
+      cancelButtonColor: "#6b7280",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (!result.isConfirmed) return;
+
     try {
       await fetch("/api/users", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id }),
       });
+      Swal.fire({
+        icon: "success",
+        title: "Deleted!",
+        text: "User has been deleted.",
+        timer: 1500,
+        showConfirmButton: false,
+      });
       fetchUsers();
     } catch (error) {
       console.error("Failed to delete user:", error);
+      Swal.fire("Error", "Failed to delete user!", "error");
     }
   };
 
-  // Filter users based on search and role filter
   const filteredUsers = users.filter((user) => {
     const matchesSearch =
       user.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -71,17 +106,29 @@ export default function UserManagement() {
     return matchesSearch && matchesRole;
   });
 
-  // Get role badge color
   const getRoleBadgeColor = (role) => {
     switch (role) {
       case "admin":
-        return "bg-[var(--color-primary)] text-[var(--fourground-color)] border-[var(--dashboard-border)]";
+        return "bg-[var(--color-primary)] text-white";
       case "doctor":
-        return "bg-[var(--dashboard-blue)] text-[var(--color-white)] border-[var(--dashboard-border)]";
+        return "bg-[var(--color-calm-blue)] text-white";
       case "user":
-        return "bg-[var(--gray-color)] text-[var(--fourground-color)] border-[var(--dashboard-border)]";
+        return "bg-[var(--gray-color)] text-[var(--fourground-color)] border border-[var(--dashboard-border)]";
       default:
-        return "bg-[var(--sidebar-bg)] text-[var(--fourground-color)] border-[var(--dashboard-border)]";
+        return "bg-[var(--sidebar-bg)] text-[var(--fourground-color)] border border-[var(--dashboard-border)]";
+    }
+  };
+
+  const getRoleIcon = (role) => {
+    switch (role) {
+      case "admin":
+        return <ShieldCheck size={18} />;
+      case "doctor":
+        return <UserCog size={18} />;
+      case "user":
+        return <User2 size={18} />;
+      default:
+        return <Users size={18} />;
     }
   };
 
@@ -89,8 +136,8 @@ export default function UserManagement() {
     return (
       <div className="flex justify-center items-center h-64">
         <div className="flex flex-col items-center space-y-4">
-          <div className="w-12 h-12 border-4 border-[var(--dashboard-blue)] border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-lg text-[var(--fourground-color)]">
+          <div className="w-16 h-16 border-4 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-lg text-[var(--fourground-color)] font-semibold">
             Loading users...
           </p>
         </div>
@@ -99,215 +146,152 @@ export default function UserManagement() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--dashboard-bg)] p-4 sm:p-6">
-      {/* Header Section */}
-      <div className="mb-8">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-[var(--dashboard-blue)] to-[var(--color-primary)] bg-clip-text text-transparent">
-              User Management
-            </h1>
-            <p className="text-[var(--fourground-color)] mt-2">
-              Manage user accounts and permissions
-            </p>
-          </div>
-          <div className="mt-4 sm:mt-0 bg-[var(--dashboard-bg)] px-4 py-3 rounded-2xl shadow-sm border border-[var(--dashboard-border)]">
-            <div className="flex items-center space-x-2 text-sm text-[var(--fourground-color)]">
-              <span className="font-medium">Total Users:</span>
-              <span className="bg-[var(--dashboard-blue)] text-[var(--color-white)] px-2 py-1 rounded-full font-bold">
-                {users.length}
-              </span>
-            </div>
-          </div>
-        </div>
+    <div className="min-h-screen bg-[var(--sidebar-bg)] p-4 sm:p-6">
+      {/* Header */}
+      <div className="text-center mb-10">
+        <h1 className="text-4xl sm:text-5xl font-bold text-[var(--color-primary)] mb-3">
+          User Management
+        </h1>
+        <p className="text-[var(--fourground-color)] text-lg opacity-80">
+          Manage user accounts and permissions with ease
+        </p>
       </div>
 
-      {/* Filters and Search Section */}
-      <div className="bg-[var(--dashboard-bg)] rounded-2xl p-6 shadow-lg border border-[var(--dashboard-border)] mb-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Search Input */}
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <svg
-                className="h-5 w-5 text-[var(--fourground-color)]"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+      {/* Stats */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        {[
+          { label: "Total Users", value: stats.total, icon: <Users />, color: "var(--color-primary)" },
+          { label: "Admins", value: stats.admins, icon: <ShieldCheck />, color: "var(--color-primary)" },
+          { label: "Doctors", value: stats.doctors, icon: <UserCog />, color: "var(--color-calm-blue)" },
+          { label: "Patients", value: stats.users, icon: <User2 />, color: "var(--gray-color)" },
+        ].map((stat, idx) => (
+          <div
+            key={idx}
+            className="rounded-2xl p-6 shadow-md border border-[var(--dashboard-border)] bg-[var(--gray-color)] hover:shadow-lg transition-all duration-300"
+          >
+            <div className="flex justify-between items-center">
+              <div>
+                <p className="text-sm font-semibold text-[var(--fourground-color)] opacity-70">
+                  {stat.label}
+                </p>
+                <p className="text-3xl font-bold text-[var(--fourground-color)]">
+                  {stat.value}
+                </p>
+              </div>
+              <div
+                className="w-12 h-12 rounded-full flex items-center justify-center text-xl text-white"
+                style={{ backgroundColor: stat.color }}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
+                {stat.icon}
+              </div>
             </div>
-            <input
-              type="text"
-              placeholder="Search users by name or email..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="block w-full pl-10 pr-3 py-3 border border-[var(--dashboard-border)] rounded-xl bg-[var(--sidebar-bg)] text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/60 focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)] focus:border-transparent transition-all duration-200"
-            />
           </div>
+        ))}
+      </div>
 
-          {/* Role Filter */}
-          <div className="flex items-center space-x-4">
-            <label className="text-sm font-medium text-[var(--fourground-color)] whitespace-nowrap">
-              Filter by Role:
-            </label>
-            <select
-              value={roleFilter}
-              onChange={(e) => setRoleFilter(e.target.value)}
-              className="block w-full px-3 py-3 border border-[var(--dashboard-border)] rounded-xl bg-[var(--sidebar-bg)] text-[var(--fourground-color)] focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)] focus:border-transparent transition-all duration-200"
-            >
-              <option value="all">All Roles</option>
-              <option value="user">User</option>
-              <option value="doctor">Doctor</option>
-              <option value="admin">Admin</option>
-            </select>
+      {/* Search + Filter */}
+      <div className="bg-[var(--gray-color)] rounded-2xl p-6 shadow-md border border-[var(--dashboard-border)] mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <input
+            type="text"
+            placeholder="Search users by name or email..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full px-4 py-3 border-2 border-[var(--dashboard-border)] rounded-xl bg-transparent text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/60 focus:ring-2 focus:ring-[var(--color-calm-blue)] focus:border-[var(--color-calm-blue)] transition-all"
+          />
+          <select
+            value={roleFilter}
+            onChange={(e) => setRoleFilter(e.target.value)}
+            className="w-full px-4 py-3 border-2 border-[var(--dashboard-border)] rounded-xl bg-transparent text-[var(--fourground-color)] focus:ring-2 focus:ring-[var(--color-calm-blue)] focus:border-[var(--color-calm-blue)] transition-all"
+          >
+            <option value="all">All Roles</option>
+            <option value="user">user</option>
+            <option value="doctor">Doctors</option>
+            <option value="admin">Admins</option>
+          </select>
+          <div className="flex items-center justify-center lg:justify-end">
+            <div className="bg-[var(--color-primary)] text-white px-6 py-3 rounded-xl shadow-md">
+              {filteredUsers.length} of {users.length} users
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Users Table */}
-      <div className="bg-[var(--dashboard-bg)] rounded-2xl shadow-lg border border-[var(--dashboard-border)] overflow-hidden">
-        {/* Table Header */}
-        <div className="px-6 py-4 border-b border-[var(--dashboard-border)] bg-[var(--gray-color)]">
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-[var(--fourground-color)]">
-              User Accounts
-            </h2>
-            <span className="text-sm text-[var(--fourground-color)]">
-              Showing {filteredUsers.length} of {users.length} users
-            </span>
-          </div>
-        </div>
-
-        {/* Table */}
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-[var(--gray-color)]">
-              <tr>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-[var(--fourground-color)] uppercase tracking-wider">
-                  User
-                </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-[var(--fourground-color)] uppercase tracking-wider">
-                  Email
-                </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-[var(--fourground-color)] uppercase tracking-wider">
-                  Role
-                </th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-[var(--fourground-color)] uppercase tracking-wider">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[var(--dashboard-border)]">
-              {filteredUsers.map((user) => (
-                <tr
-                  key={user.id}
-                  className="hover:bg-[var(--gray-color)] transition-colors duration-150 group"
+      {/* Users Grid */}
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        {filteredUsers.map((user) => (
+          <div
+            key={user.id}
+            className="bg-[var(--gray-color)] rounded-2xl p-6 shadow-md border border-[var(--dashboard-border)] hover:shadow-lg transition-all duration-300"
+          >
+            <div className="flex justify-between items-start">
+              <div className="flex items-center space-x-4">
+                <div
+                  className="w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl font-bold"
+                  style={{ backgroundColor: "var(--color-primary)" }}
                 >
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex items-center">
-                      <div className="w-10 h-10 bg-gradient-to-r from-[var(--dashboard-blue)] to-[var(--color-primary)] rounded-full flex items-center justify-center text-[var(--color-white)] font-semibold shadow-sm">
-                        {user.name ? user.name.charAt(0).toUpperCase() : "U"}
-                      </div>
-                      <div className="ml-4">
-                        <div className="text-sm font-medium text-[var(--fourground-color)]">
-                          {user.name || "Unnamed User"}
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-[var(--fourground-color)]">
-                      {user.email}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span
-                      className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getRoleBadgeColor(
-                        user.role
-                      )}`}
-                    >
-                      {user.role}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex items-center space-x-2">
-                      <button
-                        onClick={() => setEditingUser(user)}
-                        className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-lg text-[var(--color-white)] bg-[var(--dashboard-blue)] hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--dashboard-blue)] transition-all duration-200 shadow-sm"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDelete(user.id)}
-                        className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-lg text-[var(--color-white)] bg-[var(--color-calm-blue)] hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-calm-blue)] transition-all duration-200 shadow-sm"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-          {/* Empty State */}
-          {filteredUsers.length === 0 && (
-            <div className="text-center py-12">
-              <svg
-                className="mx-auto h-12 w-12 text-[var(--fourground-color)]"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"
-                />
-              </svg>
-              <h3 className="mt-2 text-sm font-medium text-[var(--fourground-color)]">
-                No users found
-              </h3>
-              <p className="mt-1 text-sm text-[var(--fourground-color)]">
-                {searchTerm || roleFilter !== "all"
-                  ? "Try adjusting your search or filter to find what you're looking for."
-                  : "No users have been created yet."}
-              </p>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Edit User Modal */}
-      {editingUser && (
-        <div className="fixed inset-0 backdrop-blur-sm  bg-opacity-100 flex items-center justify-center p-4 z-50">
-          <div className="bg-[var(--dashboard-bg)] rounded-2xl shadow-xl max-w-md w-full transform transition-all">
-            {/* Modal Header */}
-            <div className="px-6 py-4 border-b border-[var(--dashboard-border)]">
-              <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-[var(--fourground-color)]">
-                  Edit User
-                </h3>
+                  {user.name ? user.name.charAt(0).toUpperCase() : "U"}
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-[var(--fourground-color)]">
+                    {user.name || "Unnamed User"}
+                  </h3>
+                  <p className="text-[var(--fourground-color)] opacity-70">
+                    {user.email}
+                  </p>
+                  <span
+                    className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-semibold mt-2 ${getRoleBadgeColor(user.role)}`}
+                  >
+                    {getRoleIcon(user.role)} {user.role}
+                  </span>
+                </div>
+              </div>
+              <div className="flex flex-col space-y-2">
                 <button
-                  onClick={() => setEditingUser(null)}
-                  className="text-[var(--fourground-color)] hover:opacity-70 transition-colors"
+                  onClick={() => setEditingUser(user)}
+                  className="px-4 py-2 bg-[var(--color-calm-blue)] text-white rounded-xl font-semibold hover:opacity-90 transition-all flex items-center gap-2"
                 >
-                  ✕
+                  <Edit3 size={16} /> Edit
+                </button>
+                <button
+                  onClick={() => handleDelete(user.id)}
+                  className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-xl font-semibold hover:opacity-90 transition-all flex items-center gap-2"
+                >
+                  <Trash2 size={16} /> Delete
                 </button>
               </div>
             </div>
+          </div>
+        ))}
+      </div>
 
-            {/* Edit Form */}
+      {/* No users found */}
+      {filteredUsers.length === 0 && (
+        <div className="text-center py-16">
+          <h3 className="text-2xl font-bold text-[var(--fourground-color)] mb-2">
+            No users found
+          </h3>
+          <p className="text-[var(--fourground-color)] opacity-70 max-w-md mx-auto">
+            {searchTerm || roleFilter !== "all"
+              ? "Try adjusting your search or filter criteria."
+              : "No users yet. Start by adding your first user!"}
+          </p>
+        </div>
+      )}
+
+      {/* Edit Modal */}
+      {editingUser && (
+        <div className="fixed inset-0 bg-black/30 flex items-center justify-center p-4 z-50">
+          <div className="bg-[var(--gray-color)] rounded-2xl shadow-2xl max-w-md w-full border border-[var(--dashboard-border)]">
+            <div className="px-6 py-4 bg-[var(--color-primary)] text-white flex justify-between items-center rounded-t-2xl">
+              <h3 className="text-lg font-bold">Edit User</h3>
+              <button onClick={() => setEditingUser(null)} className="text-2xl">
+                ✕
+              </button>
+            </div>
             <form onSubmit={handleUpdate} className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-[var(--fourground-color)] mb-2">
+                <label className="block mb-2 font-semibold text-[var(--fourground-color)]">
                   Name
                 </label>
                 <input
@@ -316,13 +300,11 @@ export default function UserManagement() {
                   onChange={(e) =>
                     setEditingUser({ ...editingUser, name: e.target.value })
                   }
-                  className="w-full px-3 py-3 border border-[var(--dashboard-border)] rounded-xl bg-[var(--sidebar-bg)] text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/60 focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)] focus:border-transparent transition-all duration-200"
-                  placeholder="Enter user name"
+                  className="w-full px-4 py-3 border-2 border-[var(--dashboard-border)] rounded-xl bg-transparent focus:ring-2 focus:ring-[var(--color-calm-blue)] focus:border-[var(--color-calm-blue)]"
                 />
               </div>
-
               <div>
-                <label className="block text-sm font-medium text-[var(--fourground-color)] mb-2">
+                <label className="block mb-2 font-semibold text-[var(--fourground-color)]">
                   Email
                 </label>
                 <input
@@ -331,13 +313,11 @@ export default function UserManagement() {
                   onChange={(e) =>
                     setEditingUser({ ...editingUser, email: e.target.value })
                   }
-                  className="w-full px-3 py-3 border border-[var(--dashboard-border)] rounded-xl bg-[var(--sidebar-bg)] text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/60 focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)] focus:border-transparent transition-all duration-200"
-                  placeholder="Enter email address"
+                  className="w-full px-4 py-3 border-2 border-[var(--dashboard-border)] rounded-xl bg-transparent focus:ring-2 focus:ring-[var(--color-calm-blue)] focus:border-[var(--color-calm-blue)]"
                 />
               </div>
-
               <div>
-                <label className="block text-sm font-medium text-[var(--fourground-color)] mb-2">
+                <label className="block mb-2 font-semibold text-[var(--fourground-color)]">
                   Role
                 </label>
                 <select
@@ -345,26 +325,24 @@ export default function UserManagement() {
                   onChange={(e) =>
                     setEditingUser({ ...editingUser, role: e.target.value })
                   }
-                  className="w-full px-3 py-3 border border-[var(--dashboard-border)] rounded-xl bg-[var(--sidebar-bg)] text-[var(--fourground-color)] focus:outline-none focus:ring-2 focus:ring-[var(--dashboard-blue)] focus:border-transparent transition-all duration-200"
+                  className="w-full px-4 py-3 border-2 border-[var(--dashboard-border)] rounded-xl bg-transparent focus:ring-2 focus:ring-[var(--color-calm-blue)] focus:border-[var(--color-calm-blue)]"
                 >
                   <option value="user">User</option>
                   <option value="doctor">Doctor</option>
                   <option value="admin">Admin</option>
                 </select>
               </div>
-
-              {/* Action Buttons */}
               <div className="flex space-x-3 pt-4">
                 <button
                   type="submit"
-                  className="flex-1 bg-[var(--dashboard-blue)] text-[var(--color-white)] py-3 px-4 rounded-xl font-medium hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--dashboard-blue)] transition-all duration-200 shadow-sm"
+                  className="flex-1 py-3 rounded-xl bg-[var(--color-primary)] text-white font-semibold hover:opacity-90"
                 >
-                  Save Changes
+                  Save
                 </button>
                 <button
                   type="button"
                   onClick={() => setEditingUser(null)}
-                  className="flex-1 bg-[var(--sidebar-bg)] text-[var(--fourground-color)] py-3 px-4 rounded-xl font-medium hover:opacity-70 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--dashboard-border)] transition-all duration-200"
+                  className="flex-1 py-3 rounded-xl border border-[var(--dashboard-border)] text-[var(--fourground-color)] hover:bg-[var(--gray-color)] transition"
                 >
                   Cancel
                 </button>
