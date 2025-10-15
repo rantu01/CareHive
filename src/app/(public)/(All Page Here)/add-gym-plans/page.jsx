@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import { motion } from "framer-motion";
+import { MdFitnessCenter } from "react-icons/md";
 
 export default function AddGymPlans() {
   const [formData, setFormData] = useState({
@@ -19,14 +19,12 @@ export default function AddGymPlans() {
   const [plans, setPlans] = useState([]);
   const [editing, setEditing] = useState(null);
 
-  // Fetch gym plans
   const fetchPlans = async () => {
     try {
       const res = await fetch("/api/gym-plans");
       const data = await res.json();
       setPlans(data.success ? data.data : []);
-    } catch (error) {
-      console.error("Error fetching plans:", error);
+    } catch {
       setPlans([]);
     }
   };
@@ -49,7 +47,6 @@ export default function AddGymPlans() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-
       const data = await res.json();
       if (data.success) {
         Swal.fire({
@@ -70,9 +67,7 @@ export default function AddGymPlans() {
         });
         setEditing(null);
         fetchPlans();
-      } else {
-        throw new Error(data.message || "Something went wrong.");
-      }
+      } else throw new Error(data.message || "Error");
     } catch (error) {
       Swal.fire({
         title: "❌ Error!",
@@ -86,14 +81,12 @@ export default function AddGymPlans() {
   const handleDelete = async (id) => {
     const confirm = await Swal.fire({
       title: "Delete this plan?",
-      text: "This will permanently remove it.",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Yes, delete it",
+      confirmButtonText: "Yes, delete",
       cancelButtonText: "Cancel",
       confirmButtonColor: "var(--color-primary)",
     });
-
     if (!confirm.isConfirmed) return;
 
     try {
@@ -115,68 +108,55 @@ export default function AddGymPlans() {
   };
 
   return (
-    <section
-      className="relative min-h-screen py-24 px-6 md:px-16 bg-[var(--gray-color)]"
-    >
-      {/* Background blobs */}
-      <div className="absolute -top-32 -left-20 w-96 h-96 rounded-full opacity-20 blur-3xl bg-[var(--color-primary)] animate-pulse-slow"></div>
-      <div className="absolute -bottom-40 right-10 w-96 h-96 rounded-full opacity-20 blur-3xl bg-[var(--color-calm-blue)] animate-pulse-slow"></div>
-
-      {/* Header */}
-      <div className="text-center mb-12">
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-4xl md:text-5xl font-[var(--font-heading)] font-bold text-[var(--fourground-color)]"
-        >
-          {editing ? "Update Gym Plan" : "Add New Gym Plan"}
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.3 }}
-          className="text-lg md:text-xl text-[var(--fourground-color)] opacity-80 mt-3"
-        >
-          {editing
-            ? "Modify your existing gym plan."
-            : "Create unique, eye-catching gym plans for your clients."}
-        </motion.p>
+    <section className="min-h-screen relative" style={{ background: "var(--sidebar-bg)" }}>
+      {/* Hero header */}
+      <div
+        className="text-center py-16 bg-gradient-to-r from-[var(--color-primary)] via-[var(--color-calm-blue)] to-[var(--color-primary)/70] text-white"
+        style={{ clipPath: "polygon(0 0, 100% 0, 100% 80%, 0 100%)" }}
+      >
+        <MdFitnessCenter className="mx-auto text-6xl mb-4 animate-bounce" />
+        <h1 className="text-4xl sm:text-5xl font-bold mb-2">Gym Plans Manager</h1>
+        <p className="text-lg sm:text-xl opacity-90">
+          Add, update, and manage your gym plans seamlessly.
+        </p>
       </div>
 
-      {/* Form Card */}
-      <motion.form
-        onSubmit={handleSubmit}
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className="bg-white/20 backdrop-blur-lg border border-[var(--dashboard-border)] rounded-3xl shadow-2xl p-8 md:p-12 max-w-4xl mx-auto mb-20"
-      >
-        <div className="grid md:grid-cols-2 gap-6">
-          {/* Inputs */}
-          {["planName", "category", "duration"].map((key) => (
-            <div key={key}>
-              <label className="block mb-2 font-medium">{key.charAt(0).toUpperCase() + key.slice(1)}</label>
+      <div className="container mx-auto px-6 py-12 grid md:grid-cols-2 gap-12">
+        {/* Form */}
+        <form
+          onSubmit={handleSubmit}
+          className="bg-[var(--sidebar-bg)] p-8 rounded-3xl shadow-2xl space-y-6 border border-[var(--dashboard-border)] backdrop-blur-sm"
+        >
+          <h2 className="text-2xl font-bold text-[var(--fourground-color)] mb-4">
+            {editing ? "Update Plan" : "Add New Plan"}
+          </h2>
+
+          {[
+            ["planName", "Plan Name"],
+            ["category", "Category"],
+            ["duration", "Duration"],
+          ].map(([name, label]) => (
+            <div key={name}>
+              <label className="text-sm font-medium text-[var(--fourground-color)] mb-1 block">{label}</label>
               <input
                 type="text"
-                name={key}
-                value={formData[key]}
+                name={name}
+                value={formData[name]}
                 onChange={handleChange}
+                className="w-full p-3 rounded-xl bg-[var(--sidebar-bg)] border border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-calm-blue)] outline-none transition-all text-[var(--fourground-color)]"
                 required
-                className="w-full p-3 rounded-xl border bg-transparent focus:ring-2 focus:ring-[var(--color-primary)] border-[var(--dashboard-border)] text-[var(--fourground-color)] outline-none"
               />
             </div>
           ))}
 
-          {/* Intensity */}
           <div>
-            <label className="block mb-2 font-medium">Intensity</label>
+            <label className="text-sm font-medium text-[var(--fourground-color)] mb-1 block">Intensity</label>
             <select
               name="intensity"
               value={formData.intensity}
               onChange={handleChange}
+              className="w-full p-3 rounded-xl bg-[var(--sidebar-bg)] border border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-calm-blue)] outline-none transition-all text-[var(--fourground-color)]"
               required
-              className="w-full p-3 rounded-xl border bg-transparent focus:ring-2 focus:ring-[var(--color-primary)] border-[var(--dashboard-border)] text-[var(--fourground-color)] outline-none"
             >
               <option value="">Select Level</option>
               <option value="Beginner">Beginner</option>
@@ -184,108 +164,114 @@ export default function AddGymPlans() {
               <option value="Advanced">Advanced</option>
             </select>
           </div>
-        </div>
 
-        {/* Textareas */}
-        {[
-          ["description", "Description"],
-          ["exercises", "Exercises / Steps"],
-          ["equipment", "Equipment Needed"],
-        ].map(([key, label]) => (
-          <div key={key} className="mt-4">
-            <label className="block mb-2 font-medium">{label}</label>
-            <textarea
-              name={key}
-              value={formData[key]}
-              onChange={handleChange}
-              rows={3}
-              className="w-full p-3 rounded-xl border bg-transparent focus:ring-2 focus:ring-[var(--color-primary)] border-[var(--dashboard-border)] text-[var(--fourground-color)] outline-none"
-            />
+          {[
+            ["description", "Description"],
+            ["exercises", "Exercises / Steps"],
+            ["equipment", "Equipment Needed"],
+            ["image", "Image URL"],
+          ].map(([name, label]) => (
+            <div key={name}>
+              <label className="text-sm font-medium text-[var(--fourground-color)] mb-1 block">{label}</label>
+              {name === "image" ? (
+                <input
+                  type="url"
+                  name={name}
+                  value={formData[name]}
+                  onChange={handleChange}
+                  className="w-full p-3 rounded-xl bg-[var(--sidebar-bg)] border border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-calm-blue)] outline-none transition-all text-[var(--fourground-color)]"
+                />
+              ) : (
+                <textarea
+                  name={name}
+                  value={formData[name]}
+                  onChange={handleChange}
+                  rows="3"
+                  className="w-full p-3 rounded-xl bg-[var(--sidebar-bg)] border border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-calm-blue)] outline-none transition-all text-[var(--fourground-color)]"
+                />
+              )}
+            </div>
+          ))}
+
+          <button
+            type="submit"
+            className="w-full py-3 rounded-xl font-bold bg-[var(--color-calm-blue)] text-[var(--color-white)] shadow-lg hover:scale-105 transition-all"
+          >
+            {editing ? "Update Plan" : "Add Gym Plan"}
+          </button>
+        </form>
+
+        {/* Live Preview */}
+        <div className="space-y-6">
+          <h2 className="text-2xl font-bold text-[var(--fourground-color)] mb-4">Live Preview</h2>
+          <div className="bg-[var(--sidebar-bg)] rounded-3xl p-6 shadow-xl border border-[var(--color-primary)] backdrop-blur-sm transition-all hover:shadow-2xl">
+            {formData.image && (
+              <img
+                src={formData.image}
+                alt={formData.planName}
+                className="w-full h-48 object-cover rounded-2xl mb-4"
+              />
+            )}
+            <h3 className="text-xl font-bold text-[var(--fourground-color)] mb-2">{formData.planName || "Plan Name"}</h3>
+            <p className="text-sm text-[var(--fourground-color)] mb-1">
+              <strong>Category:</strong> {formData.category || "-"}
+            </p>
+            <p className="text-sm text-[var(--fourground-color)] mb-1">
+              <strong>Duration:</strong> {formData.duration || "-"}
+            </p>
+            <p className="text-sm text-[var(--fourground-color)] mb-1">
+              <strong>Intensity:</strong> {formData.intensity || "-"}
+            </p>
+            <p className="text-sm text-gray-400">{formData.description || "Description..."}</p>
           </div>
-        ))}
-
-        {/* Image */}
-        <div className="mt-4">
-          <label className="block mb-2 font-medium">Image URL</label>
-          <input
-            type="url"
-            name="image"
-            value={formData.image}
-            onChange={handleChange}
-            className="w-full p-3 rounded-xl border bg-transparent focus:ring-2 focus:ring-[var(--color-primary)] border-[var(--dashboard-border)] text-[var(--fourground-color)] outline-none"
-          />
         </div>
+      </div>
 
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="mt-6 w-full py-3 font-semibold rounded-2xl text-lg bg-[var(--color-primary)] text-white hover:scale-105 transition-transform shadow-lg"
-        >
-          {editing ? "Update Plan" : "Add Gym Plan"}
-        </button>
-      </motion.form>
-
-      {/* Manage Plans Grid */}
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-[var(--font-heading)] font-bold text-center text-[var(--fourground-color)] mb-10">
-          Manage <span className="text-[var(--color-primary)]">Gym Plans</span>
+      {/* Manage Plans */}
+      <div className="container mx-auto px-6 py-12">
+        <h2 className="text-3xl font-bold text-[var(--fourground-color)] mb-8 text-center">
+          Manage <span style={{ color: "var(--color-primary)" }}>Gym Plans</span>
         </h2>
 
         {plans.length === 0 ? (
-          <p className="text-center text-lg opacity-70 text-[var(--fourground-color)]">
-            No plans added yet. Start by adding a new plan!
-          </p>
+          <p className="text-center text-[var(--fourground-color)] text-lg">No gym plans found.</p>
         ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {plans.map((plan) => (
-              <motion.div
+              <div
                 key={plan._id}
-                whileHover={{ scale: 1.03 }}
-                className="bg-white/20 backdrop-blur-lg rounded-3xl shadow-2xl overflow-hidden border border-[var(--dashboard-border)] flex flex-col"
+                className="bg-[var(--sidebar-bg)] rounded-3xl p-6 shadow-lg border border-[var(--dashboard-border)] transition-all hover:scale-105 hover:shadow-2xl"
               >
                 {plan.image && (
                   <img
                     src={plan.image}
                     alt={plan.planName}
-                    className="h-48 w-full object-cover transition-transform duration-300"
+                    className="w-full h-40 object-cover rounded-2xl mb-4 transition-transform duration-500 hover:scale-110"
                   />
                 )}
-                <div className="p-6 flex flex-col flex-1 justify-between">
-                  <div>
-                    <h3 className="text-xl font-bold mb-2 truncate text-[var(--fourground-color)]">
-                      {plan.planName}
-                    </h3>
-                    <div className="flex flex-wrap gap-2 mb-3">
-                      <span className="text-xs px-3 py-1 rounded-full bg-[var(--color-primary)] text-white font-medium">
-                        {plan.category}
-                      </span>
-                      <span className="text-xs px-3 py-1 rounded-full bg-[var(--color-calm-blue)] text-white font-medium">
-                        {plan.intensity}
-                      </span>
-                    </div>
-                    <p className="text-sm opacity-80 mb-2">
-                      <strong>Duration:</strong> {plan.duration}
-                    </p>
-                    <p className="text-sm opacity-70 line-clamp-3 mb-4">
-                      {plan.description || "No description."}
-                    </p>
-                  </div>
-                  <div className="flex gap-3 mt-auto">
-                    <button
-                      onClick={() => handleEdit(plan)}
-                      className="flex-1 py-2 rounded-xl font-semibold text-sm bg-[var(--color-calm-blue)] text-white hover:scale-105 transition-transform"
-                    >
-                      ✏️ Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(plan._id)}
-                      className="flex-1 py-2 rounded-xl font-semibold text-sm bg-[var(--color-primary)] text-white hover:scale-105 transition-transform"
-                    >
-                      🗑 Delete
-                    </button>
-                  </div>
+                <h3 className="text-xl font-bold text-[var(--fourground-color)] mb-2">{plan.planName}</h3>
+                <p className="text-sm text-[var(--fourground-color)] mb-1">
+                  <strong>Category:</strong> {plan.category}
+                </p>
+                <p className="text-sm text-[var(--fourground-color)] mb-1">
+                  <strong>Intensity:</strong> {plan.intensity}
+                </p>
+                <p className="text-sm text-gray-400 line-clamp-3 mb-4">{plan.description || "-"}</p>
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => handleEdit(plan)}
+                    className="flex-1 py-2 rounded-xl font-semibold bg-[var(--color-calm-blue)] text-[var(--color-white)] shadow-md hover:scale-105 transition-all"
+                  >
+                    ✏️ Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(plan._id)}
+                    className="flex-1 py-2 rounded-xl font-semibold bg-[var(--color-primary)] text-[var(--color-white)] shadow-md hover:scale-105 transition-all"
+                  >
+                    🗑 Delete
+                  </button>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         )}
