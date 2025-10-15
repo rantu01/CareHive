@@ -7,7 +7,7 @@ export default function StatCard({ title, value, suffix, icon: Icon, change, cha
       {/* Title + Icon */}
       <div className="flex justify-between items-center">
         <h3 className="text-sm font-medium text-gray-500">{title}</h3>
-        <div className="bg-[var(--dashboard-blue)] shadow-lg shadow-blue-400/50 p-3 rounded-2xl text-white flex items-center justify-center">
+        <div className="bg-[var(--color-primary)] shadow-lg shadow-blue-400/50 p-3 rounded-2xl text-white flex items-center justify-center">
           <Icon className="w-7 h-7" /> {/* Bigger Icon */}
         </div>
       </div>
