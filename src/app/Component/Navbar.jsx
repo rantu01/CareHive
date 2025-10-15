@@ -1,60 +1,57 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import UseAuth from "../Hooks/UseAuth";
 import ThemeToggle from "./ThemeToggle";
-import WhatsAppButton from "./ContactWithAdmin/WhatsAppButton";
 
-// Navigation links configuration
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "Doctors", href: "/doctors" },
   { label: "Wellness", href: "/wellness" },
   { label: "Hospitals", href: "/hospitals" },
-  { label: "Health Tips", href: "/health-tips" },
-  { label: "Doctor's Blog", href: "/userInteractions" },
+  { label: "Blog", href: "/userInteractions" },
 ];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { user, signOutUser } = UseAuth();
+  const pathname = usePathname();
 
   const handleLogout = () => {
     signOutUser()
-      .then(() => {
-        console.log("Signout successfully");
-        setIsOpen(false); // Close mobile menu on successful logout
-      })
+      .then(() => setIsOpen(false))
       .catch((error) => console.log(error));
   };
 
-  // Effect to handle scroll-based styling
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
-    // Cleanup listener on component unmount
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Define colors based on scroll state
-  const textColor = scrolled ? "var(--color-calm-blue)" : "var(--color-white)";
-  const bgColor = scrolled ? "white" : "var(--color-calm-blue)";
-  const logoColor = scrolled ? "var(--color-black)" : "var(--color-white)";
+  // ✅ Transparent only on Home page when not scrolled
+  const isHome = pathname === "/";
+  const bgColor = isHome && !scrolled ? "transparent" : "var(--color-calm-blue)";
+  const textColor = isHome && !scrolled ? "var(--color-white)" : "var(--color-white)";
+  const logoColor = isHome && !scrolled ? "var(--color-white)" : "var(--color-white)";
 
   return (
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled ? "py-2 shadow-md" : "py-4"
+        scrolled || !isHome ? "py-3 shadow-lg" : "py-4"
       }`}
       style={{
         backgroundColor: bgColor,
         fontFamily: "var(--font-primary)",
+        backdropFilter: isHome && !scrolled ? "blur(4px)" : "none",
       }}
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex justify-between items-center h-14">
-          {/* Logo - kept simple and fixed size */}
+          {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 flex-shrink-0">
             <div className="flex items-center">
               <div
@@ -78,7 +75,7 @@ const Navbar = () => {
                 </svg>
               </div>
               <span
-                className={`ml-2 text-xl font-bold whitespace-nowrap`}
+                className="ml-2 text-xl font-bold whitespace-nowrap"
                 style={{
                   color: logoColor,
                   fontFamily: "var(--font-heading)",
@@ -89,52 +86,57 @@ const Navbar = () => {
             </div>
           </Link>
 
-          {/* Desktop Navigation & Auth - The main fix is here */}
-          {/* Added flex-grow to the middle content container (Nav Links) to consume space */}
-          {/* Adjusted spacing to better manage link width */}
-          <div className="hidden md:flex items-center justify-end flex-grow ml-4">
-            
-            {/* Nav Links - Allow this section to take up available space, while remaining flex-nowrap */}
-            <div className="flex items-center space-x-4 lg:space-x-6 flex-nowrap overflow-x-auto justify-end">
-              {navLinks.map((link, idx) => (
-                <Link
-                  key={idx}
-                  href={link.href}
-                  className="font-medium transition-colors duration-200 hover:text-green-600 whitespace-nowrap text-sm lg:text-base"
-                  style={{
-                    color: textColor,
-                    fontWeight: 500,
-                    fontFamily: "var(--font-primary)",
-                  }}
-                >
-                  {link.label}
-                </Link>
-              ))}
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center justify-end flex-grow ml-8">
+            <div className="flex items-center space-x-1 lg:space-x-2 flex-nowrap">
+              {navLinks.map((link, idx) => {
+                const isActive =
+                  pathname === link.href ||
+                  (link.href !== "/" && pathname.startsWith(link.href));
+
+                return (
+                  <Link
+                    key={idx}
+                    href={link.href}
+                    className="relative px-3 py-2 text-sm lg:text-base font-medium transition-all duration-300"
+                    style={{
+                      color: textColor,
+                      fontWeight: isActive ? 600 : 500,
+                    }}
+                  >
+                    {link.label}
+                    {isActive && (
+                      <span
+                        className="absolute bottom-0 left-1/2 transform -translate-x-1/2 h-0.5 w-3/4"
+                        style={{ backgroundColor: "var(--color-primary)" }}
+                      ></span>
+                    )}
+                  </Link>
+                );
+              })}
             </div>
 
-            {/* Auth Buttons & Theme Toggle - fixed width, pushed to the right */}
-            <div className="flex items-center space-x-4 ml-6 flex-shrink-0">
+            {/* Auth Buttons */}
+            <div className="flex items-center space-x-3 ml-6 flex-shrink-0">
               {user ? (
                 <>
                   <Link
                     href="/dashboard"
-                    className="font-medium transition-colors duration-200 hover:text-green-600 whitespace-nowrap text-sm lg:text-base"
+                    className="font-medium px-4 py-2 rounded-xl text-sm lg:text-base transition-all duration-300"
                     style={{
                       color: textColor,
                       fontWeight: 500,
-                      fontFamily: "var(--font-primary)",
                     }}
                   >
                     Dashboard
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="font-medium py-2 px-3 lg:px-4 rounded-full transition duration-300 cursor-pointer hover:bg-green-600 whitespace-nowrap text-sm lg:text-base"
+                    className="font-medium py-2 px-4 lg:px-5 rounded-xl border-2 transition-all duration-300 hover:opacity-90"
                     style={{
                       backgroundColor: "var(--color-primary)",
                       color: "var(--color-white)",
-                      fontWeight: 500,
-                      fontFamily: "var(--font-primary)",
+                      borderColor: "var(--color-primary)",
                     }}
                   >
                     Logout
@@ -144,23 +146,21 @@ const Navbar = () => {
                 <>
                   <Link
                     href="/login"
-                    className="font-medium transition-colors duration-200 hover:text-green-600 whitespace-nowrap text-sm lg:text-base"
+                    className="font-medium px-4 py-2 rounded-xl text-sm lg:text-base border-2 transition-all duration-300 hover:opacity-80"
                     style={{
                       color: textColor,
-                      fontWeight: 500,
-                      fontFamily: "var(--font-primary)",
+                      borderColor: textColor,
                     }}
                   >
                     Login
                   </Link>
                   <Link
                     href="/signup"
-                    className="font-medium py-2 px-3 lg:px-4 rounded-full transition duration-300 hover:bg-green-600 whitespace-nowrap text-sm lg:text-base"
+                    className="font-medium py-2 px-4 lg:px-5 rounded-xl text-sm lg:text-base border-2 transition-all duration-300 hover:opacity-90"
                     style={{
                       backgroundColor: "var(--color-primary)",
                       color: "var(--color-white)",
-                      fontWeight: 500,
-                      fontFamily: "var(--font-primary)",
+                      borderColor: "var(--color-primary)",
                     }}
                   >
                     Sign Up
@@ -171,12 +171,12 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Mobile Menu Button & Theme Toggle (for mobile) */}
+          {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center space-x-4 flex-shrink-0">
             <ThemeToggle />
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="outline-none"
+              className="outline-none p-2 rounded-lg transition-all duration-300 hover:bg-[var(--color-primary)] hover:bg-opacity-20"
               aria-label="Toggle Menu"
               style={{ color: textColor }}
             >
@@ -215,51 +215,45 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation Panel */}
+        {/* Mobile Navigation */}
         {isOpen && (
-          <div
-            className="md:hidden mt-2 bg-white rounded-lg shadow-xl"
-            style={{ fontFamily: "var(--font-primary)" }}
-          >
+          <div className="md:hidden mt-4 bg-white rounded-2xl shadow-2xl border border-[var(--dashboard-border)]">
             <div className="flex flex-col space-y-1 p-4">
-              {navLinks.map((link, idx) => (
-                <Link
-                  key={idx}
-                  href={link.href}
-                  className="font-medium py-2 px-4 rounded transition-colors duration-200 hover:bg-gray-100 whitespace-nowrap"
-                  style={{
-                    color: "var(--color-calm-blue)",
-                    fontWeight: 500,
-                  }}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {navLinks.map((link, idx) => {
+                const isActive =
+                  pathname === link.href ||
+                  (link.href !== "/" && pathname.startsWith(link.href));
 
-              {/* Mobile Auth Links */}
-              <div className="pt-4 mt-2 border-t border-gray-200 flex flex-col space-y-2">
+                return (
+                  <Link
+                    key={idx}
+                    href={link.href}
+                    className={`py-3 px-4 rounded-xl font-medium transition-all duration-200 ${
+                      isActive
+                        ? "bg-[var(--color-primary)] bg-opacity-10 text-[var(--color-primary)]"
+                        : "hover:bg-[var(--color-primary)] hover:bg-opacity-10 text-[var(--color-primary)]"
+                    }`}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+
+              {/* Auth Section */}
+              <div className="pt-4 mt-2 border-t border-[var(--dashboard-border)] flex flex-col space-y-3">
                 {user ? (
                   <>
                     <Link
                       href="/dashboard"
-                      className="block font-medium py-2 px-4 rounded transition-colors duration-200 hover:bg-gray-100 whitespace-nowrap"
-                      style={{
-                        color: "var(--color-calm-blue)",
-                        fontWeight: 500,
-                      }}
+                      className="block py-3 px-4 rounded-xl text-center font-medium text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:bg-opacity-10"
                       onClick={() => setIsOpen(false)}
                     >
                       Dashboard
                     </Link>
                     <button
                       onClick={handleLogout}
-                      className="w-full font-medium py-2 px-4 rounded-full transition duration-300 cursor-pointer hover:bg-green-600"
-                      style={{
-                        backgroundColor: "var(--color-primary)",
-                        color: "var(--color-white)",
-                        fontWeight: 500,
-                      }}
+                      className="w-full py-3 px-4 rounded-xl font-medium border-2 bg-[var(--color-primary)] text-white border-[var(--color-primary)]"
                     >
                       Logout
                     </button>
@@ -268,23 +262,14 @@ const Navbar = () => {
                   <>
                     <Link
                       href="/login"
-                      className="block font-medium py-2 px-4 rounded transition-colors duration-200 hover:bg-gray-100 whitespace-nowrap"
-                      style={{
-                        color: "var(--color-calm-blue)",
-                        fontWeight: 500,
-                      }}
+                      className="block py-3 px-4 rounded-xl border-2 text-center text-[var(--color-primary)] border-[var(--color-primary)]"
                       onClick={() => setIsOpen(false)}
                     >
                       Login
                     </Link>
                     <Link
                       href="/signup"
-                      className="block font-medium py-2 px-4 rounded-full text-center transition duration-300 hover:bg-green-600 whitespace-nowrap"
-                      style={{
-                        backgroundColor: "var(--color-primary)",
-                        color: "var(--color-white)",
-                        fontWeight: 500,
-                      }}
+                      className="block py-3 px-4 rounded-xl text-center border-2 bg-[var(--color-primary)] text-white border-[var(--color-primary)]"
                       onClick={() => setIsOpen(false)}
                     >
                       Sign Up

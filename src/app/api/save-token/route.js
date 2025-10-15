@@ -26,7 +26,7 @@ export async function POST(req) {
           updatedAt: new Date(),
         },
       },
-      { upsert: true }
+      { upsert: false }
     );
 
     return NextResponse.json({ success: true, result });
