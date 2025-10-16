@@ -33,11 +33,11 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // ✅ Transparent only on Home page when not scrolled
+  // ✅ Transparent only on Home page when not scrolled (no blur)
   const isHome = pathname === "/";
   const bgColor = isHome && !scrolled ? "transparent" : "var(--color-secondary)";
-  const textColor = isHome && !scrolled ? "var(--color-white)" : "var(--color-white)";
-  const logoColor = isHome && !scrolled ? "var(--color-white)" : "var(--color-white)";
+  const textColor = "var(--color-white)";
+  const logoColor = "var(--color-white)";
 
   return (
     <nav
@@ -47,7 +47,6 @@ const Navbar = () => {
       style={{
         backgroundColor: bgColor,
         fontFamily: "var(--font-primary)",
-        backdropFilter: isHome && !scrolled ? "blur(4px)" : "none",
       }}
     >
       <div className="container mx-auto px-4 md:px-6">
