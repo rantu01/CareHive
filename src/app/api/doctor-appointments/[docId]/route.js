@@ -16,30 +16,41 @@ export async function GET(request, { params }) {
     const db = client.db("carehive");
     const collection = db.collection("userAppointments");
 
-    // Aggregate all appointments for this doctor only
+    // Unwind appointmentDetails and match by docId
     const pipeline = [
       { $unwind: "$appointmentDetails" },
-      { $match: { "appointmentDetails.doctorId": docId } }, 
+      { $match: { "appointmentDetails.docId": docId } },
       {
         $project: {
           _id: 0,
-          doctorId: "$appointmentDetails.doctorId",
+          bookedAt: "$appointmentDetails.bookedAt",
+          bookedSlot: "$appointmentDetails.bookedSlot",
+          docId: "$appointmentDetails.docId",
           doctorName: "$appointmentDetails.doctorName",
-          specialist: "$appointmentDetails.specialist",
-          appointmentDate: "$appointmentDetails.appointmentDate",
-          userId: "$userId",
+          fees: "$appointmentDetails.fees",
+          hospitalName: "$appointmentDetails.hospitalName",
+          meetingType: "$appointmentDetails.meetingType",
+          patientEmail: "$appointmentDetails.patientEmail",
+          patientName: "$appointmentDetails.patientName",
+          serialNo: "$appointmentDetails.serialNo",
+          userId: "$appointmentDetails.userId",
         },
       },
-      { $sort: { appointmentDate: -1 } },
+      { $sort: { bookedAt: -1 } },
     ];
 
     const appointments = await collection.aggregate(pipeline).toArray();
 
-    // Create summary data
+    // Summary info
     const total = appointments.length;
+    const byMeetingType = appointments.reduce((acc, curr) => {
+      acc[curr.meetingType] = (acc[curr.meetingType] || 0) + 1;
+      return acc;
+    }, {});
 
     return NextResponse.json({
       total,
+      byMeetingType,
       appointments,
     });
   } catch (error) {
