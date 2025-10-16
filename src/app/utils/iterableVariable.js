@@ -82,3 +82,183 @@ export const bangladeshDistricts = [
   { name: "Tangail", value: "tangail" },
   { name: "Thakurgaon", value: "thakurgaon" }
 ];
+
+
+const bodyPartSymptoms = {
+  head: [
+    "pain",
+    "pressure",
+    "dizziness",
+    "lightheadedness",
+    "tingling",
+    "numbness",
+    "itchiness"
+  ],
+  eyes: [
+    "redness",
+    "itching",
+    "dryness",
+    "blurred vision",
+    "double vision",
+    "eye pain",
+    "watery eyes",
+    "light sensitivity"
+  ],
+  ears: [
+    "ear pain",
+    "itching",
+    "hearing loss",
+    "ringing (tinnitus)",
+    "fullness",
+    "discharge",
+    "dizziness"
+  ],
+  nose: [
+    "runny nose",
+    "nasal congestion",
+    "sneezing",
+    "itchy nose",
+    "loss of smell",
+    "nosebleed",
+    "postnasal drip"
+  ],
+  throat: [
+    "sore throat",
+    "dry throat",
+    "difficulty swallowing",
+    "hoarseness",
+    "lump in throat",
+    "itchy throat"
+  ],
+  neck: [
+    "neck pain",
+    "stiffness",
+    "swelling",
+    "restricted movement",
+    "muscle spasms",
+    "lump"
+  ],
+  shoulders: [
+    "shoulder pain",
+    "stiffness",
+    "limited motion",
+    "swelling",
+    "numbness or tingling"
+  ],
+  arms: [
+    "arm pain",
+    "numbness",
+    "tingling",
+    "weakness",
+    "swelling",
+    "bruising"
+  ],
+  elbows: [
+    "elbow pain",
+    "swelling",
+    "stiffness",
+    "tingling",
+    "limited movement"
+  ],
+  wrists: [
+    "wrist pain",
+    "tingling",
+    "numbness",
+    "weak grip",
+    "swelling",
+    "stiffness"
+  ],
+  hands: [
+    "hand pain",
+    "swelling",
+    "stiffness",
+    "tingling",
+    "numbness",
+    "trembling"
+  ],
+  fingers: [
+    "finger pain",
+    "numbness",
+    "swelling",
+    "stiffness",
+    "tingling",
+    "twitching"
+  ],
+  chest: [
+    "chest pain",
+    "tightness",
+    "pressure",
+    "shortness of breath",
+    "palpitations",
+    "burning sensation"
+  ],
+  back: [
+    "back pain",
+    "stiffness",
+    "muscle tightness",
+    "numbness",
+    "tingling",
+    "limited flexibility"
+  ],
+  stomach: [
+    "abdominal pain",
+    "bloating",
+    "nausea",
+    "vomiting",
+    "gas",
+    "cramps",
+    "loss of appetite"
+  ],
+  hips: [
+    "hip pain",
+    "stiffness",
+    "swelling",
+    "clicking sound",
+    "limited movement"
+  ],
+  legs: [
+    "leg pain",
+    "cramps",
+    "numbness",
+    "tingling",
+    "swelling",
+    "weakness"
+  ],
+  knees: [
+    "knee pain",
+    "swelling",
+    "stiffness",
+    "clicking or popping",
+    "locking"
+  ],
+  calves: [
+    "calf pain",
+    "cramping",
+    "swelling",
+    "tightness",
+    "tenderness"
+  ],
+  ankles: [
+    "ankle pain",
+    "swelling",
+    "stiffness",
+    "instability",
+    "bruising"
+  ],
+  feet: [
+    "foot pain",
+    "swelling",
+    "burning sensation",
+    "numbness",
+    "tingling",
+    "redness"
+  ],
+  toes: [
+    "toe pain",
+    "swelling",
+    "numbness",
+    "tingling",
+    "redness",
+    "itching"
+  ]
+};
