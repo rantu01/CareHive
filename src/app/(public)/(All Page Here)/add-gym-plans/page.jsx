@@ -52,7 +52,7 @@ export default function AddGymPlans() {
           title: "Success!",
           text: editing ? "Gym plan updated!" : "New gym plan added!",
           icon: "success",
-          confirmButtonColor: "steelblue",
+          confirmButtonColor: "var(--color-calm-blue)",
         });
         setFormData({
           planName: "",
@@ -84,7 +84,7 @@ export default function AddGymPlans() {
       showCancelButton: true,
       confirmButtonText: "Yes, delete",
       cancelButtonText: "Cancel",
-      confirmButtonColor: "steelblue",
+      confirmButtonColor: "var(--color-calm-blue)",
     });
     if (!confirm.isConfirmed) return;
 
@@ -110,488 +110,709 @@ export default function AddGymPlans() {
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@500;700&display=swap');
-
         :root {
           --font-primary: 'Inter', sans-serif;
           --font-heading: 'Playfair Display', serif;
+          --color-calm-blue: #3b7f81; /* Calm Blue */
         }
-
         body {
           background-color: aliceblue;
-          color: midnightblue;
+          color: black;
           font-family: var(--font-primary);
           margin: 0;
           padding: 0;
         }
       `}</style>
 
-      <section className="min-h-screen" style={{ backgroundColor: "aliceblue", color: "midnightblue", fontFamily: "'Inter', sans-serif" }}>
+      <section className="min-h-screen mt-10" style={{ fontFamily: "'Inter', sans-serif" }}>
         {/* Hero Section */}
         <div className="container mx-auto px-6 py-20">
           <div
             style={{
               backgroundColor: "white",
               borderRadius: "2rem",
-              boxShadow: "0 10px 25px rgba(0,0,0,0.1)",
-              padding: "2.5rem",
+              boxShadow: "0 12px 30px rgba(0,0,0,0.12)",
+              padding: "3rem",
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))",
-              gap: "2.5rem",
-              alignItems: "center",
+              gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))",
+              gap: "3rem",
+              alignItems: "stretch",
             }}
           >
             {/* Hero Text */}
-            <div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                minHeight: "600px",
+              }}
+            >
               <h1
                 style={{
                   fontFamily: "'Playfair Display', serif",
                   fontWeight: 700,
-                  fontSize: "3.75rem",
+                  fontSize: "4rem",
                   lineHeight: 1.1,
-                  marginBottom: "1rem",
-                  color: "midnightblue",
+                  marginBottom: "1.5rem",
+                  color: "var(--color-calm-blue)",
                 }}
               >
-                The Form
-                <br />
-                Gym & Pilates
+                Add & Manage Gym Plans
               </h1>
-              <p style={{ fontSize: "1.125rem", color: "slategray", marginBottom: "1.5rem" }}>
-                Studio for professional functional training, pilates, and fitness. Balance your mind
-                and body.
+              <p
+                style={{
+                  fontSize: "1.125rem",
+                  color: "gray",
+                  marginBottom: "2rem",
+                  lineHeight: 1.8,
+                }}
+              >
+               This platform is designed to empower fitness professionals and enthusiasts to create highly organized, comprehensive gym plans for clients of all levels. Each plan can include detailed workout routines, clearly defined durations, levels of intensity, step-by-step exercises, and required equipment, allowing for seamless implementation and consistency. Trainers can now easily manage multiple client plans, track progress, and customize routines to fit specific goals such as weight loss, muscle building, endurance improvement, or overall wellness. Our live preview feature ensures that every plan is visually structured, making it easy to monitor updates, spot inconsistencies, and enhance user engagement. Beyond just creating routines, this system encourages proper planning, accountability, and professional presentation, allowing trainers to deliver structured programs that maximize results. By using this platform, users can save time on manual planning, maintain a clear overview of ongoing programs, and ensure that all workouts are safe, effective, and goal-oriented. Whether designing individual sessions or managing an entire training curriculum, this tool provides a comprehensive, flexible, and professional approach to fitness planning. Enhance the overall fitness journey with organized, personalized, and visually appealing gym plans that motivate clients, improve adherence, and deliver measurable improvements in performance and health.
               </p>
               <button
                 style={{
-                  backgroundColor: "steelblue",
+                  background: "var(--color-calm-blue)",
                   color: "white",
-                  padding: "0.75rem 1.5rem",
-                  borderRadius: "1rem",
-                  fontWeight: "600",
-                  boxShadow: "0 4px 12px rgba(70,130,180,0.4)",
+                  padding: "1rem 2.5rem",
+                  borderRadius: "2rem",
+                  fontWeight: 700,
+                  fontSize: "1.125rem",
+                  boxShadow: "0 8px 20px rgba(59,127,129,0.4)",
                   cursor: "pointer",
                   border: "none",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: "0.25rem",
+                  transition: "all 0.4s ease",
+                  animation: "bounceArrow 1s infinite",
                 }}
-                onMouseOver={(e) => (e.currentTarget.style.filter = "brightness(110%)")}
-                onMouseOut={(e) => (e.currentTarget.style.filter = "none")}
+                onClick={() => {
+                  const formElement = document.getElementById("gymForm");
+                  if (formElement) {
+                    formElement.scrollIntoView({ behavior: "smooth" });
+                  }
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.transform = "translateY(-3px) scale(1.05)";
+                  e.currentTarget.style.boxShadow = "0 12px 25px rgba(59,127,129,0.5)";
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.transform = "none";
+                  e.currentTarget.style.boxShadow = "0 8px 20px rgba(59,127,129,0.4)";
+                }}
               >
-                Book a Class
+                Create Your Plan ↓
+                <style>{`
+                  @keyframes bounceArrow {
+                    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+                    40% { transform: translateY(5px); }
+                    60% { transform: translateY(3px); }
+                  }
+                `}</style>
               </button>
             </div>
 
             {/* Hero Image */}
-            <div style={{ overflow: "hidden", borderRadius: "1.5rem" }}>
+            <div
+              style={{
+                overflow: "hidden",
+                borderRadius: "2rem",
+                boxShadow: "0 8px 25px rgba(0,0,0,0.08)",
+              }}
+            >
               <img
                 src="https://i.ibb.co/C5GbNpN4/pexels-ivan-samkov-4164761.jpg"
-                alt="Gym"
-                style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "1.5rem" }}
+                alt="Gym Workout"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  borderRadius: "2rem",
+                  minHeight: "600px",
+                }}
               />
             </div>
           </div>
         </div>
 
-        {/* Form + Preview Section */}
-        <div className="container mx-auto px-6 py-20" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "start" }}>
-          {/* Form */}
-          <form
-            onSubmit={handleSubmit}
+        {/* Form + Live Preview Section */}
+<div
+  className="container mx-auto px-6 py-20"
+  style={{
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: "4rem",
+    alignItems: "start",
+  }}
+>
+  {/* Form */}
+  <form
+    id="gymForm"
+    onSubmit={handleSubmit}
+    style={{
+      background: "linear-gradient(145deg, #ffffff, #f0f4f8)",
+      padding: "2.5rem",
+      borderRadius: "2rem",
+      boxShadow: "0 15px 35px rgba(0,0,0,0.12)",
+      border: "1px solid #e0e6ed",
+    }}
+  >
+    <h2
+      style={{
+        fontFamily: "'Playfair Display', serif",
+        fontWeight: 600,
+        fontSize: "2rem",
+        marginBottom: "2rem",
+        color: "var(--color-calm-blue)",
+        textAlign: "center",
+      }}
+    >
+      {editing ? "Update Plan" : "Add New Gym Plan"}
+    </h2>
+
+    {["planName", "category", "duration"].map((name) => (
+      <div key={name} style={{ marginBottom: "1.5rem" }}>
+        <input
+          type="text"
+          name={name}
+          value={formData[name]}
+          onChange={handleChange}
+          required
+          placeholder={name.charAt(0).toUpperCase() + name.slice(1)}
+          style={{
+            width: "100%",
+            padding: "1rem",
+            borderRadius: "1.25rem",
+            border: "1px solid #cfd8e3",
+            fontSize: "1rem",
+            color: "#333",
+            backgroundColor: "#fff",
+            transition: "all 0.3s ease",
+          }}
+          onFocus={(e) =>
+            (e.currentTarget.style.boxShadow = "0 0 10px rgba(59,127,129,0.25)")
+          }
+          onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
+        />
+      </div>
+    ))}
+
+    <div style={{ marginBottom: "1.5rem" }}>
+      <select
+        name="intensity"
+        value={formData.intensity}
+        onChange={handleChange}
+        required
+        style={{
+          width: "100%",
+          padding: "1rem",
+          borderRadius: "1.25rem",
+          border: "1px solid #cfd8e3",
+          fontSize: "1rem",
+          color: "#333",
+          backgroundColor: "#fff",
+          transition: "all 0.3s ease",
+        }}
+        onFocus={(e) =>
+          (e.currentTarget.style.boxShadow = "0 0 10px rgba(59,127,129,0.25)")
+        }
+        onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
+      >
+        <option value="" disabled>
+          Select Intensity
+        </option>
+        <option>Beginner</option>
+        <option>Intermediate</option>
+        <option>Advanced</option>
+      </select>
+    </div>
+
+    {["description", "exercises", "equipment", "image"].map((name) => (
+      <div key={name} style={{ marginBottom: "1.5rem" }}>
+        {name === "image" ? (
+          <input
+            type="url"
+            name={name}
+            value={formData[name]}
+            onChange={handleChange}
+            placeholder="Image URL"
             style={{
-              backgroundColor: "white",
-              padding: "2.5rem",
-              borderRadius: "2rem",
-              boxShadow: "0 8px 20px rgba(0,0,0,0.1)",
-              border: "1px solid lightgray",
-              fontFamily: "'Inter', sans-serif",
+              width: "100%",
+              padding: "1rem",
+              borderRadius: "1.25rem",
+              border: "1px solid #cfd8e3",
+              fontSize: "1rem",
+              color: "#333",
+              backgroundColor: "#fff",
+              transition: "all 0.3s ease",
             }}
-          >
-            <h2
-              style={{
-                fontFamily: "'Playfair Display', serif",
-                fontWeight: 600,
-                fontSize: "2rem",
-                marginBottom: "2rem",
-                color: "midnightblue",
-              }}
-            >
-              {editing ? "Update Plan" : "Add New Plan"}
-            </h2>
+            onFocus={(e) =>
+              (e.currentTarget.style.boxShadow = "0 0 10px rgba(59,127,129,0.25)")
+            }
+            onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
+          />
+        ) : (
+          <textarea
+            name={name}
+            value={formData[name]}
+            onChange={handleChange}
+            rows="3"
+            placeholder={name.charAt(0).toUpperCase() + name.slice(1)}
+            style={{
+              width: "100%",
+              padding: "1rem",
+              borderRadius: "1.25rem",
+              border: "1px solid #cfd8e3",
+              fontSize: "1rem",
+              color: "#333",
+              backgroundColor: "#fff",
+              resize: "none",
+              transition: "all 0.3s ease",
+            }}
+            onFocus={(e) =>
+              (e.currentTarget.style.boxShadow = "0 0 10px rgba(59,127,129,0.25)")
+            }
+            onBlur={(e) => (e.currentTarget.style.boxShadow = "none")}
+          />
+        )}
+      </div>
+    ))}
 
-            {[
-              ["planName", "Plan Name"],
-              ["category", "Category"],
-              ["duration", "Duration"],
-            ].map(([name, label]) => (
-              <div key={name} style={{ marginBottom: "1.5rem", position: "relative" }}>
-                <input
-                  type="text"
-                  name={name}
-                  value={formData[name]}
-                  onChange={handleChange}
-                  required
-                  placeholder=" "
-                  style={{
-                    width: "100%",
-                    padding: "1rem",
-                    borderRadius: "1rem",
-                    border: "1px solid lightgray",
-                    outline: "none",
-                    fontSize: "1rem",
-                    color: "midnightblue",
-                  }}
-                />
-                <label
-                  htmlFor={name}
-                  style={{
-                    position: "absolute",
-                    left: "1rem",
-                    top: "0.8rem",
-                    fontSize: "0.85rem",
-                    color: "gray",
-                    pointerEvents: "none",
-                    userSelect: "none",
-                  }}
-                >
-                  {label}
-                </label>
-              </div>
-            ))}
+    <button
+      type="submit"
+      style={{
+        width: "100%",
+        padding: "1rem",
+        borderRadius: "2rem",
+        fontWeight: "600",
+        fontSize: "1.1rem",
+        background: "linear-gradient(90deg, #3b7f81, #5ca2a5)",
+        color: "white",
+        cursor: "pointer",
+        border: "none",
+        transition: "all 0.3s ease",
+      }}
+      onMouseOver={(e) =>
+        (e.currentTarget.style.transform = "translateY(-2px) scale(1.02)")
+      }
+      onMouseOut={(e) => (e.currentTarget.style.transform = "none")}
+    >
+      {editing ? "Update Plan" : "Add Gym Plan"}
+    </button>
+  </form>
+{/* Live Preview */}
+<div
+  style={{
+    background: "rgba(255, 255, 255, 0.85)",
+    backdropFilter: "blur(16px)",
+    borderRadius: "2rem",
+    boxShadow: "0 30px 70px rgba(0,0,0,0.18), inset 0 0 20px rgba(255,255,255,0.35)",
+    border: "1px solid rgba(255,255,255,0.45)",
+    padding: "2rem",
+    transition: "all 0.3s ease",
+    cursor: "default",
+    position: "relative",
+    overflow: "hidden",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    width: "100%",
+  }}
+  onMouseOver={(e) => {
+    e.currentTarget.style.transform = "scale(1.03)";
+    e.currentTarget.style.boxShadow =
+      "0 35px 80px rgba(0,0,0,0.25), inset 0 0 25px rgba(255,255,255,0.4)";
+  }}
+  onMouseOut={(e) => {
+    e.currentTarget.style.transform = "scale(1)";
+    e.currentTarget.style.boxShadow =
+      "0 30px 70px rgba(0,0,0,0.18), inset 0 0 20px rgba(255,255,255,0.35)";
+  }}
+>
+  {/* Image + Intensity Badge */}
+  <div style={{ position: "relative", width: "100%" }}>
+    {formData.image ? (
+      <img
+        src={formData.image}
+        alt={formData.planName}
+        style={{
+          width: "100%",
+          borderRadius: "1.75rem",
+          marginBottom: "1.5rem",
+          maxHeight: "16rem",
+          objectFit: "cover",
+          boxShadow: "0 15px 35px rgba(0,0,0,0.22)",
+          transition: "all 0.3s ease",
+        }}
+      />
+    ) : (
+      <div
+        style={{
+          width: "100%",
+          height: "16rem",
+          backgroundColor: "rgba(200,200,200,0.25)",
+          borderRadius: "1.75rem",
+          marginBottom: "1.5rem",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "#888",
+          fontWeight: "600",
+          fontSize: "1.1rem",
+          textTransform: "uppercase",
+          letterSpacing: "0.05em",
+          boxShadow: "inset 0 0 12px rgba(255,255,255,0.5)",
+        }}
+      >
+        Image Preview
+      </div>
+    )}
 
-            {/* Intensity Select */}
-            <div style={{ marginBottom: "1.5rem", position: "relative" }}>
-              <select
-                name="intensity"
-                value={formData.intensity}
-                onChange={handleChange}
-                required
-                style={{
-                  width: "100%",
-                  padding: "1rem",
-                  borderRadius: "1rem",
-                  border: "1px solid lightgray",
-                  outline: "none",
-                  fontSize: "1rem",
-                  color: "midnightblue",
-                }}
-              >
-                <option value="" disabled>
-                  Select Intensity
-                </option>
-                <option>Beginner</option>
-                <option>Intermediate</option>
-                <option>Advanced</option>
-              </select>
-              <label
-                htmlFor="intensity"
-                style={{
-                  position: "absolute",
-                  left: "1rem",
-                  top: "0.8rem",
-                  fontSize: "0.85rem",
-                  color: "gray",
-                  pointerEvents: "none",
-                  userSelect: "none",
-                }}
-              >
-                Intensity
-              </label>
-            </div>
+    {/* Floating Intensity Badge */}
+    {formData.intensity && (
+      <span
+        style={{
+          position: "absolute",
+          top: "1rem",
+          right: "1rem",
+          background: "linear-gradient(90deg, #3b7f81, #5ca2a5)",
+          color: "#fff",
+          padding: "0.5rem 1rem",
+          borderRadius: "2rem",
+          fontSize: "0.85rem",
+          fontWeight: "600",
+          boxShadow: "0 5px 15px rgba(0,0,0,0.18)",
+          textTransform: "uppercase",
+        }}
+      >
+        {formData.intensity}
+      </span>
+    )}
+  </div>
 
-            {/* Textareas and Image URL */}
-            {[
-              ["description", "Description"],
-              ["exercises", "Exercises / Steps"],
-              ["equipment", "Equipment Needed"],
-              ["image", "Image URL"],
-            ].map(([name, label]) => (
-              <div key={name} style={{ marginBottom: "1.5rem", position: "relative" }}>
-                {name === "image" ? (
-                  <input
-                    type="url"
-                    name={name}
-                    value={formData[name]}
-                    onChange={handleChange}
-                    placeholder=" "
-                    style={{
-                      width: "100%",
-                      padding: "1rem",
-                      borderRadius: "1rem",
-                      border: "1px solid lightgray",
-                      outline: "none",
-                      fontSize: "1rem",
-                      color: "midnightblue",
-                    }}
-                  />
-                ) : (
-                  <textarea
-                    name={name}
-                    value={formData[name]}
-                    onChange={handleChange}
-                    rows="3"
-                    placeholder=" "
-                    style={{
-                      width: "100%",
-                      padding: "1rem",
-                      borderRadius: "1rem",
-                      border: "1px solid lightgray",
-                      outline: "none",
-                      fontSize: "1rem",
-                      color: "midnightblue",
-                      resize: "none",
-                    }}
-                  />
-                )}
-                <label
-                  htmlFor={name}
-                  style={{
-                    position: "absolute",
-                    left: "1rem",
-                    top: "0.8rem",
-                    fontSize: "0.85rem",
-                    color: "gray",
-                    pointerEvents: "none",
-                    userSelect: "none",
-                  }}
-                >
-                  {label}
-                </label>
-              </div>
-            ))}
+  {/* Plan Title */}
+  <h3
+    style={{
+      fontFamily: "'Playfair Display', serif",
+      fontWeight: 700,
+      fontSize: "2rem",
+      textAlign: "center",
+      marginBottom: "0.5rem",
+      color: "var(--color-calm-blue)",
+      textShadow: "0 3px 8px rgba(0,0,0,0.12)",
+    }}
+  >
+    {formData.planName || "Plan Name"}
+  </h3>
 
-            <button
-              type="submit"
+  {/* Basic Info */}
+  <div
+    style={{
+      display: "flex",
+      gap: "1rem",
+      flexWrap: "wrap",
+      justifyContent: "center",
+      marginBottom: "1rem",
+    }}
+  >
+    <p style={{ fontSize: "0.95rem", color: "#555", margin: "0.25rem 0" }}>
+      <strong>Category:</strong> {formData.category || "-"}
+    </p>
+    <p style={{ fontSize: "0.95rem", color: "#555", margin: "0.25rem 0" }}>
+      <strong>Duration:</strong> {formData.duration || "-"}
+    </p>
+  </div>
+
+  {/* Floating Info Panel */}
+  <div
+    style={{
+      background: "rgba(255,255,255,0.9)",
+      backdropFilter: "blur(10px)",
+      borderRadius: "1.5rem",
+      padding: "1rem 1.5rem",
+      marginTop: "0.5rem",
+      marginBottom: "1rem",
+      boxShadow: "0 10px 25px rgba(0,0,0,0.12)",
+      border: "1px solid rgba(255,255,255,0.35)",
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      gap: "1rem",
+      width: "100%",
+      flexWrap: "wrap",
+    }}
+  >
+    <div style={{ flex: "1 1 45%" }}>
+      <p
+        style={{
+          fontWeight: "600",
+          fontSize: "0.9rem",
+          color: "#444",
+          marginBottom: "0.25rem",
+        }}
+      >
+        🏋️ Exercises
+      </p>
+      <p style={{ fontSize: "0.85rem", color: "#666", lineHeight: 1.4 }}>
+        {formData.exercises || "-"}
+      </p>
+    </div>
+    <div style={{ flex: "1 1 45%" }}>
+      <p
+        style={{
+          fontWeight: "600",
+          fontSize: "0.9rem",
+          color: "#444",
+          marginBottom: "0.25rem",
+        }}
+      >
+        🛠️ Equipment
+      </p>
+      <p style={{ fontSize: "0.85rem", color: "#666", lineHeight: 1.4 }}>
+        {formData.equipment || "-"}
+      </p>
+    </div>
+  </div>
+
+  {/* Description */}
+  <p
+    style={{
+      fontSize: "1rem",
+      color: "#444",
+      textAlign: "center",
+      lineHeight: 1.6,
+      fontStyle: "italic",
+      padding: "0 1rem",
+    }}
+  >
+    {formData.description || "Description..."}
+  </p>
+</div>
+
+
+</div>
+
+{/* Manage Plans Section */}
+<div className="container mx-auto px-6 py-20">
+  <h2
+    style={{
+      fontFamily: "'Playfair Display', serif",
+      fontWeight: 700,
+      fontSize: "3rem",
+      marginBottom: "3rem",
+      textAlign: "center",
+      color: "var(--color-calm-blue)",
+    }}
+  >
+    Manage <span className="text-black">Gym Plans</span>{" "}
+    
+  </h2>
+
+  {plans.length === 0 ? (
+    <p
+      style={{
+        textAlign: "center",
+        fontSize: "1.125rem",
+        color: "var(--color-calm-blue)",
+      }}
+    >
+      No gym plans found.
+    </p>
+  ) : (
+    <div
+      style={{
+        display: "grid",
+        gap: "2.5rem",
+        gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))",
+      }}
+    >
+      {plans.map((plan) => (
+        <div
+          key={plan._id}
+          style={{
+            background: "rgba(255,255,255,0.85)",
+            backdropFilter: "blur(14px)",
+            borderRadius: "2rem",
+            padding: "2rem 1.5rem",
+            boxShadow:
+              "0 20px 45px rgba(0,0,0,0.18), inset 0 0 20px rgba(255,255,255,0.35)",
+            border: "1px solid rgba(255,255,255,0.25)",
+            transition: "all 0.3s ease",
+            display: "flex",
+            flexDirection: "column",
+            cursor: "default",
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.transform = "scale(1.05)";
+            e.currentTarget.style.boxShadow =
+              "0 30px 60px rgba(0,0,0,0.25), inset 0 0 25px rgba(255,255,255,0.4)";
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.transform = "scale(1)";
+            e.currentTarget.style.boxShadow =
+              "0 20px 45px rgba(0,0,0,0.18), inset 0 0 20px rgba(255,255,255,0.35)";
+          }}
+        >
+          {/* Plan Image */}
+          {plan.image ? (
+            <img
+              src={plan.image}
+              alt={plan.planName}
               style={{
                 width: "100%",
-                padding: "1rem",
-                borderRadius: "1rem",
-                fontWeight: "600",
-                backgroundColor: "steelblue",
-                color: "white",
-                cursor: "pointer",
-                border: "none",
-                boxShadow: "0 5px 15px rgba(70,130,180,0.4)",
-                transition: "transform 0.2s ease",
+                height: "12rem",
+                objectFit: "cover",
+                borderRadius: "1.75rem",
+                marginBottom: "1.25rem",
+                boxShadow: "0 12px 28px rgba(0,0,0,0.2)",
+                transition: "all 0.3s ease",
               }}
-              onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
-              onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
-            >
-              {editing ? "Update Plan" : "Add Gym Plan"}
-            </button>
-          </form>
-
-          {/* Live Preview */}
-          <div
-            style={{
-              backgroundColor: "white",
-              borderRadius: "2rem",
-              boxShadow: "0 8px 20px rgba(0,0,0,0.1)",
-              border: "1px solid lightgray",
-              padding: "2rem",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              fontFamily: "'Inter', sans-serif",
-              color: "midnightblue",
-            }}
-          >
-            {formData.image ? (
-              <img
-                src={formData.image}
-                alt={formData.planName}
-                style={{
-                  width: "100%",
-                  borderRadius: "1.5rem",
-                  marginBottom: "1.5rem",
-                  maxHeight: "14rem",
-                  objectFit: "cover",
-                }}
-              />
-            ) : (
-              <div
-                style={{
-                  width: "100%",
-                  height: "14rem",
-                  backgroundColor: "lightgray",
-                  borderRadius: "1.5rem",
-                  marginBottom: "1.5rem",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "gray",
-                  fontSize: "1rem",
-                }}
-              >
-                Image Preview
-              </div>
-            )}
-
-            <h3
-              style={{
-                fontFamily: "'Playfair Display', serif",
-                fontWeight: 600,
-                fontSize: "2rem",
-                textAlign: "center",
-                marginBottom: "0.5rem",
-                color: "midnightblue",
-              }}
-            >
-              {formData.planName || "Plan Name"}
-            </h3>
-
-            <p style={{ fontSize: "0.85rem", color: "gray", marginBottom: "0.25rem" }}>
-              <strong>Category:</strong> {formData.category || "-"}
-            </p>
-            <p style={{ fontSize: "0.85rem", color: "gray", marginBottom: "0.25rem" }}>
-              <strong>Duration:</strong> {formData.duration || "-"}
-            </p>
-            <p style={{ fontSize: "0.85rem", color: "gray", marginBottom: "0.75rem" }}>
-              <strong>Intensity:</strong> {formData.intensity || "-"}
-            </p>
-            <p style={{ fontSize: "1rem", textAlign: "center", color: "slategray" }}>
-              {formData.description || "Description..."}
-            </p>
-          </div>
-        </div>
-
-        {/* Manage Plans Section */}
-        <div className="container mx-auto px-6 py-20">
-          <h2
-            style={{
-              fontFamily: "'Playfair Display', serif",
-              fontWeight: 600,
-              fontSize: "2.5rem",
-              marginBottom: "3rem",
-              textAlign: "center",
-              color: "navy",
-            }}
-          >
-            Manage{" "}
-            <span
-              style={{
-                backgroundColor: "steelblue",
-                padding: "0.5rem 1rem",
-                borderRadius: "1rem",
-                color: "white",
-                boxShadow: "0 4px 12px rgba(70,130,180,0.5)",
-              }}
-            >
-              Gym Plans
-            </span>
-          </h2>
-
-          {plans.length === 0 ? (
-            <p style={{ textAlign: "center", fontSize: "1.125rem", color: "navy" }}>
-              No gym plans found.
-            </p>
+            />
           ) : (
             <div
               style={{
-                display: "grid",
-                gap: "2rem",
-                gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))",
+                width: "100%",
+                height: "12rem",
+                backgroundColor: "#e0e6ed",
+                borderRadius: "1.75rem",
+                marginBottom: "1.25rem",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "1rem",
+                color: "#888",
+                fontWeight: 600,
               }}
             >
-              {plans.map((plan) => (
-                <div
-                  key={plan._id}
-                  style={{
-                    backgroundColor: "white",
-                    borderRadius: "2rem",
-                    padding: "1.5rem",
-                    boxShadow: "0 5px 15px rgba(0,0,0,0.1)",
-                    border: "1px solid lightgray",
-                    transition: "transform 0.2s ease",
-                    cursor: "default",
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.03)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
-                >
-                  {plan.image && (
-                    <img
-                      src={plan.image}
-                      alt={plan.planName}
-                      style={{
-                        width: "100%",
-                        height: "11rem",
-                        objectFit: "cover",
-                        borderRadius: "1.5rem",
-                        marginBottom: "1rem",
-                      }}
-                    />
-                  )}
-                  <h3
-                    style={{
-                      fontFamily: "'Playfair Display', serif",
-                      fontWeight: 600,
-                      fontSize: "1.5rem",
-                      marginBottom: "0.5rem",
-                      color: "midnightblue",
-                    }}
-                  >
-                    {plan.planName}
-                  </h3>
-                  <p style={{ fontSize: "0.85rem", color: "gray", marginBottom: "0.25rem" }}>
-                    <strong>Category:</strong> {plan.category}
-                  </p>
-                  <p style={{ fontSize: "0.85rem", color: "gray", marginBottom: "0.5rem" }}>
-                    <strong>Intensity:</strong> {plan.intensity}
-                  </p>
-                  <p
-                    style={{
-                      fontSize: "0.9rem",
-                      color: "slategray",
-                      overflow: "hidden",
-                      display: "-webkit-box",
-                      WebkitLineClamp: 3,
-                      WebkitBoxOrient: "vertical",
-                      marginBottom: "1rem",
-                    }}
-                  >
-                    {plan.description || "-"}
-                  </p>
-                  <div style={{ display: "flex", gap: "1rem" }}>
-                    <button
-                      onClick={() => handleEdit(plan)}
-                      style={{
-                        flex: 1,
-                        padding: "0.75rem",
-                        borderRadius: "1rem",
-                        backgroundColor: "steelblue",
-                        color: "white",
-                        fontWeight: "600",
-                        cursor: "pointer",
-                        border: "none",
-                        boxShadow: "0 4px 12px rgba(70,130,180,0.5)",
-                        transition: "filter 0.2s ease",
-                      }}
-                      onMouseOver={(e) => (e.currentTarget.style.filter = "brightness(110%)")}
-                      onMouseOut={(e) => (e.currentTarget.style.filter = "none")}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(plan._id)}
-                      style={{
-                        flex: 1,
-                        padding: "0.75rem",
-                        borderRadius: "1rem",
-                        backgroundColor: "firebrick",
-                        color: "white",
-                        fontWeight: "600",
-                        cursor: "pointer",
-                        border: "none",
-                        boxShadow: "0 4px 12px rgba(178,34,34,0.5)",
-                        transition: "filter 0.2s ease",
-                      }}
-                      onMouseOver={(e) => (e.currentTarget.style.filter = "brightness(110%)")}
-                      onMouseOut={(e) => (e.currentTarget.style.filter = "none")}
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </div>
-              ))}
+              No Image
             </div>
           )}
+
+          {/* Plan Title */}
+          <h3
+            style={{
+              fontFamily: "'Playfair Display', serif",
+              fontWeight: 700,
+              fontSize: "1.7rem",
+              marginBottom: "0.75rem",
+              color: "var(--color-calm-blue)",
+              textShadow: "0 3px 6px rgba(0,0,0,0.1)",
+            }}
+          >
+            {plan.planName}
+          </h3>
+
+          {/* Badges */}
+          <div
+            style={{
+              display: "flex",
+              gap: "0.75rem",
+              flexWrap: "wrap",
+              marginBottom: "1.25rem",
+            }}
+          >
+            <span
+              style={{
+                background: "linear-gradient(90deg, #3b7f81, #5ca2a5)",
+                color: "white",
+                padding: "0.35rem 0.85rem",
+                borderRadius: "1rem",
+                fontSize: "0.85rem",
+                fontWeight: "600",
+                boxShadow: "0 3px 8px rgba(0,0,0,0.15)",
+              }}
+            >
+              {plan.category}
+            </span>
+            <span
+              style={{
+                background: "linear-gradient(90deg, #5ca2a5, #78c0b5)",
+                color: "white",
+                padding: "0.35rem 0.85rem",
+                borderRadius: "1rem",
+                fontSize: "0.85rem",
+                fontWeight: "600",
+                boxShadow: "0 3px 8px rgba(0,0,0,0.15)",
+              }}
+            >
+              {plan.intensity}
+            </span>
+          </div>
+
+          {/* Description */}
+          <p
+            style={{
+              fontSize: "0.95rem",
+              color: "#555",
+              overflow: "hidden",
+              display: "-webkit-box",
+              WebkitLineClamp: 3,
+              WebkitBoxOrient: "vertical",
+              marginBottom: "1.25rem",
+              lineHeight: 1.6,
+              fontStyle: "italic",
+            }}
+          >
+            {plan.description || "-"}
+          </p>
+
+          {/* Buttons */}
+          <div style={{ display: "flex", gap: "1rem" }}>
+            <button
+              onClick={() => handleEdit(plan)}
+              style={{
+                flex: 1,
+                padding: "0.75rem",
+                borderRadius: "1rem",
+                background: "linear-gradient(90deg, #3b7f81, #5ca2a5)",
+                color: "white",
+                fontWeight: "600",
+                cursor: "pointer",
+                border: "none",
+                transition: "all 0.3s ease",
+                boxShadow: "0 5px 15px rgba(0,0,0,0.15)",
+              }}
+              onMouseOver={(e) =>
+                (e.currentTarget.style.transform =
+                  "translateY(-2px) scale(1.03)")
+              }
+              onMouseOut={(e) => (e.currentTarget.style.transform = "none")}
+            >
+              Edit
+            </button>
+            <button
+            className="bg-gray-600"
+              onClick={() => handleDelete(plan._id)}
+              style={{
+                flex: 1,
+                padding: "0.75rem",
+                borderRadius: "1rem",
+                // background: "firebrick",
+                color: "white",
+                fontWeight: "600",
+                cursor: "pointer",
+                border: "none",
+                transition: "all 0.3s ease",
+                boxShadow: "0 5px 15px rgba(0,0,0,0.15)",
+              }}
+              onMouseOver={(e) =>
+                (e.currentTarget.style.transform =
+                  "translateY(-2px) scale(1.03)")
+              }
+              onMouseOut={(e) => (e.currentTarget.style.transform = "none")}
+            >
+              Delete
+            </button>
+          </div>
         </div>
+      ))}
+    </div>
+  )}
+</div>
+
+
       </section>
     </>
   );

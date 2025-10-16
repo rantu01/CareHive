@@ -1,10 +1,11 @@
 import clientPromise from "@/app/lib/mongodb";
 import { ObjectId } from "mongodb";
 
+// GET all plans
 export async function GET(req) {
   try {
     const client = await clientPromise;
-    const db = client.db("gymDB"); // Replace with your DB name
+    const db = client.db("gymDB"); // DB name
     const collection = db.collection("plans");
 
     const plans = await collection.find({}).toArray();
@@ -21,6 +22,7 @@ export async function GET(req) {
   }
 }
 
+// POST new plan
 export async function POST(req) {
   try {
     const client = await clientPromise;
@@ -43,6 +45,7 @@ export async function POST(req) {
   }
 }
 
+// PUT (update) plan
 export async function PUT(req) {
   try {
     const { searchParams } = new URL(req.url);
@@ -61,7 +64,20 @@ export async function PUT(req) {
 
     const plan = await req.json();
 
-    await collection.updateOne({ _id: new ObjectId(id) }, { $set: plan });
+    // Remove _id field if it exists in the body
+    const { _id, ...updateData } = plan;
+
+    const result = await collection.updateOne(
+      { _id: new ObjectId(id) },
+      { $set: updateData }
+    );
+
+    if (result.matchedCount === 0) {
+      return new Response(
+        JSON.stringify({ success: false, message: "Plan not found" }),
+        { status: 404, headers: { "Content-Type": "application/json" } }
+      );
+    }
 
     return new Response(
       JSON.stringify({ success: true, message: "Plan updated" }),
@@ -75,6 +91,7 @@ export async function PUT(req) {
   }
 }
 
+// DELETE plan
 export async function DELETE(req) {
   try {
     const { searchParams } = new URL(req.url);
@@ -91,7 +108,14 @@ export async function DELETE(req) {
     const db = client.db("gymDB");
     const collection = db.collection("plans");
 
-    await collection.deleteOne({ _id: new ObjectId(id) });
+    const result = await collection.deleteOne({ _id: new ObjectId(id) });
+
+    if (result.deletedCount === 0) {
+      return new Response(
+        JSON.stringify({ success: false, message: "Plan not found" }),
+        { status: 404, headers: { "Content-Type": "application/json" } }
+      );
+    }
 
     return new Response(
       JSON.stringify({ success: true, message: "Plan deleted" }),
