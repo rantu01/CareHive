@@ -74,7 +74,7 @@ export default function ReportPage() {
     return (
       <div
         className="flex justify-center items-center min-h-screen p-4"
-        style={{ backgroundColor: "var(--gray-color)" }}
+        style={{ backgroundColor: "var(--bg-color-all)" }}
       >
         <div className="flex flex-col items-center space-y-6">
           <div
@@ -85,10 +85,10 @@ export default function ReportPage() {
             }}
           ></div>
           <div className="text-center">
-            <p className="text-lg sm:text-xl font-semibold mb-2" style={{ color: "var(--fourground-color)" }}>
+            <p className="text-lg sm:text-xl font-semibold mb-2" style={{ color: "var(--text-color-all)" }}>
               Generating Report
             </p>
-            <p className="text-xs sm:text-sm opacity-70" style={{ color: "var(--fourground-color)" }}>
+            <p className="text-xs sm:text-sm opacity-70" style={{ color: "var(--text-color-all)" }}>
               Please wait while we compile your data...
             </p>
           </div>
@@ -136,7 +136,7 @@ export default function ReportPage() {
     <div
       style={{
         minHeight: "100vh",
-        backgroundColor: "var(--gray-color)",
+        backgroundColor: "var(--bg-color-all)",
       }}
       // 💡 Improvement: More compact padding on mobile (p-4), scaling up
       className="print:p-4 p-4 sm:p-6 md:p-8" 
@@ -153,13 +153,13 @@ export default function ReportPage() {
           </h1>
           <p
             className="text-base sm:text-lg opacity-80 max-w-2xl mx-auto lg:mx-0" // 💡 Smaller p on mobile
-            style={{ color: "var(--fourground-color)" }}
+            style={{ color: "var(--text-color-all)" }}
           >
             Comprehensive overview of platform statistics, user activities, and content management
           </p>
           <div className="flex items-center gap-2 mt-3 justify-center lg:justify-start">
             <div className="w-2 h-2 rounded-full bg-[var(--color-primary)] animate-pulse"></div>
-            <span className="text-xs sm:text-sm opacity-70" style={{ color: "var(--fourground-color)" }}>
+            <span className="text-xs sm:text-sm opacity-70" style={{ color: "var(--text-color-all)" }}>
               Last updated: {new Date().toLocaleDateString()}
             </span>
           </div>
@@ -205,7 +205,7 @@ export default function ReportPage() {
             className={`px-3 py-1 sm:px-6 sm:py-3 rounded-xl font-medium transition-all duration-300 capitalize text-xs sm:text-base ${
               activeTab === tab 
                 ? "text-white shadow-lg" 
-                : "text-[var(--fourground-color)] hover:bg-[var(--gray-color)]"
+                : "text-[var(--text-color-all)] hover:bg-[var(--bg-color-all)]"
             }`}
             style={{
               backgroundColor: activeTab === tab ? "var(--color-primary)" : "transparent",
@@ -266,7 +266,7 @@ export default function ReportPage() {
             <div className="relative z-10">
               <div className="flex items-center justify-between mb-3 sm:mb-4">
                 <div>
-                  <p className="text-xs sm:text-sm font-semibold opacity-70 mb-0.5 sm:mb-1" style={{ color: "var(--fourground-color)" }}>
+                  <p className="text-xs sm:text-sm font-semibold opacity-70 mb-0.5 sm:mb-1" style={{ color: "var(--text-color-all)" }}>
                     {stat.title}
                   </p>
                   <p className="text-2xl sm:text-3xl font-bold" style={{ color: "var(--color-primary)" }}> {/* 💡 Smaller text on mobile */}
@@ -278,7 +278,7 @@ export default function ReportPage() {
                 </div>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-xs opacity-70" style={{ color: "var(--fourground-color)" }}>
+                <span className="text-xs opacity-70" style={{ color: "var(--text-color-all)" }}>
                   {stat.description}
                 </span>
                 <span className="text-xs font-semibold text-green-500 bg-green-100 px-2 py-0.5 rounded-full">
@@ -311,12 +311,12 @@ export default function ReportPage() {
           <div className="space-y-4">
             {Object.entries(roleDistribution).map(([role, count]) => (
               <div key={role} className="flex items-center justify-between text-sm sm:text-base"> {/* 💡 Smaller text on mobile */}
-                <span className="font-medium capitalize" style={{ color: "var(--fourground-color)" }}>
+                <span className="font-medium capitalize" style={{ color: "var(--text-color-all)" }}>
                   {role} Users
                 </span>
                 <div className="flex items-center gap-3">
                   {/* Progress bar width is now always relative to container */}
-                  <div className="w-20 sm:w-32 bg-[var(--gray-color)] rounded-full h-2"> 
+                  <div className="w-20 sm:w-32 bg-[var(--bg-color-all)] rounded-full h-2"> 
                     <div 
                       className="h-2 rounded-full transition-all duration-500"
                       style={{ 
@@ -351,35 +351,35 @@ export default function ReportPage() {
           </h2>
           {/* Grid adapts from 2 columns for quick stats */}
           <div className="grid grid-cols-2 gap-3 sm:gap-4"> {/* 💡 Reduced gap on mobile */}
-            <div className="text-center p-3 sm:p-4 rounded-xl bg-[var(--gray-color)]"> {/* 💡 Reduced padding on mobile */}
+            <div className="text-center p-3 sm:p-4 rounded-xl bg-[var(--bg-color-all)]"> {/* 💡 Reduced padding on mobile */}
               <div className="text-xl sm:text-2xl font-bold" style={{ color: "var(--color-primary)" }}>
                 {stats.adminCount}
               </div>
-              <div className="text-xs sm:text-sm opacity-70" style={{ color: "var(--fourground-color)" }}>
+              <div className="text-xs sm:text-sm opacity-70" style={{ color: "var(--text-color-all)" }}>
                 Administrators
               </div>
             </div>
-            <div className="text-center p-3 sm:p-4 rounded-xl bg-[var(--gray-color)]">
+            <div className="text-center p-3 sm:p-4 rounded-xl bg-[var(--bg-color-all)]">
               <div className="text-xl sm:text-2xl font-bold" style={{ color: "var(--color-primary)" }}>
                 {stats.regularUserCount}
               </div>
-              <div className="text-xs sm:text-sm opacity-70" style={{ color: "var(--fourground-color)" }}>
+              <div className="text-xs sm:text-sm opacity-70" style={{ color: "var(--text-color-all)" }}>
                 Regular Users
               </div>
             </div>
-            <div className="text-center p-3 sm:p-4 rounded-xl bg-[var(--gray-color)]">
+            <div className="text-center p-3 sm:p-4 rounded-xl bg-[var(--bg-color-all)]">
               <div className="text-xl sm:text-2xl font-bold" style={{ color: "var(--color-primary)" }}>
                 {recentUsers.length}
               </div>
-              <div className="text-xs sm:text-sm opacity-70" style={{ color: "var(--fourground-color)" }}>
+              <div className="text-xs sm:text-sm opacity-70" style={{ color: "var(--text-color-all)" }}>
                 New This Month
               </div>
             </div>
-            <div className="text-center p-3 sm:p-4 rounded-xl bg-[var(--gray-color)]">
+            <div className="text-center p-3 sm:p-4 rounded-xl bg-[var(--bg-color-all)]">
               <div className="text-xl sm:text-2xl font-bold" style={{ color: "var(--color-primary)" }}>
                 {stats.totalUsers > 0 ? `${Math.round((stats.totalDoctors / stats.totalUsers) * 100)}%` : '0%'}
               </div>
-              <div className="text-xs sm:text-sm opacity-70" style={{ color: "var(--fourground-color)" }}>
+              <div className="text-xs sm:text-sm opacity-70" style={{ color: "var(--text-color-all)" }}>
                 Doctor Ratio
               </div>
             </div>
@@ -395,7 +395,7 @@ export default function ReportPage() {
           borderColor: "var(--dashboard-border)",
         }}
       >
-        <div className="p-4 sm:p-6 border-b" style={{ borderColor: "var(--dashboard-border)", backgroundColor: "var(--gray-color)" }}> {/* 💡 Reduced padding on mobile */}
+        <div className="p-4 sm:p-6 border-b" style={{ borderColor: "var(--dashboard-border)", backgroundColor: "var(--bg-color-all)" }}> {/* 💡 Reduced padding on mobile */}
           <h2
             className="text-lg sm:text-xl font-semibold flex items-center gap-3"
             style={{ color: "var(--color-primary)" }}
@@ -403,7 +403,7 @@ export default function ReportPage() {
             <span>🆕</span>
             Recent User Registrations
           </h2>
-          <p className="text-xs sm:text-sm opacity-70 mt-1" style={{ color: "var(--fourground-color)" }}>
+          <p className="text-xs sm:text-sm opacity-70 mt-1" style={{ color: "var(--text-color-all)" }}>
             Latest {recentUsers.length} user accounts created
           </p>
         </div>
@@ -413,18 +413,18 @@ export default function ReportPage() {
           {/* 💡 Improvement: The table width is now controlled by content, allowing the scroll to take effect immediately */}
           <table className="divide-y divide-[var(--dashboard-border)] min-w-[600px] sm:min-w-full"> {/* 💡 Added a min-width to force scroll on small devices when content is narrow */}
             <thead>
-              <tr style={{ backgroundColor: "var(--gray-color)" }}>
+              <tr style={{ backgroundColor: "var(--bg-color-all)" }}>
                 {/* 💡 Smaller padding and text on mobile */}
-                <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold" style={{ color: "var(--fourground-color)" }}>
+                <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold" style={{ color: "var(--text-color-all)" }}>
                   User
                 </th>
-                <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold" style={{ color: "var(--fourground-color)" }}>
+                <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold" style={{ color: "var(--text-color-all)" }}>
                   Contact
                 </th>
-                <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold" style={{ color: "var(--fourground-color)" }}>
+                <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold" style={{ color: "var(--text-color-all)" }}>
                   Role
                 </th>
-                <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold" style={{ color: "var(--fourground-color)" }}>
+                <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold" style={{ color: "var(--text-color-all)" }}>
                   Status
                 </th>
               </tr>
@@ -433,7 +433,7 @@ export default function ReportPage() {
               {recentUsers.map((user, index) => (
                 <tr 
                   key={user._id?.$oid || user._id || `user-${index}`}
-                  className="hover:bg-[var(--gray-color)] transition-colors duration-200"
+                  className="hover:bg-[var(--bg-color-all)] transition-colors duration-200"
                   style={{ borderBottom: `1px solid var(--dashboard-border)` }}
                 >
                   <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap">
@@ -445,21 +445,21 @@ export default function ReportPage() {
                         {user.name?.charAt(0)?.toUpperCase() || "U"}
                       </div>
                       <div>
-                        <div className="font-medium text-sm sm:text-base" style={{ color: "var(--fourground-color)" }}>
+                        <div className="font-medium text-sm sm:text-base" style={{ color: "var(--text-color-all)" }}>
                           {user.name || "Unnamed User"}
                         </div>
                       </div>
                     </div>
                   </td>
-                  <td className="px-4 py-3 sm:px-6 sm:py-4 text-xs sm:text-sm whitespace-nowrap" style={{ color: "var(--fourground-color)" }}>
+                  <td className="px-4 py-3 sm:px-6 sm:py-4 text-xs sm:text-sm whitespace-nowrap" style={{ color: "var(--text-color-all)" }}>
                     {user.email}
                   </td>
                   <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap">
                     <span 
                       className="px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-xs font-semibold capitalize"
                       style={{ 
-                        backgroundColor: user.role === 'admin' ? 'var(--color-primary)' : 'var(--gray-color)',
-                        color: user.role === 'admin' ? 'var(--color-white)' : 'var(--fourground-color)'
+                        backgroundColor: user.role === 'admin' ? 'var(--color-primary)' : 'var(--bg-color-all)',
+                        color: user.role === 'admin' ? 'var(--color-white)' : 'var(--text-color-all)'
                       }}
                     >
                       {user.role}
@@ -488,7 +488,7 @@ export default function ReportPage() {
             borderColor: "var(--dashboard-border)",
           }}
         >
-          <div className="p-4 sm:p-6 border-b" style={{ borderColor: "var(--dashboard-border)", backgroundColor: "var(--gray-color)" }}>
+          <div className="p-4 sm:p-6 border-b" style={{ borderColor: "var(--dashboard-border)", backgroundColor: "var(--bg-color-all)" }}>
             <h2
               className="text-lg sm:text-xl font-semibold flex items-center gap-3"
               style={{ color: "var(--color-primary)" }}
@@ -496,21 +496,21 @@ export default function ReportPage() {
               <span>📝</span>
               Recent Blog Posts
             </h2 >
-            <p className="text-xs sm:text-sm opacity-70 mt-1" style={{ color: "var(--fourground-color)" }}>
+            <p className="text-xs sm:text-sm opacity-70 mt-1" style={{ color: "var(--text-color-all)" }}>
               Latest {recentBlogs.length} published articles
             </p>
           </div>
           <div className="overflow-x-auto">
             <table className="divide-y divide-[var(--dashboard-border)] min-w-[500px] sm:min-w-full">
               <thead>
-                <tr style={{ backgroundColor: "var(--gray-color)" }}>
-                  <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold" style={{ color: "var(--fourground-color)" }}>
+                <tr style={{ backgroundColor: "var(--bg-color-all)" }}>
+                  <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold" style={{ color: "var(--text-color-all)" }}>
                     Title
                   </th>
-                  <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold" style={{ color: "var(--fourground-color)" }}>
+                  <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold" style={{ color: "var(--text-color-all)" }}>
                     Author
                   </th>
-                  <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold" style={{ color: "var(--fourground-color)" }}>
+                  <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold" style={{ color: "var(--text-color-all)" }}>
                     Date
                   </th>
                 </tr>
@@ -523,18 +523,18 @@ export default function ReportPage() {
                   return (
                     <tr 
                       key={blog._id?.$oid || blog._id || `blog-${index}`}
-                      className="hover:bg-[var(--gray-color)] transition-colors duration-200"
+                      className="hover:bg-[var(--bg-color-all)] transition-colors duration-200"
                       style={{ borderBottom: `1px solid var(--dashboard-border)` }}
                     >
                       <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap max-w-[200px] truncate"> {/* 💡 Added a max-width for better truncation */}
-                        <div className="font-medium text-sm" style={{ color: "var(--fourground-color)" }}>
+                        <div className="font-medium text-sm" style={{ color: "var(--text-color-all)" }}>
                           {blog.title}
                         </div>
                       </td>
-                      <td className="px-4 py-3 sm:px-6 sm:py-4 text-xs sm:text-sm whitespace-nowrap" style={{ color: "var(--fourground-color)" }}>
+                      <td className="px-4 py-3 sm:px-6 sm:py-4 text-xs sm:text-sm whitespace-nowrap" style={{ color: "var(--text-color-all)" }}>
                         {blog.author?.name || "Unknown"}
                       </td>
-                      <td className="px-4 py-3 sm:px-6 sm:py-4 text-xs sm:text-sm whitespace-nowrap" style={{ color: "var(--fourground-color)" }}>
+                      <td className="px-4 py-3 sm:px-6 sm:py-4 text-xs sm:text-sm whitespace-nowrap" style={{ color: "var(--text-color-all)" }}>
                         {new Date(createdAt).toLocaleDateString()}
                       </td>
                     </tr>
@@ -553,7 +553,7 @@ export default function ReportPage() {
             borderColor: "var(--dashboard-border)",
           }}
         >
-          <div className="p-4 sm:p-6 border-b" style={{ borderColor: "var(--dashboard-border)", backgroundColor: "var(--gray-color)" }}>
+          <div className="p-4 sm:p-6 border-b" style={{ borderColor: "var(--dashboard-border)", backgroundColor: "var(--bg-color-all)" }}>
             <h2
               className="text-lg sm:text-xl font-semibold flex items-center gap-3"
               style={{ color: "var(--color-primary)" }}
@@ -561,21 +561,21 @@ export default function ReportPage() {
               <span>🛠️</span>
               Recent Services
             </h2>
-            <p className="text-xs sm:text-sm opacity-70 mt-1" style={{ color: "var(--fourground-color)" }}>
+            <p className="text-xs sm:text-sm opacity-70 mt-1" style={{ color: "var(--text-color-all)" }}>
               Latest {recentServices.length} services added
             </p>
           </div>
           <div className="overflow-x-auto">
             <table className="divide-y divide-[var(--dashboard-border)] min-w-[500px] sm:min-w-full">
               <thead>
-                <tr style={{ backgroundColor: "var(--gray-color)" }}>
-                  <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold" style={{ color: "var(--fourground-color)" }}>
+                <tr style={{ backgroundColor: "var(--bg-color-all)" }}>
+                  <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold" style={{ color: "var(--text-color-all)" }}>
                     Service
                   </th>
-                  <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold" style={{ color: "var(--fourground-color)" }}>
+                  <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold" style={{ color: "var(--text-color-all)" }}>
                     Description
                   </th>
-                  <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold" style={{ color: "var(--fourground-color)" }}>
+                  <th className="px-4 py-3 sm:px-6 sm:py-4 text-left text-xs sm:text-sm font-semibold" style={{ color: "var(--text-color-all)" }}>
                     Type
                   </th>
                 </tr>
@@ -584,15 +584,15 @@ export default function ReportPage() {
                 {recentServices.map((service) => (
                   <tr 
                     key={service._id?.$oid || service._id}
-                    className="hover:bg-[var(--gray-color)] transition-colors duration-200"
+                    className="hover:bg-[var(--bg-color-all)] transition-colors duration-200"
                     style={{ borderBottom: `1px solid var(--dashboard-border)` }}
                   >
                     <td className="px-4 py-3 sm:px-6 sm:py-4 whitespace-nowrap">
-                      <div className="font-medium text-sm" style={{ color: "var(--fourground-color)" }}>
+                      <div className="font-medium text-sm" style={{ color: "var(--text-color-all)" }}>
                         {service.service_name}
                       </div>
                     </td>
-                    <td className="px-4 py-3 sm:px-6 sm:py-4 text-xs sm:text-sm max-w-[150px] truncate" style={{ color: "var(--fourground-color)" }}> {/* 💡 Added a max-width for better truncation */}
+                    <td className="px-4 py-3 sm:px-6 sm:py-4 text-xs sm:text-sm max-w-[150px] truncate" style={{ color: "var(--text-color-all)" }}> {/* 💡 Added a max-width for better truncation */}
                       {service.description?.length > 30 
                         ? `${service.description.substring(0, 30)}...` // 💡 Shorter truncation on mobile
                         : service.description}
@@ -618,10 +618,10 @@ export default function ReportPage() {
 
       {/* Footer */}
       <div className="mt-8 sm:mt-12 text-center py-4 sm:py-6 border-t" style={{ borderColor: "var(--dashboard-border)" }}> {/* 💡 Reduced margin and padding on mobile */}
-        <p className="text-xs sm:text-sm opacity-70" style={{ color: "var(--fourground-color)" }}>
+        <p className="text-xs sm:text-sm opacity-70" style={{ color: "var(--text-color-all)" }}>
           Report generated on {new Date().toLocaleDateString()} at {new Date().toLocaleTimeString()}
         </p>
-        <p className="text-xs opacity-50 mt-1 sm:mt-2" style={{ color: "var(--fourground-color)" }}>
+        <p className="text-xs opacity-50 mt-1 sm:mt-2" style={{ color: "var(--text-color-all)" }}>
           CareHive Management System • Confidential Report
         </p>
       </div>

@@ -8,7 +8,7 @@ export default function AdminLinks() {
         href="/dashboard/admin/reports"
         className="p-4 sm:p-6 text-center rounded-xl border border-[var(--dashboard-border)] bg-[var(--dashboard-bg)] shadow hover:bg-[var(--sidebar-bg)] transition"
       >
-        <h4 className="text-base sm:text-lg font-semibold text-[var(--fourground-color)]">
+        <h4 className="text-base sm:text-lg font-semibold text-[var(--text-color-all)]">
           Reports
         </h4>
         <p className="text-xs sm:text-sm text-gray-500 mt-1">
@@ -20,7 +20,7 @@ export default function AdminLinks() {
         href="/dashboard/admin/doctors"
         className="p-4 sm:p-6 text-center rounded-xl border border-[var(--dashboard-border)] bg-[var(--dashboard-bg)] shadow hover:bg-[var(--sidebar-bg)] transition"
       >
-        <h4 className="text-base sm:text-lg font-semibold text-[var(--fourground-color)]">
+        <h4 className="text-base sm:text-lg font-semibold text-[var(--text-color-all)]">
           Doctors
         </h4>
         <p className="text-xs sm:text-sm text-gray-500 mt-1">
@@ -32,7 +32,7 @@ export default function AdminLinks() {
         href="/dashboard/admin/users"
         className="p-4 sm:p-6 text-center rounded-xl border border-[var(--dashboard-border)] bg-[var(--dashboard-bg)] shadow hover:bg-[var(--sidebar-bg)] transition"
       >
-        <h4 className="text-base sm:text-lg font-semibold text-[var(--fourground-color)]">
+        <h4 className="text-base sm:text-lg font-semibold text-[var(--text-color-all)]">
           Users
         </h4>
         <p className="text-xs sm:text-sm text-gray-500 mt-1">
@@ -44,7 +44,7 @@ export default function AdminLinks() {
         href="/dashboard/admin"
         className="p-4 sm:p-6 text-center rounded-xl border border-[var(--dashboard-border)] bg-[var(--dashboard-bg)] shadow hover:bg-[var(--sidebar-bg)] transition"
       >
-        <h4 className="text-base sm:text-lg font-semibold text-[var(--fourground-color)]">
+        <h4 className="text-base sm:text-lg font-semibold text-[var(--text-color-all)]">
           Dashboard
         </h4>
         <p className="text-xs sm:text-sm text-gray-500 mt-1">

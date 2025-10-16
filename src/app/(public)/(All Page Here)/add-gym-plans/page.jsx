@@ -52,7 +52,7 @@ export default function AddGymPlans() {
           title: "Success!",
           text: editing ? "Gym plan updated!" : "New gym plan added!",
           icon: "success",
-          confirmButtonColor: "var(--color-calm-blue)",
+          confirmButtonColor: "var(--color-secondary)",
         });
         setFormData({
           planName: "",
@@ -84,7 +84,7 @@ export default function AddGymPlans() {
       showCancelButton: true,
       confirmButtonText: "Yes, delete",
       cancelButtonText: "Cancel",
-      confirmButtonColor: "var(--color-calm-blue)",
+      confirmButtonColor: "var(--color-secondary)",
     });
     if (!confirm.isConfirmed) return;
 
@@ -101,10 +101,14 @@ export default function AddGymPlans() {
   };
 
   const handleEdit = (plan) => {
-    setEditing(plan);
-    setFormData(plan);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  setEditing(plan);
+  setFormData(plan);
+  const formElement = document.getElementById("gymForm");
+  if (formElement) {
+    formElement.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+};
+
 
   return (
     <>
@@ -113,7 +117,7 @@ export default function AddGymPlans() {
         :root {
           --font-primary: 'Inter', sans-serif;
           --font-heading: 'Playfair Display', serif;
-          --color-calm-blue: #3b7f81; /* Calm Blue */
+          --color-secondary: #3b7f81; /* Calm Blue */
         }
         body {
           background-color: aliceblue;
@@ -155,7 +159,7 @@ export default function AddGymPlans() {
                   fontSize: "4rem",
                   lineHeight: 1.1,
                   marginBottom: "1.5rem",
-                  color: "var(--color-calm-blue)",
+                  color: "var(--color-secondary)",
                 }}
               >
                 Add & Manage Gym Plans
@@ -172,7 +176,7 @@ export default function AddGymPlans() {
               </p>
               <button
                 style={{
-                  background: "var(--color-calm-blue)",
+                  background: "var(--color-secondary)",
                   color: "white",
                   padding: "1rem 2.5rem",
                   borderRadius: "2rem",
@@ -265,7 +269,7 @@ export default function AddGymPlans() {
         fontWeight: 600,
         fontSize: "2rem",
         marginBottom: "2rem",
-        color: "var(--color-calm-blue)",
+        color: "var(--color-secondary)",
         textAlign: "center",
       }}
     >
@@ -500,7 +504,7 @@ export default function AddGymPlans() {
       fontSize: "2rem",
       textAlign: "center",
       marginBottom: "0.5rem",
-      color: "var(--color-calm-blue)",
+      color: "var(--color-secondary)",
       textShadow: "0 3px 8px rgba(0,0,0,0.12)",
     }}
   >
@@ -603,10 +607,10 @@ export default function AddGymPlans() {
       fontSize: "3rem",
       marginBottom: "3rem",
       textAlign: "center",
-      color: "var(--color-calm-blue)",
+      color: "var(--color-secondary)",
     }}
   >
-    Manage <span className="text-black">Gym Plans</span>{" "}
+    Manage <span className="text-7xl text-black">G</span><span className="text-black">ym Plans</span>{" "}
     
   </h2>
 
@@ -615,7 +619,7 @@ export default function AddGymPlans() {
       style={{
         textAlign: "center",
         fontSize: "1.125rem",
-        color: "var(--color-calm-blue)",
+        color: "var(--color-secondary)",
       }}
     >
       No gym plans found.
@@ -697,7 +701,7 @@ export default function AddGymPlans() {
               fontWeight: 700,
               fontSize: "1.7rem",
               marginBottom: "0.75rem",
-              color: "var(--color-calm-blue)",
+              color: "var(--color-secondary)",
               textShadow: "0 3px 6px rgba(0,0,0,0.1)",
             }}
           >

@@ -8,6 +8,7 @@ export const POST = async (req) => {
     try {
         const data = await req.json();
 
+        console.log("data is",data)
         const customer = await stripe.customers.create({
             address: {
                 city: "Sylhet",
@@ -43,8 +44,8 @@ export const POST = async (req) => {
 
                 // Important: pass metadata here
                 metadata:data,
-                success_url: `http://localhost:3000/payment-success?session_id={CHECKOUT_SESSION_ID}`,
-                cancel_url: `http://localhost:3000/payment-cancel`,
+                success_url: `https://care-hive-chi.vercel.app/payment-success?session_id={CHECKOUT_SESSION_ID}`,
+                cancel_url: `https://care-hive-chi.vercel.app/payment-cancel`,
             }
         )
 

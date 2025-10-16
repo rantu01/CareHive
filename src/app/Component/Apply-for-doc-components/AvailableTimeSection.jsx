@@ -102,9 +102,9 @@ const AvailableTimeSection = ({
 
   const feeFields = (
     <div className={`grid grid-cols-1 ${consatlationType === "both" ? "md:grid-cols-2" : ""} gap-4`}>
-      {(consatlationType === "offline" || consatlationType === "both") && (
+      {(consatlationType === "inPerson" || consatlationType === "both") && (
         <div>
-          <label htmlFor="offline-fee" className="block font-medium mb-2" style={{ color: 'var(--fourground-color)' }}>
+          <label htmlFor="offline-fee" className="block font-medium mb-2" style={{ color: 'var(--text-color-all)' }}>
             Offline Fee
           </label>
           <input
@@ -116,7 +116,7 @@ const AvailableTimeSection = ({
             style={{
               borderWidth: "2px",
               borderColor: "var(--dashboard-border)",
-              color: "var(--fourground-color)",
+              color: "var(--text-color-all)",
             }}
           />
         </div>
@@ -124,7 +124,7 @@ const AvailableTimeSection = ({
 
       {(consatlationType === "online" || consatlationType === "both") && (
         <div>
-          <label htmlFor="online-fee" className="block font-medium mb-2" style={{ color: 'var(--fourground-color)' }}>
+          <label htmlFor="online-fee" className="block font-medium mb-2" style={{ color: 'var(--text-color-all)' }}>
             Online Fee
           </label>
           <input
@@ -136,7 +136,7 @@ const AvailableTimeSection = ({
             style={{
               borderWidth: "2px",
               borderColor: "var(--dashboard-border)",
-              color: "var(--fourground-color)",
+              color: "var(--text-color-all)",
             }}
           />
         </div>
@@ -157,7 +157,7 @@ const AvailableTimeSection = ({
             <div
               className="flex items-center p-3 rounded-xl transition-all duration-300 border-2"
               style={{
-                backgroundColor: 'var(--gray-color)',
+                backgroundColor: 'var(--bg-color-all)',
                 borderColor: 'var(--dashboard-border)',
               }}
             >
@@ -173,7 +173,7 @@ const AvailableTimeSection = ({
               <label
                 htmlFor={`${day.value}-checkbox`}
                 className="ml-2 text-sm font-medium cursor-pointer"
-                style={{ color: 'var(--fourground-color)' }}
+                style={{ color: 'var(--text-color-all)' }}
               >
                 {day.name}
               </label>
@@ -184,7 +184,7 @@ const AvailableTimeSection = ({
                 {/* Time Slot Inputs */}
                 <div className="grid grid-cols-2 gap-2">
                   <div>
-                    <label htmlFor={`from-${day.value}`} className="block text-sm mb-1" style={{ color: 'var(--fourground-color)' }}>
+                    <label htmlFor={`from-${day.value}`} className="block text-sm mb-1" style={{ color: 'var(--text-color-all)' }}>
                       From
                     </label>
                     <input
@@ -194,14 +194,14 @@ const AvailableTimeSection = ({
                       onChange={(e) => setTimeFrom(e.target.value)}
                       className="w-full p-2 rounded-lg focus:outline-none focus:ring-2"
                       style={{
-                        color: 'var(--fourground-color)',
+                        color: 'var(--text-color-all)',
                         borderWidth: '2px',
                         borderColor: 'var(--dashboard-border)',
                       }}
                     />
                   </div>
                   <div>
-                    <label htmlFor={`to-${day.value}`} className="block text-sm mb-1" style={{ color: 'var(--fourground-color)' }}>
+                    <label htmlFor={`to-${day.value}`} className="block text-sm mb-1" style={{ color: 'var(--text-color-all)' }}>
                       To
                     </label>
                     <input
@@ -211,7 +211,7 @@ const AvailableTimeSection = ({
                       onChange={(e) => captureAvailableSlot(day.value, timeFrom, e.target.value)}
                       className="w-full p-2 rounded-lg focus:outline-none focus:ring-2"
                       style={{
-                        color: 'var(--fourground-color)',
+                        color: 'var(--text-color-all)',
                         borderWidth: '2px',
                         borderColor: 'var(--dashboard-border)',
                       }}
@@ -221,7 +221,7 @@ const AvailableTimeSection = ({
 
                 {/* Patient Limit */}
                 <div>
-                  <label htmlFor={`max-patient-${day.value}`} className="block text-sm mb-1 font-medium" style={{ color: 'var(--fourground-color)' }}>
+                  <label htmlFor={`max-patient-${day.value}`} className="block text-sm mb-1 font-medium" style={{ color: 'var(--text-color-all)' }}>
                     Maximum Patients
                   </label>
                   <input
@@ -235,7 +235,7 @@ const AvailableTimeSection = ({
                     style={{
                       borderWidth: '2px',
                       borderColor: 'var(--dashboard-border)',
-                      color: 'var(--fourground-color)',
+                      color: 'var(--text-color-all)',
                     }}
                   />
                 </div>
@@ -249,7 +249,7 @@ const AvailableTimeSection = ({
       <div className="flex flex-col gap-5 p-4 rounded-xl border-2" style={{ borderColor: 'var(--dashboard-border)' }}>
         {/* Consultation Type */}
         <div>
-          <label htmlFor="consultation" className="block font-medium mb-2" style={{ color: 'var(--fourground-color)' }}>
+          <label htmlFor="consultation" className="block font-medium mb-2" style={{ color: 'var(--text-color-all)' }}>
             Consultation Type
           </label>
           <select
@@ -257,8 +257,8 @@ const AvailableTimeSection = ({
             {...register("consultation", { required: true })}
             className="w-full p-3 rounded-lg focus:outline-none focus:ring-2"
             style={{
-              backgroundColor: 'var(--gray-color)',
-              color: 'var(--fourground-color)',
+              backgroundColor: 'var(--bg-color-all)',
+              color: 'var(--text-color-all)',
               borderWidth: '2px',
               borderColor: 'var(--dashboard-border)',
             }}
@@ -268,7 +268,7 @@ const AvailableTimeSection = ({
             onChange={(e) => setConsaltationType(e.target.value)}
           >
             <option value="online">Online</option>
-            <option value="offline">Offline</option>
+            <option value="inPerson">Offline</option>
             <option value="both">Both</option>
           </select>
         </div>
@@ -277,7 +277,7 @@ const AvailableTimeSection = ({
         <div>
           <div className="flex items-center space-x-6 mt-2">
             <div className='flex-1'>
-              <label htmlFor="city" className="block text-lg mb-2" style={{ color: 'var(--fourground-color)' }}>
+              <label htmlFor="city" className="block text-lg mb-2" style={{ color: 'var(--text-color-all)' }}>
                 Select Your City
               </label>
               <select
@@ -289,8 +289,8 @@ const AvailableTimeSection = ({
                 className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
 
                 style={{
-                  backgroundColor: 'var(--gray-color)',
-                  color: 'var(--fourground-color)',
+                  backgroundColor: 'var(--bg-color-all)',
+                  color: 'var(--text-color-all)',
                   borderWidth: '2px',
                   borderColor: 'var(--dashboard-border)',
                 }}
@@ -307,7 +307,7 @@ const AvailableTimeSection = ({
             </div>
 
             <div className='flex-1'>
-              <label htmlFor="hospital" className="block font-medium mb-2" style={{ color: 'var(--fourground-color)' }}>
+              <label htmlFor="hospital" className="block font-medium mb-2" style={{ color: 'var(--text-color-all)' }}>
                 Hospital Name
               </label>
               <select
@@ -323,8 +323,8 @@ const AvailableTimeSection = ({
                 className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
 
                 style={{
-                  backgroundColor: 'var(--gray-color)',
-                  color: 'var(--fourground-color)',
+                  backgroundColor: 'var(--bg-color-all)',
+                  color: 'var(--text-color-all)',
                   borderWidth: '2px',
                   borderColor: 'var(--dashboard-border)',
                 }}
@@ -347,7 +347,7 @@ const AvailableTimeSection = ({
 
         {/* Spoken Languages */}
         <div>
-          <label className="block font-medium mb-3" style={{ color: 'var(--fourground-color)' }}>
+          <label className="block font-medium mb-3" style={{ color: 'var(--text-color-all)' }}>
             Spoken Languages
           </label>
           <div className="flex flex-wrap gap-3">
@@ -356,7 +356,7 @@ const AvailableTimeSection = ({
                 key={lang.value}
                 className="flex items-center p-2 rounded-xl border-2"
                 style={{
-                  backgroundColor: 'var(--gray-color)',
+                  backgroundColor: 'var(--bg-color-all)',
                   borderColor: 'var(--dashboard-border)',
                 }}
               >
@@ -371,7 +371,7 @@ const AvailableTimeSection = ({
                 <label
                   htmlFor={`${lang.value}-lang-checkbox`}
                   className="ml-2 text-sm font-medium cursor-pointer"
-                  style={{ color: 'var(--fourground-color)' }}
+                  style={{ color: 'var(--text-color-all)' }}
                 >
                   {lang.name}
                 </label>

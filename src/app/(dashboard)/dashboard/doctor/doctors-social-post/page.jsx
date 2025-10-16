@@ -125,7 +125,7 @@ const Page = () => {
   };
 
   return (
-    <div style={{ background: "var(--dashboard-bg)", color: "var(--fourground-color)" }}>
+    <div style={{ background: "var(--dashboard-bg)", color: "var(--text-color-all)" }}>
       <div  className="max-w-6xl mx-auto p-8 pt-28">
         {/* Heading */}
         <motion.div
@@ -136,7 +136,7 @@ const Page = () => {
         >
           <h1
             className="text-4xl md:text-5xl font-bold mb-4 tracking-tight"
-            style={{ color: "var(--color-calm-blue)" }}
+            style={{ color: "var(--color-secondary)" }}
           >
             <span className="text-gray-600">Social</span> Health Interaction
           </h1>
@@ -174,10 +174,10 @@ const Page = () => {
                     type="text"
                     placeholder="Enter blog or tip title"
                     required
-                    className="w-full p-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-[var(--color-calm-blue)] transition duration-200"
+                    className="w-full p-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-[var(--color-secondary)] transition duration-200"
                     style={{
-                      backgroundColor: "var(--gray-color)",
-                      color: "var(--fourground-color)",
+                      backgroundColor: "var(--bg-color-all)",
+                      color: "var(--text-color-all)",
                       borderColor: "var(--dashboard-border)",
                     }}
                   />
@@ -190,10 +190,10 @@ const Page = () => {
                   <select
                     name="category"
                     required
-                    className="w-full p-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-[var(--color-calm-blue)] transition duration-200"
+                    className="w-full p-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-[var(--color-secondary)] transition duration-200"
                     style={{
-                      backgroundColor: "var(--gray-color)",
-                      color: "var(--fourground-color)",
+                      backgroundColor: "var(--bg-color-all)",
+                      color: "var(--text-color-all)",
                       borderColor: "var(--dashboard-border)",
                     }}
                   >
@@ -216,10 +216,10 @@ const Page = () => {
                   placeholder="Write your blog or health tip..."
                   rows={6}
                   required
-                  className="w-full p-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-[var(--color-calm-blue)] transition duration-200"
+                  className="w-full p-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-[var(--color-secondary)] transition duration-200"
                   style={{
-                    backgroundColor: "var(--gray-color)",
-                    color: "var(--fourground-color)",
+                    backgroundColor: "var(--bg-color-all)",
+                    color: "var(--text-color-all)",
                     borderColor: "var(--dashboard-border)",
                   }}
                 />
@@ -238,7 +238,7 @@ const Page = () => {
                   whileTap={{ scale: 0.95 }}
                   className="w-full py-3 rounded-lg font-semibold transition-all duration-200 hover:opacity-90"
                   style={{
-                    backgroundColor: "var(--color-calm-blue)",
+                    backgroundColor: "var(--color-secondary)",
                     color: "var(--color-white)",
                   }}
                 >
@@ -266,7 +266,7 @@ const Page = () => {
           <div className="mt-16">
             <h2
               className="text-2xl font-bold mb-6"
-              style={{ color: "var(--color-calm-blue)" }}
+              style={{ color: "var(--color-secondary)" }}
             >
               My Blogs
             </h2>
@@ -314,7 +314,7 @@ const Page = () => {
                         type="submit"
                         className="px-4 py-2 rounded-lg font-semibold"
                         style={{
-                          backgroundColor: "var(--color-calm-blue)",
+                          backgroundColor: "var(--color-secondary)",
                           color: "var(--color-white)",
                         }}
                       >
@@ -351,7 +351,7 @@ const Page = () => {
                         onClick={() => setEditingBlog(blog)}
                         className="px-4 py-2 rounded-lg font-semibold"
                         style={{
-                          backgroundColor: "var(--color-calm-blue)",
+                          backgroundColor: "var(--color-secondary)",
                           color: "var(--color-white)",
                         }}
                       >

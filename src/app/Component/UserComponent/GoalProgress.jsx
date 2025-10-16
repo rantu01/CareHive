@@ -73,17 +73,17 @@ const GoalProgress = () => {
 
         <div className="relative z-10 flex-1">
           <div className="flex items-center gap-4 mb-2">
-            <div className="p-3 bg-[var(--dashboard-blue)]/20 rounded-xl border border-[var(--dashboard-blue)]/30">
-              <Target className="text-[var(--dashboard-blue)]" size={24} />
+            <div className="p-3 bg-[var(--color-primary)]/20 rounded-xl border border-[var(--color-primary)]/30">
+              <Target className="text-[var(--color-primary)]" size={24} />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-[var(--color-primary)]">
               Goal & Progress
             </h1>
           </div>
-          <p className="text-[var(--fourground-color)]/70 text-base md:text-lg font-medium ml-16">
+          <p className="text-[var(--text-color-all)]/70 text-base md:text-lg font-medium ml-16">
             Track your health and wellness objectives
           </p>
-          <div className="flex items-center gap-4 mt-2 text-sm text-[var(--fourground-color)]/50 ml-16">
+          <div className="flex items-center gap-4 mt-2 text-sm text-[var(--text-color-all)]/50 ml-16">
             <span className="flex items-center gap-1">
               <TrendingUp size={14} /> Active goals tracking
             </span>
@@ -108,7 +108,7 @@ const GoalProgress = () => {
           <div className="bg-[var(--dashboard-bg)] rounded-3xl shadow-2xl p-6 w-96 relative border border-[var(--dashboard-border)]">
             <button
               onClick={() => setIsOpen(false)}
-              className="absolute top-2 right-2 text-[var(--fourground-color)] hover:text-[var(--dashboard-blue)] cursor-pointer"
+              className="absolute top-2 right-2 text-[var(--text-color-all)] hover:text-[var(--dashboard-blue)] cursor-pointer"
             >
               <X size={20} />
             </button>
@@ -118,7 +118,7 @@ const GoalProgress = () => {
             <form onSubmit={handleAddNewGoal} className="space-y-4">
               {/* Title */}
               <div>
-                <label className="block text-sm font-medium mb-1 text-[var(--fourground-color)]">Goal Title</label>
+                <label className="block text-sm font-medium mb-1 text-[var(--text-color-all)]">Goal Title</label>
                 <input
                   type="text"
                   value={title}
@@ -131,7 +131,7 @@ const GoalProgress = () => {
 
               {/* Goal Number */}
               <div>
-                <label className="block text-sm font-medium mb-1 text-[var(--fourground-color)]">Target</label>
+                <label className="block text-sm font-medium mb-1 text-[var(--text-color-all)]">Target</label>
                 <input
                   type="number"
                   value={goal}
@@ -144,7 +144,7 @@ const GoalProgress = () => {
 
               {/* Measurement */}
               <div>
-                <label className="block text-sm font-medium mb-1 text-[var(--fourground-color)]">Measurement</label>
+                <label className="block text-sm font-medium mb-1 text-[var(--text-color-all)]">Measurement</label>
                 <select
                   onChange={(e) => setMeasurement(e.target.value)}
                   value={measurement}

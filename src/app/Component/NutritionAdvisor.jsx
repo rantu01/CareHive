@@ -96,13 +96,13 @@ const NutritionAdvisor = () => {
           <div className="w-4 h-0.5 bg-[var(--color-primary)]"></div>
         </div>
 
-        <h1 className="text-4xl font-bold mb-4 text-[var(--color-primary)] flex items-center justify-center gap-3">
+        <h1 className="text-5xl font-bold mb-4 text-[var(--color-primary)] flex items-center justify-center gap-3">
           <Apple className="w-8 h-8" />
           Nutrition Advisor
           <Sparkles className="w-8 h-8" />
         </h1>
 
-        <p className="text-lg text-[var(--fourground-color)] opacity-80">
+        <p className="text-lg text-[var(--text-color-all)] opacity-80">
           Log your meals and receive AI-powered nutritional insights and personalized recommendations
         </p>
       </div>
@@ -117,7 +117,7 @@ const NutritionAdvisor = () => {
         <div className="grid md:grid-cols-2 gap-6">
           {["breakfast", "lunch", "dinner", "snacks"].map((meal) => (
             <div key={meal} className="space-y-2">
-              <label className="font-semibold text-[var(--fourground-color)] capitalize flex items-center gap-2">
+              <label className="font-semibold text-[var(--text-color-all)] capitalize flex items-center gap-2">
                 <Target className="w-4 h-4 text-[var(--color-primary)]" />
                 {meal.charAt(0).toUpperCase() + meal.slice(1)}
               </label>
@@ -131,7 +131,7 @@ const NutritionAdvisor = () => {
                   errors && mealLog[meal].trim() === ""
                     ? "border-red-300 focus:ring-red-200"
                     : "border-[var(--dashboard-border)] focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)] focus:ring-opacity-20"
-                } bg-[var(--gray-color)]`}
+                } bg-[var(--bg-color-all)]`}
               />
             </div>
           ))}
@@ -153,7 +153,7 @@ const NutritionAdvisor = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             disabled={isLoading}
-            className="flex-1 bg-[var(--color-primary)] text-white px-8 py-4 rounded-xl font-semibold hover:bg-[var(--color-calm-blue)] transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-3 disabled:opacity-60"
+            className="flex-1 bg-[var(--color-primary)] text-white px-8 py-4 rounded-xl font-semibold hover:bg-[var(--color-secondary)] transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-3 disabled:opacity-60"
           >
             {isLoading ? (
               <RefreshCw className="w-5 h-5 animate-spin" />
@@ -188,7 +188,7 @@ const NutritionAdvisor = () => {
           >
             {/* AI Suggestions */}
             <motion.div
-              className="p-6 bg-[var(--gray-color)] rounded-2xl border border-[var(--dashboard-border)]"
+              className="p-6 bg-[var(--bg-color-all)] rounded-2xl border border-[var(--dashboard-border)]"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -226,7 +226,7 @@ const NutritionAdvisor = () => {
                       <div className="w-6 h-6 bg-[var(--color-primary)] text-white rounded-full flex items-center justify-center text-sm font-bold mt-0.5 flex-shrink-0">
                         {idx + 1}
                       </div>
-                      <p className="text-[var(--fourground-color)] leading-relaxed">
+                      <p className="text-[var(--text-color-all)] leading-relaxed">
                         {suggestion}
                       </p>
                     </motion.div>
@@ -237,7 +237,7 @@ const NutritionAdvisor = () => {
 
             {/* Macro Breakdown */}
             <motion.div
-              className="p-6 bg-[var(--gray-color)] rounded-2xl border border-[var(--dashboard-border)]"
+              className="p-6 bg-[var(--bg-color-all)] rounded-2xl border border-[var(--dashboard-border)]"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
@@ -250,7 +250,7 @@ const NutritionAdvisor = () => {
                 {Object.entries(macroData).map(([macro, value]) => (
                   <div key={macro} className="space-y-2">
                     <div className="flex justify-between items-center">
-                      <span className="font-semibold text-[var(--fourground-color)] capitalize flex items-center gap-2">
+                      <span className="font-semibold text-[var(--text-color-all)] capitalize flex items-center gap-2">
                         <TrendingUp className="w-4 h-4 text-[var(--color-primary)]" />
                         {macro}
                       </span>

@@ -23,7 +23,7 @@ const EducationSection = () => {
                         style={{
                             borderWidth: "2px",
                             borderColor: "var(--dashboard-border)",
-                            color: "var(--fourground-color)",
+                            color: "var(--text-color-all)",
                         }}
                     />
                     {errors.degreeName && (
@@ -43,7 +43,7 @@ const EducationSection = () => {
                         style={{
                             borderWidth: "2px",
                             borderColor: "var(--dashboard-border)",
-                            color: "var(--fourground-color)",
+                            color: "var(--text-color-all)",
                         }}
                     />
                     {errors.postGraduate && (
@@ -69,7 +69,7 @@ const EducationSection = () => {
                         style={{
                             borderWidth: "2px",
                             borderColor: "var(--dashboard-border)",
-                            color: "var(--fourground-color)",
+                            color: "var(--text-color-all)",
                         }}
                     />
                     {errors.graduationYear && (
@@ -91,7 +91,7 @@ const EducationSection = () => {
                         style={{
                             borderWidth: "2px",
                             borderColor: "var(--dashboard-border)",
-                            color: "var(--fourground-color)",
+                            color: "var(--text-color-all)",
                         }}
                     />
                     {errors.specialization && (
@@ -113,7 +113,7 @@ const EducationSection = () => {
                         style={{
                             borderWidth: "2px",
                             borderColor: "var(--dashboard-border)",
-                            color: "var(--fourground-color)",
+                            color: "var(--text-color-all)",
                         }}
                     />
                     {errors.universityName && (
