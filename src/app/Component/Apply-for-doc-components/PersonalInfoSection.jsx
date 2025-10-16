@@ -44,7 +44,7 @@ const PersonalInfoSection = ({profileImage,setProfileImage}) => {
                     <div
                         className="w-28 h-28 rounded-full overflow-hidden"
                         style={{
-                            border: "4px solid var(--dashboard-blue)",
+                            border: "4px solid var(--color-primary)",
                             boxShadow: "0 0 0 4px var(--color-white)",
                         }}
                     >
@@ -57,7 +57,7 @@ const PersonalInfoSection = ({profileImage,setProfileImage}) => {
                     <label
                         className="cursor-pointer px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors"
                         style={{
-                            backgroundColor: "var(--dashboard-blue)",
+                            backgroundColor: "var(--color-primary)",
                             color: "var(--color-white)",
                         }}
                     >

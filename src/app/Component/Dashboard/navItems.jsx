@@ -10,7 +10,8 @@ import {
   FileText,
   CheckCircle2,
   PlusSquare,
-  Clipboard
+  Clipboard,
+  Thermometer
 } from "lucide-react";
 
 export const navItems = {
@@ -21,6 +22,7 @@ export const navItems = {
     { name: "Medications", path: "/dashboard/user/medications", icon: <Pill size={18} /> },
     { name: "Goals & Progress", path: "/dashboard/user/goals", icon: <Activity size={18} /> },
     { name: "Report Analyzer", path: "/dashboard/user/report-analyzer", icon: <Clipboard size={24} /> },
+    { name: "Symptoms Analyzer", path: "/dashboard/user/symptoms-analyzer", icon: <Thermometer size={24} /> },
   ],
   doctor: [
     { name: "Overview", path: "/dashboard/doctor", icon: <Home size={18} /> },

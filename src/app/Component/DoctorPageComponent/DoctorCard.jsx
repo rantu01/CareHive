@@ -59,7 +59,8 @@ const DoctorCard = ({ doc, personal, education, practice, isBooked, setSelectedD
                         color: "var(--fourground-color)",
                     }}
                 >
-                    {personal.fullName || "N/A"}
+                    {personal.fullName ? `${personal.fullName.slice(0, 20)}${personal.fullName > 20 ? '...' : ''}` : "General Practitioner"}
+
                 </h2>
 
                 {/* Rating and Reviews */}

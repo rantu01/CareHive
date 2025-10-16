@@ -73,8 +73,8 @@ const GoalProgress = () => {
 
         <div className="relative z-10 flex-1">
           <div className="flex items-center gap-4 mb-2">
-            <div className="p-3 bg-[var(--dashboard-blue)]/20 rounded-xl border border-[var(--dashboard-blue)]/30">
-              <Target className="text-[var(--dashboard-blue)]" size={24} />
+            <div className="p-3 bg-[var(--color-primary)]/20 rounded-xl border border-[var(--color-primary)]/30">
+              <Target className="text-[var(--color-primary)]" size={24} />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-[var(--color-primary)]">
               Goal & Progress
