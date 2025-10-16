@@ -19,11 +19,17 @@ const DoctorMessages = () => {
     axios
       .get(`/api/messages?doctorEmail=${user.email}`)
       .then((res) => {
-        const sorted = res.data.sort(
+        // Show only messages involving this doctor (redundant safety)
+        const filtered = res.data.filter(
+          (m) => m.senderEmail === user.email || m.receiverEmail === user.email
+        );
+
+        const sorted = filtered.sort(
           (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
         );
         setMessages(sorted);
       })
+
       .catch((err) => console.error("Error fetching messages:", err))
       .finally(() => setLoading(false));
   }, [user]);
@@ -90,7 +96,10 @@ const DoctorMessages = () => {
     const diffInHours = (now - date) / (1000 * 60 * 60);
 
     if (diffInHours < 24) {
-      return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      return date.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
     }
     return date.toLocaleDateString();
   };
@@ -116,7 +125,7 @@ const DoctorMessages = () => {
           </p>
         </div>
         <div className="bg-[var(--color-primary)] text-white px-4 py-2 rounded-full text-sm font-medium">
-          {messages.length} {messages.length === 1 ? 'Message' : 'Messages'}
+          {messages.length} {messages.length === 1 ? "Message" : "Messages"}
         </div>
       </div>
 
@@ -125,8 +134,18 @@ const DoctorMessages = () => {
         {messages.length === 0 ? (
           <div className="text-center py-12">
             <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[var(--gray-color)] flex items-center justify-center">
-              <svg className="w-8 h-8 text-[var(--color-calm-blue)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+              <svg
+                className="w-8 h-8 text-[var(--color-calm-blue)]"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+                />
               </svg>
             </div>
             <h3 className="text-lg font-semibold text-[var(--fourground-color)] mb-2">
@@ -145,24 +164,32 @@ const DoctorMessages = () => {
               <div
                 key={i}
                 className={`relative rounded-xl p-5 transition-all duration-300 ${
-                  isSender 
-                    ? 'bg-gradient-to-r from-[var(--color-primary)]/10 to-[var(--color-calm-blue)]/10 border-l-4 border-[var(--color-primary)] ml-8' 
-                    : 'bg-[var(--gray-color)] border-l-4 border-[var(--color-calm-blue)] mr-8'
+                  isSender
+                    ? "bg-gradient-to-r from-[var(--color-primary)]/10 to-[var(--color-calm-blue)]/10 border-l-4 border-[var(--color-primary)] ml-8"
+                    : "bg-[var(--gray-color)] border-l-4 border-[var(--color-calm-blue)] mr-8"
                 }`}
               >
                 {/* Message Header */}
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-3">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-medium ${
-                      isSender ? 'bg-[var(--color-primary)]' : 'bg-[var(--color-calm-blue)]'
-                    }`}>
-                      {isSender ? 'D' : 'P'}
+                    <div
+                      className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-medium ${
+                        isSender
+                          ? "bg-[var(--color-primary)]"
+                          : "bg-[var(--color-calm-blue)]"
+                      }`}
+                    >
+                      {isSender ? "D" : "P"}
                     </div>
                     <div>
-                      <h3 className={`font-semibold ${
-                        isSender ? 'text-[var(--color-primary)]' : 'text-[var(--color-calm-blue)]'
-                      }`}>
-                        {isSender ? "You" : msg.senderEmail.split('@')[0]}
+                      <h3
+                        className={`font-semibold ${
+                          isSender
+                            ? "text-[var(--color-primary)]"
+                            : "text-[var(--color-calm-blue)]"
+                        }`}
+                      >
+                        {isSender ? "You" : msg.senderEmail.split("@")[0]}
                       </h3>
                       <p className="text-xs text-[var(--fourground-color)] opacity-70">
                         {msg.senderEmail}
@@ -194,8 +221,18 @@ const DoctorMessages = () => {
                         onClick={() => toggleReply(i)}
                         className="flex items-center gap-2 text-[var(--color-primary)] hover:text-[var(--color-calm-blue)] transition-colors text-sm font-medium"
                       >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"
+                          />
                         </svg>
                         Reply to Patient
                       </button>
@@ -209,10 +246,13 @@ const DoctorMessages = () => {
                               className="w-full px-4 py-3 rounded-xl bg-[var(--sidebar-bg)] text-[var(--fourground-color)] border border-[var(--dashboard-border)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all"
                               value={replyText[i] || ""}
                               onChange={(e) =>
-                                setReplyText((prev) => ({ ...prev, [i]: e.target.value }))
+                                setReplyText((prev) => ({
+                                  ...prev,
+                                  [i]: e.target.value,
+                                }))
                               }
                               onKeyPress={(e) => {
-                                if (e.key === 'Enter') {
+                                if (e.key === "Enter") {
                                   handleReply(msg.senderEmail, i);
                                 }
                               }}
@@ -252,21 +292,33 @@ const DoctorMessages = () => {
           <div className="grid grid-cols-3 gap-4 text-center">
             <div className="bg-[var(--gray-color)] rounded-lg p-3">
               <div className="text-lg font-bold text-[var(--color-primary)]">
-                {messages.filter(msg => msg.senderEmail === user.email).length}
+                {
+                  messages.filter((msg) => msg.senderEmail === user.email)
+                    .length
+                }
               </div>
-              <div className="text-xs text-[var(--fourground-color)] opacity-70">Sent</div>
+              <div className="text-xs text-[var(--fourground-color)] opacity-70">
+                Sent
+              </div>
             </div>
             <div className="bg-[var(--gray-color)] rounded-lg p-3">
               <div className="text-lg font-bold text-[var(--color-calm-blue)]">
-                {messages.filter(msg => msg.senderEmail !== user.email).length}
+                {
+                  messages.filter((msg) => msg.senderEmail !== user.email)
+                    .length
+                }
               </div>
-              <div className="text-xs text-[var(--fourground-color)] opacity-70">Received</div>
+              <div className="text-xs text-[var(--fourground-color)] opacity-70">
+                Received
+              </div>
             </div>
             <div className="bg-[var(--gray-color)] rounded-lg p-3">
               <div className="text-lg font-bold text-[var(--fourground-color)]">
                 {messages.length}
               </div>
-              <div className="text-xs text-[var(--fourground-color)] opacity-70">Total</div>
+              <div className="text-xs text-[var(--fourground-color)] opacity-70">
+                Total
+              </div>
             </div>
           </div>
         </div>

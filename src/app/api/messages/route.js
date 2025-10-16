@@ -1,6 +1,6 @@
 import clientPromise from "@/app/lib/mongodb";
 
-// ✅ GET → Fetch messages between a user and a doctor
+// ✅ GET → Fetch messages
 export async function GET(req) {
   try {
     const { searchParams } = new URL(req.url);
@@ -10,24 +10,39 @@ export async function GET(req) {
     const client = await clientPromise;
     const db = client.db("carehive");
 
-    const query = {};
-    if (userEmail && doctorEmail) {
-      query.$or = [
-        { senderEmail: userEmail, receiverEmail: doctorEmail },
-        { senderEmail: doctorEmail, receiverEmail: userEmail },
-      ];
+    let query = {};
+
+    if (doctorEmail && userEmail) {
+      // Conversation between a specific doctor and user
+      query = {
+        $or: [
+          { senderEmail: doctorEmail, receiverEmail: userEmail },
+          { senderEmail: userEmail, receiverEmail: doctorEmail },
+        ],
+      };
+    } else if (doctorEmail) {
+      // All messages where the doctor is sender or receiver
+      query = {
+        $or: [
+          { senderEmail: doctorEmail },
+          { receiverEmail: doctorEmail },
+        ],
+      };
     }
 
     const messages = await db
       .collection("messages")
       .find(query)
-      .sort({ timestamp: 1 })
+      .sort({ timestamp: -1 })
       .toArray();
 
     return Response.json(messages);
   } catch (error) {
     console.error("GET messages error:", error);
-    return new Response(JSON.stringify({ error: "Failed to fetch messages" }), { status: 500 });
+    return new Response(
+      JSON.stringify({ error: "Failed to fetch messages" }),
+      { status: 500 }
+    );
   }
 }
 
@@ -37,7 +52,10 @@ export async function POST(req) {
     const { senderEmail, receiverEmail, message } = await req.json();
 
     if (!senderEmail || !receiverEmail || !message) {
-      return new Response(JSON.stringify({ error: "Missing fields" }), { status: 400 });
+      return new Response(
+        JSON.stringify({ error: "Missing fields" }),
+        { status: 400 }
+      );
     }
 
     const client = await clientPromise;
@@ -53,9 +71,15 @@ export async function POST(req) {
 
     const result = await db.collection("messages").insertOne(newMessage);
 
-    return new Response(JSON.stringify({ success: true, id: result.insertedId }), { status: 201 });
+    return new Response(
+      JSON.stringify({ success: true, id: result.insertedId }),
+      { status: 201 }
+    );
   } catch (error) {
     console.error("POST messages error:", error);
-    return new Response(JSON.stringify({ error: "Failed to send message" }), { status: 500 });
+    return new Response(
+      JSON.stringify({ error: "Failed to send message" }),
+      { status: 500 }
+    );
   }
 }
