@@ -1,5 +1,5 @@
 import { AuthContext } from "@/app/context/authContext";
-import { use, useState } from "react";
+import { use, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
@@ -48,6 +48,20 @@ const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
 
     const consultationType = selectedDoctor?.practiceInfo?.consultationType;
 
+    console.log("the consaltation type", consultationType);
+
+    // Auto-select meeting type based on consultationType
+    useEffect(() => {
+        if (consultationType === "inPerson") {
+            handleMeetingType("inPerson");
+        } else if (consultationType === "online") {
+            handleMeetingType("online");
+        } else if (consultationType === "both" && !meetingType) {
+            // Only auto-select if no selection has been made yet
+            handleMeetingType("inPerson");
+        }
+    }, [consultationType]);
+
     const meetingButtons = (
         <div className={`grid ${consultationType === "both" ? "grid-cols-2" : "grid-cols-1"} gap-3`}>
             {(consultationType === "inPerson" || consultationType === "both") && (
@@ -57,7 +71,7 @@ const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
                         }`}
                     style={{
                         backgroundColor: meetingType === "inPerson" ? 'var(--color-calm-blue)' : 'var(--dashboard-bg)',
-                        borderColor: meetingType === "inPerson" ? 'var(--color-calm-blue)' : 'var(--dashboard-border)',
+                        borderColor: meetingType === "inPerson" ? '#ef4444' : 'var(--dashboard-border)',
                         color: meetingType === "inPerson" ? 'white' : 'var(--fourground-color)',
                     }}
                 >
@@ -83,7 +97,7 @@ const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
                         }`}
                     style={{
                         backgroundColor: meetingType === "online" ? 'var(--color-calm-blue)' : 'var(--dashboard-bg)',
-                        borderColor: meetingType === "online" ? 'var(--color-calm-blue)' : 'var(--dashboard-border)',
+                        borderColor: meetingType === "online" ? '#ef4444' : 'var(--dashboard-border)',
                         color: meetingType === "online" ? 'white' : 'var(--fourground-color)',
                     }}
                 >
@@ -103,7 +117,6 @@ const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
             )}
         </div>
     );
-
     return (
         <div className="space-y-5">
             {/* Meeting Type Selection */}
