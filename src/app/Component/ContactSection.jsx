@@ -37,7 +37,7 @@ const ContactSection = () => {
             Contact Us
           </h2>
           
-          <p className="text-xl text-[var(--fourground-color)] max-w-2xl mx-auto leading-relaxed opacity-80">
+          <p className="text-xl text-[var(--text-color-all)] max-w-2xl mx-auto leading-relaxed opacity-80">
             Have questions or need support? We're here to help. Reach out to us and we'll get back to you promptly.
           </p>
         </div>
@@ -50,14 +50,14 @@ const ContactSection = () => {
             className="rounded-3xl shadow-xl border border-[var(--dashboard-border)] p-8 lg:p-10"
           >
             <div className="flex items-center gap-3 mb-8">
-              <div className="w-12 h-12 bg-[var(--color-primary)] text-[var(--gray-color)] rounded-xl flex items-center justify-center">
+              <div className="w-12 h-12 bg-[var(--color-primary)] text-[var(--bg-color-all)] rounded-xl flex items-center justify-center">
                 <MessageCircle className="w-6 h-6 " />
               </div>
               <div>
                 <h3 className="text-2xl font-bold text-[var(--color-primary)]">
                   Send us a Message
                 </h3>
-                <p className="text-[var(--fourground-color)] opacity-70">
+                <p className="text-[var(--text-color-all)] opacity-70">
                   Fill out the form below
                 </p>
               </div>
@@ -67,7 +67,7 @@ const ContactSection = () => {
               <div className="space-y-2">
                 <label
                   htmlFor="fullName"
-                  className="block font-semibold text-[var(--fourground-color)]"
+                  className="block font-semibold text-[var(--text-color-all)]"
                 >
                   Full Name *
                 </label>
@@ -80,14 +80,14 @@ const ContactSection = () => {
                   placeholder="Enter your full name"
                   required
                   className="w-full px-4 py-3 rounded-xl border-2 border-[var(--dashboard-border)]  focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-opacity-20 transition-all duration-300 outline-none"
-                  style={{ color: "var(--fourground-color)" }}
+                  style={{ color: "var(--text-color-all)" }}
                 />
               </div>
 
               <div className="space-y-2">
                 <label
                   htmlFor="email"
-                  className="block font-semibold text-[var(--fourground-color)]"
+                  className="block font-semibold text-[var(--text-color-all)]"
                 >
                   Email Address *
                 </label>
@@ -100,14 +100,14 @@ const ContactSection = () => {
                   placeholder="Enter your email address"
                   required
                   className="w-full px-4 py-3 rounded-xl border-2 border-[var(--dashboard-border)]  focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-opacity-20 transition-all duration-300 outline-none"
-                  style={{ color: "var(--fourground-color)" }}
+                  style={{ color: "var(--text-color-all)" }}
                 />
               </div>
 
               <div className="space-y-2">
                 <label
                   htmlFor="message"
-                  className="block font-semibold text-[var(--fourground-color)]"
+                  className="block font-semibold text-[var(--text-color-all)]"
                 >
                   Message *
                 </label>
@@ -120,7 +120,7 @@ const ContactSection = () => {
                   placeholder="Tell us how we can help you..."
                   required
                   className="w-full px-4 py-3 rounded-xl border-2 border-[var(--dashboard-border)]  focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-opacity-20 transition-all duration-300 outline-none resize-none"
-                  style={{ color: "var(--fourground-color)" }}
+                  style={{ color: "var(--text-color-all)" }}
                 ></textarea>
               </div>
 
@@ -128,7 +128,7 @@ const ContactSection = () => {
                 type="submit"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full bg-[var(--color-primary)] text-[var(--gray-color)]  py-4 rounded-xl font-semibold text-lg hover:bg-[var(--color-calm-blue)] transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-3"
+                className="w-full bg-[var(--color-primary)] text-[var(--bg-color-all)]  py-4 rounded-xl font-semibold text-lg hover:bg-[var(--color-secondary)] transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-3"
               >
                 <Send className="w-5 h-5" />
                 Send Message
@@ -149,10 +149,10 @@ const ContactSection = () => {
               >
                 <div className="flex items-center gap-4">
                   <div className="w-14 h-14 bg-[var(--color-primary)] bg-opacity-10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <Mail className="w-6 h-6  text-[var(--gray-color)]" />
+                    <Mail className="w-6 h-6  text-[var(--bg-color-all)]" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-[var(--fourground-color)] mb-1">
+                    <h4 className="font-semibold text-[var(--text-color-all)] mb-1">
                       Email Us
                     </h4>
                     <p className="text-[var(--color-primary)] font-medium">
@@ -171,10 +171,10 @@ const ContactSection = () => {
               >
                 <div className="flex items-center gap-4">
                   <div className="w-14 h-14 bg-[var(--color-primary)] bg-opacity-10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <Phone className="w-6 h-6 tbg-[var(--color-primary)] text-[var(--gray-color)]" />
+                    <Phone className="w-6 h-6 tbg-[var(--color-primary)] text-[var(--bg-color-all)]" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-[var(--fourground-color)] mb-1">
+                    <h4 className="font-semibold text-[var(--text-color-all)] mb-1">
                       Call Us
                     </h4>
                     <p className="text-[var(--color-primary)] font-medium">
@@ -193,10 +193,10 @@ const ContactSection = () => {
               >
                 <div className="flex items-center gap-4">
                   <div className="w-14 h-14 bg-[var(--color-primary)] bg-opacity-10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <Clock className="w-6 h-6 bg-[var(--color-primary)] text-[var(--gray-color)]" />
+                    <Clock className="w-6 h-6 bg-[var(--color-primary)] text-[var(--bg-color-all)]" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-[var(--fourground-color)] mb-1">
+                    <h4 className="font-semibold text-[var(--text-color-all)] mb-1">
                       Office Hours
                     </h4>
                     <p className="text-[var(--color-primary)] font-medium">
@@ -215,10 +215,10 @@ const ContactSection = () => {
               >
                 <div className="flex items-center gap-4">
                   <div className="w-14 h-14 bg-[var(--color-primary)] bg-opacity-10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <MapPin className="w-6 h-6 bg-[var(--color-primary)] text-[var(--gray-color)]" />
+                    <MapPin className="w-6 h-6 bg-[var(--color-primary)] text-[var(--bg-color-all)]" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-[var(--fourground-color)] mb-1">
+                    <h4 className="font-semibold text-[var(--text-color-all)] mb-1">
                       Our Location
                     </h4>
                     <p className="text-[var(--color-primary)] font-medium">

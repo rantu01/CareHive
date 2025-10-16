@@ -8,6 +8,7 @@ import {
   FaHeartbeat,
   FaLaptopMedical,
 } from "react-icons/fa";
+import Link from "next/link";
 
 const experts = [
   {
@@ -41,173 +42,127 @@ const features = [
 
 const AboutUs = () => {
   return (
-    <section className="bg-gray-50 text-[var(--fourground-color)] font-sans">
+    <section className="bg-[var(--dashboard-bg)] text-[var(--text-color-all)] font-[var(--font-primary)]">
       {/* Section Title */}
-      {/* Section Title with spacing */}
       <div className="max-w-7xl mx-auto px-6 pt-24 mb-10 text-center">
-        <h2 className="text-5xl font-extrabold text-[var(--color-primary)] mb-4 relative flex justify-center items-center">
+        <h2 className="text-4xl md:text-5xl font-extrabold text-[var(--color-primary)] mb-4 flex justify-center items-center">
           About Us
-          <Sparkles className="w-8 h-8 text-[var(--color-primary)] ml-3 drop-shadow-[0_0_8px_var(--color-primary)]" />
+          <Sparkles className="w-7 h-7 text-[var(--color-primary)] ml-3" />
         </h2>
-
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+        <p className="text-lg text-[var(--text-color-all)] opacity-80 max-w-2xl mx-auto">
           Committed to delivering exceptional healthcare with compassion,
           technology, and expertise.
         </p>
       </div>
 
       {/* Hero Section */}
-      <div className="max-w-7xl mx-auto px-6 py-10 pt-10  grid md:grid-cols-2 gap-5 items-center">
+      <div className="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-2 gap-8 items-center">
         {/* Left Text */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-lg"
-        >
-          <div className="relative z-10 mb-8">
-            <div className="inline-flex items-center gap-3 mb-4">
-              <div className="w-4 h-0.5 bg-[var(--color-primary)]"></div>
-              <span className="text-[var(--color-primary)] font-semibold text-sm uppercase tracking-wider">
-                Our Mission
-              </span>
-              <div className="w-4 h-0.5 bg-[var(--color-primary)]"></div>
-            </div>
-
-            <h1 className="text-4xl font-extrabold mb-4 text-[var(--color-primary)] flex items-center gap-3">
-              <Apple className="w-8 h-8" />
-              Dedicated to Your Health & Wellness
-              <Sparkles className="w-8 h-8" />
-            </h1>
-
-            <p className="text-lg text-gray-700 leading-relaxed mb-4">
-              Your health is our top priority. We provide compassionate, modern,
-              and personalized care tailored to your unique needs — ensuring
-              your well-being every step of the way.
-            </p>
-
-            <p className="text-lg text-gray-700 leading-relaxed">
-              Our team of experienced professionals combines cutting-edge
-              technology with a holistic approach to deliver treatments that not
-              only heal but also empower you. We believe in nurturing a healthy
-              mind and body, supporting your journey towards a vibrant, balanced
-              life.
-            </p>
+        <div className="max-w-lg">
+          <div className="inline-flex items-center gap-3 mb-3">
+            <div className="w-4 h-0.5 bg-[var(--color-primary)]"></div>
+            <span className="text-[var(--color-primary)] font-semibold text-sm uppercase tracking-wider">
+              Our Mission
+            </span>
+            <div className="w-4 h-0.5 bg-[var(--color-primary)]"></div>
           </div>
-        </motion.div>
+
+          <h1 className="text-3xl md:text-4xl  mb-4 text-[var(--color-primary)] flex items-center gap-3 font-[var(--font-heading)]">
+            <Apple className="w-7 h-7" />
+            Dedicated to Your Health & Wellness
+            <Sparkles className="w-7 h-7" />
+          </h1>
+
+          <p className="text-base text-[var(--text-color-all)] opacity-90 mb-4 leading-relaxed">
+            Your health is our top priority. We provide compassionate, modern,
+            and personalized care tailored to your unique needs — ensuring your
+            well-being every step of the way.
+          </p>
+
+          <p className="text-base text-[var(--text-color-all)] opacity-90 leading-relaxed">
+            Our team of experienced professionals combines cutting-edge
+            technology with a holistic approach to deliver treatments that heal
+            and empower. We believe in nurturing a healthy mind and body for a
+            balanced, fulfilling life.
+          </p>
+        </div>
 
         {/* Right Image */}
-        <motion.div
-          className="relative rounded-3xl shadow-xl overflow-hidden group w-full h-[28rem]"
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7 }}
-          whileHover={{ scale: 1.02 }}
-        >
-          {/* Glow behind image */}
+        <div className="relative rounded-3xl shadow-xl overflow-hidden w-full h-[28rem] transition-transform duration-500 hover:scale-[1.02]">
           <div
-            className="absolute -inset-1 rounded-3xl blur-2xl opacity-30 group-hover:opacity-50 transition-all duration-500"
+            className="absolute -inset-1 rounded-3xl blur-2xl opacity-30"
             style={{
               background:
                 "linear-gradient(135deg, var(--color-primary), var(--color-secondary))",
             }}
           ></div>
-
-          <motion.img
+          <img
             src="https://i.ibb.co/RTc0pdF5/famillt-wellness.jpg"
             alt="Health care"
             className="w-full h-full object-cover relative z-10"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.5 }}
           />
-        </motion.div>
+        </div>
       </div>
 
       {/* Why Choose Us */}
       <div className="max-w-6xl mx-auto px-6 py-16">
-        <h3 className="text-3xl font-bold text-center mb-10 text-[var(--color-primary)]">
-          Why Choose <span className="text-[var(--color-primary)]">Us</span>?
+        <h3 className="text-3xl  text-center mb-10 text-[var(--color-primary)] font-[var(--font-heading)]">
+          Why Choose Us?
         </h3>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => (
-            <motion.div
+            <div
               key={index}
-              className="bg-white p-6 rounded-2xl shadow hover:shadow-lg transition flex flex-col items-center text-center"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="bg-[var(--bg-color-all)] p-6 rounded-2xl shadow hover:shadow-md transition text-center"
             >
-              <div className="text-[var(--color-primary)] text-4xl mb-4">
+              <div className="text-[var(--color-primary)] text-4xl mb-3 flex justify-center">
                 {feature.icon}
               </div>
               <h4 className="font-semibold text-lg text-[var(--color-primary)]">
                 {feature.title}
               </h4>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
 
       {/* Meet Experts */}
-      <div className="bg-white py-16">
+      <div className="bg-[var(--bg-color-all)] py-16">
         <div className="max-w-7xl mx-auto px-6">
-          <h3 className="flex items-center justify-center gap-3 text-3xl font-bold text-center mb-10 text-[var(--color-primary)]">
-            Meet Our
-            <span className="text-[var(--color-primary)]">
-              Dedicated Experts
-            </span>
-            <Sparkles className="w-8 h-8 text-[var(--color-primary)] drop-shadow-[0_0_8px_var(--color-primary)]" />
+          <h3 className="flex items-center justify-center gap-3 text-3xl  text-center mb-10 text-[var(--color-primary)] font-[var(--font-heading)]">
+            Meet Our Dedicated Experts
+            <Sparkles className="w-7 h-7 text-[var(--color-primary)]" />
           </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {experts.map((doc, index) => (
-              <motion.div
+              <div
                 key={index}
-                className="relative rounded-3xl bg-gray-50 shadow-md overflow-hidden transition-all group"
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ y: -6 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="rounded-3xl bg-white shadow-md overflow-hidden transition-transform duration-500 hover:-translate-y-2"
               >
-                {/* Glow behind doctor card */}
-                <div
-                  className="absolute -inset-0.5 rounded-3xl blur opacity-30 group-hover:opacity-50 transition-all"
-                  style={{ backgroundColor: "var(--dashboard-bg)" }}
-                ></div>
-
-                {/* Doctor Image */}
-                <motion.img
+                <img
                   src={doc.image}
                   alt={doc.name}
-                  className="w-full h-64 object-cover relative z-10"
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.5 }}
+                  className="w-full h-64 object-cover"
                 />
-
-                <div className="p-6 text-center relative z-10">
+                <div className="p-5 text-center">
                   <h4 className="font-semibold text-xl text-[var(--color-primary)]">
                     {doc.name}
                   </h4>
-                  <p className="opacity-80">{doc.specialty}</p>
+                  <p className="opacity-80 text-[var(--text-color-all)]">
+                    {doc.specialty}
+                  </p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
       </div>
 
       {/* CTA */}
-      <motion.div
-        className="text-center bg-[var(--color-primary)] py-16 text-white"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
-        <h3 className="text-3xl font-bold mb-4">
+      <div className="text-center bg-[var(--color-primary)] py-16 text-white">
+        <h3 className="text-3xl  mb-3 font-[var(--font-heading)]">
           Get Expert Medical Care at Your Fingertips!
         </h3>
         <p className="mb-6 text-lg opacity-90">
@@ -215,14 +170,16 @@ const AboutUs = () => {
           — anytime, anywhere.
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <button className="bg-white text-[var(--color-primary)] font-semibold px-6 py-3 rounded-full shadow hover:bg-gray-100 transition">
-            Book Appointment
-          </button>
+          <Link href="/doctors">
+            <button className="bg-white text-[var(--color-primary)] font-semibold px-6 py-3 rounded-full shadow hover:bg-gray-100 transition">
+              Book Appointment
+            </button>
+          </Link>
           <button className="border border-white text-white font-semibold px-6 py-3 rounded-full hover:bg-white hover:text-[var(--color-primary)] transition">
             Contact Us
           </button>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 };

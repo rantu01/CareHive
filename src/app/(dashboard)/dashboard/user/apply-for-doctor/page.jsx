@@ -195,7 +195,7 @@ const Page = () => {
                                         >
                                             <div
                                                 className={`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full flex items-center justify-center transition-all duration-300 ${currentStep === index
-                                                    ? 'bg-gradient-to-r from-[var(--color-calm-blue)] to-cyan-600 text-white shadow-lg'
+                                                    ? 'bg-gradient-to-r from-[var(--color-secondary)] to-cyan-600 text-white shadow-lg'
                                                     : currentStep > index
                                                         ? 'bg-green-500 text-white'
                                                         : 'bg-gray-200 text-gray-500'

@@ -82,7 +82,7 @@ export default function FeaturesSection() {
   ];
 
   return (
-    <div className="w-full" style={{ backgroundColor: 'var(--gray-color)' }}>
+    <div className="w-full" style={{ backgroundColor: 'var(--bg-color-all)' }}>
       {/* Hero Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto text-center">
@@ -90,21 +90,21 @@ export default function FeaturesSection() {
             <Sparkles className="w-4 h-4" style={{ color: 'var(--color-primary)' }} />
             <span className="text-sm font-semibold" style={{ color: 'var(--color-primary)' }}>AI-Powered Health Analysis</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight" style={{ color: 'var(--fourground-color)' }}>
+          <h1 className="text-4xl sm:text-5xl lg:text-5xl font-bold mb-6 leading-tight" style={{ color: 'var(--text-color-all)' }}>
             Understand Your Health Reports
-            <span className="block mt-2" style={{ background: 'linear-gradient(to right, var(--color-primary), var(--color-calm-blue))', WebkitBackgroundClip: 'text', color: 'transparent' }}>
+            <span className="block mt-2" style={{ background: 'linear-gradient(to right, var(--color-primary), var(--color-secondary))', WebkitBackgroundClip: 'text', color: 'transparent' }}>
               In Simple Language
             </span>
           </h1>
-          <p className="text-lg sm:text-xl max-w-3xl mx-auto mb-10 leading-relaxed" style={{ color: 'var(--fourground-color)' }}>
+          <p className="text-lg sm:text-xl max-w-3xl mx-auto mb-10 leading-relaxed" style={{ color: 'var(--text-color-all)' }}>
             Upload medical documents and get instant AI-powered analysis. Ask questions, understand results, and make informed health decisions with confidence.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <Link href={`/dashboard/user/report-analyzer`} className="px-8 py-4 rounded-xl font-bold text-lg flex items-center gap-2 transition-all duration-300 transform hover:scale-105" style={{ background: 'linear-gradient(to right, var(--color-primary), var(--color-calm-blue))', color: 'var(--color-white)' }}>
+            <Link href={`/dashboard/user/report-analyzer`} className="px-8 py-4 rounded-xl font-bold text-lg flex items-center gap-2 transition-all duration-300 transform hover:scale-105" style={{ background: 'linear-gradient(to right, var(--color-primary), var(--color-secondary))', color: 'var(--color-white)' }}>
               <Upload className="w-5 h-5" />
               Try It Free
             </Link>
-            <button className="px-8 py-4 rounded-xl font-bold text-lg flex items-center gap-2 transition-all duration-300 border-2" style={{ borderColor: 'var(--color-primary)', color: 'var(--fourground-color)', backgroundColor: 'var(--gray-color)' }}>
+            <button className="px-8 py-4 rounded-xl font-bold text-lg flex items-center gap-2 transition-all duration-300 border-2" style={{ borderColor: 'var(--color-primary)', color: 'var(--text-color-all)', backgroundColor: 'var(--bg-color-all)' }}>
               <Bot className="w-5 h-5" style={{ color: 'var(--color-primary)' }} />
               See How It Works
             </button>
@@ -120,13 +120,13 @@ export default function FeaturesSection() {
               <div
                 key={index}
                 className="group relative rounded-2xl p-8 border transition-all duration-300 hover:-translate-y-1"
-                style={{ borderColor: 'var(--color-primary)', backgroundColor: 'var(--gray-color)' }}
+                style={{ borderColor: 'var(--color-primary)', backgroundColor: 'var(--bg-color-all)' }}
               >
-                <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300" style={{ background: 'linear-gradient(to bottom right, var(--color-primary), var(--color-calm-blue))', color: 'var(--color-white)' }}>
+                <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300" style={{ background: 'linear-gradient(to bottom right, var(--color-primary), var(--color-secondary))', color: 'var(--color-white)' }}>
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-bold mb-3" style={{ color: 'var(--fourground-color)' }}>{feature.title}</h3>
-                <p style={{ color: 'var(--fourground-color)' }}>{feature.description}</p>
+                <h3 className="text-xl font-bold mb-3" style={{ color: 'var(--text-color-all)' }}>{feature.title}</h3>
+                <p style={{ color: 'var(--text-color-all)' }}>{feature.description}</p>
               </div>
             ))}
           </div>
@@ -137,10 +137,10 @@ export default function FeaturesSection() {
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4" style={{ color: 'var(--fourground-color)' }}>
-              How It Works
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4" style={{ color: 'var(--text-color-all)' }}>
+              AI-Powered Health Analysis Works
             </h2>
-            <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--fourground-color)' }}>
+            <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--text-color-all)' }}>
               Get started in four simple steps and unlock the power of AI health analysis
             </p>
           </div>
@@ -148,15 +148,15 @@ export default function FeaturesSection() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {howItWorks.map((item, index) => (
               <div key={index} className="relative">
-                <div className="rounded-2xl p-6 border transition-all duration-300 hover:shadow-lg h-full" style={{ borderColor: 'var(--color-primary)', backgroundColor: 'var(--gray-color)' }}>
+                <div className="rounded-2xl p-6 border transition-all duration-300 hover:shadow-lg h-full" style={{ borderColor: 'var(--color-primary)', backgroundColor: 'var(--bg-color-all)' }}>
                   <div className="flex items-start gap-4 mb-4">
-                    <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-md flex-shrink-0" style={{ background: 'linear-gradient(to bottom right, var(--color-primary), var(--color-calm-blue))', color: 'var(--color-white)' }}>
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-md flex-shrink-0" style={{ background: 'linear-gradient(to bottom right, var(--color-primary), var(--color-secondary))', color: 'var(--color-white)' }}>
                       {item.icon}
                     </div>
-                    <span className="text-5xl font-bold" style={{ color: 'var(--gray-color)' }}>{item.step}</span>
+                    <span className="text-5xl font-bold" style={{ color: 'var(--bg-color-all)' }}>{item.step}</span>
                   </div>
-                  <h3 className="text-lg font-bold mb-2" style={{ color: 'var(--fourground-color)' }}>{item.title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: 'var(--fourground-color)' }}>{item.description}</p>
+                  <h3 className="text-lg font-bold mb-2" style={{ color: 'var(--text-color-all)' }}>{item.title}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: 'var(--text-color-all)' }}>{item.description}</p>
                 </div>
               </div>
             ))}
@@ -168,10 +168,10 @@ export default function FeaturesSection() {
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4" style={{ color: 'var(--fourground-color)' }}>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4" style={{ color: 'var(--text-color-all)' }}>
               Why Choose HealthAI Analyzer
             </h2>
-            <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--fourground-color)' }}>
+            <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--text-color-all)' }}>
               Experience the future of health document understanding with our powerful features
             </p>
           </div>
@@ -181,13 +181,13 @@ export default function FeaturesSection() {
               <div
                 key={index}
                 className="group rounded-xl p-6 border transition-all duration-300 hover:shadow-lg"
-                style={{ borderColor: 'var(--color-primary)', backgroundColor: 'var(--gray-color)' }}
+                style={{ borderColor: 'var(--color-primary)', backgroundColor: 'var(--bg-color-all)' }}
               >
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110" style={{ backgroundColor: 'rgba(25,180,180,0.1)', color: 'var(--color-primary)' }}>
                   {benefit.icon}
                 </div>
-                <h3 className="text-lg font-bold mb-2" style={{ color: 'var(--fourground-color)' }}>{benefit.title}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: 'var(--fourground-color)' }}>{benefit.description}</p>
+                <h3 className="text-lg font-bold mb-2" style={{ color: 'var(--text-color-all)' }}>{benefit.title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--text-color-all)' }}>{benefit.description}</p>
               </div>
             ))}
           </div>

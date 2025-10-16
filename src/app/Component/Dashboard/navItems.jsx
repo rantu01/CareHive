@@ -48,6 +48,11 @@ export const navItems = {
       path: "/dashboard/doctor/doctors-social-post",
       icon: <PlusSquare size={18} />,
     },
+    {
+      name: "Chat with Users",
+      path: "/dashboard/doctor/messages",
+      icon: <PlusSquare size={18} />,
+    },
   ],
   admin: [
     {

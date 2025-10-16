@@ -10,7 +10,7 @@
   --font-alt: 'Montserrat', sans-serif;      /* Optional alternative font */
 
   /* Calm Blue - More modern blue */
-  --color-calm-blue: #3b7f81;
+  --color-secondary: #3b7f81;
 
   /* Black - Softer black */
   --color-black: #111827;
@@ -33,16 +33,16 @@
   --dashboard-border: #e2e8f0;
 
   /* Font color - Better contrast */
-  --fourground-color: #1e293b;
+  --text-color-all: #1e293b;
 
   /* Gray color - Softer gray */
-  --gray-color: #f1f5f9;
+  --bg-color-all: #f1f5f9;
 }
 
 .dark {
   --sidebar-bg: #0f172a;
   --dashboard-bg: #1e293b;
   --dashboard-border: #334155;
-  --fourground-color: #f1f5f9;
-  --gray-color: #334155;
+  --text-color-all: #f1f5f9;
+  --bg-color-all: #334155;
 }
