@@ -67,7 +67,7 @@ export default function PerformanceAndActions() {
               key={i}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition bg-[var(--sidebar-bg)] border border-[var(--dashboard-border)] hover:bg-[var(--gray-color)] ${
                 action.highlight
-                  ? "bg-blue-600 hover:bg-blue-700 text-white font-semibold"
+                  ? "bg-teal-600 hover:bg-teal-700 text-white font-semibold"
                   : "bg-[#1e293b] hover:bg-[#2c3a52] text-[var(--fourground-color)] "
               }`}
             >
