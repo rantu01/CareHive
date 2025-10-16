@@ -61,7 +61,7 @@ const UpcomingAppointment = () => {
                                 <div className="w-20 h-20 bg-[var(--color-primary)]/20 rounded-full flex items-center justify-center mb-6">
                                     <Calendar className="text-[var(--color-primary)]" size={32} />
                                 </div>
-                                <p className="text-[var(--fourground-color)] text-center mb-6 text-lg font-medium">
+                                <p className="text-[var(--text-color-all)] text-center mb-6 text-lg font-medium">
                                     You have not booked any appointments yet
                                 </p>
                                 <Link

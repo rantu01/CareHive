@@ -284,7 +284,7 @@ const Page = () => {
           style={{ backgroundImage: `url(${backgroundImages[currentImage]})` }}
         >
           {/* Overlay with gradient */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-calm-blue)]/30 to-[var(--color-primary)]/20"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-secondary)]/30 to-[var(--color-primary)]/20"></div>
         </div>
 
         {/* Image indicators */}

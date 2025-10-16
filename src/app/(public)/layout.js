@@ -10,7 +10,7 @@ export default function PublicLayout({ children }) {
       className="flex flex-col min-h-screen"
       style={{
         background: "var(--dashboard-bg)",
-        color: "var(--fourground-color)",
+        color: "var(--text-color-all)",
       }}
     >
       <Notifications />

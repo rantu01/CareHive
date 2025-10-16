@@ -40,12 +40,17 @@ export const navItems = {
     },
     {
       name: "Patients",
-      path: "/dashboard/doctor/patients",
+      path: (doctorId) => `/dashboard/doctor/${doctorId}/patients`,
       icon: <Users size={18} />,
     },
     {
       name: "Create Post",
       path: "/dashboard/doctor/doctors-social-post",
+      icon: <PlusSquare size={18} />,
+    },
+    {
+      name: "Chat with Users",
+      path: "/dashboard/doctor/messages",
       icon: <PlusSquare size={18} />,
     },
   ],

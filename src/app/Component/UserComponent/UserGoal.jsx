@@ -80,7 +80,7 @@ const UserGoal = () => {
                         <Goal className="text-white animate-bounce" size={24} />
                     </div>
                     <p className="text-lg font-semibold text-[var(--color-primary)]">Loading your goals...</p>
-                    <p className="text-sm text-[var(--fourground-color)]/60">Tracking your health progress</p>
+                    <p className="text-sm text-[var(--text-color-all)]/60">Tracking your health progress</p>
                 </div>
             </div>
         </div>
@@ -98,12 +98,12 @@ const UserGoal = () => {
                         </div>
                         <div>
                             <h1 className="text-2xl font-bold text-[var(--color-primary)]">Weekly Health Goals</h1>
-                            <p className="text-[var(--fourground-color)]/60 text-sm">Track your progress and achieve your targets</p>
+                            <p className="text-[var(--text-color-all)]/60 text-sm">Track your progress and achieve your targets</p>
                         </div>
                     </div>
 
                     <div className="hidden md:flex items-center gap-4 text-sm">
-                        <div className="flex items-center gap-2 text-[var(--fourground-color)]/60">
+                        <div className="flex items-center gap-2 text-[var(--text-color-all)]/60">
                             <Target size={16} />
                             <span>{goalList?.length || 0} Goals</span>
                         </div>
@@ -136,13 +136,13 @@ const UserGoal = () => {
                                                 <div className={`p-2 rounded-lg ${isCompleted ? 'bg-[var(--color-primary)]/50' : 'bg-[var(--color-primary)]/20'}`}>
                                                     {isCompleted ? <Award className="text-[var(--color-primary)]" size={18} /> : <TrendingUp className="text-[var(--color-primary)]" size={18} />}
                                                 </div>
-                                                <h3 className={`text-sm sm:text-lg font-bold ${isCompleted ? 'text-[var(--color-primary)]' : 'text-[var(--fourground-color)]'}`}>{goal?.title}</h3>
+                                                <h3 className={`text-sm sm:text-lg font-bold ${isCompleted ? 'text-[var(--color-primary)]' : 'text-[var(--text-color-all)]'}`}>{goal?.title}</h3>
                                             </div>
 
                                             {/* Progress Stats */}
                                             <div className="flex flex-wrap gap-4 text-xs sm:text-sm">
                                                 <span className={`font-semibold text-[var(--color-primary)]`}>{progressPercentage}% Complete</span>
-                                                <span className="text-[var(--fourground-color)]/60">{goal?.goal - goal?.completed} remaining</span>
+                                                <span className="text-[var(--text-color-all)]/60">{goal?.goal - goal?.completed} remaining</span>
                                             </div>
                                         </div>
 
@@ -150,7 +150,7 @@ const UserGoal = () => {
                                         <div className="text-right">
                                             <div className={`text-xl sm:text-2xl font-bold text-[var(--color-primary)]`}>
                                                 <span>{goal?.completed}</span>
-                                                <span className="text-[var(--fourground-color)]/40">/{goal?.goal} {goal?.measurementType}</span>
+                                                <span className="text-[var(--text-color-all)]/40">/{goal?.goal} {goal?.measurementType}</span>
                                             </div>
                                             {isCompleted && (
                                                 <div className="flex items-center gap-1 text-[var(--color-primary)] text-xs font-medium">
@@ -163,7 +163,7 @@ const UserGoal = () => {
 
                                     {/* Progress Bar */}
                                     <div className="space-y-2">
-                                        <div className="flex justify-between text-xs sm:text-sm text-[var(--fourground-color)]/60">
+                                        <div className="flex justify-between text-xs sm:text-sm text-[var(--text-color-all)]/60">
                                             <span>Progress</span>
                                             <span>{progressPercentage}%</span>
                                         </div>
@@ -177,7 +177,7 @@ const UserGoal = () => {
                                                 className="w-full h-3 bg-[var(--dashboard-border)]/30 rounded-full appearance-none cursor-pointer slider"
                                                 style={{ background: `linear-gradient(to right, var(--color-primary) 0%, var(--color-primary) ${progressPercentage}%, var(--dashboard-border) ${progressPercentage}%, var(--dashboard-border) 100%)` }}
                                             />
-                                            <div className="flex justify-between mt-2 text-xs text-[var(--fourground-color)]/40">
+                                            <div className="flex justify-between mt-2 text-xs text-[var(--text-color-all)]/40">
                                                 <span>0</span>
                                                 <span>{Math.floor(goal?.goal / 2)}</span>
                                                 <span>{goal?.goal}</span>
@@ -207,8 +207,8 @@ const UserGoal = () => {
                         <div className="w-20 h-20 bg-[var(--color-primary)]/20 rounded-full flex items-center justify-center mx-auto mb-6">
                             <Target className="text-[var(--color-primary)]" size={32} />
                         </div>
-                        <h3 className="text-xl font-semibold text-[var(--fourground-color)] mb-2">No Goals Set Yet</h3>
-                        <p className="text-[var(--fourground-color)]/60 mb-6 max-w-md mx-auto">
+                        <h3 className="text-xl font-semibold text-[var(--text-color-all)] mb-2">No Goals Set Yet</h3>
+                        <p className="text-[var(--text-color-all)]/60 mb-6 max-w-md mx-auto">
                             Start your health journey by setting your first weekly goal. Track your progress and achieve your targets!
                         </p>
                     </div>

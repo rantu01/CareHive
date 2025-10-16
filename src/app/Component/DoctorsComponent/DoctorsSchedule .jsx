@@ -62,9 +62,9 @@ export default function DoctorsSchedule() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {/* Today's Schedule */}
-      <div className="lg:col-span-2 bg-[var(--sidebar-bg)] text-[var(--fourground-color)] rounded-xl p-6 shadow-md">
+      <div className="lg:col-span-2 bg-[var(--sidebar-bg)] text-[var(--text-color-all)] rounded-xl p-6 shadow-md">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="flex items-center gap-2 text-lg font-semibold text-[var(--fourground-color)]">
+          <h2 className="flex items-center gap-2 text-lg font-semibold text-[var(--text-color-all)]">
             <Calendar className="w-5 h-5" />
             Today&apos;s Schedule
           </h2>
@@ -77,7 +77,7 @@ export default function DoctorsSchedule() {
           {scheduleData.map((item, i) => (
             <div
               key={i}
-              className="flex justify-between items-center bg-[var(--sidebar-bg)] rounded-xl p-4 border border-[var(--dashboard-border)] hover:bg-[var(--gray-color)]"
+              className="flex justify-between items-center bg-[var(--sidebar-bg)] rounded-xl p-4 border border-[var(--dashboard-border)] hover:bg-[var(--bg-color-all)]"
             >
               <div className="flex items-center gap-3">
                 <div className="bg-[var(--color-primary)] p-2 rounded-full">
@@ -127,7 +127,7 @@ export default function DoctorsSchedule() {
       </div>
 
       {/* Patient Messages (Latest 3 + View All) */}
-      <div className="bg-[var(--sidebar-bg)] text-[var(--fourground-color)] rounded-xl p-6 shadow-md flex flex-col">
+      <div className="bg-[var(--sidebar-bg)] text-[var(--text-color-all)] rounded-xl p-6 shadow-md flex flex-col">
         <h2 className="flex items-center gap-2 text-lg font-semibold mb-4">
           Patient Messages
         </h2>
@@ -139,15 +139,15 @@ export default function DoctorsSchedule() {
             latestMessages.map((msg, i) => (
               <div
                 key={i}
-                className="bg-[var(--gray-color)] rounded-xl p-4 flex flex-col gap-2"
+                className="bg-[var(--bg-color-all)] rounded-xl p-4 flex flex-col gap-2"
               >
                 <div className="flex justify-between items-center">
                   <h3 className="font-medium">{msg.senderEmail}</h3>
-                  <span className="text-xs text-[var(--fourground-color)]">
+                  <span className="text-xs text-[var(--text-color-all)]">
                     {new Date(msg.timestamp).toLocaleString()}
                   </span>
                 </div>
-                <p className="text-sm text-[var(--fourground-color)]">
+                <p className="text-sm text-[var(--text-color-all)]">
                   {msg.message}
                 </p>
                 <button

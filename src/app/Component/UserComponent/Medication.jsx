@@ -207,10 +207,10 @@ const Medication = () => {
               Medications
             </h1>
           </div>
-          <p className="text-[var(--fourground-color)]/70 text-base md:text-lg font-medium ml-16">
+          <p className="text-[var(--text-color-all)]/70 text-base md:text-lg font-medium ml-16">
             Manage your medication schedule
           </p>
-          <div className="flex items-center gap-4 mt-2 text-sm text-[var(--fourground-color)]/50 ml-16">
+          <div className="flex items-center gap-4 mt-2 text-sm text-[var(--text-color-all)]/50 ml-16">
             <span className="flex items-center gap-1">
               <Clock size={14} />
               {medicationDataList && medicationDataList.length} Active medications
@@ -260,7 +260,7 @@ const Medication = () => {
               <div className="space-y-5 mb-6">
                 {/* Days Section */}
                 <div className="space-y-3">
-                  <h4 className="text-sm font-semibold text-[var(--fourground-color)]/80 uppercase tracking-wide">
+                  <h4 className="text-sm font-semibold text-[var(--text-color-all)]/80 uppercase tracking-wide">
                     Schedule Days
                   </h4>
                   <div className="flex flex-wrap gap-2">
@@ -280,8 +280,8 @@ const Medication = () => {
                 {/* Times Section */}
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
-                    <Bell size={16} className="text-[var(--fourground-color)]/60" />
-                    <h4 className="text-sm font-semibold text-[var(--fourground-color)]/80 uppercase tracking-wide">
+                    <Bell size={16} className="text-[var(--text-color-all)]/60" />
+                    <h4 className="text-sm font-semibold text-[var(--text-color-all)]/80 uppercase tracking-wide">
                       Timing
                     </h4>
                   </div>
@@ -289,7 +289,7 @@ const Medication = () => {
                     {Object.values(med.medicineTakingTime || {}).map((time, i) => (
                       <span
                         key={i}
-                        className="px-3 py-2 bg-[var(--card-bg)] border-2 border-[var(--dashboard-border)] text-[var(--fourground-color)] text-sm font-medium rounded-lg shadow-sm hover:shadow-md transition-shadow"
+                        className="px-3 py-2 bg-[var(--card-bg)] border-2 border-[var(--dashboard-border)] text-[var(--text-color-all)] text-sm font-medium rounded-lg shadow-sm hover:shadow-md transition-shadow"
                       >
                         {time}
 
@@ -302,8 +302,8 @@ const Medication = () => {
                 {/* Pills Section */}
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
-                    <Pill size={16} className="text-[var(--fourground-color)]/60" />
-                    <h4 className="text-sm font-semibold text-[var(--fourground-color)]/80 uppercase tracking-wide">
+                    <Pill size={16} className="text-[var(--text-color-all)]/60" />
+                    <h4 className="text-sm font-semibold text-[var(--text-color-all)]/80 uppercase tracking-wide">
                       Dosage
                     </h4>
                   </div>
@@ -311,7 +311,7 @@ const Medication = () => {
                     {Object.values(med.numberOfPill || {}).map((pill, i) => (
                       <span
                         key={i}
-                        className="px-3 py-2 bg-[var(--card-bg)] border-2 border-[var(--dashboard-border)] text-[var(--fourground-color)] text-sm font-medium rounded-lg shadow-sm hover:shadow-md transition-shadow"
+                        className="px-3 py-2 bg-[var(--card-bg)] border-2 border-[var(--dashboard-border)] text-[var(--text-color-all)] text-sm font-medium rounded-lg shadow-sm hover:shadow-md transition-shadow"
                       >
                         {pill} {pill == 1 ? 'pill' : 'pills'}
                       </span>
@@ -322,7 +322,7 @@ const Medication = () => {
 
               {/* Action Buttons */}
               <div className="flex gap-3 justify-between flex-wrap pt-4 border-t border-[var(--dashboard-border)]/30">
-                <button className="flex items-center gap-2 bg-[var(--card-bg)] hover:bg-[var(--hover-color)] border-2 border-[var(--dashboard-border)] px-4 py-2.5 rounded-xl cursor-pointer text-[var(--fourground-color)] transition-all duration-200 text-sm font-medium hover:scale-105 hover:shadow-md group">
+                <button className="flex items-center gap-2 bg-[var(--card-bg)] hover:bg-[var(--hover-color)] border-2 border-[var(--dashboard-border)] px-4 py-2.5 rounded-xl cursor-pointer text-[var(--text-color-all)] transition-all duration-200 text-sm font-medium hover:scale-105 hover:shadow-md group">
                   <Bell size={16} className="group-hover:animate-pulse" />
                   Remind
                 </button>
@@ -356,13 +356,13 @@ const Medication = () => {
                     <div className="p-2 bg-[var(--color-primary)]/20 rounded-xl">
                       <Pill className="text-[var(--color-primary)]" size={20} />
                     </div>
-                    <h2 className="text-2xl font-bold text-[var(--fourground-color)]">Add Medication</h2>
+                    <h2 className="text-2xl font-bold text-[var(--text-color-all)]">Add Medication</h2>
                   </div>
                   <button
                     onClick={() => setOpen(!isOpen)}
                     className="p-2 hover:bg-[var(--dashboard-border)]/20 rounded-full transition-colors duration-300 cursor-pointer group"
                   >
-                    <X size={20} className="text-[var(--fourground-color)]/60 group-hover:text-[var(--color-primary)] transition-colors duration-300" />
+                    <X size={20} className="text-[var(--text-color-all)]/60 group-hover:text-[var(--color-primary)] transition-colors duration-300" />
                   </button>
                 </div>
               </div>
@@ -371,7 +371,7 @@ const Medication = () => {
               <form onSubmit={handleSubmit} className="p-8 space-y-8">
                 {/* Medicine Name */}
                 <div className="space-y-3">
-                  <label htmlFor="medicineName" className="flex items-center gap-2 text-sm font-semibold text-[var(--fourground-color)] uppercase tracking-wide">
+                  <label htmlFor="medicineName" className="flex items-center gap-2 text-sm font-semibold text-[var(--text-color-all)] uppercase tracking-wide">
                     <Pill size={16} className="text-[var(--color-primary)]" />
                     Medicine Name
                   </label>
@@ -381,13 +381,13 @@ const Medication = () => {
                     name="medicineName"
                     type="text"
                     placeholder="Enter Medicine Name"
-                    className="w-full p-4 text-[var(--fourground-color)] bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-2xl placeholder-[var(--fourground-color)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-all duration-300"
+                    className="w-full p-4 text-[var(--text-color-all)] bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-2xl placeholder-[var(--text-color-all)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-all duration-300"
                   />
                 </div>
 
                 {/* Dose Per Day */}
                 <div className="space-y-3">
-                  <label htmlFor="douse-type" className="flex items-center gap-2 text-sm font-semibold text-[var(--fourground-color)] uppercase tracking-wide">
+                  <label htmlFor="douse-type" className="flex items-center gap-2 text-sm font-semibold text-[var(--text-color-all)] uppercase tracking-wide">
                     <Clock size={16} className="text-[var(--color-primary)]" />
                     Doses Per Day
                   </label>
@@ -396,7 +396,7 @@ const Medication = () => {
                     name="douseType"
                     id="douse-type"
                     required
-                    className="w-full p-4 text-[var(--fourground-color)] bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-2xl focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-all duration-300"
+                    className="w-full p-4 text-[var(--text-color-all)] bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-2xl focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-all duration-300"
                   >
                     <option value="1">1 dose per day</option>
                     <option value="2">2 doses per day</option>
@@ -407,7 +407,7 @@ const Medication = () => {
 
                 {/* Days Selection */}
                 <div className="space-y-4">
-                  <label className="flex items-center gap-2 text-sm font-semibold text-[var(--fourground-color)] uppercase tracking-wide">
+                  <label className="flex items-center gap-2 text-sm font-semibold text-[var(--text-color-all)] uppercase tracking-wide">
                     <Calendar size={16} className="text-[var(--color-primary)]" />
                     Select Days
                   </label>
@@ -424,7 +424,7 @@ const Medication = () => {
                         />
                         <label
                           htmlFor={`${day.name.toLowerCase()}-checkbox`}
-                          className="ml-2 text-sm font-medium text-[var(--fourground-color)] cursor-pointer"
+                          className="ml-2 text-sm font-medium text-[var(--text-color-all)] cursor-pointer"
                         >
                           {day.name}
                         </label>
@@ -435,7 +435,7 @@ const Medication = () => {
 
                 {/* Time Inputs */}
                 <div className="space-y-4">
-                  <label className="flex items-center gap-2 text-sm font-semibold text-[var(--fourground-color)] uppercase tracking-wide">
+                  <label className="flex items-center gap-2 text-sm font-semibold text-[var(--text-color-all)] uppercase tracking-wide">
                     <Clock size={16} className="text-[var(--color-primary)]" />
                     Medication Times
                   </label>
@@ -446,7 +446,7 @@ const Medication = () => {
                         for (let i = 0; i < timeLoop; i++) {
                           inputs.push(
                             <div key={i} className="space-y-2">
-                              <label htmlFor={`time-${i}`} className="text-sm text-[var(--fourground-color)]/70 font-medium">
+                              <label htmlFor={`time-${i}`} className="text-sm text-[var(--text-color-all)]/70 font-medium">
                                 Time {i + 1}
                               </label>
                               <input
@@ -454,7 +454,7 @@ const Medication = () => {
                                 type="time"
                                 id={`time-${i}`}
                                 name={`time-${i}`}
-                                className="w-full p-3 text-[var(--fourground-color)] bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-all duration-300"
+                                className="w-full p-3 text-[var(--text-color-all)] bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-all duration-300"
                               />
                             </div>
                           );
@@ -467,7 +467,7 @@ const Medication = () => {
 
                 {/* Pill Count Inputs */}
                 <div className="space-y-4">
-                  <label className="flex items-center gap-2 text-sm font-semibold text-[var(--fourground-color)] uppercase tracking-wide">
+                  <label className="flex items-center gap-2 text-sm font-semibold text-[var(--text-color-all)] uppercase tracking-wide">
                     <Pill size={16} className="text-[var(--color-primary)]" />
                     Number of Pills
                   </label>
@@ -478,7 +478,7 @@ const Medication = () => {
                         for (let i = 0; i < timeLoop; i++) {
                           inputsPill.push(
                             <div key={i} className="space-y-2">
-                              <label htmlFor={`pill-${i}`} className="text-sm text-[var(--fourground-color)]/70 font-medium">
+                              <label htmlFor={`pill-${i}`} className="text-sm text-[var(--text-color-all)]/70 font-medium">
                                 Dose {i + 1} Pills
                               </label>
                               <input
@@ -488,7 +488,7 @@ const Medication = () => {
                                 name={`pill-${i}`}
                                 min="1"
                                 placeholder="1"
-                                className="w-full p-3 text-[var(--fourground-color)] bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl placeholder-[var(--fourground-color)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-all duration-300"
+                                className="w-full p-3 text-[var(--text-color-all)] bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl placeholder-[var(--text-color-all)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-all duration-300"
                               />
                             </div>
                           );
@@ -511,7 +511,7 @@ const Medication = () => {
                 </div>
 
                 {/* Help Text */}
-                <p className="text-center text-xs text-[var(--fourground-color)]/60">
+                <p className="text-center text-xs text-[var(--text-color-all)]/60">
                   Fill in all required fields to add your medication schedule
                 </p>
               </form>

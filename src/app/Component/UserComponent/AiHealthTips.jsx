@@ -41,7 +41,7 @@ const AiHealthTips = () => {
   const tipIcons = [Heart, Activity, TrendingUp, Zap, Brain, Lightbulb];
 
   return (
-    <div className="bg-gradient-to-br from-[var(--dashboard-bg)] to-[var(--dashboard-bg)]/90 text-[var(--fourground-color)] py-8 px-6 rounded-3xl relative overflow-hidden">
+    <div className="bg-gradient-to-br from-[var(--dashboard-bg)] to-[var(--dashboard-bg)]/90 text-[var(--text-color-all)] py-8 px-6 rounded-3xl relative overflow-hidden">
       {/* Decorative Background Elements */}
       <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-[var(--color-primary)]/10 to-transparent rounded-full blur-3xl -translate-y-20 translate-x-20"></div>
       <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-[var(--color-primary)]/5 to-transparent rounded-full blur-2xl translate-y-16 -translate-x-16"></div>
@@ -58,7 +58,7 @@ const AiHealthTips = () => {
                 <h2 className="text-3xl font-bold bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary)]/80 bg-clip-text text-transparent">
                   AI Health Tips
                 </h2>
-                <p className="text-[var(--fourground-color)]/60 text-sm">
+                <p className="text-[var(--text-color-all)]/60 text-sm">
                   Personalized recommendations powered by AI
                 </p>
               </div>
@@ -87,7 +87,7 @@ const AiHealthTips = () => {
                 <Brain className="text-white animate-bounce" size={24} />
               </div>
               <p className="text-lg font-semibold text-[var(--color-primary)]">Analyzing your health data...</p>
-              <p className="text-sm text-[var(--fourground-color)]/60">Our AI is generating personalized tips for you</p>
+              <p className="text-sm text-[var(--text-color-all)]/60">Our AI is generating personalized tips for you</p>
             </div>
           </div>
         )}
@@ -99,7 +99,7 @@ const AiHealthTips = () => {
               <Brain className="text-red-500" size={24} />
             </div>
             <p className="text-lg font-semibold text-red-600 mb-2">Failed to load tips</p>
-            <p className="text-sm text-[var(--fourground-color)]/60 mb-4">Something went wrong while generating your AI health tips</p>
+            <p className="text-sm text-[var(--text-color-all)]/60 mb-4">Something went wrong while generating your AI health tips</p>
             <button
               onClick={() => refetch()}
               className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
@@ -138,7 +138,7 @@ const AiHealthTips = () => {
                     </div>
 
                     {/* Tip Content */}
-                    <p className="text-[var(--fourground-color)]/80 leading-relaxed text-sm font-medium group-hover:text-[var(--fourground-color)] transition-colors duration-300">
+                    <p className="text-[var(--text-color-all)]/80 leading-relaxed text-sm font-medium group-hover:text-[var(--text-color-all)] transition-colors duration-300">
                       {tip}
                     </p>
 
@@ -157,8 +157,8 @@ const AiHealthTips = () => {
             <div className="w-20 h-20 bg-gradient-to-br from-[var(--color-primary)]/20 to-[var(--color-primary)]/50 rounded-full flex items-center justify-center mx-auto mb-6">
               <Lightbulb className="text-[var(--color-primary)]" size={32} />
             </div>
-            <h3 className="text-xl font-semibold text-[var(--fourground-color)] mb-2">Ready for AI Insights?</h3>
-            <p className="text-[var(--fourground-color)]/60 mb-6 max-w-md mx-auto">
+            <h3 className="text-xl font-semibold text-[var(--text-color-all)] mb-2">Ready for AI Insights?</h3>
+            <p className="text-[var(--text-color-all)]/60 mb-6 max-w-md mx-auto">
               Click the button above to get personalized health recommendations based on your current stats and goals.
             </p>
           </div>

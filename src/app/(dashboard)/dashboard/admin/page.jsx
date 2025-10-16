@@ -72,7 +72,7 @@ export default function AdminDashboard() {
   const COLORS = [
     "var(--dashboard-blue)",
     "var(--color-primary)",
-    "var(--color-calm-blue)",
+    "var(--color-secondary)",
     "#8b5cf6",
     "#f59e0b",
     "#ef4444",
@@ -88,14 +88,14 @@ export default function AdminDashboard() {
       <div className="flex justify-center items-center h-screen bg-[var(--dashboard-bg)]">
         <div className="flex flex-col items-center space-y-4">
           <div className="w-16 h-16 border-4 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-lg text-[var(--fourground-color)] font-semibold">Loading Admin Dashboard...</p>
+          <p className="text-lg text-[var(--text-color-all)] font-semibold">Loading Admin Dashboard...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[var(--gray-color)] p-4 sm:p-6 lg:p-8">
+    <div className="min-h-screen bg-[var(--bg-color-all)] p-4 sm:p-6 lg:p-8">
       {/* Enhanced Header */}
       <div className="mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
@@ -103,7 +103,7 @@ export default function AdminDashboard() {
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-[var(--dashboard-blue)] to-[var(--color-primary)] bg-clip-text text-transparent">
               Admin Dashboard
             </h1>
-            <p className="text-[var(--fourground-color)] mt-2 opacity-80 text-lg">
+            <p className="text-[var(--text-color-all)] mt-2 opacity-80 text-lg">
               Welcome back! Manage and monitor your user base efficiently
             </p>
           </div>
@@ -112,7 +112,7 @@ export default function AdminDashboard() {
               className="px-6 py-3 rounded-xl font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-xl flex items-center gap-2 group"
               style={{
                 backgroundColor: "var(--color-primary)",
-                background: "linear-gradient(135deg, var(--color-primary), var(--color-calm-blue))",
+                background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))",
               }}
             >
               <span>Generate Report</span>
@@ -134,7 +134,7 @@ export default function AdminDashboard() {
             className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 capitalize ${
               activeTab === tab 
                 ? "text-white shadow-lg" 
-                : "text-[var(--fourground-color)] hover:bg-[var(--gray-color)]"
+                : "text-[var(--text-color-all)] hover:bg-[var(--bg-color-all)]"
             }`}
             style={{
               backgroundColor: activeTab === tab ? "var(--color-primary)" : "transparent",
@@ -165,11 +165,11 @@ export default function AdminDashboard() {
             <div className="relative z-10">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-[var(--fourground-color)] opacity-70">{stat.title}</p>
-                  <p className="text-3xl font-bold text-[var(--fourground-color)] mt-2">{stat.value}</p>
+                  <p className="text-sm font-medium text-[var(--text-color-all)] opacity-70">{stat.title}</p>
+                  <p className="text-3xl font-bold text-[var(--text-color-all)] mt-2">{stat.value}</p>
                   <div className="flex items-center gap-1 mt-2">
                     <span className="text-xs text-green-500 font-medium">↑ 12%</span>
-                    <span className="text-xs text-[var(--fourground-color)] opacity-70">from last week</span>
+                    <span className="text-xs text-[var(--text-color-all)] opacity-70">from last week</span>
                   </div>
                 </div>
                 <div 
@@ -198,8 +198,8 @@ export default function AdminDashboard() {
           <div className="relative z-10">
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h2 className="text-xl font-semibold text-[var(--fourground-color)]">User Distribution</h2>
-                <p className="text-sm text-[var(--fourground-color)] opacity-70 mt-1">Role-based user breakdown</p>
+                <h2 className="text-xl font-semibold text-[var(--text-color-all)]">User Distribution</h2>
+                <p className="text-sm text-[var(--text-color-all)] opacity-70 mt-1">Role-based user breakdown</p>
               </div>
               <button
                 className="px-4 py-2 rounded-lg text-sm font-medium text-white transition-all duration-300 hover:scale-105"
@@ -239,13 +239,13 @@ export default function AdminDashboard() {
                       border: "1px solid var(--dashboard-border)",
                       borderRadius: "12px",
                       boxShadow: "0 20px 40px rgba(0,0,0,0.1)",
-                      color: "var(--fourground-color)",
+                      color: "var(--text-color-all)",
                     }}
                   />
                   <Legend
                     verticalAlign="bottom"
                     height={36}
-                    formatter={(value) => <span className="text-sm text-[var(--fourground-color)]">{value}</span>}
+                    formatter={(value) => <span className="text-sm text-[var(--text-color-all)]">{value}</span>}
                   />
                 </PieChart>
               </ResponsiveContainer>
@@ -259,14 +259,14 @@ export default function AdminDashboard() {
           <div className="absolute -top-4 -right-4 w-8 h-8 rounded-full opacity-20"
                style={{ backgroundColor: "var(--color-primary)" }}></div>
           <div className="absolute -bottom-4 -left-4 w-6 h-6 rounded-full opacity-20"
-               style={{ backgroundColor: "var(--color-calm-blue)" }}></div>
+               style={{ backgroundColor: "var(--color-secondary)" }}></div>
           
           <div className="relative z-10">
             <div className="p-6 border-b border-[var(--dashboard-border)] bg-gradient-to-r from-[var(--dashboard-bg)] to-transparent">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <h2 className="text-xl font-semibold text-[var(--fourground-color)]">User Management</h2>
-                  <p className="text-sm text-[var(--fourground-color)] opacity-70 mt-1">Manage all user accounts</p>
+                  <h2 className="text-xl font-semibold text-[var(--text-color-all)]">User Management</h2>
+                  <p className="text-sm text-[var(--text-color-all)] opacity-70 mt-1">Manage all user accounts</p>
                 </div>
                 <div className="flex items-center gap-3 mt-3 sm:mt-0">
                   <span className="bg-[var(--color-primary)] text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg">
@@ -286,18 +286,18 @@ export default function AdminDashboard() {
             {/* Enhanced Table */}
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-[var(--gray-color)]">
+                <thead className="bg-[var(--bg-color-all)]">
                   <tr>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-[var(--fourground-color)] uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-[var(--text-color-all)] uppercase tracking-wider">
                       User
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-[var(--fourground-color)] uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-[var(--text-color-all)] uppercase tracking-wider">
                       Email
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-[var(--fourground-color)] uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-[var(--text-color-all)] uppercase tracking-wider">
                       Role
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-[var(--fourground-color)] uppercase tracking-wider">
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-[var(--text-color-all)] uppercase tracking-wider">
                       Action
                     </th>
                   </tr>
@@ -306,7 +306,7 @@ export default function AdminDashboard() {
                   {currentUsers.map((user, index) => (
                     <tr 
                       key={user.id} 
-                      className="hover:bg-[var(--gray-color)] transition-all duration-300 group"
+                      className="hover:bg-[var(--bg-color-all)] transition-all duration-300 group"
                     >
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
@@ -319,17 +319,17 @@ export default function AdminDashboard() {
                             {user.name ? user.name.charAt(0).toUpperCase() : "U"}
                           </div>
                           <div>
-                            <div className="text-sm font-semibold text-[var(--fourground-color)]">
+                            <div className="text-sm font-semibold text-[var(--text-color-all)]">
                               {user.name || "Unknown User"}
                             </div>
-                            <div className="text-xs text-[var(--fourground-color)] opacity-70">
+                            <div className="text-xs text-[var(--text-color-all)] opacity-70">
                               Joined {new Date().toLocaleDateString()}
                             </div>
                           </div>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-[var(--fourground-color)] opacity-80">{user.email}</div>
+                        <div className="text-sm text-[var(--text-color-all)] opacity-80">{user.email}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span
@@ -373,8 +373,8 @@ export default function AdminDashboard() {
             </div>
 
             {/* Enhanced Pagination */}
-            <div className="px-6 py-4 border-t border-[var(--dashboard-border)] bg-[var(--gray-color)]">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-sm text-[var(--fourground-color)]">
+            <div className="px-6 py-4 border-t border-[var(--dashboard-border)] bg-[var(--bg-color-all)]">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-sm text-[var(--text-color-all)]">
                 <span className="mb-2 sm:mb-0">
                   Showing <strong>{startIndex + 1}-{Math.min(startIndex + usersPerPage, users.length)}</strong> of <strong>{users.length}</strong> users
                 </span>
@@ -382,8 +382,8 @@ export default function AdminDashboard() {
                   <button
                     className="px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                     style={{
-                      backgroundColor: currentPage === 1 ? "var(--gray-color)" : "var(--color-primary)",
-                      color: currentPage === 1 ? "var(--fourground-color)" : "white",
+                      backgroundColor: currentPage === 1 ? "var(--bg-color-all)" : "var(--color-primary)",
+                      color: currentPage === 1 ? "var(--text-color-all)" : "white",
                       border: currentPage === 1 ? "1px solid var(--dashboard-border)" : "none",
                     }}
                     disabled={currentPage === 1}
@@ -405,7 +405,7 @@ export default function AdminDashboard() {
                           className={`w-10 h-10 rounded-lg font-medium transition-all duration-300 ${
                             currentPage === page 
                               ? "text-white shadow-lg scale-110" 
-                              : "text-[var(--fourground-color)] hover:bg-[var(--dashboard-border)]"
+                              : "text-[var(--text-color-all)] hover:bg-[var(--dashboard-border)]"
                           }`}
                           style={{
                             backgroundColor: currentPage === page ? "var(--color-primary)" : "transparent",
@@ -420,8 +420,8 @@ export default function AdminDashboard() {
                   <button
                     className="px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                     style={{
-                      backgroundColor: currentPage === totalPages ? "var(--gray-color)" : "var(--color-primary)",
-                      color: currentPage === totalPages ? "var(--fourground-color)" : "white",
+                      backgroundColor: currentPage === totalPages ? "var(--bg-color-all)" : "var(--color-primary)",
+                      color: currentPage === totalPages ? "var(--text-color-all)" : "white",
                       border: currentPage === totalPages ? "1px solid var(--dashboard-border)" : "none",
                     }}
                     disabled={currentPage === totalPages}
@@ -443,8 +443,8 @@ export default function AdminDashboard() {
       <div className="mt-8 bg-[var(--dashboard-bg)] rounded-2xl p-6 shadow-lg border border-[var(--dashboard-border)]">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-xl font-semibold text-[var(--fourground-color)]">Weekly User Activity</h2>
-            <p className="text-sm text-[var(--fourground-color)] opacity-70 mt-1">User engagement over the past week</p>
+            <h2 className="text-xl font-semibold text-[var(--text-color-all)]">Weekly User Activity</h2>
+            <p className="text-sm text-[var(--text-color-all)] opacity-70 mt-1">User engagement over the past week</p>
           </div>
           <button
             className="px-4 py-2 rounded-lg text-sm font-medium text-white transition-all duration-300 hover:scale-105"
@@ -457,14 +457,14 @@ export default function AdminDashboard() {
           <ResponsiveContainer>
             <BarChart data={activityData}>
               <CartesianGrid strokeDasharray="3 3" stroke="var(--dashboard-border)" />
-              <XAxis dataKey="name" stroke="var(--fourground-color)" />
-              <YAxis stroke="var(--fourground-color)" />
+              <XAxis dataKey="name" stroke="var(--text-color-all)" />
+              <YAxis stroke="var(--text-color-all)" />
               <Tooltip
                 contentStyle={{
                   backgroundColor: "var(--dashboard-bg)",
                   border: "1px solid var(--dashboard-border)",
                   borderRadius: "12px",
-                  color: "var(--fourground-color)",
+                  color: "var(--text-color-all)",
                 }}
               />
               <Bar 

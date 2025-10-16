@@ -16,9 +16,9 @@ const KPIcard = ({ title, value, target = '' }) => {
   const getStatusColor = (status, title) => {
     if (title === "bp") {
       return status === "Normal" ? "text-[var(--color-primary)]" : 
-             status === "Low" ? "text-[var(--fourground-color)]/60" : "text-[var(--color-primary)]";
+             status === "Low" ? "text-[var(--text-color-all)]/60" : "text-[var(--color-primary)]";
     }
-    return "text-[var(--fourground-color)]/60";
+    return "text-[var(--text-color-all)]/60";
   };
 
   const getStatusIcon = (status) => {
@@ -45,7 +45,7 @@ const KPIcard = ({ title, value, target = '' }) => {
         {/* Left section */}
         <div className="flex flex-col gap-4 flex-1">
           <div className="flex items-center gap-2">
-            <p className="text-[var(--fourground-color)]/70 font-bold text-xs tracking-widest uppercase">
+            <p className="text-[var(--text-color-all)]/70 font-bold text-xs tracking-widest uppercase">
               {title.replace('-', ' ')}
             </p>
             <div className="h-1 w-8 bg-gradient-to-r from-[var(--color-primary)]/30 to-transparent rounded-full"></div>
@@ -63,7 +63,7 @@ const KPIcard = ({ title, value, target = '' }) => {
                     <span>{status}</span>
                   </div>
                 </div>
-                <p className="text-xs text-[var(--fourground-color)]/50 font-medium">Blood Pressure Reading</p>
+                <p className="text-xs text-[var(--text-color-all)]/50 font-medium">Blood Pressure Reading</p>
               </div>
             )}
 
@@ -73,10 +73,10 @@ const KPIcard = ({ title, value, target = '' }) => {
                   <span className="text-3xl md:text-4xl font-black text-[var(--color-primary)] tracking-tight">
                     {value?.toLocaleString()}
                   </span>
-                  <span className="text-sm text-[var(--fourground-color)]/60 font-medium">/ {target?.toLocaleString()}</span>
+                  <span className="text-sm text-[var(--text-color-all)]/60 font-medium">/ {target?.toLocaleString()}</span>
                 </div>
                 <div className="space-y-1">
-                  <div className="flex justify-between text-xs text-[var(--fourground-color)]/60">
+                  <div className="flex justify-between text-xs text-[var(--text-color-all)]/60">
                     <span>Progress</span>
                     <span>{Math.round(getProgressPercentage())}%</span>
                   </div>
@@ -96,9 +96,9 @@ const KPIcard = ({ title, value, target = '' }) => {
                   <span className="text-3xl md:text-4xl font-black text-[var(--color-primary)] tracking-tight">
                     {value}
                   </span>
-                  <span className="text-sm text-[var(--fourground-color)]/60 font-medium">bpm</span>
+                  <span className="text-sm text-[var(--text-color-all)]/60 font-medium">bpm</span>
                 </div>
-                <p className="text-xs text-[var(--fourground-color)]/50 font-medium">Beats per minute</p>
+                <p className="text-xs text-[var(--text-color-all)]/50 font-medium">Beats per minute</p>
               </div>
             )}
 
@@ -108,9 +108,9 @@ const KPIcard = ({ title, value, target = '' }) => {
                   <span className="text-3xl md:text-4xl font-black text-[var(--color-primary)] tracking-tight">
                     {value}
                   </span>
-                  <span className="text-sm text-[var(--fourground-color)]/60 font-medium">kg</span>
+                  <span className="text-sm text-[var(--text-color-all)]/60 font-medium">kg</span>
                 </div>
-                <p className="text-xs text-[var(--fourground-color)]/50 font-medium">Current weight</p>
+                <p className="text-xs text-[var(--text-color-all)]/50 font-medium">Current weight</p>
               </div>
             )}
           </div>

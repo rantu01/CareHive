@@ -20,7 +20,7 @@ const Page = () => {
     <div
       style={{
         background: "var(--dashboard-bg)",
-        color: "var(--fourground-color)",
+        color: "var(--text-color-all)",
         minHeight: "100vh",
         fontFamily: "var(--font-primary)",
       }}
@@ -30,13 +30,13 @@ const Page = () => {
         <div className="text-center max-w-4xl mx-auto py-12">
           {/* Title */}
           <h1
-            className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-6 transition-all duration-1000 ease-out ${
+            className={`text-4xl md:text-5xl lg:text-5xl font-bold mb-6 transition-all duration-1000 ease-out ${
               titleVisible
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 -translate-y-6"
             }`}
             style={{
-              color: "var(--color-primary)",
+              color: "var(--color-secondary)",
               fontFamily: "var(--font-heading)",
               letterSpacing: "-0.02em",
             }}
@@ -52,7 +52,7 @@ const Page = () => {
                 : "opacity-0 translate-y-4"
             }`}
             style={{
-              color: "var(--fourground-color)",
+              color: "var(--text-color-all)",
               lineHeight: "1.7",
               fontFamily: "var(--font-primary)",
             }}
@@ -93,7 +93,7 @@ const Page = () => {
               <h3
                 className="text-2xl font-semibold"
                 style={{
-                  color: "var(--fourground-color)",
+                  color: "var(--text-color-all)",
                   fontFamily: "var(--font-heading)",
                 }}
               >
@@ -124,7 +124,7 @@ const Page = () => {
                 <h3
                   className="text-2xl font-semibold"
                   style={{
-                    color: "var(--fourground-color)",
+                    color: "var(--text-color-all)",
                     fontFamily: "var(--font-heading)",
                   }}
                 >
@@ -159,7 +159,7 @@ const Page = () => {
                 <h3
                   className="text-2xl font-semibold"
                   style={{
-                    color: "var(--fourground-color)",
+                    color: "var(--text-color-all)",
                     fontFamily: "var(--font-heading)",
                   }}
                 >

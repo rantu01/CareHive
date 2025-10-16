@@ -84,7 +84,7 @@ const PersonalInfoSection = ({profileImage,setProfileImage}) => {
                             style={{
                                 borderWidth: "2px",
                                 borderColor: "var(--dashboard-border)",
-                                color: "var(--fourground-color)",
+                                color: "var(--text-color-all)",
                             }}
                         />
                         {errors?.fullName && (
@@ -101,7 +101,7 @@ const PersonalInfoSection = ({profileImage,setProfileImage}) => {
                             style={{
                                 borderWidth: "2px",
                                 borderColor: "var(--dashboard-border)",
-                                color: "var(--fourground-color)",
+                                color: "var(--text-color-all)",
                             }}
                         />
                         {errors?.dob && (
@@ -118,7 +118,7 @@ const PersonalInfoSection = ({profileImage,setProfileImage}) => {
                                 borderWidth: "2px",
                                 borderColor: "var(--dashboard-border)",
                                 // backgroundColor: "var(--color-white)",
-                                color: "var(--fourground-color)",
+                                color: "var(--text-color-all)",
                             }}
                         >
                             <option value="">Select Gender *</option>
@@ -141,7 +141,7 @@ const PersonalInfoSection = ({profileImage,setProfileImage}) => {
                             style={{
                                 borderWidth: "2px",
                                 borderColor: "var(--dashboard-border)",
-                                color: "var(--fourground-color)",
+                                color: "var(--text-color-all)",
                             }}
                         />
                         {errors?.mobile && (
@@ -160,7 +160,7 @@ const PersonalInfoSection = ({profileImage,setProfileImage}) => {
                             style={{
                                 borderWidth: "2px",
                                 borderColor: "var(--dashboard-border)",
-                                color: "var(--fourground-color)",
+                                color: "var(--text-color-all)",
                             }}
                         />
                         {errors?.whatsapp && (
@@ -179,7 +179,7 @@ const PersonalInfoSection = ({profileImage,setProfileImage}) => {
                             style={{
                                 borderWidth: "2px",
                                 borderColor: "var(--dashboard-border)",
-                                color: "var(--fourground-color)",
+                                color: "var(--text-color-all)",
                             }}
                         />
                     </div>
@@ -192,7 +192,7 @@ const PersonalInfoSection = ({profileImage,setProfileImage}) => {
                             style={{
                                 borderWidth: "2px",
                                 borderColor: "var(--dashboard-border)",
-                                color: "var(--fourground-color)",
+                                color: "var(--text-color-all)",
                             }}
                         >
                             <option value="">Marital Status *</option>
@@ -215,7 +215,7 @@ const PersonalInfoSection = ({profileImage,setProfileImage}) => {
                             style={{
                                 borderWidth: "2px",
                                 borderColor: "var(--dashboard-border)",
-                                color: "var(--fourground-color)",
+                                color: "var(--text-color-all)",
                             }}
                         >
                             <option value="">Residential Status *</option>
@@ -237,7 +237,7 @@ const PersonalInfoSection = ({profileImage,setProfileImage}) => {
                             style={{
                                 borderWidth: "2px",
                                 borderColor: "var(--dashboard-border)",
-                                color: "var(--fourground-color)",
+                                color: "var(--text-color-all)",
                             }}
                         />
                         {errors?.nationality && (
@@ -255,7 +255,7 @@ const PersonalInfoSection = ({profileImage,setProfileImage}) => {
                             style={{
                                 borderWidth: "2px",
                                 borderColor: "var(--dashboard-border)",
-                                color: "var(--fourground-color)",
+                                color: "var(--text-color-all)",
                             }}
                         />
                         {errors?.presentAddress && (
@@ -275,7 +275,7 @@ const PersonalInfoSection = ({profileImage,setProfileImage}) => {
                             style={{
                                 borderWidth: "2px",
                                 borderColor: "var(--dashboard-border)",
-                                color: "var(--fourground-color)",
+                                color: "var(--text-color-all)",
                             }}
                         />
                         {errors?.permanentAddress && (
