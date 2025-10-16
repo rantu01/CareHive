@@ -96,7 +96,7 @@ const NutritionAdvisor = () => {
           <div className="w-4 h-0.5 bg-[var(--color-primary)]"></div>
         </div>
 
-        <h1 className="text-4xl font-bold mb-4 text-[var(--color-primary)] flex items-center justify-center gap-3">
+        <h1 className="text-5xl font-bold mb-4 text-[var(--color-primary)] flex items-center justify-center gap-3">
           <Apple className="w-8 h-8" />
           Nutrition Advisor
           <Sparkles className="w-8 h-8" />
@@ -153,7 +153,7 @@ const NutritionAdvisor = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             disabled={isLoading}
-            className="flex-1 bg-[var(--color-primary)] text-white px-8 py-4 rounded-xl font-semibold hover:bg-[var(--color-calm-blue)] transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-3 disabled:opacity-60"
+            className="flex-1 bg-[var(--color-primary)] text-white px-8 py-4 rounded-xl font-semibold hover:bg-[var(--color-secondary)] transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-3 disabled:opacity-60"
           >
             {isLoading ? (
               <RefreshCw className="w-5 h-5 animate-spin" />

@@ -37,7 +37,7 @@ export default function Profile() {
       <div className="flex justify-center items-center min-h-screen">
         <div
           className="animate-spin rounded-full h-12 w-12 border-b-2"
-          style={{ borderColor: "var(--color-calm-blue)" }}
+          style={{ borderColor: "var(--color-secondary)" }}
         ></div>
       </div>
     );
@@ -99,7 +99,7 @@ export default function Profile() {
             href="/"
             className="px-6 py-2 rounded-lg font-semibold transition-all duration-200 hover:scale-105"
             style={{
-              backgroundColor: "var(--color-calm-blue)",
+              backgroundColor: "var(--color-secondary)",
               color: "var(--color-white)",
             }}
           >
@@ -128,7 +128,7 @@ export default function Profile() {
                 <div
                   className="w-32 h-32 mx-auto rounded-full flex items-center justify-center text-4xl font-bold mb-4"
                   style={{
-                    backgroundColor: "var(--color-calm-blue)",
+                    backgroundColor: "var(--color-secondary)",
                     color: "var(--color-white)",
                   }}
                 >

@@ -120,7 +120,7 @@ const Testimonial = () => {
         </h2>
         <button
           onClick={handleShare}
-          className="bg-[var(--color-primary)] text-white px-6 py-3 rounded-xl hover:bg-[var(--color-calm-blue)] transition-all duration-300"
+          className="bg-[var(--color-primary)] text-white px-6 py-3 rounded-xl hover:bg-[var(--color-secondary)] transition-all duration-300"
         >
           Be the first to share your experience
         </button>
@@ -184,14 +184,14 @@ const Testimonial = () => {
             {/* Navigation Arrows */}
             <button
               onClick={prevTestimonial}
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-[var(--color-primary)] text-white rounded-full flex items-center justify-center hover:bg-[var(--color-calm-blue)] transition-all duration-300 shadow-lg hover:scale-110"
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-[var(--color-primary)] text-white rounded-full flex items-center justify-center hover:bg-[var(--color-secondary)] transition-all duration-300 shadow-lg hover:scale-110"
             >
               <ChevronLeft className="w-6 h-6" />
             </button>
 
             <button
               onClick={nextTestimonial}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-[var(--color-primary)] text-white rounded-full flex items-center justify-center hover:bg-[var(--color-calm-blue)] transition-all duration-300 shadow-lg hover:scale-110"
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-[var(--color-primary)] text-white rounded-full flex items-center justify-center hover:bg-[var(--color-secondary)] transition-all duration-300 shadow-lg hover:scale-110"
             >
               <ChevronRight className="w-6 h-6" />
             </button>
@@ -239,7 +239,7 @@ const Testimonial = () => {
         <div className="text-center">
           <button
             onClick={handleShare}
-            className="bg-[var(--color-primary)] text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-[var(--color-calm-blue)] transition-all duration-300 hover:shadow-lg hover:scale-105 inline-flex items-center gap-3"
+            className="bg-[var(--color-primary)] text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-[var(--color-secondary)] transition-all duration-300 hover:shadow-lg hover:scale-105 inline-flex items-center gap-3"
           >
             Share Your Experience
             <FaQuoteLeft className="w-4 h-4" />

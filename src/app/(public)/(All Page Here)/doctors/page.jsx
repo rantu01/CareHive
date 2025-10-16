@@ -1,4 +1,3 @@
-
 "use client";
 import DoctorCard from "@/app/Component/DoctorPageComponent/DoctorCard";
 import DoctorModal from "@/app/Component/DoctorPageComponent/DoctorModal";
@@ -11,31 +10,21 @@ export default function DoctorsPage() {
   const [doctors, setDoctors] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [bookedDoctors, setBookedDoctors] = useState([]);
-  const [selectedDoctor, setSelectedDoctor] = useState(null); // 👈 for modal
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
   const { user } = useUser();
 
-
-
+  // ✅ Handle appointment booking
   const handleBookAppointment = async (booking) => {
-    
     try {
-
-      const response = await axios.post('/api/payment', booking)
-
-      const responseData = await response.data
-
-
-      console.log("the response data is 🔥🔥🔥🔥🔥🔥",responseData)
-      window.location.href = responseData.url
-      console.log("the response data", responseData.sucess)
-
-
+      const response = await axios.post("/api/payment", booking);
+      const responseData = response.data;
+      window.location.href = responseData.url;
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
-  // Fetch all doctors
+  // ✅ Fetch all doctors
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
@@ -49,7 +38,7 @@ export default function DoctorsPage() {
     fetchDoctors();
   }, []);
 
-  // Fetch booked appointments
+  // ✅ Fetch user's booked appointments
   useEffect(() => {
     const fetchBookedAppointments = async () => {
       if (!user) {
@@ -70,12 +59,28 @@ export default function DoctorsPage() {
     fetchBookedAppointments();
   }, [user]);
 
+  // ✅ Smart Multi-field Search Logic
+  // ✅ Smart Multi-field Search Logic
+const filteredDoctors = doctors.filter((doc) => {
+  const personal = doc.personalInfo || {};
+  const education = doc.educationAndCredentials || {};
+  const practice = doc.practiceInfo || {};
 
-  const filteredDoctors = doctors.filter((doc) =>
-    doc.educationAndCredentials?.specialization
-      ?.toLowerCase()
-      .includes(searchTerm.toLowerCase())
-  );
+  const combinedFields = `
+    ${personal.fullName || ""}
+    ${personal.gender || ""}
+    ${education.specialization || ""}
+    ${education.medicalDegree || ""}
+    ${education.postGraduate || ""}
+    ${education.university?.name || ""}
+    ${practice.clinicAddress || ""}
+    ${practice.consultationType || ""}
+    ${practice.languagesSpoken?.join(" ") || ""}
+  `.toLowerCase();
+
+  return combinedFields.includes(searchTerm.toLowerCase());
+});
+
 
   return (
     <div
@@ -91,7 +96,7 @@ export default function DoctorsPage() {
           className="text-5xl font-extrabold mb-2"
           style={{
             fontFamily: "var(--font-heading)",
-            color: "var(--color-calm-blue)",
+            color: "var(--color-secondary)",
           }}
         >
           Meet Our <span className="text-6xl">E</span>xpert Doctors
@@ -113,7 +118,7 @@ export default function DoctorsPage() {
         <div className="relative w-full sm:w-1/2">
           <input
             type="text"
-            placeholder="🔍 Search by specialization..."
+            placeholder="🔍 Search by name, specialization, hospital..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full px-6 py-3 rounded-full shadow-lg focus:outline-none focus:ring-4 transition duration-300"
@@ -138,28 +143,41 @@ export default function DoctorsPage() {
       {/* Doctors Grid */}
       <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {filteredDoctors.length > 0 ? (
-          filteredDoctors?.map((doc) => {
+          filteredDoctors.map((doc) => {
             const personal = doc.personalInfo || {};
             const education = doc.educationAndCredentials || {};
             const practice = doc.practiceInfo || {};
             const isBooked = bookedDoctors.includes(doc._id);
 
             return (
-              <DoctorCard handleBookAppointment={handleBookAppointment} key={doc._id} selectedDoctor={selectedDoctor} setSelectedDoctor={setSelectedDoctor} doc={doc} personal={personal} education={education} practice={practice} isBooked={isBooked} />
+              <DoctorCard
+                key={doc._id}
+                handleBookAppointment={handleBookAppointment}
+                selectedDoctor={selectedDoctor}
+                setSelectedDoctor={setSelectedDoctor}
+                doc={doc}
+                personal={personal}
+                education={education}
+                practice={practice}
+                isBooked={isBooked}
+              />
             );
           })
         ) : (
           <p className="col-span-full text-center text-lg font-medium">
-            No doctors found for this specialization.
+            No doctors found matching your search.
           </p>
         )}
       </div>
 
-      {/* MODAL */}
-      {selectedDoctor && <DoctorModal handleBookAppointment={handleBookAppointment} selectedDoctor={selectedDoctor} setSelectedDoctor={setSelectedDoctor} />}
-
-
+      {/* Modal */}
+      {selectedDoctor && (
+        <DoctorModal
+          handleBookAppointment={handleBookAppointment}
+          selectedDoctor={selectedDoctor}
+          setSelectedDoctor={setSelectedDoctor}
+        />
+      )}
     </div>
   );
 }
-

@@ -119,7 +119,7 @@ const RecipeOfTheDay = () => {
                   </div>
                   <motion.button
                     onClick={() => toggleExpand(index)}
-                    className="w-full py-3 bg-[var(--color-primary)] text-white rounded-xl font-semibold hover:bg-[var(--color-calm-blue)] transition-all duration-300 flex items-center justify-center gap-2"
+                    className="w-full py-3 bg-[var(--color-primary)] text-white rounded-xl font-semibold hover:bg-[var(--color-secondary)] transition-all duration-300 flex items-center justify-center gap-2"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >

@@ -66,13 +66,13 @@ const BmiCalculator = () => {
 
   const getCategoryColor = () => {
     if (category === "Underweight")
-      return "bg-[color:var(--color-calm-blue)]/20 text-[color:var(--color-calm-blue)]";
+      return "bg-[color:var(--color-secondary)]/20 text-[color:var(--color-secondary)]";
     if (category === "Normal weight")
-      return "bg-[color:var(--color-calm-blue)]/30 text-[color:var(--color-calm-blue)]";
+      return "bg-[color:var(--color-secondary)]/30 text-[color:var(--color-secondary)]";
     if (category === "Overweight")
-      return "bg-yellow-200 text-[color:var(--color-calm-blue)]";
+      return "bg-yellow-200 text-[color:var(--color-secondary)]";
     if (category === "Obese")
-      return "bg-red-200 text-[color:var(--color-calm-blue)]";
+      return "bg-red-200 text-[color:var(--color-secondary)]";
     return "";
   };
 
@@ -184,7 +184,7 @@ const BmiCalculator = () => {
         onClick={calculateBMI}
         className="w-full py-3 rounded-xl font-semibold text-white shadow-lg hover:shadow-xl hover:scale-105 transition transform mb-8"
         style={{
-          background: "linear-gradient(90deg, var(--color-calm-blue), var(--fourground-color))",
+          background: "linear-gradient(90deg, var(--color-secondary), var(--fourground-color))",
         }}
       >
         Calculate BMI
@@ -196,7 +196,7 @@ const BmiCalculator = () => {
           {/* BMI & Category */}
           <div className="text-center">
             <p className="text-xl font-semibold" style={{ color: "var(--fourground-color)" }}>
-              Your BMI: <span style={{ color: "var(--color-calm-blue)" }}>{bmi}</span>
+              Your BMI: <span style={{ color: "var(--color-secondary)" }}>{bmi}</span>
             </p>
             <p
               className={`inline-block mt-3 px-6 py-2 rounded-full text-sm font-medium shadow-lg ${getCategoryColor()}`}
@@ -212,7 +212,7 @@ const BmiCalculator = () => {
               className="absolute top-0 left-0 h-5 rounded-full"
               style={{
                 width: getProgressPosition(),
-                background: "linear-gradient(90deg, var(--color-calm-blue), var(--fourground-color))",
+                background: "linear-gradient(90deg, var(--color-secondary), var(--fourground-color))",
                 transition: "width 0.6s ease-in-out",
               }}
             ></div>

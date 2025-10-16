@@ -102,7 +102,7 @@ export default function HealthLog() {
       {/* Title & Description */}
       <h2
         className="text-3xl md:text-4xl font-extrabold text-center mb-4 animate-fadeIn"
-        style={{ color: "var(--color-calm-blue)" }}
+        style={{ color: "var(--color-secondary)" }}
       >
         Daily Health Tracker
       </h2>
@@ -123,7 +123,7 @@ export default function HealthLog() {
           {/* Input fields */}
           <div className="group relative">
             <label
-              className="block text-sm font-medium mb-2 transition-colors group-focus-within:text-[var(--color-calm-blue)]"
+              className="block text-sm font-medium mb-2 transition-colors group-focus-within:text-[var(--color-secondary)]"
               style={{ color: "var(--fourground-color)" }}
             >
               Your BMI
@@ -135,14 +135,14 @@ export default function HealthLog() {
               onChange={(e) => setBmi(e.target.value)}
               placeholder="Enter your BMI"
               required
-              className="w-full px-5 py-3 border rounded-xl outline-none focus:ring-2 focus:ring-[var(--color-calm-blue)] focus:border-transparent transition duration-300 shadow-sm hover:shadow-md hover:scale-[1.02]"
+              className="w-full px-5 py-3 border rounded-xl outline-none focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-transparent transition duration-300 shadow-sm hover:shadow-md hover:scale-[1.02]"
               style={{ borderColor: "var(--dashboard-border)", color: "var(--fourground-color)" }}
             />
           </div>
 
           <div className="group relative">
             <label
-              className="block text-sm font-medium mb-2 transition-colors group-focus-within:text-[var(--color-calm-blue)]"
+              className="block text-sm font-medium mb-2 transition-colors group-focus-within:text-[var(--color-secondary)]"
               style={{ color: "var(--fourground-color)" }}
             >
               Target Calorie Intake
@@ -153,14 +153,14 @@ export default function HealthLog() {
               onChange={(e) => setTargetCal(e.target.value)}
               placeholder="Enter your target calories"
               required
-              className="w-full px-5 py-3 border rounded-xl outline-none focus:ring-2 focus:ring-[var(--color-calm-blue)] focus:border-transparent transition duration-300 shadow-sm hover:shadow-md hover:scale-[1.02]"
+              className="w-full px-5 py-3 border rounded-xl outline-none focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-transparent transition duration-300 shadow-sm hover:shadow-md hover:scale-[1.02]"
               style={{ borderColor: "var(--dashboard-border)", color: "var(--fourground-color)" }}
             />
           </div>
 
           <div className="group relative">
             <label
-              className="block text-sm font-medium mb-2 transition-colors group-focus-within:text-[var(--color-calm-blue)]"
+              className="block text-sm font-medium mb-2 transition-colors group-focus-within:text-[var(--color-secondary)]"
               style={{ color: "var(--fourground-color)" }}
             >
               Today's Calorie Intake
@@ -171,7 +171,7 @@ export default function HealthLog() {
               onChange={(e) => setTodayCal(e.target.value)}
               placeholder="Enter today's calories"
               required
-              className="w-full px-5 py-3 border rounded-xl outline-none focus:ring-2 focus:ring-[var(--color-calm-blue)] focus:border-transparent transition duration-300 shadow-sm hover:shadow-md hover:scale-[1.02]"
+              className="w-full px-5 py-3 border rounded-xl outline-none focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-transparent transition duration-300 shadow-sm hover:shadow-md hover:scale-[1.02]"
               style={{ borderColor: "var(--dashboard-border)", color: "var(--fourground-color)" }}
             />
           </div>
@@ -179,7 +179,7 @@ export default function HealthLog() {
           <button
             type="submit"
             className="w-full py-3 rounded-xl font-semibold text-white shadow-lg hover:shadow-xl hover:scale-105 transition transform duration-300"
-            style={{ background: "var(--color-calm-blue)" }}
+            style={{ background: "var(--color-secondary)" }}
           >
             Get Personalized Advice
           </button>
@@ -200,7 +200,7 @@ export default function HealthLog() {
               >
                 <span
                   className="w-7 h-7 flex-shrink-0 rounded-full flex items-center justify-center font-bold animate-pulse"
-                  style={{ background: "var(--color-calm-blue)", color: "var(--color-white)" }}
+                  style={{ background: "var(--color-secondary)", color: "var(--color-white)" }}
                 >
                   ✓
                 </span>

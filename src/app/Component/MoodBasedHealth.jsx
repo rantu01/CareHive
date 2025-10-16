@@ -188,7 +188,7 @@ const MoodBasedHealth = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setIsExpanded(false)}
-                  className="px-8 py-3 bg-[var(--color-primary)] text-white rounded-xl font-semibold hover:bg-[var(--color-calm-blue)] transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
+                  className="px-8 py-3 bg-[var(--color-primary)] text-white rounded-xl font-semibold hover:bg-[var(--color-secondary)] transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
                 >
                   Save These Tips
                 </motion.button>

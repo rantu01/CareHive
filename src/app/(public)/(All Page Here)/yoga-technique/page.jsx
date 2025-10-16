@@ -36,7 +36,7 @@
 //       <div className="absolute inset-0 overflow-hidden">
 //         <div
 //           className="absolute -top-40 -left-20 w-80 h-80 rounded-full opacity-10 blur-3xl"
-//           style={{ backgroundColor: "var(--color-calm-blue)" }}
+//           style={{ backgroundColor: "var(--color-secondary)" }}
 //         ></div>
 //       </div>
 
@@ -46,7 +46,7 @@
 //           className="text-4xl sm:text-5xl font-bold mb-12 text-center"
 //           style={{ color: "var(--fourground-color)" }}
 //         >
-//           Yoga <span style={{ color: "var(--color-calm-blue)" }}>Techniques</span>
+//           Yoga <span style={{ color: "var(--color-secondary)" }}>Techniques</span>
 //         </h1>
 
 //         {/* Grid of Yoga Techniques */}
@@ -158,7 +158,7 @@
 //       <div className="absolute inset-0 overflow-hidden">
 //         <div
 //           className="absolute -top-40 -left-20 w-80 h-80 rounded-full opacity-10 blur-3xl animate-pulse"
-//           style={{ backgroundColor: "var(--color-calm-blue)" }}
+//           style={{ backgroundColor: "var(--color-secondary)" }}
 //         ></div>
 //         <div
 //           className="absolute -bottom-40 -right-20 w-80 h-80 rounded-full opacity-10 blur-3xl animate-pulse"
@@ -176,7 +176,7 @@
 //           className="text-4xl sm:text-5xl font-bold mb-12 text-center"
 //           style={{ color: "var(--fourground-color)" }}
 //         >
-//           Yoga <span style={{ color: "var(--color-calm-blue)" }}>Techniques</span>
+//           Yoga <span style={{ color: "var(--color-secondary)" }}>Techniques</span>
 //         </h1>
 //         <p
 //           className="text-lg sm:text-xl text-center mb-12 opacity-90"
@@ -301,7 +301,7 @@ export function YogaTechnique() {
       <div className="absolute inset-0 overflow-hidden">
         <div
           className="absolute -top-40 -left-20 w-80 h-80 rounded-full opacity-10 blur-3xl animate-pulse"
-          style={{ backgroundColor: "var(--color-calm-blue)" }}
+          style={{ backgroundColor: "var(--color-secondary)" }}
         ></div>
         <div
           className="absolute -bottom-40 -right-20 w-80 h-80 rounded-full opacity-10 blur-3xl animate-pulse"
@@ -322,7 +322,7 @@ export function YogaTechnique() {
           className="text-4xl sm:text-5xl font-bold mb-12 text-center"
           style={{ color: "var(--fourground-color)" }}
         >
-          Yoga <span style={{ color: "var(--color-calm-blue)" }}>Techniques</span>
+          Yoga <span style={{ color: "var(--color-secondary)" }}>Techniques</span>
         </h1>
         <p
           className="text-lg sm:text-xl text-center mb-12 opacity-90"

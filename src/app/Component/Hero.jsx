@@ -70,13 +70,13 @@ const Hero = () => {
               className="w-full h-full object-cover"
             />
             {/* Overlay for better text readability */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-calm-blue)]/80 to-[var(--color-primary)]/70 mix-blend-multiply"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-secondary)]/80 to-[var(--color-primary)]/70 mix-blend-multiply"></div>
           </div>
         ))}
       </div>
 
       {/* Animated gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-calm-blue)]/40 via-transparent to-[var(--color-primary)]/30 z-0 animate-pulse-slow"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-secondary)]/40 via-transparent to-[var(--color-primary)]/30 z-0 animate-pulse-slow"></div>
 
       <div className="container mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center gap-2 relative z-10">
         {/* Text Content */}
@@ -104,7 +104,7 @@ const Hero = () => {
               <span className="relative z-10">
                 <Link href="/doctors">Book an Appointment</Link>
               </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-calm-blue)] opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
             </button>
             <button
               className="group w-full sm:w-auto bg-transparent border-2 border-white text-white hover:bg-white hover:text-[var(--color-primary)] font-semibold py-3 px-8 sm:py-4 sm:px-10 rounded-full text-sm sm:text-base transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 whitespace-nowrap relative overflow-hidden"
@@ -180,7 +180,7 @@ const Hero = () => {
             {/* Overlay card */}
             <div className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm p-5 rounded-2xl shadow-2xl max-w-xs border border-white/20 animate-float">
               <div className="flex items-center">
-                <div className="bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-calm-blue)] p-3 rounded-full mr-4 shadow-lg">
+                <div className="bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] p-3 rounded-full mr-4 shadow-lg">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-6 w-6 text-white"

@@ -53,7 +53,7 @@ export default function PaymentSuccessClient() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[var(--color-white)]">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--color-calm-blue)] mb-4"></div>
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--color-secondary)] mb-4"></div>
           <p className="text-[var(--fourground-color)] text-lg">Loading payment info...</p>
         </div>
       </div>
@@ -92,7 +92,7 @@ export default function PaymentSuccessClient() {
         {/* Main Card */}
         <div className="rounded-3xl shadow-xl overflow-hidden border border-[var(--gray-color)]">
           {/* Amount Section */}
-          <div className="bg-gradient-to-r from-[var(--color-calm-blue)] to-[#5A9FD4] px-8 py-8 text-center">
+          <div className="bg-gradient-to-r from-[var(--color-secondary)] to-[#5A9FD4] px-8 py-8 text-center">
             <div className="flex items-center justify-center gap-3 mb-3">
               <FileText className="text-[var(--color-white)]" size={28} />
               <p className="text-sm text-[var(--color-white)] uppercase tracking-widest font-semibold">
@@ -112,7 +112,7 @@ export default function PaymentSuccessClient() {
             <div className="grid md:grid-cols-2 gap-8 mb-10">
               {/* Customer Info */}
               <div className="space-y-6">
-                <SectionHeader title="Customer Information" color="var(--color-calm-blue)" />
+                <SectionHeader title="Customer Information" color="var(--color-secondary)" />
                 <InfoItem icon={<User />} label="Name" value={payment.metadata.patientName} />
                 <InfoItem icon={<Mail />} label="Email" value={payment.metadata.patientEmail} />
                 <InfoItem icon={<CreditCard />} label="Payment Method" value={payment.payment_method_types[0]} />
@@ -134,7 +134,7 @@ export default function PaymentSuccessClient() {
             </div>
 
             {/* Session Info */}
-            <div className="bg-[var(--gray-color)] rounded-2xl p-6 mb-8 border-l-4 border-[var(--color-calm-blue)]">
+            <div className="bg-[var(--gray-color)] rounded-2xl p-6 mb-8 border-l-4 border-[var(--color-secondary)]">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div className="flex-1">
                   <p className="text-xs opacity-60 uppercase tracking-wider font-semibold mb-2">
@@ -174,7 +174,7 @@ export default function PaymentSuccessClient() {
             {/* Download Button */}
             <button
               onClick={handleDownloadPDF}
-              className="w-full bg-gradient-to-r from-[var(--color-calm-blue)] to-[#5A9FD4] hover:from-[#5A9FD4] hover:to-[var(--color-calm-blue)] text-[var(--color-white)] font-bold py-5 px-8 rounded-2xl transition-all duration-300 flex items-center justify-center gap-4 shadow-xl hover:shadow-2xl transform hover:scale-[1.02] cursor-pointer group"
+              className="w-full bg-gradient-to-r from-[var(--color-secondary)] to-[#5A9FD4] hover:from-[#5A9FD4] hover:to-[var(--color-secondary)] text-[var(--color-white)] font-bold py-5 px-8 rounded-2xl transition-all duration-300 flex items-center justify-center gap-4 shadow-xl hover:shadow-2xl transform hover:scale-[1.02] cursor-pointer group"
             >
               <Download size={28} className="group-hover:animate-bounce" />
               <span className="text-xl">Download PDF Receipt</span>
@@ -184,7 +184,7 @@ export default function PaymentSuccessClient() {
             <div className="mt-8 text-center bg-[var(--gray-color)] rounded-xl p-6">
               <p className="opacity-70 text-sm leading-relaxed">
                 Thank you for your payment! A confirmation email has been sent to{" "}
-                <span className="font-semibold text-[var(--color-calm-blue)]">
+                <span className="font-semibold text-[var(--color-secondary)]">
                   {payment.customer_details.email}
                 </span>
               </p>
@@ -209,7 +209,7 @@ function InfoItem({ icon, label, value }) {
   return (
     <div className="group hover:bg-[var(--gray-color)] p-4 rounded-xl transition-all duration-200 cursor-pointer">
       <div className="flex items-start gap-4">
-        <div className="bg-[var(--color-calm-blue)] bg-opacity-10 p-3 rounded-xl group-hover:scale-110 transition-transform duration-200">
+        <div className="bg-[var(--color-secondary)] bg-opacity-10 p-3 rounded-xl group-hover:scale-110 transition-transform duration-200">
           {icon}
         </div>
         <div className="flex-1">

@@ -111,7 +111,7 @@ export default function UserManagement() {
       case "admin":
         return "bg-[var(--color-primary)] text-white";
       case "doctor":
-        return "bg-[var(--color-calm-blue)] text-white";
+        return "bg-[var(--color-secondary)] text-white";
       case "user":
         return "bg-[var(--gray-color)] text-[var(--fourground-color)] border border-[var(--dashboard-border)]";
       default:
@@ -162,7 +162,7 @@ export default function UserManagement() {
         {[
           { label: "Total Users", value: stats.total, icon: <Users />, color: "var(--color-primary)" },
           { label: "Admins", value: stats.admins, icon: <ShieldCheck />, color: "var(--color-primary)" },
-          { label: "Doctors", value: stats.doctors, icon: <UserCog />, color: "var(--color-calm-blue)" },
+          { label: "Doctors", value: stats.doctors, icon: <UserCog />, color: "var(--color-secondary)" },
           { label: "Patients", value: stats.users, icon: <User2 />, color: "var(--gray-color)" },
         ].map((stat, idx) => (
           <div
@@ -197,12 +197,12 @@ export default function UserManagement() {
             placeholder="Search users by name or email..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-3 border-2 border-[var(--dashboard-border)] rounded-xl bg-transparent text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/60 focus:ring-2 focus:ring-[var(--color-calm-blue)] focus:border-[var(--color-calm-blue)] transition-all"
+            className="w-full px-4 py-3 border-2 border-[var(--dashboard-border)] rounded-xl bg-transparent text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/60 focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-[var(--color-secondary)] transition-all"
           />
           <select
             value={roleFilter}
             onChange={(e) => setRoleFilter(e.target.value)}
-            className="w-full px-4 py-3 border-2 border-[var(--dashboard-border)] rounded-xl bg-transparent text-[var(--fourground-color)] focus:ring-2 focus:ring-[var(--color-calm-blue)] focus:border-[var(--color-calm-blue)] transition-all"
+            className="w-full px-4 py-3 border-2 border-[var(--dashboard-border)] rounded-xl bg-transparent text-[var(--fourground-color)] focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-[var(--color-secondary)] transition-all"
           >
             <option value="all">All Roles</option>
             <option value="user">user</option>
@@ -249,7 +249,7 @@ export default function UserManagement() {
               <div className="flex flex-col space-y-2">
                 <button
                   onClick={() => setEditingUser(user)}
-                  className="px-4 py-2 bg-[var(--color-calm-blue)] text-white rounded-xl font-semibold hover:opacity-90 transition-all flex items-center gap-2"
+                  className="px-4 py-2 bg-[var(--color-secondary)] text-white rounded-xl font-semibold hover:opacity-90 transition-all flex items-center gap-2"
                 >
                   <Edit3 size={16} /> Edit
                 </button>
@@ -300,7 +300,7 @@ export default function UserManagement() {
                   onChange={(e) =>
                     setEditingUser({ ...editingUser, name: e.target.value })
                   }
-                  className="w-full px-4 py-3 border-2 border-[var(--dashboard-border)] rounded-xl bg-transparent focus:ring-2 focus:ring-[var(--color-calm-blue)] focus:border-[var(--color-calm-blue)]"
+                  className="w-full px-4 py-3 border-2 border-[var(--dashboard-border)] rounded-xl bg-transparent focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-[var(--color-secondary)]"
                 />
               </div>
               <div>
@@ -313,7 +313,7 @@ export default function UserManagement() {
                   onChange={(e) =>
                     setEditingUser({ ...editingUser, email: e.target.value })
                   }
-                  className="w-full px-4 py-3 border-2 border-[var(--dashboard-border)] rounded-xl bg-transparent focus:ring-2 focus:ring-[var(--color-calm-blue)] focus:border-[var(--color-calm-blue)]"
+                  className="w-full px-4 py-3 border-2 border-[var(--dashboard-border)] rounded-xl bg-transparent focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-[var(--color-secondary)]"
                 />
               </div>
               <div>
@@ -325,7 +325,7 @@ export default function UserManagement() {
                   onChange={(e) =>
                     setEditingUser({ ...editingUser, role: e.target.value })
                   }
-                  className="w-full px-4 py-3 border-2 border-[var(--dashboard-border)] rounded-xl bg-transparent focus:ring-2 focus:ring-[var(--color-calm-blue)] focus:border-[var(--color-calm-blue)]"
+                  className="w-full px-4 py-3 border-2 border-[var(--dashboard-border)] rounded-xl bg-transparent focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-[var(--color-secondary)]"
                 >
                   <option value="user">User</option>
                   <option value="doctor">Doctor</option>

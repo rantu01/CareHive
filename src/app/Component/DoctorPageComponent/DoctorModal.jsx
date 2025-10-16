@@ -13,7 +13,7 @@ const DoctorModal = ({ selectedDoctor, setSelectedDoctor, handleBookAppointment 
       <div
         className="relative max-w-7xl w-full rounded-3xl shadow-2xl overflow-hidden max-h-[95vh] flex flex-col"
         style={{
-          background: `linear-gradient(135deg, var(--color-primary) 0%, var(--color-calm-blue) 100%)`,
+          background: `linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%)`,
           backdropFilter: "blur(14px)",
           color: "var(--color-white)",
         }}
@@ -23,7 +23,7 @@ const DoctorModal = ({ selectedDoctor, setSelectedDoctor, handleBookAppointment 
           onClick={() => setSelectedDoctor(null)}
           className="absolute top-6 right-6 z-60 w-10 h-10 flex items-center justify-center rounded-full transition-all duration-200 hover:scale-110 hover:rotate-90"
           style={{
-            backgroundColor: "var(--color-calm-blue)",
+            backgroundColor: "var(--color-secondary)",
             color: "var(--color-white)",
           }}
           aria-label="Close modal"
@@ -80,7 +80,7 @@ const DoctorModal = ({ selectedDoctor, setSelectedDoctor, handleBookAppointment 
                       icon: "🏥",
                       title: "Workplace",
                       text: selectedDoctor.educationAndCredentials?.currentAffiliation,
-                      bg: "var(--color-calm-blue)",
+                      bg: "var(--color-secondary)",
                     },
                     {
                       icon: "👤",
@@ -92,7 +92,7 @@ const DoctorModal = ({ selectedDoctor, setSelectedDoctor, handleBookAppointment 
                       icon: "⭐",
                       title: "Experience",
                       text: "15+ Years",
-                      bg: "var(--color-calm-blue)",
+                      bg: "var(--color-secondary)",
                     },
                   ].map((item, i) => (
                     <div key={i} className="space-y-2">
@@ -139,7 +139,7 @@ const DoctorModal = ({ selectedDoctor, setSelectedDoctor, handleBookAppointment 
                         selectedDoctor.educationAndCredentials?.postGraduate ||
                         "MD in Cardiology",
                       subtitle: "Specialization",
-                      bg: "var(--color-calm-blue)",
+                      bg: "var(--color-secondary)",
                     },
                     {
                       icon: "📜",
@@ -205,7 +205,7 @@ const DoctorModal = ({ selectedDoctor, setSelectedDoctor, handleBookAppointment 
                 <div
                   className="rounded-b-3xl p-6 text-center"
                   style={{
-                    background: `linear-gradient(135deg, var(--color-primary) 0%, var(--color-calm-blue) 100%)`,
+                    background: `linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%)`,
                   }}
                 >
                   <h2 className="text-2xl md:text-3xl font-bold text-white mb-1">

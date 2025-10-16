@@ -72,7 +72,7 @@ export default function AdminDashboard() {
   const COLORS = [
     "var(--dashboard-blue)",
     "var(--color-primary)",
-    "var(--color-calm-blue)",
+    "var(--color-secondary)",
     "#8b5cf6",
     "#f59e0b",
     "#ef4444",
@@ -112,7 +112,7 @@ export default function AdminDashboard() {
               className="px-6 py-3 rounded-xl font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-xl flex items-center gap-2 group"
               style={{
                 backgroundColor: "var(--color-primary)",
-                background: "linear-gradient(135deg, var(--color-primary), var(--color-calm-blue))",
+                background: "linear-gradient(135deg, var(--color-primary), var(--color-secondary))",
               }}
             >
               <span>Generate Report</span>
@@ -259,7 +259,7 @@ export default function AdminDashboard() {
           <div className="absolute -top-4 -right-4 w-8 h-8 rounded-full opacity-20"
                style={{ backgroundColor: "var(--color-primary)" }}></div>
           <div className="absolute -bottom-4 -left-4 w-6 h-6 rounded-full opacity-20"
-               style={{ backgroundColor: "var(--color-calm-blue)" }}></div>
+               style={{ backgroundColor: "var(--color-secondary)" }}></div>
           
           <div className="relative z-10">
             <div className="p-6 border-b border-[var(--dashboard-border)] bg-gradient-to-r from-[var(--dashboard-bg)] to-transparent">

@@ -68,7 +68,7 @@
 //       <div className="absolute inset-0 overflow-hidden">
 //         <div
 //           className="absolute -top-40 -left-20 w-80 h-80 rounded-full opacity-10 blur-3xl"
-//           style={{ backgroundColor: "var(--color-calm-blue)" }}
+//           style={{ backgroundColor: "var(--color-secondary)" }}
 //         ></div>
 //       </div>
 
@@ -78,7 +78,7 @@
 //           className="text-4xl sm:text-5xl font-bold mb-6 text-center"
 //           style={{ color: "var(--fourground-color)" }}
 //         >
-//           Add <span style={{ color: "var(--color-calm-blue)" }}>Yoga Technique</span>
+//           Add <span style={{ color: "var(--color-secondary)" }}>Yoga Technique</span>
 //         </h1>
 //         <p
 //           className="text-lg sm:text-xl text-center mb-10 opacity-90"
@@ -239,7 +239,7 @@
 //             type="submit"
 //             className="w-full py-3 rounded-xl font-semibold text-lg transition-all hover:scale-105"
 //             style={{
-//               backgroundColor: "var(--color-calm-blue)",
+//               backgroundColor: "var(--color-secondary)",
 //               color: "var(--color-white)",
 //             }}
 //           >
@@ -398,7 +398,7 @@ export default function AddYogaTechnique() {
       <div className="absolute inset-0 overflow-hidden">
         <div
           className="absolute -top-40 -left-20 w-80 h-80 rounded-full opacity-10 blur-3xl"
-          style={{ backgroundColor: "var(--color-calm-blue)" }}
+          style={{ backgroundColor: "var(--color-secondary)" }}
         ></div>
       </div>
 
@@ -409,7 +409,7 @@ export default function AddYogaTechnique() {
           style={{ color: "var(--fourground-color)" }}
         >
           {editing ? "Update Yoga Technique" : (
-            <>Add <span style={{ color: "var(--color-calm-blue)" }}>Yoga Technique</span></>
+            <>Add <span style={{ color: "var(--color-secondary)" }}>Yoga Technique</span></>
           )}
         </h1>
         <p
@@ -509,7 +509,7 @@ export default function AddYogaTechnique() {
             type="submit"
             className="w-full py-3 rounded-xl font-semibold text-lg transition-all hover:scale-105"
             style={{
-              backgroundColor: "var(--color-calm-blue)",
+              backgroundColor: "var(--color-secondary)",
               color: "var(--color-white)",
             }}
           >
@@ -546,7 +546,7 @@ export default function AddYogaTechnique() {
                   <button
                     onClick={() => handleEdit(tech)}
                     className="flex-1 py-2 rounded-lg font-medium hover:scale-105 transition-all"
-                    style={{ backgroundColor: "var(--color-calm-blue)", color: "white" }}
+                    style={{ backgroundColor: "var(--color-secondary)", color: "white" }}
                   >
                     Update
                   </button>

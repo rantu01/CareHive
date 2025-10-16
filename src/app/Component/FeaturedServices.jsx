@@ -108,13 +108,13 @@ const FeaturedServices = () => {
             <span className="w-2 h-2 rounded-full animate-pulse"
                   style={{ backgroundColor: "var(--color-primary)" }}></span>
             <span className="text-sm font-medium"
-                  style={{ color: "var(--color-calm-blue)" }}>
+                  style={{ color: "var(--color-secondary)" }}>
               Premium Healthcare Services
             </span>
           </div>
 
           <h2
-            className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 tracking-tight"
+            className="text-4xl sm:text-5xl md:text-5xl font-bold mb-6 tracking-tight"
             style={{ color: "var(--fourground-color)" }}
           >
             Exceptional{" "}
@@ -261,7 +261,7 @@ const FeaturedServices = () => {
                               className="text-xl font-bold pr-4 transition-colors duration-300 truncate"
                               style={{ 
                                 color: activeService === index 
-                                  ? "var(--color-calm-blue)" 
+                                  ? "var(--color-secondary)" 
                                   : "var(--fourground-color)" 
                               }}
                             >
@@ -277,11 +277,11 @@ const FeaturedServices = () => {
                               <div className="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300"
                                     style={{
                                       backgroundColor: activeService === index 
-                                        ? "var(--color-calm-blue)" 
+                                        ? "var(--color-secondary)" 
                                         : "var(--gray-color)",
                                       color: activeService === index 
                                         ? "var(--color-white)" 
-                                        : "var(--color-calm-blue)",
+                                        : "var(--color-secondary)",
                                     }}>
                                 <svg
                                   className="w-4 h-4"
@@ -315,14 +315,14 @@ const FeaturedServices = () => {
                                 className="px-3 py-1 text-xs font-medium rounded-full transition-all duration-300 hover:scale-105"
                                 style={{
                                   backgroundColor: activeService === index 
-                                    ? "var(--color-calm-blue)" 
+                                    ? "var(--color-secondary)" 
                                     : "rgba(var(--color-primary), 0.15)",
                                   color: activeService === index 
                                     ? "var(--color-white)" 
-                                    : "var(--color-calm-blue)",
+                                    : "var(--color-secondary)",
                                   border: activeService === index 
                                     ? "none" 
-                                    : "1px solid rgba(var(--color-calm-blue), 0.2)",
+                                    : "1px solid rgba(var(--color-secondary), 0.2)",
                                 }}
                               >
                                 {specialty}
@@ -413,7 +413,7 @@ const FeaturedServices = () => {
                       <span className="w-2 h-2 rounded-full animate-pulse"
                             style={{ backgroundColor: "var(--color-primary)" }}></span>
                       <span className="text-sm font-semibold uppercase tracking-wider opacity-70"
-                            style={{ color: "var(--color-calm-blue)" }}>
+                            style={{ color: "var(--color-secondary)" }}>
                         Featured Service
                       </span>
                     </div>
@@ -435,7 +435,7 @@ const FeaturedServices = () => {
                       <span
                         className="px-4 py-2 text-white text-sm font-bold rounded-lg shadow-lg transition-all duration-300 hover:scale-105"
                         style={{ 
-                          backgroundColor: "var(--color-calm-blue)", // Kept blue for contrast
+                          backgroundColor: "var(--color-secondary)", // Kept blue for contrast
                         }}
                       >
                         {visibleServices[activeService]?.service_type || "Professional Care"}
@@ -466,7 +466,7 @@ const FeaturedServices = () => {
                       }}></div>
                 <div className="absolute -bottom-4 -left-4 w-6 h-6 rounded-full opacity-60 animate-bounce"
                       style={{ 
-                        backgroundColor: "var(--color-calm-blue)", // Kept blue for visual distinction
+                        backgroundColor: "var(--color-secondary)", // Kept blue for visual distinction
                         animationDelay: '0.4s'
                       }}></div>
               </div>
@@ -485,7 +485,7 @@ const FeaturedServices = () => {
                     }`}
                     style={{
                       backgroundColor: activeService === index 
-                        ? "var(--color-calm-blue)" 
+                        ? "var(--color-secondary)" 
                         : "var(--dashboard-border)",
                     }}
                   />

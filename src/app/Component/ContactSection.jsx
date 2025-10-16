@@ -128,7 +128,7 @@ const ContactSection = () => {
                 type="submit"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full bg-[var(--color-primary)] text-[var(--gray-color)]  py-4 rounded-xl font-semibold text-lg hover:bg-[var(--color-calm-blue)] transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-3"
+                className="w-full bg-[var(--color-primary)] text-[var(--gray-color)]  py-4 rounded-xl font-semibold text-lg hover:bg-[var(--color-secondary)] transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-3"
               >
                 <Send className="w-5 h-5" />
                 Send Message

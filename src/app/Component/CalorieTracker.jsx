@@ -210,7 +210,7 @@ export default function CalorieTracker() {
             className="col-span-2 py-3 rounded-xl font-semibold text-white shadow-lg hover:shadow-xl hover:scale-105 transition transform mb-8"
             style={{
               background:
-                "linear-gradient(90deg, var(--color-calm-blue), var(--fourground-color))",
+                "linear-gradient(90deg, var(--color-secondary), var(--fourground-color))",
             }}
           >
             Add Meal

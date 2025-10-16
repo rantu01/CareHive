@@ -59,7 +59,7 @@ const RecipeHighlightSection = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full bg-[var(--color-primary)] text-white py-3 rounded-xl font-semibold hover:bg-[var(--color-calm-blue)] transition-all duration-300 flex items-center justify-center gap-2"
+                className="w-full bg-[var(--color-primary)] text-white py-3 rounded-xl font-semibold hover:bg-[var(--color-secondary)] transition-all duration-300 flex items-center justify-center gap-2"
               >
                 View Recipe of the Day <Leaf className="w-4 h-4" />
               </motion.button>

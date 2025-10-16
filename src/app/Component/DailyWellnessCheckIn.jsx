@@ -233,7 +233,7 @@ const DailyWellnessCheckIn = () => {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           type="submit"
-          className="w-full py-4 bg-[var(--color-primary)] text-white rounded-xl font-semibold text-lg hover:bg-[var(--color-calm-blue)] transition-all duration-300 shadow-lg hover:shadow-xl"
+          className="w-full py-4 bg-[var(--color-primary)] text-white rounded-xl font-semibold text-lg hover:bg-[var(--color-secondary)] transition-all duration-300 shadow-lg hover:shadow-xl"
         >
           Get Personalized Wellness Tips
         </motion.button>
@@ -289,7 +289,7 @@ const DailyWellnessCheckIn = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setShowModal(false)}
-                  className="w-full py-3 bg-[var(--color-primary)] text-white rounded-xl font-semibold hover:bg-[var(--color-calm-blue)] transition-all duration-300"
+                  className="w-full py-3 bg-[var(--color-primary)] text-white rounded-xl font-semibold hover:bg-[var(--color-secondary)] transition-all duration-300"
                 >
                   Got It - Thanks!
                 </motion.button>

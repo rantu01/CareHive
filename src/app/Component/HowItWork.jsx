@@ -91,7 +91,7 @@ const HowItWorkGrid = () => {
         
         {/* CTA Button */}
         <div className="text-center mt-16">
-          <button className="bg-[var(--color-primary)] text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-[var(--color-calm-blue)] transition-all duration-300 hover:shadow-lg hover:scale-105 inline-flex items-center gap-3">
+          <button className="bg-[var(--color-primary)] text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-[var(--color-secondary)] transition-all duration-300 hover:shadow-lg hover:scale-105 inline-flex items-center gap-3">
             Get Started Today
             <ArrowRight className="w-5 h-5" />
           </button>

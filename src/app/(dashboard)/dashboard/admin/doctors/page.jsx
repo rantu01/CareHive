@@ -328,7 +328,7 @@ export default function ManageDoctors() {
                 <button className="text-xs text-[var(--color-primary)] font-medium hover:underline transition-colors">
                   View Profile
                 </button>
-                <button className="text-xs text-[var(--color-calm-blue)] font-medium hover:underline transition-colors">
+                <button className="text-xs text-[var(--color-secondary)] font-medium hover:underline transition-colors">
                   Send Message
                 </button>
               </div>

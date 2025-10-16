@@ -15,7 +15,7 @@ export default function AdminToolsPage() {
         ></div>
         <div
           className="absolute -bottom-40 -right-20 w-80 h-80 rounded-full opacity-10 blur-3xl"
-          style={{ backgroundColor: "var(--color-calm-blue)" }}
+          style={{ backgroundColor: "var(--color-secondary)" }}
         ></div>
       </div>
 
@@ -32,7 +32,7 @@ export default function AdminToolsPage() {
           ></span>
           <span
             className="text-sm font-medium"
-            style={{ color: "var(--color-calm-blue)" }}
+            style={{ color: "var(--color-secondary)" }}
           >
             Admin Control Panel
           </span>
@@ -63,7 +63,7 @@ export default function AdminToolsPage() {
             </svg>
           </span>{" "}
           &{" "}
-          <span style={{ color: "var(--color-calm-blue)" }}>
+          <span style={{ color: "var(--color-secondary)" }}>
             Yoga Techniques
           </span>
         </h1>
@@ -111,7 +111,7 @@ export default function AdminToolsPage() {
             className="group relative px-10 py-5 rounded-2xl font-semibold text-lg transition-all duration-500 hover:scale-105 hover:shadow-2xl overflow-hidden"
             style={{
               color: "var(--color-white)",
-              backgroundColor: "var(--color-calm-blue)",
+              backgroundColor: "var(--color-secondary)",
             }}
           >
             <span className="relative z-10 flex items-center gap-2">
@@ -132,7 +132,7 @@ export default function AdminToolsPage() {
             </span>
             <div
               className="absolute -inset-0.5 rounded-2xl blur opacity-50 group-hover:opacity-100 transition-opacity duration-500 -z-10"
-              style={{ backgroundColor: "var(--color-calm-blue)" }}
+              style={{ backgroundColor: "var(--color-secondary)" }}
             ></div>
           </Link>
         </div>

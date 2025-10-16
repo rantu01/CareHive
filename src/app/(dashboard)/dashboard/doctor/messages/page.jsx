@@ -120,7 +120,7 @@ const DoctorMessages = () => {
           <h2 className="text-2xl font-bold text-[var(--fourground-color)] font-heading">
             Patient Messages
           </h2>
-          <p className="text-sm text-[var(--color-calm-blue)] mt-1">
+          <p className="text-sm text-[var(--color-secondary)] mt-1">
             Manage your conversations with patients
           </p>
         </div>
@@ -135,7 +135,7 @@ const DoctorMessages = () => {
           <div className="text-center py-12">
             <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[var(--gray-color)] flex items-center justify-center">
               <svg
-                className="w-8 h-8 text-[var(--color-calm-blue)]"
+                className="w-8 h-8 text-[var(--color-secondary)]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -151,7 +151,7 @@ const DoctorMessages = () => {
             <h3 className="text-lg font-semibold text-[var(--fourground-color)] mb-2">
               No messages yet
             </h3>
-            <p className="text-sm text-[var(--color-calm-blue)]">
+            <p className="text-sm text-[var(--color-secondary)]">
               Patient messages will appear here when they contact you.
             </p>
           </div>
@@ -165,8 +165,8 @@ const DoctorMessages = () => {
                 key={i}
                 className={`relative rounded-xl p-5 transition-all duration-300 ${
                   isSender
-                    ? "bg-gradient-to-r from-[var(--color-primary)]/10 to-[var(--color-calm-blue)]/10 border-l-4 border-[var(--color-primary)] ml-8"
-                    : "bg-[var(--gray-color)] border-l-4 border-[var(--color-calm-blue)] mr-8"
+                    ? "bg-gradient-to-r from-[var(--color-primary)]/10 to-[var(--color-secondary)]/10 border-l-4 border-[var(--color-primary)] ml-8"
+                    : "bg-[var(--gray-color)] border-l-4 border-[var(--color-secondary)] mr-8"
                 }`}
               >
                 {/* Message Header */}
@@ -176,7 +176,7 @@ const DoctorMessages = () => {
                       className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-medium ${
                         isSender
                           ? "bg-[var(--color-primary)]"
-                          : "bg-[var(--color-calm-blue)]"
+                          : "bg-[var(--color-secondary)]"
                       }`}
                     >
                       {isSender ? "D" : "P"}
@@ -186,7 +186,7 @@ const DoctorMessages = () => {
                         className={`font-semibold ${
                           isSender
                             ? "text-[var(--color-primary)]"
-                            : "text-[var(--color-calm-blue)]"
+                            : "text-[var(--color-secondary)]"
                         }`}
                       >
                         {isSender ? "You" : msg.senderEmail.split("@")[0]}
@@ -200,7 +200,7 @@ const DoctorMessages = () => {
                     <span className="text-xs font-medium text-[var(--fourground-color)] opacity-80">
                       {formatTime(msg.timestamp)}
                     </span>
-                    <div className="text-xs text-[var(--color-calm-blue)]">
+                    <div className="text-xs text-[var(--color-secondary)]">
                       {new Date(msg.timestamp).toLocaleDateString()}
                     </div>
                   </div>
@@ -219,7 +219,7 @@ const DoctorMessages = () => {
                     {!isReplyActive ? (
                       <button
                         onClick={() => toggleReply(i)}
-                        className="flex items-center gap-2 text-[var(--color-primary)] hover:text-[var(--color-calm-blue)] transition-colors text-sm font-medium"
+                        className="flex items-center gap-2 text-[var(--color-primary)] hover:text-[var(--color-secondary)] transition-colors text-sm font-medium"
                       >
                         <svg
                           className="w-4 h-4"
@@ -261,7 +261,7 @@ const DoctorMessages = () => {
                           <div className="flex gap-2">
                             <button
                               onClick={() => handleReply(msg.senderEmail, i)}
-                              className="px-6 py-3 bg-[var(--color-primary)] hover:bg-[var(--color-calm-blue)] text-white rounded-xl font-medium transition-all duration-300 transform hover:scale-105 active:scale-95"
+                              className="px-6 py-3 bg-[var(--color-primary)] hover:bg-[var(--color-secondary)] text-white rounded-xl font-medium transition-all duration-300 transform hover:scale-105 active:scale-95"
                             >
                               Send
                             </button>
@@ -273,7 +273,7 @@ const DoctorMessages = () => {
                             </button>
                           </div>
                         </div>
-                        <p className="text-xs text-[var(--color-calm-blue)]">
+                        <p className="text-xs text-[var(--color-secondary)]">
                           Press Enter to send, or click the Send button
                         </p>
                       </div>
@@ -302,7 +302,7 @@ const DoctorMessages = () => {
               </div>
             </div>
             <div className="bg-[var(--gray-color)] rounded-lg p-3">
-              <div className="text-lg font-bold text-[var(--color-calm-blue)]">
+              <div className="text-lg font-bold text-[var(--color-secondary)]">
                 {
                   messages.filter((msg) => msg.senderEmail !== user.email)
                     .length

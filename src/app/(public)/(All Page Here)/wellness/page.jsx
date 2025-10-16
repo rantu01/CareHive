@@ -30,13 +30,13 @@ const Page = () => {
         <div className="text-center max-w-4xl mx-auto py-12">
           {/* Title */}
           <h1
-            className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-6 transition-all duration-1000 ease-out ${
+            className={`text-4xl md:text-5xl lg:text-5xl font-bold mb-6 transition-all duration-1000 ease-out ${
               titleVisible
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 -translate-y-6"
             }`}
             style={{
-              color: "var(--color-primary)",
+              color: "var(--color-secondary)",
               fontFamily: "var(--font-heading)",
               letterSpacing: "-0.02em",
             }}

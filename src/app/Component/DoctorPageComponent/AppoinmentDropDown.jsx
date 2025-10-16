@@ -70,7 +70,7 @@ const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
                     className={`relative p-4 rounded-xl border-2 transition-all duration-300 ${meetingType === "inPerson" ? "scale-105" : "hover:scale-102"
                         }`}
                     style={{
-                        backgroundColor: meetingType === "inPerson" ? 'var(--color-calm-blue)' : 'var(--dashboard-bg)',
+                        backgroundColor: meetingType === "inPerson" ? 'var(--color-secondary)' : 'var(--dashboard-bg)',
                         borderColor: meetingType === "inPerson" ? '#ef4444' : 'var(--dashboard-border)',
                         color: meetingType === "inPerson" ? 'white' : 'var(--fourground-color)',
                     }}
@@ -96,7 +96,7 @@ const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
                     className={`relative p-4 rounded-xl border-2 transition-all duration-300 ${meetingType === "online" ? "scale-105" : "hover:scale-102"
                         }`}
                     style={{
-                        backgroundColor: meetingType === "online" ? 'var(--color-calm-blue)' : 'var(--dashboard-bg)',
+                        backgroundColor: meetingType === "online" ? 'var(--color-secondary)' : 'var(--dashboard-bg)',
                         borderColor: meetingType === "online" ? '#ef4444' : 'var(--dashboard-border)',
                         color: meetingType === "online" ? 'white' : 'var(--fourground-color)',
                     }}
@@ -156,7 +156,7 @@ const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
                 <div className="flex items-start gap-3 p-4 rounded-xl animate-fadeIn" style={{ backgroundColor: 'var(--dashboard-border)' }}>
                     <span className="text-xl">✅</span>
                     <div className="flex-1">
-                        <p className="font-semibold text-sm" style={{ color: 'var(--color-calm-blue)' }}>
+                        <p className="font-semibold text-sm" style={{ color: 'var(--color-secondary)' }}>
                             Appointment Confirmed
                         </p>
                         <p className="text-xs opacity-80 mt-1">
@@ -171,7 +171,7 @@ const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
                 <button
                     onClick={() => handleBooking(booking)}
                     className="w-full py-3 rounded-xl font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer"
-                    style={{ backgroundColor: 'var(--color-calm-blue)' }}
+                    style={{ backgroundColor: 'var(--color-secondary)' }}
                 >
                     Confirm Booking
                 </button>

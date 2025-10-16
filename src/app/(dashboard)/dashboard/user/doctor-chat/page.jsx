@@ -92,7 +92,7 @@ const DoctorChat = () => {
           <h2 className="text-2xl font-bold text-[var(--fourground-color)] font-heading">
             Chat with Doctors
           </h2>
-          <p className="text-sm text-[var(--color-calm-blue)] mt-1">
+          <p className="text-sm text-[var(--color-secondary)] mt-1">
             Connect with verified healthcare professionals
           </p>
         </div>
@@ -129,7 +129,7 @@ const DoctorChat = () => {
       {selectedDoctor ? (
         <div className="bg-[var(--dashboard-bg)] rounded-2xl border border-[var(--dashboard-border)] overflow-hidden shadow-sm">
           {/* Chat Header */}
-          <div className="bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-calm-blue)] p-4">
+          <div className="bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] p-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white font-bold">
                 {selectedDoctor.personalInfo.fullName.split(' ').map(n => n[0]).join('')}
@@ -161,7 +161,7 @@ const DoctorChat = () => {
                 <h3 className="text-lg font-semibold text-[var(--fourground-color)] mb-2">
                   Start a Conversation
                 </h3>
-                <p className="text-sm text-[var(--color-calm-blue)] max-w-sm">
+                <p className="text-sm text-[var(--color-secondary)] max-w-sm">
                   Send your first message to Dr. {selectedDoctor.personalInfo.fullName} to begin your consultation.
                 </p>
               </div>
@@ -193,12 +193,12 @@ const DoctorChat = () => {
               <button
                 onClick={sendMessage}
                 disabled={!text.trim() || loading}
-                className="px-6 py-3 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-calm-blue)] text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-200 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-6 py-3 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-200 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Send
               </button>
             </div>
-            <p className="text-xs text-[var(--color-calm-blue)] mt-2 text-center">
+            <p className="text-xs text-[var(--color-secondary)] mt-2 text-center">
               Press Enter to send quickly
             </p>
           </div>
@@ -213,7 +213,7 @@ const DoctorChat = () => {
           <h3 className="text-xl font-semibold text-[var(--fourground-color)] mb-2">
             Select a Doctor to Start Chatting
           </h3>
-          <p className="text-[var(--color-calm-blue)] max-w-md mx-auto">
+          <p className="text-[var(--color-secondary)] max-w-md mx-auto">
             Choose from our verified healthcare professionals to begin your secure medical consultation.
           </p>
         </div>
