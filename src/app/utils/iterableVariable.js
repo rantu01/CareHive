@@ -84,7 +84,7 @@ export const bangladeshDistricts = [
 ];
 
 
-const bodyPartSymptoms = {
+export const bodyPartSymptoms = {
   head: [
     "pain",
     "pressure",

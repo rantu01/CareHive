@@ -43,7 +43,7 @@ const TimeLineBar = () => {
     };
 
     const isNextDisabled = () => {
-        switch(currentStep) {
+        switch (currentStep) {
             case 0:
                 return !formData.gender;
             case 1:
@@ -58,7 +58,7 @@ const TimeLineBar = () => {
     };
 
     const renderCurrentStep = () => {
-        switch(currentStep) {
+        switch (currentStep) {
             case 0:
                 return <GenderStep value={formData.gender} onChange={(value) => handleInputChange('gender', value)} />;
             case 1:
@@ -66,16 +66,16 @@ const TimeLineBar = () => {
             case 2:
                 return <BodyPartStep value={formData.bodyPart} onChange={(value) => handleInputChange('bodyPart', value)} />;
             case 3:
-                return <SymptomsStep value={formData.symptoms} onChange={(value) => handleInputChange('symptoms', value)} />;
+                return <SymptomsStep value={formData.bodyPart} onChange={(value) => handleInputChange('symptoms', value)} />;
             default:
                 return null;
         }
     };
 
     return (
-        <div className="flex flex-col items-center min-h-screen p-4">
-            <div className="w-full max-w-md">
-                <div className="relative border-l-2 border-gray-200 text-[var(--fourgroud-color)]">
+        <div className="flex justify-center min-h-screen p-4 gap-5">
+            <div className="w-full max-w-md flex-1">
+                <div className="relative border-l-2 text-[var(--fourgroud-color)]">
                     {steps.map((step, index) => (
                         <TimelineStep
                             key={index}
@@ -86,9 +86,10 @@ const TimeLineBar = () => {
                         />
                     ))}
                 </div>
+            </div>
 
-                {/* Current step form content */}
-                <div className="mt-6 p-4 bg-white rounded-lg shadow-sm border">
+            <div className="flex-1">
+                <div className="mt-6 p-4 rounded-lg shadow-sm border">
                     {renderCurrentStep()}
                 </div>
 
@@ -99,9 +100,9 @@ const TimeLineBar = () => {
                     onNext={handleNext}
                     isNextDisabled={isNextDisabled()}
                 />
-
-                <CompletionSummary formData={formData} />
             </div>
+
+            <CompletionSummary formData={formData} />
         </div>
     );
 };

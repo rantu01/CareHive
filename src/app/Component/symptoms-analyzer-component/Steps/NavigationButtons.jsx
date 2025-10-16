@@ -2,7 +2,7 @@ import React from 'react';
 
 const NavigationButtons = ({ currentStep, steps, onPrev, onNext, isNextDisabled }) => {
     return (
-        <div className="flex justify-between mt-6">
+        <div className="mt-6 flex justify-between">
             <button
                 onClick={onPrev}
                 disabled={currentStep === 0}

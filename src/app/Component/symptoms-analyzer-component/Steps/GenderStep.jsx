@@ -2,7 +2,7 @@ import React from 'react';
 
 const GenderStep = ({ value, onChange }) => {
     return (
-        <div className="space-y-3">
+        <div>
             <div className="grid grid-cols-2 gap-3">
                 <button
                     onClick={() => onChange('male')}
