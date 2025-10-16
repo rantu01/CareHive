@@ -1,7 +1,13 @@
+
+
+
+
+
 "use client";
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ThumbsUp, MessageSquare, Edit3, Trash2, Send } from "lucide-react";
+import Swal from "sweetalert2";
 import UseAuth from "@/app/Hooks/UseAuth";
 
 const UserInteractions = () => {
@@ -13,7 +19,6 @@ const UserInteractions = () => {
 
   const fetchBlogs = async () => {
     try {
-      // setLoading(true);
       const res = await fetch("/api/blogs");
       const data = await res.json();
       if (data.success) setBlogs(data.blogs);
@@ -30,7 +35,10 @@ const UserInteractions = () => {
   }, []);
 
   const handleLike = async (blogId) => {
-    if (!user) return alert("⚠️ Please login to like this post");
+    if (!user) {
+      Swal.fire("⚠️ Please login", "You need to login to like a post.", "warning");
+      return;
+    }
     await fetch("/api/blogs", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -44,7 +52,10 @@ const UserInteractions = () => {
   };
 
   const handleComment = async (blogId) => {
-    if (!user) return alert("⚠️ Please login to comment");
+    if (!user) {
+      Swal.fire("⚠️ Please login", "You need to login to comment.", "warning");
+      return;
+    }
     if (!commentText[blogId]) return;
     await fetch("/api/blogs", {
       method: "PATCH",
@@ -82,17 +93,28 @@ const UserInteractions = () => {
   };
 
   const handleDeleteComment = async (blogId, commentId) => {
-    await fetch("/api/blogs", {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        blogId,
-        type: "delete-comment",
-        commentId,
-        user: { email: user.email },
-      }),
+    const confirm = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this comment!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
     });
-    fetchBlogs();
+
+    if (confirm.isConfirmed) {
+      await fetch("/api/blogs", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          blogId,
+          type: "delete-comment",
+          commentId,
+          user: { email: user.email },
+        }),
+      });
+      Swal.fire("Deleted!", "Your comment has been deleted.", "success");
+      fetchBlogs();
+    }
   };
 
   if (loading) {
@@ -131,10 +153,21 @@ const UserInteractions = () => {
         {blogs.map((blog) => (
           <motion.article
             key={blog._id}
-            whileHover={{ scale: 1.01 }}
+            whileHover={{ scale: 1.02, boxShadow: "0 0 20px rgba(0,123,255,0.5)" }}
             transition={{ type: "spring", stiffness: 220 }}
             className="p-6 md:p-8 rounded-2xl shadow-md bg-[var(--dashboard-bg)] border border-[var(--dashboard-border)] hover:shadow-xl transition-all duration-300"
           >
+            {/* Blog Image */}
+            {blog.image && (
+              <motion.img
+                src={blog.image}
+                alt={blog.title}
+                className="w-full h-64 object-cover rounded-xl mb-6 shadow-md hover:scale-105 hover:shadow-glow transition-transform duration-300"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+              />
+            )}
+
             {/* Blog Header */}
             <h2 className="text-2xl md:text-3xl font-bold mb-2 text-[var(--text-color-all)]">
               {blog.title}
@@ -154,7 +187,7 @@ const UserInteractions = () => {
             <div className="flex sm:flex-row sm:items-center sm:gap-6 gap-3 border-t border-[var(--dashboard-border)] pt-4">
               <button
                 onClick={() => handleLike(blog._id)}
-                className={`inline-flex px-4 py-2 rounded-lg items-center gap-2 font-medium transition-all duration-300 shadow-sm max-w-max ${
+                className={`inline-flex px-4 py-2 rounded-lg items-center gap-2 font-medium transition-all duration-300 shadow-md hover:shadow-glow max-w-max ${
                   blog.likes?.some((l) => l.email === user?.email)
                     ? "bg-[var(--color-primary)] text-[var(--color-black)] hover:brightness-90"
                     : "bg-[var(--color-secondary)] text-white hover:brightness-90"
@@ -181,7 +214,7 @@ const UserInteractions = () => {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
-                      className={`p-4 rounded-xl border border-[var(--dashboard-border)] shadow-sm ${
+                      className={`p-4 rounded-xl border border-[var(--dashboard-border)] shadow-md hover:shadow-glow ${
                         user?.email === c.user.email
                           ? "bg-[var(--bg-color-all)]"
                           : "bg-[var(--sidebar-bg)]"
@@ -242,13 +275,15 @@ const UserInteractions = () => {
                                     [c._id]: c.text,
                                   }))
                                 }
-                                className="inline-flex items-center gap-1 px-3 py-1 bg-[var(--color-secondary)] hover:brightness-90 text-white rounded-lg shadow-sm max-w-max"
+                                className="inline-flex items-center gap-1 px-3 py-1 bg-[var(--color-secondary)] hover:brightness-90 text-white rounded-lg shadow-md hover:shadow-glow max-w-max"
                               >
                                 <Edit3 size={14} /> Edit
                               </button>
                               <button
-                                onClick={() => handleDeleteComment(blog._id, c._id)}
-                                className="inline-flex items-center gap-1 px-3 py-1 bg-[var(--color-black)] hover:brightness-90 text-white rounded-lg shadow-sm max-w-max"
+                                onClick={() =>
+                                  handleDeleteComment(blog._id, c._id)
+                                }
+                                className="inline-flex items-center gap-1 px-3 py-1 bg-red-600 hover:brightness-90 text-white rounded-lg shadow-md hover:shadow-glow max-w-max"
                               >
                                 <Trash2 size={14} /> Delete
                               </button>

@@ -59,7 +59,7 @@ export default function PatientsPage() {
           My Patients
         </h1>
         <div className="relative w-full sm:w-64">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--fourground-color)]" size={18} />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-color-all)]" size={18} />
           <input
             type="text"
             value={searchTerm}
@@ -68,7 +68,7 @@ export default function PatientsPage() {
               setPage(1); // reset page when searching
             }}
             placeholder="Search patients..."
-            className="pl-10 pr-3 py-2 w-full rounded-xl border border-gray-200 focus:ring-2 focus:ring-[var(--color-primary)] outline-none transition text-[var(--fourground-color)]"
+            className="pl-10 pr-3 py-2 w-full rounded-xl border border-gray-200 focus:ring-2 focus:ring-[var(--color-primary)] outline-none transition text-[var(--text-color-all)]"
           />
         </div>
       </div>
