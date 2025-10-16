@@ -93,8 +93,8 @@ useEffect(() => {
     <div className="bg-[var(--sidebar-bg)] p-6 rounded-xl shadow-md w-full">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-        <h2 className="text-xl font-semibold flex items-center gap-2 text-[var(--fourground-color)]">
-          <Clock className="w-5 h-5 text-[var(--fourground-color)]" />
+        <h2 className="text-xl font-semibold flex items-center gap-2 text-[var(--text-color-all)]">
+          <Clock className="w-5 h-5 text-[var(--text-color-all)]" />
           Available Time Slots
         </h2>
         <button
@@ -176,7 +176,7 @@ useEffect(() => {
       {editSlot && (
         <dialog className="modal modal-open">
           <div className="modal-box max-w-md">
-            <h3 className="font-bold text-lg flex items-center gap-2 mb-2 bg-[var(--sidebar-bg)] text-[var(--fourground-color)]">
+            <h3 className="font-bold text-lg flex items-center gap-2 mb-2 bg-[var(--sidebar-bg)] text-[var(--text-color-all)]">
               <Edit className="w-5 h-5 text-[var(--color-primary)]" />
               {editSlot.day ? "Edit Time Slot" : "Add New Slot"}
             </h3>

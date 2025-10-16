@@ -36,7 +36,7 @@
 //       <div className="absolute inset-0 overflow-hidden">
 //         <div
 //           className="absolute -top-40 -left-20 w-80 h-80 rounded-full opacity-10 blur-3xl"
-//           style={{ backgroundColor: "var(--color-calm-blue)" }}
+//           style={{ backgroundColor: "var(--color-secondary)" }}
 //         ></div>
 //       </div>
 
@@ -44,16 +44,16 @@
 //         {/* Headline */}
 //         <h1
 //           className="text-4xl sm:text-5xl font-bold mb-12 text-center"
-//           style={{ color: "var(--fourground-color)" }}
+//           style={{ color: "var(--text-color-all)" }}
 //         >
-//           Yoga <span style={{ color: "var(--color-calm-blue)" }}>Techniques</span>
+//           Yoga <span style={{ color: "var(--color-secondary)" }}>Techniques</span>
 //         </h1>
 
 //         {/* Grid of Yoga Techniques */}
 //         {techniques.length === 0 ? (
 //           <p
 //             className="text-center text-lg"
-//             style={{ color: "var(--fourground-color)" }}
+//             style={{ color: "var(--text-color-all)" }}
 //           >
 //             No yoga techniques found.
 //           </p>
@@ -78,7 +78,7 @@
 //                 <div className="flex-1">
 //                   <h2
 //                     className="text-2xl font-bold mb-1"
-//                     style={{ color: "var(--fourground-color)" }}
+//                     style={{ color: "var(--text-color-all)" }}
 //                   >
 //                     {tech.techniqueName}
 //                   </h2>
@@ -158,7 +158,7 @@
 //       <div className="absolute inset-0 overflow-hidden">
 //         <div
 //           className="absolute -top-40 -left-20 w-80 h-80 rounded-full opacity-10 blur-3xl animate-pulse"
-//           style={{ backgroundColor: "var(--color-calm-blue)" }}
+//           style={{ backgroundColor: "var(--color-secondary)" }}
 //         ></div>
 //         <div
 //           className="absolute -bottom-40 -right-20 w-80 h-80 rounded-full opacity-10 blur-3xl animate-pulse"
@@ -174,20 +174,20 @@
 //         {/* Headline */}
 //         <h1
 //           className="text-4xl sm:text-5xl font-bold mb-12 text-center"
-//           style={{ color: "var(--fourground-color)" }}
+//           style={{ color: "var(--text-color-all)" }}
 //         >
-//           Yoga <span style={{ color: "var(--color-calm-blue)" }}>Techniques</span>
+//           Yoga <span style={{ color: "var(--color-secondary)" }}>Techniques</span>
 //         </h1>
 //         <p
 //           className="text-lg sm:text-xl text-center mb-12 opacity-90"
-//           style={{ color: "var(--fourground-color)" }}
+//           style={{ color: "var(--text-color-all)" }}
 //         >
 //           Explore detailed yoga techniques with benefits, instructions, and precautions for safe practice.
 //         </p>
 
 //         {/* Grid of Yoga Techniques */}
 //         {techniques.length === 0 ? (
-//           <p className="text-center text-lg" style={{ color: "var(--fourground-color)" }}>
+//           <p className="text-center text-lg" style={{ color: "var(--text-color-all)" }}>
 //             No yoga techniques found.
 //           </p>
 //         ) : (
@@ -217,7 +217,7 @@
 //                 <div className="flex-1 relative z-10">
 //                   <h2
 //                     className="text-2xl font-bold mb-1 transition-colors duration-300"
-//                     style={{ color: "var(--fourground-color)" }}
+//                     style={{ color: "var(--text-color-all)" }}
 //                   >
 //                     {tech.techniqueName}
 //                   </h2>
@@ -301,7 +301,7 @@ export function YogaTechnique() {
       <div className="absolute inset-0 overflow-hidden">
         <div
           className="absolute -top-40 -left-20 w-80 h-80 rounded-full opacity-10 blur-3xl animate-pulse"
-          style={{ backgroundColor: "var(--color-calm-blue)" }}
+          style={{ backgroundColor: "var(--color-secondary)" }}
         ></div>
         <div
           className="absolute -bottom-40 -right-20 w-80 h-80 rounded-full opacity-10 blur-3xl animate-pulse"
@@ -320,20 +320,20 @@ export function YogaTechnique() {
         {/* Headline */}
         <h1
           className="text-4xl sm:text-5xl font-bold mb-12 text-center"
-          style={{ color: "var(--fourground-color)" }}
+          style={{ color: "var(--text-color-all)" }}
         >
-          Yoga <span style={{ color: "var(--color-calm-blue)" }}>Techniques</span>
+          Yoga <span style={{ color: "var(--color-secondary)" }}>Techniques</span>
         </h1>
         <p
           className="text-lg sm:text-xl text-center mb-12 opacity-90"
-          style={{ color: "var(--fourground-color)" }}
+          style={{ color: "var(--text-color-all)" }}
         >
           Explore detailed yoga techniques with benefits, instructions, and precautions for safe practice.
         </p>
 
         {/* Grid of Yoga Techniques */}
         {techniques.length === 0 ? (
-          <p className="text-center text-lg" style={{ color: "var(--fourground-color)" }}>
+          <p className="text-center text-lg" style={{ color: "var(--text-color-all)" }}>
             No yoga techniques found.
           </p>
         ) : (
@@ -363,7 +363,7 @@ export function YogaTechnique() {
                 <div className="flex-1 relative z-10">
                   <h2
                     className="text-2xl font-bold mb-1 transition-colors duration-300"
-                    style={{ color: "var(--fourground-color)" }}
+                    style={{ color: "var(--text-color-all)" }}
                   >
                     {tech.techniqueName}
                   </h2>

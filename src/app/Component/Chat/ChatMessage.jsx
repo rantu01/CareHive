@@ -8,7 +8,7 @@ const ChatMessage = ({ message, isSender }) => {
         className={`p-3 rounded-xl max-w-xs ${
           isSender
             ? "bg-blue-600 text-white rounded-br-none"
-            : "bg-[var(--gray-color)] text-[var(--fourground-color)] rounded-bl-none"
+            : "bg-[var(--bg-color-all)] text-[var(--text-color-all)] rounded-bl-none"
         }`}
       >
         <p className="text-sm">{message.message}</p>

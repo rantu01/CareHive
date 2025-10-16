@@ -14,9 +14,9 @@ const moodData = {
     ],
     quote: "Happiness is not something ready-made. It comes from your own actions 🌼",
     icon: <Sparkles className="w-8 h-8" />,
-    bgColor: "var(--gray-color)",
+    bgColor: "var(--bg-color-all)",
     borderColor: "var(--color-primary)",
-    textColor: "var(--fourground-color)",
+    textColor: "var(--text-color-all)",
   },
   "😞": {
     title: "Feeling Down",
@@ -30,7 +30,7 @@ const moodData = {
     icon: <Heart className="w-8 h-8" />,
     bgColor: "var(--dashboard-bg)",
     borderColor: "var(--color-primary)",
-    textColor: "var(--fourground-color)",
+    textColor: "var(--text-color-all)",
   },
   "😣": {
     title: "Stressed & Anxious",
@@ -44,7 +44,7 @@ const moodData = {
     icon: <Brain className="w-8 h-8" />,
     bgColor: "var(--sidebar-bg)",
     borderColor: "var(--color-primary)",
-    textColor: "var(--fourground-color)",
+    textColor: "var(--text-color-all)",
   },
   "😴": {
     title: "Tired & Drained",
@@ -58,7 +58,7 @@ const moodData = {
     icon: <Zap className="w-8 h-8" />,
     bgColor: "var(--dashboard-bg)",
     borderColor: "var(--color-primary)",
-    textColor: "var(--fourground-color)",
+    textColor: "var(--text-color-all)",
   },
   "😐": {
     title: "Neutral & Balanced",
@@ -70,9 +70,9 @@ const moodData = {
     ],
     quote: "Peace is the result of retraining your mind to process life as it is, not as you think it should be 🌊",
     icon: <Cloud className="w-8 h-8" />,
-    bgColor: "var(--gray-color)",
+    bgColor: "var(--bg-color-all)",
     borderColor: "var(--color-primary)",
-    textColor: "var(--fourground-color)",
+    textColor: "var(--text-color-all)",
   }
 };
 
@@ -96,7 +96,7 @@ const MoodBasedHealth = () => {
           Mood-Based Wellness Guide
         </h2>
         
-        <p className="text-xl text-[var(--fourground-color)] leading-relaxed">
+        <p className="text-xl text-[var(--text-color-all)] leading-relaxed">
           Select your current mood and receive personalized wellness recommendations 
           to support your mental and emotional health journey.
         </p>
@@ -112,7 +112,7 @@ const MoodBasedHealth = () => {
             className={`flex flex-col items-center p-4 rounded-2xl border-2 transition-all duration-300 ${
               selectedMood === emoji
                 ? "border-[var(--color-primary)] bg-[var(--color-primary)] bg-opacity-10 shadow-lg"
-                : "border-[var(--dashboard-border)] bg-[var(--gray-color)] hover:border-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:bg-opacity-5"
+                : "border-[var(--dashboard-border)] bg-[var(--bg-color-all)] hover:border-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:bg-opacity-5"
             }`}
             onClick={() => {
               setSelectedMood(emoji);
@@ -120,7 +120,7 @@ const MoodBasedHealth = () => {
             }}
           >
             <span className="text-4xl mb-2">{emoji}</span>
-            <span className="text-sm font-medium text-[var(--fourground-color)] text-center leading-tight">
+            <span className="text-sm font-medium text-[var(--text-color-all)] text-center leading-tight">
               {data.title.split(" ")[0]}
             </span>
           </motion.button>
@@ -153,7 +153,7 @@ const MoodBasedHealth = () => {
               <h3 className="text-2xl font-bold text-[var(--color-primary)] mb-2">
                 {moodData[selectedMood].title}
               </h3>
-              <p className="text-lg italic text-[var(--fourground-color)] opacity-80">
+              <p className="text-lg italic text-[var(--text-color-all)] opacity-80">
                 {moodData[selectedMood].quote}
               </p>
             </div>
@@ -170,12 +170,12 @@ const MoodBasedHealth = () => {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    className="flex items-start gap-3 p-4 rounded-xl bg-[var(--gray-color)] border border-[var(--dashboard-border)]"
+                    className="flex items-start gap-3 p-4 rounded-xl bg-[var(--bg-color-all)] border border-[var(--dashboard-border)]"
                   >
                     <div className="w-6 h-6 bg-[var(--color-primary)] text-white rounded-full flex items-center justify-center text-sm font-bold mt-0.5 flex-shrink-0">
                       {index + 1}
                     </div>
-                    <p className="text-[var(--fourground-color)] leading-relaxed text-left">
+                    <p className="text-[var(--text-color-all)] leading-relaxed text-left">
                       {tip}
                     </p>
                   </motion.div>
@@ -188,7 +188,7 @@ const MoodBasedHealth = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setIsExpanded(false)}
-                  className="px-8 py-3 bg-[var(--color-primary)] text-white rounded-xl font-semibold hover:bg-[var(--color-calm-blue)] transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
+                  className="px-8 py-3 bg-[var(--color-primary)] text-white rounded-xl font-semibold hover:bg-[var(--color-secondary)] transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
                 >
                   Save These Tips
                 </motion.button>
@@ -212,7 +212,7 @@ const MoodBasedHealth = () => {
         <motion.p 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="text-center text-[var(--fourground-color)] opacity-70 mt-8 max-w-2xl"
+          className="text-center text-[var(--text-color-all)] opacity-70 mt-8 max-w-2xl"
         >
           Your emotional well-being matters. Take a moment to check in with yourself regularly.
         </motion.p>

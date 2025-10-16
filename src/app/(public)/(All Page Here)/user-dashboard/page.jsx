@@ -27,7 +27,7 @@ const UserDashboard = () => {
         <div className="space-y-4">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-1 h-8 bg-[var(--color-primary)] rounded-full"></div>
-            <h2 className="text-2xl md:text-3xl font-bold text-[var(--fourground-color)]">
+            <h2 className="text-2xl md:text-3xl font-bold text-[var(--text-color-all)]">
               Health Metrics
             </h2>
             <div className="flex-1 h-px bg-[var(--dashboard-border)]/50"></div>
@@ -51,7 +51,7 @@ const UserDashboard = () => {
         <div className="space-y-4">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-1 h-8 bg-[var(--color-primary)] rounded-full"></div>
-            <h2 className="text-2xl md:text-3xl font-bold text-[var(--fourground-color)]">
+            <h2 className="text-2xl md:text-3xl font-bold text-[var(--text-color-all)]">
               Activity Center
             </h2>
             <div className="flex-1 h-px bg-[var(--dashboard-border)]/50"></div>
@@ -71,7 +71,7 @@ const UserDashboard = () => {
         <div className="space-y-4">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-1 h-8 bg-[var(--color-primary)] rounded-full"></div>
-            <h2 className="text-2xl md:text-3xl font-bold text-[var(--fourground-color)]">
+            <h2 className="text-2xl md:text-3xl font-bold text-[var(--text-color-all)]">
               Recent Goals
             </h2>
             <div className="flex-1 h-px bg-[var(--dashboard-border)]/50"></div>
@@ -89,15 +89,15 @@ const UserDashboard = () => {
               <p className="text-2xl font-bold text-[var(--color-primary)]">
                 {userHealthStats?.length || 0}
               </p>
-              <p className="text-sm text-[var(--fourground-color)]/60 font-medium">Active Metrics</p>
+              <p className="text-sm text-[var(--text-color-all)]/60 font-medium">Active Metrics</p>
             </div>
             <div className="p-4 rounded-xl bg-[var(--card-bg)] border border-[var(--dashboard-border)]/50">
               <p className="text-2xl font-bold text-[var(--color-primary)]">100%</p>
-              <p className="text-sm text-[var(--fourground-color)]/60 font-medium">Dashboard Health</p>
+              <p className="text-sm text-[var(--text-color-all)]/60 font-medium">Dashboard Health</p>
             </div>
             <div className="p-4 rounded-xl bg-[var(--card-bg)] border border-[var(--dashboard-border)]/50">
               <p className="text-2xl font-bold text-[var(--color-primary)]">Live</p>
-              <p className="text-sm text-[var(--fourground-color)]/60 font-medium">Data Sync</p>
+              <p className="text-sm text-[var(--text-color-all)]/60 font-medium">Data Sync</p>
             </div>
           </div>
         </div>

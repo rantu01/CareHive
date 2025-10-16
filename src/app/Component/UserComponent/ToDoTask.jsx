@@ -110,14 +110,14 @@ const ToDoTask = () => {
                     <div className="p-3 bg-[var(--dashboard-bg)] rounded-xl border border-[var(--dashboard-border)]/50">
                         <div className="flex items-center gap-2">
                             <Target className="text-[var(--color-primary)]" size={16} />
-                            <span className="text-sm text-[var(--fourground-color)]/70">Total</span>
+                            <span className="text-sm text-[var(--text-color-all)]/70">Total</span>
                         </div>
                         <p className="text-xl font-bold text-[var(--color-primary)]">{totalTasks}</p>
                     </div>
                     <div className="p-3 bg-[var(--dashboard-bg)] rounded-xl border border-[var(--dashboard-border)]/50">
                         <div className="flex items-center gap-2">
                             <CheckCircle className="text-[var(--color-primary)]" size={16} />
-                            <span className="text-sm text-[var(--fourground-color)]/70">Done</span>
+                            <span className="text-sm text-[var(--text-color-all)]/70">Done</span>
                         </div>
                         <p className="text-xl font-bold text-[var(--color-primary)]">{completedTasks}</p>
                     </div>
@@ -130,7 +130,7 @@ const ToDoTask = () => {
                             type="text"
                             placeholder="Add a new health goal..."
                             name="todo"
-                            className="w-full px-4 py-3 pr-12 text-[var(--fourground-color)] bg-[var(--dashboard-bg)] border-2 border-[var(--dashboard-border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-all duration-300 placeholder-[var(--fourground-color)]/50"
+                            className="w-full px-4 py-3 pr-12 text-[var(--text-color-all)] bg-[var(--dashboard-bg)] border-2 border-[var(--dashboard-border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-all duration-300 placeholder-[var(--text-color-all)]/50"
                         />
                         <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
                             <Plus className="text-[var(--color-primary)]" size={20} />
@@ -188,14 +188,14 @@ const ToDoTask = () => {
                                                     <p className={`font-semibold break-words ${
                                                         todo?.completed 
                                                             ? 'text-[var(--color-primary)] line-through' 
-                                                            : 'text-[var(--fourground-color)]'
+                                                            : 'text-[var(--text-color-all)]'
                                                     }`}>
                                                         {todo.title}
                                                     </p>
                                                     <p className={`text-sm font-medium ${
                                                         todo?.completed 
                                                             ? 'text-[var(--color-primary)]' 
-                                                            : 'text-[var(--fourground-color)]/60'
+                                                            : 'text-[var(--text-color-all)]/60'
                                                     }`}>
                                                         {todo?.completed ? "✅ Completed" : "🕒 Pending"}
                                                     </p>

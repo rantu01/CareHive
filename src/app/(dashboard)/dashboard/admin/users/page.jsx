@@ -111,11 +111,11 @@ export default function UserManagement() {
       case "admin":
         return "bg-[var(--color-primary)] text-white";
       case "doctor":
-        return "bg-[var(--color-calm-blue)] text-white";
+        return "bg-[var(--color-secondary)] text-white";
       case "user":
-        return "bg-[var(--gray-color)] text-[var(--fourground-color)] border border-[var(--dashboard-border)]";
+        return "bg-[var(--bg-color-all)] text-[var(--text-color-all)] border border-[var(--dashboard-border)]";
       default:
-        return "bg-[var(--sidebar-bg)] text-[var(--fourground-color)] border border-[var(--dashboard-border)]";
+        return "bg-[var(--sidebar-bg)] text-[var(--text-color-all)] border border-[var(--dashboard-border)]";
     }
   };
 
@@ -137,7 +137,7 @@ export default function UserManagement() {
       <div className="flex justify-center items-center h-64">
         <div className="flex flex-col items-center space-y-4">
           <div className="w-16 h-16 border-4 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-lg text-[var(--fourground-color)] font-semibold">
+          <p className="text-lg text-[var(--text-color-all)] font-semibold">
             Loading users...
           </p>
         </div>
@@ -152,7 +152,7 @@ export default function UserManagement() {
         <h1 className="text-4xl sm:text-5xl font-bold text-[var(--color-primary)] mb-3">
           User Management
         </h1>
-        <p className="text-[var(--fourground-color)] text-lg opacity-80">
+        <p className="text-[var(--text-color-all)] text-lg opacity-80">
           Manage user accounts and permissions with ease
         </p>
       </div>
@@ -162,19 +162,19 @@ export default function UserManagement() {
         {[
           { label: "Total Users", value: stats.total, icon: <Users />, color: "var(--color-primary)" },
           { label: "Admins", value: stats.admins, icon: <ShieldCheck />, color: "var(--color-primary)" },
-          { label: "Doctors", value: stats.doctors, icon: <UserCog />, color: "var(--color-calm-blue)" },
-          { label: "Patients", value: stats.users, icon: <User2 />, color: "var(--gray-color)" },
+          { label: "Doctors", value: stats.doctors, icon: <UserCog />, color: "var(--color-secondary)" },
+          { label: "Patients", value: stats.users, icon: <User2 />, color: "var(--bg-color-all)" },
         ].map((stat, idx) => (
           <div
             key={idx}
-            className="rounded-2xl p-6 shadow-md border border-[var(--dashboard-border)] bg-[var(--gray-color)] hover:shadow-lg transition-all duration-300"
+            className="rounded-2xl p-6 shadow-md border border-[var(--dashboard-border)] bg-[var(--bg-color-all)] hover:shadow-lg transition-all duration-300"
           >
             <div className="flex justify-between items-center">
               <div>
-                <p className="text-sm font-semibold text-[var(--fourground-color)] opacity-70">
+                <p className="text-sm font-semibold text-[var(--text-color-all)] opacity-70">
                   {stat.label}
                 </p>
-                <p className="text-3xl font-bold text-[var(--fourground-color)]">
+                <p className="text-3xl font-bold text-[var(--text-color-all)]">
                   {stat.value}
                 </p>
               </div>
@@ -190,19 +190,19 @@ export default function UserManagement() {
       </div>
 
       {/* Search + Filter */}
-      <div className="bg-[var(--gray-color)] rounded-2xl p-6 shadow-md border border-[var(--dashboard-border)] mb-8">
+      <div className="bg-[var(--bg-color-all)] rounded-2xl p-6 shadow-md border border-[var(--dashboard-border)] mb-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <input
             type="text"
             placeholder="Search users by name or email..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-3 border-2 border-[var(--dashboard-border)] rounded-xl bg-transparent text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/60 focus:ring-2 focus:ring-[var(--color-calm-blue)] focus:border-[var(--color-calm-blue)] transition-all"
+            className="w-full px-4 py-3 border-2 border-[var(--dashboard-border)] rounded-xl bg-transparent text-[var(--text-color-all)] placeholder-[var(--text-color-all)]/60 focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-[var(--color-secondary)] transition-all"
           />
           <select
             value={roleFilter}
             onChange={(e) => setRoleFilter(e.target.value)}
-            className="w-full px-4 py-3 border-2 border-[var(--dashboard-border)] rounded-xl bg-transparent text-[var(--fourground-color)] focus:ring-2 focus:ring-[var(--color-calm-blue)] focus:border-[var(--color-calm-blue)] transition-all"
+            className="w-full px-4 py-3 border-2 border-[var(--dashboard-border)] rounded-xl bg-transparent text-[var(--text-color-all)] focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-[var(--color-secondary)] transition-all"
           >
             <option value="all">All Roles</option>
             <option value="user">user</option>
@@ -222,7 +222,7 @@ export default function UserManagement() {
         {filteredUsers.map((user) => (
           <div
             key={user.id}
-            className="bg-[var(--gray-color)] rounded-2xl p-6 shadow-md border border-[var(--dashboard-border)] hover:shadow-lg transition-all duration-300"
+            className="bg-[var(--bg-color-all)] rounded-2xl p-6 shadow-md border border-[var(--dashboard-border)] hover:shadow-lg transition-all duration-300"
           >
             <div className="flex justify-between items-start">
               <div className="flex items-center space-x-4">
@@ -233,10 +233,10 @@ export default function UserManagement() {
                   {user.name ? user.name.charAt(0).toUpperCase() : "U"}
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-[var(--fourground-color)]">
+                  <h3 className="text-xl font-bold text-[var(--text-color-all)]">
                     {user.name || "Unnamed User"}
                   </h3>
-                  <p className="text-[var(--fourground-color)] opacity-70">
+                  <p className="text-[var(--text-color-all)] opacity-70">
                     {user.email}
                   </p>
                   <span
@@ -249,7 +249,7 @@ export default function UserManagement() {
               <div className="flex flex-col space-y-2">
                 <button
                   onClick={() => setEditingUser(user)}
-                  className="px-4 py-2 bg-[var(--color-calm-blue)] text-white rounded-xl font-semibold hover:opacity-90 transition-all flex items-center gap-2"
+                  className="px-4 py-2 bg-[var(--color-secondary)] text-white rounded-xl font-semibold hover:opacity-90 transition-all flex items-center gap-2"
                 >
                   <Edit3 size={16} /> Edit
                 </button>
@@ -268,10 +268,10 @@ export default function UserManagement() {
       {/* No users found */}
       {filteredUsers.length === 0 && (
         <div className="text-center py-16">
-          <h3 className="text-2xl font-bold text-[var(--fourground-color)] mb-2">
+          <h3 className="text-2xl font-bold text-[var(--text-color-all)] mb-2">
             No users found
           </h3>
-          <p className="text-[var(--fourground-color)] opacity-70 max-w-md mx-auto">
+          <p className="text-[var(--text-color-all)] opacity-70 max-w-md mx-auto">
             {searchTerm || roleFilter !== "all"
               ? "Try adjusting your search or filter criteria."
               : "No users yet. Start by adding your first user!"}
@@ -282,7 +282,7 @@ export default function UserManagement() {
       {/* Edit Modal */}
       {editingUser && (
         <div className="fixed inset-0 bg-black/30 flex items-center justify-center p-4 z-50">
-          <div className="bg-[var(--gray-color)] rounded-2xl shadow-2xl max-w-md w-full border border-[var(--dashboard-border)]">
+          <div className="bg-[var(--bg-color-all)] rounded-2xl shadow-2xl max-w-md w-full border border-[var(--dashboard-border)]">
             <div className="px-6 py-4 bg-[var(--color-primary)] text-white flex justify-between items-center rounded-t-2xl">
               <h3 className="text-lg font-bold">Edit User</h3>
               <button onClick={() => setEditingUser(null)} className="text-2xl">
@@ -291,7 +291,7 @@ export default function UserManagement() {
             </div>
             <form onSubmit={handleUpdate} className="p-6 space-y-4">
               <div>
-                <label className="block mb-2 font-semibold text-[var(--fourground-color)]">
+                <label className="block mb-2 font-semibold text-[var(--text-color-all)]">
                   Name
                 </label>
                 <input
@@ -300,11 +300,11 @@ export default function UserManagement() {
                   onChange={(e) =>
                     setEditingUser({ ...editingUser, name: e.target.value })
                   }
-                  className="w-full px-4 py-3 border-2 border-[var(--dashboard-border)] rounded-xl bg-transparent focus:ring-2 focus:ring-[var(--color-calm-blue)] focus:border-[var(--color-calm-blue)]"
+                  className="w-full px-4 py-3 border-2 border-[var(--dashboard-border)] rounded-xl bg-transparent focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-[var(--color-secondary)]"
                 />
               </div>
               <div>
-                <label className="block mb-2 font-semibold text-[var(--fourground-color)]">
+                <label className="block mb-2 font-semibold text-[var(--text-color-all)]">
                   Email
                 </label>
                 <input
@@ -313,11 +313,11 @@ export default function UserManagement() {
                   onChange={(e) =>
                     setEditingUser({ ...editingUser, email: e.target.value })
                   }
-                  className="w-full px-4 py-3 border-2 border-[var(--dashboard-border)] rounded-xl bg-transparent focus:ring-2 focus:ring-[var(--color-calm-blue)] focus:border-[var(--color-calm-blue)]"
+                  className="w-full px-4 py-3 border-2 border-[var(--dashboard-border)] rounded-xl bg-transparent focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-[var(--color-secondary)]"
                 />
               </div>
               <div>
-                <label className="block mb-2 font-semibold text-[var(--fourground-color)]">
+                <label className="block mb-2 font-semibold text-[var(--text-color-all)]">
                   Role
                 </label>
                 <select
@@ -325,7 +325,7 @@ export default function UserManagement() {
                   onChange={(e) =>
                     setEditingUser({ ...editingUser, role: e.target.value })
                   }
-                  className="w-full px-4 py-3 border-2 border-[var(--dashboard-border)] rounded-xl bg-transparent focus:ring-2 focus:ring-[var(--color-calm-blue)] focus:border-[var(--color-calm-blue)]"
+                  className="w-full px-4 py-3 border-2 border-[var(--dashboard-border)] rounded-xl bg-transparent focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-[var(--color-secondary)]"
                 >
                   <option value="user">User</option>
                   <option value="doctor">Doctor</option>
@@ -342,7 +342,7 @@ export default function UserManagement() {
                 <button
                   type="button"
                   onClick={() => setEditingUser(null)}
-                  className="flex-1 py-3 rounded-xl border border-[var(--dashboard-border)] text-[var(--fourground-color)] hover:bg-[var(--gray-color)] transition"
+                  className="flex-1 py-3 rounded-xl border border-[var(--dashboard-border)] text-[var(--text-color-all)] hover:bg-[var(--bg-color-all)] transition"
                 >
                   Cancel
                 </button>

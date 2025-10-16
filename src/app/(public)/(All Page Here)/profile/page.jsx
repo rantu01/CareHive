@@ -37,7 +37,7 @@ export default function Profile() {
       <div className="flex justify-center items-center min-h-screen">
         <div
           className="animate-spin rounded-full h-12 w-12 border-b-2"
-          style={{ borderColor: "var(--color-calm-blue)" }}
+          style={{ borderColor: "var(--color-secondary)" }}
         ></div>
       </div>
     );
@@ -91,7 +91,7 @@ export default function Profile() {
         <div className="flex justify-between items-center mb-8">
           <h1
             className="text-3xl font-bold"
-            style={{ color: "var(--fourground-color)" }}
+            style={{ color: "var(--text-color-all)" }}
           >
             Profile Settings
           </h1>
@@ -99,7 +99,7 @@ export default function Profile() {
             href="/"
             className="px-6 py-2 rounded-lg font-semibold transition-all duration-200 hover:scale-105"
             style={{
-              backgroundColor: "var(--color-calm-blue)",
+              backgroundColor: "var(--color-secondary)",
               color: "var(--color-white)",
             }}
           >
@@ -128,7 +128,7 @@ export default function Profile() {
                 <div
                   className="w-32 h-32 mx-auto rounded-full flex items-center justify-center text-4xl font-bold mb-4"
                   style={{
-                    backgroundColor: "var(--color-calm-blue)",
+                    backgroundColor: "var(--color-secondary)",
                     color: "var(--color-white)",
                   }}
                 >
@@ -138,7 +138,7 @@ export default function Profile() {
 
               <h3
                 className="text-xl font-semibold mb-2"
-                style={{ color: "var(--fourground-color)" }}
+                style={{ color: "var(--text-color-all)" }}
               >
                 {formData.name || "User"}
               </h3>
@@ -166,7 +166,7 @@ export default function Profile() {
             >
               <h2
                 className="text-2xl font-bold mb-6"
-                style={{ color: "var(--fourground-color)" }}
+                style={{ color: "var(--text-color-all)" }}
               >
                 Personal Information
               </h2>
@@ -176,7 +176,7 @@ export default function Profile() {
                 <div>
                   <label
                     className="block text-sm font-medium mb-2"
-                    style={{ color: "var(--fourground-color)" }}
+                    style={{ color: "var(--text-color-all)" }}
                   >
                     Full Name
                   </label>
@@ -189,7 +189,7 @@ export default function Profile() {
                     style={{
                       backgroundColor: "var(--dashboard-bg)",
                       border: "1px solid var(--dashboard-border)",
-                      color: "var(--fourground-color)",
+                      color: "var(--text-color-all)",
                     }}
                   />
                 </div>
@@ -198,7 +198,7 @@ export default function Profile() {
                 <div>
                   <label
                     className="block text-sm font-medium mb-2"
-                    style={{ color: "var(--fourground-color)" }}
+                    style={{ color: "var(--text-color-all)" }}
                   >
                     Email Address
                   </label>
@@ -210,12 +210,12 @@ export default function Profile() {
                     style={{
                       backgroundColor: "var(--dashboard-bg)",
                       border: "1px solid var(--dashboard-border)",
-                      color: "var(--fourground-color)",
+                      color: "var(--text-color-all)",
                     }}
                   />
                   <p
                     className="text-xs mt-1"
-                    style={{ color: "var(--fourground-color)", opacity: 0.7 }}
+                    style={{ color: "var(--text-color-all)", opacity: 0.7 }}
                   >
                     Email cannot be changed
                   </p>
@@ -225,7 +225,7 @@ export default function Profile() {
                 <div>
                   <label
                     className="block text-sm font-medium mb-2"
-                    style={{ color: "var(--fourground-color)" }}
+                    style={{ color: "var(--text-color-all)" }}
                   >
                     Account Role
                   </label>
@@ -237,12 +237,12 @@ export default function Profile() {
                     style={{
                       backgroundColor: "var(--dashboard-bg)",
                       border: "1px solid var(--dashboard-border)",
-                      color: "var(--fourground-color)",
+                      color: "var(--text-color-all)",
                     }}
                   />
                   <p
                     className="text-xs mt-1"
-                    style={{ color: "var(--fourground-color)", opacity: 0.7 }}
+                    style={{ color: "var(--text-color-all)", opacity: 0.7 }}
                   >
                     Role is assigned by admin
                   </p>

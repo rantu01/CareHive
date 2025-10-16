@@ -71,7 +71,7 @@ export default function QuickHealthTips() {
           <Zap className="w-8 h-8" />
         </h2>
         
-        <p className="text-xl text-[var(--fourground-color)] max-w-2xl mx-auto leading-relaxed opacity-80">
+        <p className="text-xl text-[var(--text-color-all)] max-w-2xl mx-auto leading-relaxed opacity-80">
           Stay motivated with small, actionable health reminders updated daily to keep you on track.
         </p>
       </div>
@@ -92,7 +92,7 @@ export default function QuickHealthTips() {
                 <h3 className="text-2xl font-bold text-[var(--color-primary)]">
                   Today's Tips
                 </h3>
-                <p className="text-[var(--fourground-color)] opacity-70">
+                <p className="text-[var(--text-color-all)] opacity-70">
                   Fresh health advice daily
                 </p>
               </div>
@@ -103,7 +103,7 @@ export default function QuickHealthTips() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               disabled={isRefreshing}
-              className="p-3 bg-[var(--color-primary)] text-white rounded-xl hover:bg-[var(--color-calm-blue)] transition-all duration-300 disabled:opacity-50"
+              className="p-3 bg-[var(--color-primary)] text-white rounded-xl hover:bg-[var(--color-secondary)] transition-all duration-300 disabled:opacity-50"
             >
               <RefreshCw className={`w-5 h-5 ${isRefreshing ? 'animate-spin' : ''}`} />
             </motion.button>
@@ -118,13 +118,13 @@ export default function QuickHealthTips() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -20, scale: 0.95 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="p-4 rounded-xl border-2 border-[var(--dashboard-border)] bg-[var(--gray-color)] hover:border-[var(--color-primary)] transition-all duration-300 group hover:shadow-lg"
+                  className="p-4 rounded-xl border-2 border-[var(--dashboard-border)] bg-[var(--bg-color-all)] hover:border-[var(--color-primary)] transition-all duration-300 group hover:shadow-lg"
                 >
                   <div className="flex items-start gap-3">
                     <div className="w-8 h-8 bg-[var(--color-primary)] text-white rounded-full flex items-center justify-center text-sm font-bold mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
                       {index + 1}
                     </div>
-                    <p className="text-[var(--fourground-color)] leading-relaxed font-medium">
+                    <p className="text-[var(--text-color-all)] leading-relaxed font-medium">
                       {tip}
                     </p>
                   </div>
@@ -155,7 +155,7 @@ export default function QuickHealthTips() {
                 <h3 className="text-2xl font-bold text-[var(--color-primary)]">
                   Wellness Video
                 </h3>
-                <p className="text-[var(--fourground-color)] opacity-70">
+                <p className="text-[var(--text-color-all)] opacity-70">
                   Quick health inspiration
                 </p>
               </div>
@@ -174,8 +174,8 @@ export default function QuickHealthTips() {
             <div className="absolute inset-0 pointer-events-none border-4 border-transparent rounded-3xl" />
           </div>
           
-          <div className="p-4 bg-[var(--gray-color)] border-t border-[var(--dashboard-border)]">
-            <p className="text-sm text-[var(--fourground-color)] text-center opacity-70">
+          <div className="p-4 bg-[var(--bg-color-all)] border-t border-[var(--dashboard-border)]">
+            <p className="text-sm text-[var(--text-color-all)] text-center opacity-70">
               Watch for daily health motivation and wellness tips
             </p>
           </div>

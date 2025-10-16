@@ -40,7 +40,7 @@ const NutritionCard = () => {
 
   return (
     <div className="p-6 rounded-2xl shadow-md w-full">
-      <h2 className="text-lg font-semibold mb-4 text-[var(--fourground-color)]">
+      <h2 className="text-lg font-semibold mb-4 text-[var(--text-color-all)]">
         Calories Intake – {foodLog.food}
       </h2>
 
@@ -62,30 +62,30 @@ const NutritionCard = () => {
             </RadialBarChart>
           </ResponsiveContainer>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-2xl font-bold text-[var(--fourground-color)]">
+            <span className="text-2xl font-bold text-[var(--text-color-all)]">
               {remainingCalories} kcal
             </span>
-            <p className="text-sm text-[var(--fourground-color)]">Calories left</p>
+            <p className="text-sm text-[var(--text-color-all)]">Calories left</p>
           </div>
         </div>
 
         {/* Right side info */}
         <div className="flex-1 space-y-4">
           {/* Calories summary */}
-          <div className="flex items-center justify-between text-[var(--fourground-color)] ">
+          <div className="flex items-center justify-between text-[var(--text-color-all)] ">
             <div className="flex items-center gap-2">
               <Utensils className="w-5 h-5 text-green-500" />
-              <span className="text-[var(--fourground-color)]" >{eatenCalories} kcal</span>
+              <span className="text-[var(--text-color-all)]" >{eatenCalories} kcal</span>
             </div>
-            <span className="text-[var(--fourground-color)]">Eaten calories</span>
+            <span className="text-[var(--text-color-all)]">Eaten calories</span>
           </div>
 
-          <div className="flex items-center justify-between text-[var(--fourground-color)] dark:text-gray-100">
+          <div className="flex items-center justify-between text-[var(--text-color-all)] dark:text-gray-100">
             <div className="flex items-center gap-2">
               <Flame className="w-5 h-5 text-red-500" />
-              <span className="text-[var(--fourground-color)]" >{burnedCalories} kcal</span>
+              <span className="text-[var(--text-color-all)]" >{burnedCalories} kcal</span>
             </div>
-            <span className="text-[var(--fourground-color)]">Burned calories</span>
+            <span className="text-[var(--text-color-all)]">Burned calories</span>
           </div>
 
           {/* Macro breakdown */}
@@ -94,13 +94,13 @@ const NutritionCard = () => {
               const percent = Math.round((macro.value / macro.goal) * 100);
               return (
                 <div key={i}>
-                  <div className="flex justify-between text-sm text-[var(--fourground-color)] dark:text-gray-300">
-                    <span className="text-[var(--fourground-color)]">
+                  <div className="flex justify-between text-sm text-[var(--text-color-all)] dark:text-gray-300">
+                    <span className="text-[var(--text-color-all)]">
                       {macro.value}g / {macro.goal}g {macro.name}
                     </span>
-                    <span className="text-[var(--fourground-color)]">{percent}%</span>
+                    <span className="text-[var(--text-color-all)]">{percent}%</span>
                   </div>
-                  <div className="w-full text-[var(--fourground-color)] rounded-full h-3 overflow-hidden">
+                  <div className="w-full text-[var(--text-color-all)] rounded-full h-3 overflow-hidden">
                     <div
                       className={`${macro.color} h-3 transition-all`}
                       style={{ width: `${percent}%` }}

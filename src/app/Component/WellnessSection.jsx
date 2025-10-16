@@ -5,14 +5,14 @@ import MoodBasedHealth from "./MoodBasedHealth";
 
 const WellnessSection = () => {
   return (
-    <section className="w-full bg-[var(--gray-color)] dark:bg-[var(--dashboard-bg)] py-16 px-6 container mx-auto">
+    <section className="w-full bg-[var(--bg-color-all)] dark:bg-[var(--dashboard-bg)] py-16 px-6 container mx-auto">
       <div className="container mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-[var(--color-primary)] font-heading mb-4">
             🌿 Daily & Mood-Based Wellness
           </h2>
-          <p className="text-lg text-[var(--fourground-color)] opacity-80 max-w-2xl mx-auto">
+          <p className="text-lg text-[var(--text-color-all)] opacity-80 max-w-2xl mx-auto">
             Check in with your wellness and explore mood-based tips to stay balanced.
           </p>
         </div>
