@@ -8,6 +8,7 @@ export const POST = async (req) => {
     try {
         const data = await req.json();
 
+        console.log("data is",data)
         const customer = await stripe.customers.create({
             address: {
                 city: "Sylhet",

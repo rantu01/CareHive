@@ -102,7 +102,7 @@ const AvailableTimeSection = ({
 
   const feeFields = (
     <div className={`grid grid-cols-1 ${consatlationType === "both" ? "md:grid-cols-2" : ""} gap-4`}>
-      {(consatlationType === "offline" || consatlationType === "both") && (
+      {(consatlationType === "inPerson" || consatlationType === "both") && (
         <div>
           <label htmlFor="offline-fee" className="block font-medium mb-2" style={{ color: 'var(--fourground-color)' }}>
             Offline Fee
@@ -268,7 +268,7 @@ const AvailableTimeSection = ({
             onChange={(e) => setConsaltationType(e.target.value)}
           >
             <option value="online">Online</option>
-            <option value="offline">Offline</option>
+            <option value="inPerson">Offline</option>
             <option value="both">Both</option>
           </select>
         </div>

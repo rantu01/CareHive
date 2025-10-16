@@ -58,15 +58,15 @@ const UpcomingAppointment = () => {
                         {/* Empty State */}
                         {(!appointmentData || appointmentData.length === 0) && (
                             <div className="flex-1 flex flex-col justify-center items-center py-8">
-                                <div className="w-20 h-20 bg-[var(--color-light-green)]/20 rounded-full flex items-center justify-center mb-6">
-                                    <Calendar className="text-[var(--color-light-green)]" size={32} />
+                                <div className="w-20 h-20 bg-[var(--color-primary)]/20 rounded-full flex items-center justify-center mb-6">
+                                    <Calendar className="text-[var(--color-primary)]" size={32} />
                                 </div>
-                                <p className="text-[var(--color-light-green)]/60 text-center mb-6 text-lg font-medium">
+                                <p className="text-[var(--fourground-color)] text-center mb-6 text-lg font-medium">
                                     You have not booked any appointments yet
                                 </p>
                                 <Link
                                     href={"/doctors"}
-                                    className="group px-6 py-3 bg-[var(--color-light-green)] text-white rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center gap-2"
+                                    className="group px-6 py-3 bg-[var(--color-primary)] text-white rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center gap-2"
                                 >
                                     <Calendar size={18} />
                                     <span>Book Your First Appointment</span>
