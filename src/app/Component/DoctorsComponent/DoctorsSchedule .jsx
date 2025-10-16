@@ -1,7 +1,10 @@
-// components/DoctorDashboardOverview.js
 "use client";
 
 import { Calendar, Clock, Video, Phone, User } from "lucide-react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import UseAuth from "@/app/Hooks/UseAuth";
 
 const scheduleData = [
   {
@@ -34,31 +37,34 @@ const scheduleData = [
   },
 ];
 
-const messagesData = [
-  {
-    name: "Anna Thompson",
-    time: "2 hours ago",
-    message: "Thank you for the consultation. When should I schedule the follow-up?",
-  },
-  {
-    name: "John Smith",
-    time: "4 hours ago",
-    message: "I'm experiencing some side effects from the medication.",
-  },
-  {
-    name: "Lisa Garcia",
-    time: "1 day ago",
-    message: "The test results look good. Thank you!",
-  },
-];
-
 export default function DoctorsSchedule() {
+  const { user } = UseAuth();
+  const router = useRouter();
+  const [messagesData, setMessagesData] = useState([]);
+
+  // ✅ Fetch messages from API
+  useEffect(() => {
+    if (!user?.email) return;
+    axios
+      .get(`/api/messages?doctorEmail=${user.email}`)
+      .then((res) => setMessagesData(res.data))
+      .catch((err) => console.error("Error loading messages:", err));
+  }, [user]);
+
+  // ✅ Redirect to messages page
+  const handleReplyRedirect = () => {
+    router.push("/dashboard/doctor/messages");
+  };
+
+  // Only latest 3 messages
+  const latestMessages = messagesData.slice(-3).reverse();
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {/* Today's Schedule */}
-      <div className="lg:col-span-2 bg-[var(--sidebar-bg)] text-[var(--fourground-color)] rounded-xl p-6 shadow-md">
+      <div className="lg:col-span-2 bg-[var(--sidebar-bg)] text-[var(--text-color-all)] rounded-xl p-6 shadow-md">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="flex items-center gap-2 text-lg font-semibold text-[var(--fourground-color)]">
+          <h2 className="flex items-center gap-2 text-lg font-semibold text-[var(--text-color-all)]">
             <Calendar className="w-5 h-5" />
             Today&apos;s Schedule
           </h2>
@@ -71,9 +77,8 @@ export default function DoctorsSchedule() {
           {scheduleData.map((item, i) => (
             <div
               key={i}
-              className="flex justify-between items-center bg-[var(--sidebar-bg)] rounded-xl p-4 border border-[var(--dashboard-border)] hover:bg-[var(--gray-color)]"
+              className="flex justify-between items-center bg-[var(--sidebar-bg)] rounded-xl p-4 border border-[var(--dashboard-border)] hover:bg-[var(--bg-color-all)]"
             >
-              {/* Left section */}
               <div className="flex items-center gap-3">
                 <div className="bg-[var(--color-primary)] p-2 rounded-full">
                   <User className="w-5 h-5 text-white" />
@@ -89,7 +94,6 @@ export default function DoctorsSchedule() {
                 </div>
               </div>
 
-              {/* Right section */}
               <div className="flex items-center gap-2">
                 {item.status === "completed" && (
                   <span className="px-3 py-1 text-xs rounded-full bg-green-600 text-white">
@@ -122,28 +126,50 @@ export default function DoctorsSchedule() {
         </div>
       </div>
 
-      {/* Patient Messages */}
-      <div className="bg-[var(--sidebar-bg)] text-[var(--fourground-color)] rounded-xl p-6 shadow-md">
+      {/* Patient Messages (Latest 3 + View All) */}
+      <div className="bg-[var(--sidebar-bg)] text-[var(--text-color-all)] rounded-xl p-6 shadow-md flex flex-col">
         <h2 className="flex items-center gap-2 text-lg font-semibold mb-4">
           Patient Messages
         </h2>
-        <div className="space-y-4">
-          {messagesData.map((msg, i) => (
-            <div
-              key={i}
-              className="bg-[var(--gray-color)] rounded-xl p-4 flex flex-col gap-2 "
-            >
-              <div className="flex justify-between items-center">
-                <h3 className="font-medium">{msg.name}</h3>
-                <span className="text-xs text-[var(--fourground-color)]">{msg.time}</span>
+
+        <div className="space-y-4 flex-1">
+          {latestMessages.length === 0 ? (
+            <p className="text-sm text-gray-400">No messages yet.</p>
+          ) : (
+            latestMessages.map((msg, i) => (
+              <div
+                key={i}
+                className="bg-[var(--bg-color-all)] rounded-xl p-4 flex flex-col gap-2"
+              >
+                <div className="flex justify-between items-center">
+                  <h3 className="font-medium">{msg.senderEmail}</h3>
+                  <span className="text-xs text-[var(--text-color-all)]">
+                    {new Date(msg.timestamp).toLocaleString()}
+                  </span>
+                </div>
+                <p className="text-sm text-[var(--text-color-all)]">
+                  {msg.message}
+                </p>
+                <button
+                  onClick={handleReplyRedirect}
+                  className="self-start btn btn-xs rounded-lg bg-blue-600 hover:bg-blue-700 border-none text-white"
+                >
+                  Reply
+                </button>
               </div>
-              <p className="text-sm text-[var(--fourground-color)]">{msg.message}</p>
-              <button className="self-start btn btn-xs rounded-lg bg-[var(--color-primary)] hover:bg-[#18cfcf] border-none text-white">
-                Reply
-              </button>
-            </div>
-          ))}
+            ))
+          )}
         </div>
+
+        {/* View All Messages Button */}
+        {messagesData.length > 3 && (
+          <button
+            onClick={() => router.push("/dashboard/doctor/messages")}
+            className="mt-4 btn btn-sm bg-gray-700 hover:bg-gray-600 border-none text-white"
+          >
+            View All Messages
+          </button>
+        )}
       </div>
     </div>
   );

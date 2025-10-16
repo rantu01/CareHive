@@ -123,14 +123,14 @@ const Page = () => {
     <div
       style={{
         background: "var(--dashboard-bg)",
-        color: "var(--fourground-color)",
+        color: "var(--text-color-all)",
         minHeight: "100vh",
       }}
       className="relative overflow-hidden"
     >
       {/* Background Glow & Pulse Dots */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[600px] h-[600px] bg-[var(--color-calm-blue)] opacity-10 blur-3xl rounded-full animate-pulse" />
+        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[600px] h-[600px] bg-[var(--color-secondary)] opacity-10 blur-3xl rounded-full animate-pulse" />
         {[...Array(6)].map((_, i) => (
           <div
             key={i}
@@ -154,17 +154,17 @@ const Page = () => {
         >
           <h1 className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-3">
             <HeartPulse
-              className="text-[var(--color-calm-blue)] animate-pulse"
+              className="text-[var(--color-secondary)] animate-pulse"
               size={40}
             />
             <span>
-              Social <span className="text-[var(--color-calm-blue)]">Health</span> Interaction
+              Social <span className="text-[var(--color-secondary)]">Health</span> Interaction
             </span>
           </h1>
           <p className="text-gray-400 max-w-3xl mx-auto">
             A space for doctors to post{" "}
-            <span className="font-semibold text-[var(--color-calm-blue)]">blogs</span> &{" "}
-            <span className="font-semibold text-[var(--color-calm-blue)]">health tips</span> — promoting wellness through Fitness, Diet, Yoga, and Mental Health.
+            <span className="font-semibold text-[var(--color-secondary)]">blogs</span> &{" "}
+            <span className="font-semibold text-[var(--color-secondary)]">health tips</span> — promoting wellness through Fitness, Diet, Yoga, and Mental Health.
           </p>
         </motion.div>
 
@@ -186,7 +186,7 @@ const Page = () => {
                     type="text"
                     placeholder="Enter blog title"
                     required
-                    className="w-full p-3 rounded-lg border bg-transparent focus:ring-2 focus:ring-[var(--color-calm-blue)] hover:shadow-glow transition"
+                    className="w-full p-3 rounded-lg border bg-transparent focus:ring-2 focus:ring-[var(--color-secondary)] hover:shadow-glow transition"
                     style={{ borderColor: "var(--dashboard-border)" }}
                   />
                 </div>
@@ -196,7 +196,7 @@ const Page = () => {
                   <select
                     name="category"
                     required
-                    className="w-full p-3 rounded-lg border bg-transparent focus:ring-2 focus:ring-[var(--color-calm-blue)] hover:shadow-glow transition"
+                    className="w-full p-3 rounded-lg border bg-transparent focus:ring-2 focus:ring-[var(--color-secondary)] hover:shadow-glow transition"
                     style={{ borderColor: "var(--dashboard-border)" }}
                   >
                     {categories.map((c) => (
@@ -211,14 +211,14 @@ const Page = () => {
               {/* Image Field */}
               <div>
                 <label className=" mb-2 font-medium flex items-center gap-2">
-                  <ImageIcon className="w-5 h-5 text-[var(--color-calm-blue)] animate-pulse" />
+                  <ImageIcon className="w-5 h-5 text-[var(--color-secondary)] animate-pulse" />
                   Image URL
                 </label>
                 <input
                   type="url"
                   name="image"
                   placeholder="https://example.com/image.jpg"
-                  className="w-full p-3 rounded-lg border bg-transparent focus:ring-2 focus:ring-[var(--color-calm-blue)] hover:shadow-glow transition"
+                  className="w-full p-3 rounded-lg border bg-transparent focus:ring-2 focus:ring-[var(--color-secondary)] hover:shadow-glow transition"
                   style={{ borderColor: "var(--dashboard-border)" }}
                 />
               </div>
@@ -231,18 +231,18 @@ const Page = () => {
                   rows={5}
                   required
                   placeholder="Write your blog..."
-                  className="w-full p-3 rounded-lg border bg-transparent focus:ring-2 focus:ring-[var(--color-calm-blue)] hover:shadow-glow transition"
+                  className="w-full p-3 rounded-lg border bg-transparent focus:ring-2 focus:ring-[var(--color-secondary)] hover:shadow-glow transition"
                   style={{ borderColor: "var(--dashboard-border)" }}
                 />
               </div>
 
               <motion.button
                 type="submit"
-                whileHover={{ scale: 1.05, boxShadow: "0 0 15px var(--color-calm-blue)" }}
+                whileHover={{ scale: 1.05, boxShadow: "0 0 15px var(--color-secondary)" }}
                 whileTap={{ scale: 0.95 }}
                 className="w-full py-3 rounded-lg font-semibold transition-all"
                 style={{
-                  backgroundColor: "var(--color-calm-blue)",
+                  backgroundColor: "var(--color-secondary)",
                   color: "white",
                 }}
               >
@@ -266,7 +266,7 @@ const Page = () => {
         {/* User Blogs */}
         {user && (
           <div className="mt-20 space-y-8">
-            <h2 className="text-2xl font-bold flex items-center gap-2 text-[var(--color-calm-blue)]">
+            <h2 className="text-2xl font-bold flex items-center gap-2 text-[var(--color-secondary)]">
               <BookText size={26} /> My Blogs
             </h2>
 
@@ -317,7 +317,7 @@ const Page = () => {
                         <button
                           type="submit"
                           className="flex-1 py-2 rounded-lg font-semibold hover:shadow-glow transition"
-                          style={{ backgroundColor: "var(--color-calm-blue)", color: "white" }}
+                          style={{ backgroundColor: "var(--color-secondary)", color: "white" }}
                         >
                           Save
                         </button>
@@ -348,7 +348,7 @@ const Page = () => {
                         {blog.title}
                       </h3>
                       <p className="text-sm opacity-70 mb-2 flex items-center gap-1">
-                        <HeartPulse size={16} className="animate-pulse text-[var(--color-calm-blue)]" />
+                        <HeartPulse size={16} className="animate-pulse text-[var(--color-secondary)]" />
                         Category: {blog.category}
                       </p>
                       <p className="opacity-90 mb-4">{blog.content}</p>
@@ -356,7 +356,7 @@ const Page = () => {
                         <button
                           onClick={() => setEditingBlog(blog)}
                           className="flex items-center justify-center gap-2 flex-1 py-2 rounded-lg font-semibold hover:shadow-glow transition"
-                          style={{ backgroundColor: "var(--color-calm-blue)", color: "white" }}
+                          style={{ backgroundColor: "var(--color-secondary)", color: "white" }}
                         >
                           <PenLine size={18} /> Edit
                         </button>

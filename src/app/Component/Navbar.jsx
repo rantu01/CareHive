@@ -35,7 +35,7 @@ const Navbar = () => {
 
   // ✅ Transparent only on Home page when not scrolled
   const isHome = pathname === "/";
-  const bgColor = isHome && !scrolled ? "transparent" : "var(--color-calm-blue)";
+  const bgColor = isHome && !scrolled ? "transparent" : "var(--color-secondary)";
   const textColor = isHome && !scrolled ? "var(--color-white)" : "var(--color-white)";
   const logoColor = isHome && !scrolled ? "var(--color-white)" : "var(--color-white)";
 

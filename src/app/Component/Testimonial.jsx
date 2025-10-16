@@ -106,7 +106,7 @@ const Testimonial = () => {
 
   if (loading)
     return (
-      <div className="py-20 text-center text-[var(--fourground-color)]">
+      <div className="py-20 text-center text-[var(--text-color-all)]">
         <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--color-primary)]"></div>
         <p className="mt-4 text-lg">Loading testimonials...</p>
       </div>
@@ -115,12 +115,12 @@ const Testimonial = () => {
   if (testimonials.length === 0)
     return (
       <section className="py-20 text-center">
-        <h2 className="text-3xl font-semibold text-[var(--fourground-color)] mb-4">
+        <h2 className="text-3xl font-semibold text-[var(--text-color-all)] mb-4">
           No testimonials yet
         </h2>
         <button
           onClick={handleShare}
-          className="bg-[var(--color-primary)] text-white px-6 py-3 rounded-xl hover:bg-[var(--color-calm-blue)] transition-all duration-300"
+          className="bg-[var(--color-primary)] text-white px-6 py-3 rounded-xl hover:bg-[var(--color-secondary)] transition-all duration-300"
         >
           Be the first to share your experience
         </button>
@@ -128,7 +128,7 @@ const Testimonial = () => {
     );
 
   return (
-    <section className="py-20 bg-[var(--gray-color)] dark:bg-[var(--dashboard-bg)] container mx-auto">
+    <section className="py-20 bg-[var(--bg-color-all)] dark:bg-[var(--dashboard-bg)] container mx-auto">
       <div className="container mx-auto px-4">
         {/* Header Section */}
         <div className="text-center mb-16">
@@ -144,7 +144,7 @@ const Testimonial = () => {
             What Our Clients Say
           </h2>
 
-          <p className="text-xl text-[var(--fourground-color)] max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl text-[var(--text-color-all)] max-w-2xl mx-auto leading-relaxed">
             See the results our clients have achieved
           </p>
         </div>
@@ -159,7 +159,7 @@ const Testimonial = () => {
               </div>
 
               {/* Quote */}
-              <blockquote className="text-2xl md:text-3xl leading-relaxed text-[var(--fourground-color)] mb-8 font-light italic">
+              <blockquote className="text-2xl md:text-3xl leading-relaxed text-[var(--text-color-all)] mb-8 font-light italic">
                 "{testimonials[currentIndex].quote}"
               </blockquote>
 
@@ -171,7 +171,7 @@ const Testimonial = () => {
                   className="w-16 h-16 rounded-full border-4 border-[var(--color-primary)] shadow-lg"
                 />
                 <div className="text-left">
-                  <h3 className="font-bold text-xl text-[var(--fourground-color)]">
+                  <h3 className="font-bold text-xl text-[var(--text-color-all)]">
                     {testimonials[currentIndex].name}
                   </h3>
                   <span className="text-sm text-[var(--color-primary)] font-medium uppercase tracking-wide">
@@ -184,14 +184,14 @@ const Testimonial = () => {
             {/* Navigation Arrows */}
             <button
               onClick={prevTestimonial}
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-[var(--color-primary)] text-white rounded-full flex items-center justify-center hover:bg-[var(--color-calm-blue)] transition-all duration-300 shadow-lg hover:scale-110"
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-[var(--color-primary)] text-white rounded-full flex items-center justify-center hover:bg-[var(--color-secondary)] transition-all duration-300 shadow-lg hover:scale-110"
             >
               <ChevronLeft className="w-6 h-6" />
             </button>
 
             <button
               onClick={nextTestimonial}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-[var(--color-primary)] text-white rounded-full flex items-center justify-center hover:bg-[var(--color-calm-blue)] transition-all duration-300 shadow-lg hover:scale-110"
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-[var(--color-primary)] text-white rounded-full flex items-center justify-center hover:bg-[var(--color-secondary)] transition-all duration-300 shadow-lg hover:scale-110"
             >
               <ChevronRight className="w-6 h-6" />
             </button>
@@ -217,7 +217,7 @@ const Testimonial = () => {
                   className="w-12 h-12 rounded-full border-2 border-[var(--color-primary)]"
                 />
                 <div>
-                  <h4 className="font-semibold text-[var(--fourground-color)]">
+                  <h4 className="font-semibold text-[var(--text-color-all)]">
                     {testimonial.name}
                   </h4>
                   <span className="text-xs text-[var(--color-primary)] font-medium">
@@ -228,7 +228,7 @@ const Testimonial = () => {
 
               <div className="flex gap-1 mb-3">{renderStars(testimonial.rating)}</div>
 
-              <p className="text-[var(--fourground-color)] text-sm leading-relaxed">
+              <p className="text-[var(--text-color-all)] text-sm leading-relaxed">
                 "{testimonial.quote}"
               </p>
             </div>
@@ -239,7 +239,7 @@ const Testimonial = () => {
         <div className="text-center">
           <button
             onClick={handleShare}
-            className="bg-[var(--color-primary)] text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-[var(--color-calm-blue)] transition-all duration-300 hover:shadow-lg hover:scale-105 inline-flex items-center gap-3"
+            className="bg-[var(--color-primary)] text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-[var(--color-secondary)] transition-all duration-300 hover:shadow-lg hover:scale-105 inline-flex items-center gap-3"
           >
             Share Your Experience
             <FaQuoteLeft className="w-4 h-4" />

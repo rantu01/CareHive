@@ -7,7 +7,7 @@ const Footer = () => {
     <footer
       className="pt-16 pb-8"
       style={{
-        backgroundColor: "var(--color-calm-blue)",
+        backgroundColor: "var(--color-secondary)",
         color: "var(--color-white)",
         fontFamily: "var(--font-primary)",
       }}

@@ -167,7 +167,7 @@ const Page = () => {
     return (
         <div className="min-h-screen text-gray-900 ">
             {/* Header */}
-            <header className="flex justify-center items-center gap-2 md:gap-3 py-4 md:py-6 shadow-lg bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-4">
+            <header className="flex justify-center items-center gap-2 md:gap-3 py-4 md:py-6 shadow-lg bg-gradient-to-r text-white px-4">
                 <Hospital className="w-6 h-6 md:w-10 md:h-10" />
                 <h1 className="text-lg sm:text-xl md:text-3xl lg:text-4xl font-bold tracking-wide text-center">
                     Doctor Registration Form
@@ -195,7 +195,7 @@ const Page = () => {
                                         >
                                             <div
                                                 className={`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full flex items-center justify-center transition-all duration-300 ${currentStep === index
-                                                    ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg'
+                                                    ? 'bg-gradient-to-r from-[var(--color-secondary)] to-cyan-600 text-white shadow-lg'
                                                     : currentStep > index
                                                         ? 'bg-green-500 text-white'
                                                         : 'bg-gray-200 text-gray-500'
@@ -342,7 +342,7 @@ const Page = () => {
                                 <button
                                     type="button"
                                     onClick={nextStep}
-                                    className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-semibold bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg text-sm sm:text-base"
+                                    className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg font-semibold bg-[var(--color-primary)] text-white hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg text-sm sm:text-base"
                                 >
                                     <span>Next</span>
                                     <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />

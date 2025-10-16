@@ -45,30 +45,25 @@ const QuestionSection = () => {
           <div className="w-4 h-0.5 bg-[var(--color-primary)]"></div>
         </div>
 
-       <h2 className="text-4xl font-bold mb-4 flex items-center justify-center gap-4">
-  <HelpCircle className="w-10 h-10 text-[var(--color-primary)] opacity-80" />
-  
-  <span className="text-[var(--color-primary)]">
-    Frequently Asked Questions
-  </span>
-<div className="relative w-16 h-16 flex items-center justify-center">
-  {/* Subtle glow */}
-  <div
-    className="absolute inset-0 rounded-full bg-[var(--color-primary)] opacity-30"
-    style={{ filter: 'blur(15px)' }}
-  ></div>
+        <h2 className="text-4xl font-bold mb-4 flex items-center justify-center gap-4">
+          <HelpCircle className="w-10 h-10 text-[var(--color-primary)] opacity-80" />
 
-  {/* Icon Centered */}
-  <Lightbulb className="relative w-10 h-10 text-[var(--color-primary)]" />
-</div>
+          <span className="text-[var(--color-primary)]">
+            Frequently Asked Questions
+          </span>
+          <div className="relative w-16 h-16 flex items-center justify-center">
+            {/* Subtle glow */}
+            <div
+              className="absolute inset-0 rounded-full bg-[var(--color-primary)] opacity-30"
+              style={{ filter: "blur(15px)" }}
+            ></div>
 
+            {/* Icon Centered */}
+            <Lightbulb className="relative w-10 h-10 text-[var(--color-primary)]" />
+          </div>
+        </h2>
 
-
-
-</h2>
-
-
-        <p className="text-lg text-[var(--fourground-color)] opacity-80 max-w-4xl mx-auto">
+        <p className="text-lg text-[var(--text-color-all)] opacity-80 max-w-4xl mx-auto">
           Find answers to the most common questions about maintaining your
           health and wellness. Get clear, concise guidance from our expert team.
         </p>
@@ -90,7 +85,7 @@ const QuestionSection = () => {
                 backgroundColor: "var(--dashboard-bg)",
                 border: "1px solid var(--dashboard-border)",
                 fontFamily: "var(--font-primary)",
-                color: "var(--fourground-color)",
+                color: "var(--text-color-all)",
               }}
             >
               <button
@@ -98,7 +93,9 @@ const QuestionSection = () => {
                 className="w-full text-left flex justify-between items-center focus:outline-none"
                 style={{ backgroundColor: "transparent" }}
               >
-                <span className="font-medium text-lg md:text-xl">{item.question}</span>
+                <span className="font-medium text-lg md:text-xl">
+                  {item.question}
+                </span>
                 <motion.span
                   animate={{ rotate: activeIndex === index ? 45 : 0 }}
                   transition={{ duration: 0.3 }}
@@ -128,40 +125,40 @@ const QuestionSection = () => {
       </div>
 
       {/* === Flicker Animation for Lightbulb === */}
-    
-<style jsx>{`
-  @keyframes light-glow {
-    0%, 100% {
-      opacity: 0.7;
-      filter: drop-shadow(0 0 8px var(--color-primary))
+
+      <style jsx>{`
+        @keyframes light-glow {
+          0%,
+          100% {
+            opacity: 0.7;
+            filter: drop-shadow(0 0 8px var(--color-primary))
               drop-shadow(0 0 16px var(--color-primary))
               drop-shadow(0 0 24px var(--color-primary));
-    }
-    25% {
-      opacity: 1;
-      filter: drop-shadow(0 0 16px var(--color-primary))
+          }
+          25% {
+            opacity: 1;
+            filter: drop-shadow(0 0 16px var(--color-primary))
               drop-shadow(0 0 32px var(--color-primary))
               drop-shadow(0 0 48px var(--color-primary));
-    }
-    50% {
-      opacity: 0.85;
-      filter: drop-shadow(0 0 12px var(--color-primary))
+          }
+          50% {
+            opacity: 0.85;
+            filter: drop-shadow(0 0 12px var(--color-primary))
               drop-shadow(0 0 24px var(--color-primary))
               drop-shadow(0 0 36px var(--color-primary));
-    }
-    75% {
-      opacity: 1;
-      filter: drop-shadow(0 0 16px var(--color-primary))
+          }
+          75% {
+            opacity: 1;
+            filter: drop-shadow(0 0 16px var(--color-primary))
               drop-shadow(0 0 32px var(--color-primary))
               drop-shadow(0 0 48px var(--color-primary));
-    }
-  }
+          }
+        }
 
-  .animate-light-glow {
-    animation: light-glow 2s ease-in-out infinite;
-  }
-`}</style>
-
+        .animate-light-glow {
+          animation: light-glow 2s ease-in-out infinite;
+        }
+      `}</style>
     </section>
   );
 };

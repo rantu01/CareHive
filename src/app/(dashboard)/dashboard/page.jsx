@@ -23,7 +23,7 @@ export default function DashboardPage() {
 
   // Optional: You can keep this content if you want a "landing page" before redirect
   return (
-    <div className="rounded-lg min-h-screen" style={{ backgroundColor: "var(--dashboard-bg)", color: "var(--fourground-color)" }}>
+    <div className="rounded-lg min-h-screen" style={{ backgroundColor: "var(--dashboard-bg)", color: "var(--text-color-all)" }}>
       <p className="text-center p-6">Redirecting to your dashboard...</p>
     </div>
   );

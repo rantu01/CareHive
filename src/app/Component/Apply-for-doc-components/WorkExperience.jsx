@@ -20,12 +20,12 @@ const WorkExperience = () => {
                     style={{
                         borderWidth: "2px",
                         borderColor: "var(--dashboard-border)",
-                        backgroundColor: "var(--gray-color)",
+                        backgroundColor: "var(--bg-color-all)",
                     }}
                 >
                     <h3
                         className="font-semibold mb-4 text-lg"
-                        style={{ color: "var(--fourground-color)" }}
+                        style={{ color: "var(--text-color-all)" }}
                     >
                         Previous
                     </h3>
@@ -42,7 +42,7 @@ const WorkExperience = () => {
                             style={{
                                 borderWidth: "2px",
                                 borderColor: "var(--dashboard-border)",
-                                color: "var(--fourground-color)",
+                                color: "var(--text-color-all)",
                             }}
                         />
                         {errors.previousHospital && (
@@ -64,7 +64,7 @@ const WorkExperience = () => {
                             style={{
                                 borderWidth: "2px",
                                 borderColor: "var(--dashboard-border)",
-                                color: "var(--fourground-color)",
+                                color: "var(--text-color-all)",
                             }}
                         />
                         {errors.previousPosition && (
@@ -85,7 +85,7 @@ const WorkExperience = () => {
                                 style={{
                                     borderWidth: "2px",
                                     borderColor: "var(--dashboard-border)",
-                                    color: "var(--fourground-color)",
+                                    color: "var(--text-color-all)",
                                 }}
                             />
                             {errors.previousFrom && (
@@ -103,7 +103,7 @@ const WorkExperience = () => {
                                 style={{
                                     borderWidth: "2px",
                                     borderColor: "var(--dashboard-border)",
-                                    color: "var(--fourground-color)",
+                                    color: "var(--text-color-all)",
                                 }}
                             />
                             {errors.previousTo && (
@@ -121,12 +121,12 @@ const WorkExperience = () => {
                     style={{
                         borderWidth: "2px",
                         borderColor: "var(--dashboard-blue)",
-                        backgroundColor: "var(--gray-color)",
+                        backgroundColor: "var(--bg-color-all)",
                     }}
                 >
                     <h3
                         className="font-semibold mb-4 text-lg"
-                        style={{ color: "var(--fourground-color)" }}
+                        style={{ color: "var(--text-color-all)" }}
                     >
                         Current
                     </h3>
@@ -143,7 +143,7 @@ const WorkExperience = () => {
                             style={{
                                 borderWidth: "2px",
                                 borderColor: "var(--dashboard-border)",
-                                color: "var(--fourground-color)",
+                                color: "var(--text-color-all)",
                             }}
                         />
                         {errors.currentHospital && (
@@ -165,7 +165,7 @@ const WorkExperience = () => {
                             style={{
                                 borderWidth: "2px",
                                 borderColor: "var(--dashboard-border)",
-                                color: "var(--fourground-color)",
+                                color: "var(--text-color-all)",
                             }}
                         />
                         {errors.currentPosition && (
@@ -186,7 +186,7 @@ const WorkExperience = () => {
                                 style={{
                                     borderWidth: "2px",
                                     borderColor: "var(--dashboard-border)",
-                                    color: "var(--fourground-color)",
+                                    color: "var(--text-color-all)",
                                 }}
                             />
                             {errors.currentFrom && (
@@ -204,7 +204,7 @@ const WorkExperience = () => {
                                 style={{
                                     borderWidth: "2px",
                                     borderColor: "var(--dashboard-border)",
-                                    color: "var(--fourground-color)",
+                                    color: "var(--text-color-all)",
                                 }}
                             />
                             {errors.currentTo && (

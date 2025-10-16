@@ -16,7 +16,7 @@ const DoctorCard = ({ doc, personal, education, practice, isBooked, setSelectedD
                 <div
                     className="w-full h-[14rem] flex items-center justify-center overflow-hidden"
                     style={{
-                        backgroundColor: "var(--gray-color)",
+                        backgroundColor: "var(--bg-color-all)",
                     }}
                 >
                     {practice?.profilePhoto ? (
@@ -26,7 +26,7 @@ const DoctorCard = ({ doc, personal, education, practice, isBooked, setSelectedD
                             className="w-full h-full object-cover"
                         />
                     ) : (
-                        <div className="text-center" style={{ color: "var(--fourground-color)" }}>
+                        <div className="text-center" style={{ color: "var(--text-color-all)" }}>
                             <svg className="w-24 h-24 mx-auto mb-2 opacity-30" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                             </svg>
@@ -56,27 +56,28 @@ const DoctorCard = ({ doc, personal, education, practice, isBooked, setSelectedD
                     className="text-2xl font-bold"
                     style={{
                         fontFamily: "var(--font-heading)",
-                        color: "var(--fourground-color)",
+                        color: "var(--text-color-all)",
                     }}
                 >
-                    {personal.fullName || "N/A"}
+                    {personal.fullName ? `${personal.fullName.slice(0, 20)}${personal.fullName > 20 ? '...' : ''}` : "General Practitioner"}
+
                 </h2>
 
                 {/* Rating and Reviews */}
                 {/* <div className="flex items-center gap-3">
                     <div className="flex items-center gap-1">
                         <span style={{ color: "#FFA500" }}>★★★★</span>
-                        <span style={{ color: "var(--fourground-color)", opacity: 0.3 }}>★</span>
+                        <span style={{ color: "var(--text-color-all)", opacity: 0.3 }}>★</span>
                         <span
                             className="ml-1 text-sm font-medium"
-                            style={{ color: "var(--fourground-color)" }}
+                            style={{ color: "var(--text-color-all)" }}
                         >
                             4.5
                         </span>
                     </div>
                     <div
                         className="flex items-center gap-1 text-sm"
-                        style={{ color: "var(--fourground-color)", opacity: 0.7 }}
+                        style={{ color: "var(--text-color-all)", opacity: 0.7 }}
                     >
                         <span
                             className="w-5 h-5 rounded-full flex items-center justify-center text-xs"
@@ -91,14 +92,14 @@ const DoctorCard = ({ doc, personal, education, practice, isBooked, setSelectedD
                 {/* Specialization */}
                 <p
                     className="text-sm leading-relaxed"
-                    style={{ color: "var(--fourground-color)", opacity: 0.8 }}
+                    style={{ color: "var(--text-color-all)", opacity: 0.8 }}
                 >
                     {education.specialization || "General Practitioner"}
                 </p>
 
                 <p
                     className="text-sm leading-relaxed"
-                    style={{ color: "var(--fourground-color)", opacity: 0.8 }}
+                    style={{ color: "var(--text-color-all)", opacity: 0.8 }}
                 >
                     {practice.clinicAddress ? `${practice.clinicAddress.slice(0, 27)}${practice.clinicAddress.length > 27 ? '...' : ''}` : "General Practitioner"}
                 </p>

@@ -10,7 +10,9 @@ import {
   FileText,
   CheckCircle2,
   PlusSquare,
-  Clipboard
+  Clipboard,
+  MessageCircle,
+  Thermometer,
 } from "lucide-react";
 
 export const navItems = {
@@ -21,23 +23,62 @@ export const navItems = {
     { name: "Medications", path: "/dashboard/user/medications", icon: <Pill size={18} /> },
     { name: "Goals & Progress", path: "/dashboard/user/goals", icon: <Activity size={18} /> },
     { name: "Report Analyzer", path: "/dashboard/user/report-analyzer", icon: <Clipboard size={24} /> },
+    { name: "Chat With doctor", path: "/dashboard/user/doctor-chat", icon: <MessageCircle size={24} /> },
+    { name: "Symptoms Analyzer", path: "/dashboard/user/symptoms-analyzer", icon: <Thermometer size={24} /> },
   ],
   doctor: [
     { name: "Overview", path: "/dashboard/doctor", icon: <Home size={18} /> },
     {
+      name: "Appointments",
+      path: (doctorId) => `/dashboard/doctor/${doctorId}/appointments`,
+      icon: <Calendar size={18} />,
+    },
+    {
       name: "Availability",
       path: (doctorId) => `/dashboard/doctor/${doctorId}/available-time-slot`,
-      icon: <Clock size={18} />
+      icon: <Clock size={18} />,
     },
-    { name: "Appointments", path: "/dashboard/doctor/appointments", icon: <Calendar size={18} /> },
-    { name: "Patients", path: "/dashboard/doctor/patients", icon: <Users size={18} /> },
-    { name: "Create Post", path: "/dashboard/doctor/doctors-social-post", icon: <PlusSquare size={18} /> },
+    {
+      name: "Patients",
+      path: (doctorId) => `/dashboard/doctor/${doctorId}/patients`,
+      icon: <Users size={18} />,
+    },
+    {
+      name: "Create Post",
+      path: "/dashboard/doctor/doctors-social-post",
+      icon: <PlusSquare size={18} />,
+    },
+    {
+      name: "Chat with Users",
+      path: "/dashboard/doctor/messages",
+      icon: <PlusSquare size={18} />,
+    },
   ],
   admin: [
-    { name: "Dashboard Overview", path: "/dashboard/admin", icon: <BarChart size={18} /> },
-    { name: "Users", path: "/dashboard/admin/users", icon: <Users size={18} /> },
-    { name: "Doctors", path: "/dashboard/admin/doctors", icon: <User size={18} /> },
-    { name: "Reports", path: "/dashboard/admin/reports", icon: <FileText size={18} /> },
-    { name: "Doctor Approval", path: "/dashboard/admin/doctor-approval", icon: <CheckCircle2 size={18} /> },
+    {
+      name: "Dashboard Overview",
+      path: "/dashboard/admin",
+      icon: <BarChart size={18} />,
+    },
+    {
+      name: "Users",
+      path: "/dashboard/admin/users",
+      icon: <Users size={18} />,
+    },
+    {
+      name: "Doctors",
+      path: "/dashboard/admin/doctors",
+      icon: <User size={18} />,
+    },
+    {
+      name: "Reports",
+      path: "/dashboard/admin/reports",
+      icon: <FileText size={18} />,
+    },
+    {
+      name: "Doctor Approval",
+      path: "/dashboard/admin/doctor-approval",
+      icon: <CheckCircle2 size={18} />,
+    },
   ],
 };

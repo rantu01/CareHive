@@ -269,7 +269,7 @@ export default function ApprovalRequestsPage() {
       <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: "var(--dashboard-bg)" }}>
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-lg font-semibold" style={{ color: "var(--fourground-color)" }}>Loading Applications...</p>
+          <p className="text-lg font-semibold" style={{ color: "var(--text-color-all)" }}>Loading Applications...</p>
         </div>
       </div>
     );
@@ -303,7 +303,7 @@ export default function ApprovalRequestsPage() {
         {/* Details Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
           {/* Personal Information */}
-          <div className="bg-[var(--gray-color)] p-4 rounded-xl shadow">
+          <div className="bg-[var(--bg-color-all)] p-4 rounded-xl shadow">
             <ModalSectionTitle title="Personal Information" />
             <DetailItem label="Full Name" value={personalInfo?.fullName} />
             <DetailItem label="Email" value={personalInfo?.email} />
@@ -314,7 +314,7 @@ export default function ApprovalRequestsPage() {
           </div>
 
           {/* Professional Credentials */}
-          <div className="bg-[var(--gray-color)] p-4 rounded-xl shadow">
+          <div className="bg-[var(--bg-color-all)] p-4 rounded-xl shadow">
             <ModalSectionTitle title="Professional Credentials" />
             <DetailItem label="Specialization" value={educationAndCredentials?.specialization} />
             <DetailItem label="Medical Degree" value={educationAndCredentials?.medicalDegree} />
@@ -325,7 +325,7 @@ export default function ApprovalRequestsPage() {
           </div>
 
           {/* Practice Details */}
-          <div className="bg-[var(--gray-color)] p-4 rounded-xl shadow">
+          <div className="bg-[var(--bg-color-all)] p-4 rounded-xl shadow">
             <ModalSectionTitle title="Practice Details" />
             <DetailItem label="Consultation Type" value={practiceInfo?.consultationType} />
             <DetailItem label="Online Fee" value={practiceInfo?.consultationFees?.online ? `$${practiceInfo.consultationFees.online}` : 'N/A'} />
@@ -340,7 +340,7 @@ export default function ApprovalRequestsPage() {
           </div>
           
           {/* License & Documents */}
-          <div className="bg-[var(--gray-color)] p-4 rounded-xl shadow">
+          <div className="bg-[var(--bg-color-all)] p-4 rounded-xl shadow">
             <ModalSectionTitle title="License & Verification" />
             <DetailItem label="License Number" value={licenseAndVerification?.medicalLicenseNumber} />
             <DetailItem label="Expiry Date" value={licenseAndVerification?.expiryDate} />
@@ -363,7 +363,7 @@ export default function ApprovalRequestsPage() {
           </div>
           
           {/* Work Experience */}
-          <div className="md:col-span-2 bg-[var(--gray-color)] p-4 rounded-xl shadow">
+          <div className="md:col-span-2 bg-[var(--bg-color-all)] p-4 rounded-xl shadow">
             <ModalSectionTitle title="Work Experience" />
             <div className="space-y-3">
               {educationAndCredentials?.workExperience?.length > 0 ? (
@@ -390,7 +390,7 @@ export default function ApprovalRequestsPage() {
       className="min-h-screen p-6"
       style={{
         backgroundColor: "var(--dashboard-bg)",
-        color: "var(--fourground-color)",
+        color: "var(--text-color-all)",
       }}
     >
       {/* Enhanced Header */}
@@ -408,7 +408,7 @@ export default function ApprovalRequestsPage() {
       </div>
 
       {/* Search and Filter Section */}
-      <div className="bg-[var(--gray-color)] rounded-2xl p-6 shadow-lg border border-[var(--dashboard-border)] mb-8">
+      <div className="bg-[var(--bg-color-all)] rounded-2xl p-6 shadow-lg border border-[var(--dashboard-border)] mb-8">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 items-end">
           {/* Search Input */}
           <div className="lg:col-span-2">
@@ -524,14 +524,14 @@ export default function ApprovalRequestsPage() {
 
       {/* Applications Grid */}
       {filteredRequests.length === 0 ? (
-        <div className="text-center py-16 bg-[var(--gray-color)] rounded-2xl border border-[var(--dashboard-border)]">
+        <div className="text-center py-16 bg-[var(--bg-color-all)] rounded-2xl border border-[var(--dashboard-border)]">
           <div className="w-24 h-24 mx-auto mb-6 rounded-3xl flex items-center justify-center text-4xl text-white shadow-lg" style={{ backgroundColor: "var(--color-primary)" }}>
             👨‍⚕️
           </div>
-          <h3 className="text-2xl font-bold mb-3" style={{ color: "var(--fourground-color)" }}>
+          <h3 className="text-2xl font-bold mb-3" style={{ color: "var(--text-color-all)" }}>
             {requests.length === 0 ? "No Pending Applications" : "No Matching Applications Found"}
           </h3>
-          <p className="opacity-80 max-w-md mx-auto mb-6" style={{ color: "var(--fourground-color)" }}>
+          <p className="opacity-80 max-w-md mx-auto mb-6" style={{ color: "var(--text-color-all)" }}>
             {requests.length === 0
               ? "There are no pending doctor applications at the moment. Check back later for new submissions."
               : "Try adjusting your search criteria or filters to find what you're looking for."
@@ -552,7 +552,7 @@ export default function ApprovalRequestsPage() {
           {filteredRequests.map((req) => (
             <div
               key={req._id}
-              className="bg-[var(--gray-color)] rounded-2xl p-6 shadow-lg border border-[var(--dashboard-border)] hover:shadow-xl transition-all duration-300 group relative overflow-hidden"
+              className="bg-[var(--bg-color-all)] rounded-2xl p-6 shadow-lg border border-[var(--dashboard-border)] hover:shadow-xl transition-all duration-300 group relative overflow-hidden"
             >
               {/* Status Indicator */}
               <div className="absolute top-0 left-0 right-0 h-2 bg-amber-400"></div>
@@ -659,8 +659,8 @@ export default function ApprovalRequestsPage() {
                 </div>
                 <button
                   onClick={() => setSelectedDoctor(null)}
-                  className="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-[var(--gray-color)] transition-colors"
-                  style={{ color: "var(--fourground-color)" }}
+                  className="w-10 h-10 rounded-xl flex items-center justify-center hover:bg-[var(--bg-color-all)] transition-colors"
+                  style={{ color: "var(--text-color-all)" }}
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
@@ -696,8 +696,8 @@ export default function ApprovalRequestsPage() {
                 </button>
                 <button
                   onClick={() => setSelectedDoctor(null)}
-                  className="px-6 py-3 rounded-xl font-semibold border border-[var(--dashboard-border)] hover:bg-[var(--gray-color)] transition-all duration-300"
-                  style={{ color: "var(--fourground-color)" }}
+                  className="px-6 py-3 rounded-xl font-semibold border border-[var(--dashboard-border)] hover:bg-[var(--bg-color-all)] transition-all duration-300"
+                  style={{ color: "var(--text-color-all)" }}
                 >
                   Close
                 </button>

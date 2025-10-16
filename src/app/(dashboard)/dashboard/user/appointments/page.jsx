@@ -21,10 +21,10 @@ const page = () => {
                         <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold  text-[var(--color-primary)] bg-clip-text">
                             My Appointments
                         </h1>
-                        <p className="text-[var(--fourground-color)]/60 text-sm sm:text-base md:text-lg">
+                        <p className="text-[var(--text-color-all)]/60 text-sm sm:text-base md:text-lg">
                             View and manage your medical appointments
                         </p>
-                        <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm text-[var(--fourground-color)]/50">
+                        <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm text-[var(--text-color-all)]/50">
                             <span className="flex items-center gap-1 sm:gap-1.5">
                                 <Calendar size={14} className="sm:w-4 sm:h-4" />
                                 {appointmentData?.length || 0} Appointments
@@ -64,12 +64,12 @@ const page = () => {
                                         
                                         <div className="space-y-2 sm:space-y-2.5 md:space-y-3 flex-1 min-w-0">
                                             <div>
-                                                <p className="text-[var(--fourground-color)] font-bold text-base sm:text-lg md:text-xl lg:text-2xl transition-colors duration-300 truncate">
+                                                <p className="text-[var(--text-color-all)] font-bold text-base sm:text-lg md:text-xl lg:text-2xl transition-colors duration-300 truncate">
                                                     Dr. {doctorName}
                                                 </p>
                                                 <div className="flex items-center gap-1.5 sm:gap-2 mt-1 sm:mt-1.5">
-                                                    <Building2 className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 text-[var(--fourground-color)]/50" />
-                                                    <p className="text-[var(--fourground-color)]/60 text-xs sm:text-sm md:text-base font-medium truncate">
+                                                    <Building2 className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 text-[var(--text-color-all)]/50" />
+                                                    <p className="text-[var(--text-color-all)]/60 text-xs sm:text-sm md:text-base font-medium truncate">
                                                         {hospitalName}
                                                     </p>
                                                 </div>
@@ -82,8 +82,8 @@ const page = () => {
                                                         <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[var(--color-primary)]" />
                                                     </div>
                                                     <div className="min-w-0 flex-1">
-                                                        <p className="text-[var(--fourground-color)]/50 text-[10px] sm:text-xs font-medium">Booked On</p>
-                                                        <p className="text-[var(--fourground-color)] text-xs sm:text-sm font-semibold truncate">
+                                                        <p className="text-[var(--text-color-all)]/50 text-[10px] sm:text-xs font-medium">Booked On</p>
+                                                        <p className="text-[var(--text-color-all)] text-xs sm:text-sm font-semibold truncate">
                                                             {formatDate(bookedAt)}
                                                         </p>
                                                     </div>
@@ -94,8 +94,8 @@ const page = () => {
                                                         <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-500" />
                                                     </div>
                                                     <div className="min-w-0 flex-1">
-                                                        <p className="text-[var(--fourground-color)]/50 text-[10px] sm:text-xs font-medium">Time Slot</p>
-                                                        <p className="text-[var(--fourground-color)] text-xs sm:text-sm font-semibold truncate">
+                                                        <p className="text-[var(--text-color-all)]/50 text-[10px] sm:text-xs font-medium">Time Slot</p>
+                                                        <p className="text-[var(--text-color-all)] text-xs sm:text-sm font-semibold truncate">
                                                             {parseTimeSlot(bookedSlot)}
                                                         </p>
                                                     </div>
@@ -106,8 +106,8 @@ const page = () => {
                                                         <Hash className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-500" />
                                                     </div>
                                                     <div className="min-w-0 flex-1">
-                                                        <p className="text-[var(--fourground-color)]/50 text-[10px] sm:text-xs font-medium">Serial No</p>
-                                                        <p className="text-[var(--fourground-color)] text-xs sm:text-sm font-semibold">
+                                                        <p className="text-[var(--text-color-all)]/50 text-[10px] sm:text-xs font-medium">Serial No</p>
+                                                        <p className="text-[var(--text-color-all)] text-xs sm:text-sm font-semibold">
                                                             #{serialNo}
                                                         </p>
                                                     </div>
@@ -118,8 +118,8 @@ const page = () => {
                                                         <CreditCard className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-purple-500" />
                                                     </div>
                                                     <div className="min-w-0 flex-1">
-                                                        <p className="text-[var(--fourground-color)]/50 text-[10px] sm:text-xs font-medium">Fees</p>
-                                                        <p className="text-[var(--fourground-color)] text-xs sm:text-sm font-semibold">
+                                                        <p className="text-[var(--text-color-all)]/50 text-[10px] sm:text-xs font-medium">Fees</p>
+                                                        <p className="text-[var(--text-color-all)] text-xs sm:text-sm font-semibold">
                                                             ৳{fees}
                                                         </p>
                                                     </div>
@@ -133,12 +133,12 @@ const page = () => {
                                         {meetingType === "online" ? (
                                             <button className="group/btn flex gap-2 sm:gap-2.5 md:gap-3 items-center justify-center px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-green-500/10 to-emerald-500/10 hover:from-green-500/20 hover:to-emerald-500/20 border-2 border-green-500/20 hover:border-green-500/40 rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer">
                                                 <Video className="w-4 h-4 sm:w-5 text-[var(--color-primary)] sm:h-5 group-hover/btn:scale-110 transition-transform duration-300" />
-                                                <span className="text-[var(--fourground-color)] font-semibold text-sm sm:text-base">Join Video Call</span>
+                                                <span className="text-[var(--text-color-all)] font-semibold text-sm sm:text-base">Join Video Call</span>
                                             </button>
                                         ) : (
                                             <button className="group/btn flex gap-2 sm:gap-2.5 md:gap-3 items-center justify-center px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-green-500/10 to-emerald-500/10 hover:from-green-500/20 hover:to-emerald-500/20 border-2 border-green-500/20 hover:border-green-500/40 rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer">
                                                 <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--color-primary)] group-hover/btn:scale-110 transition-transform duration-300" />
-                                                <span className="text-[var(--fourground-color)] font-semibold text-sm sm:text-base">In-Person Visit</span>
+                                                <span className="text-[var(--text-color-all)] font-semibold text-sm sm:text-base">In-Person Visit</span>
                                             </button>
                                         )}
                                      
@@ -155,8 +155,8 @@ const page = () => {
                         <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 bg-[var(--color-light-green)]/10 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
                             <Calendar className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 text-[var(--color-light-green)]/50" />
                         </div>
-                        <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-[var(--fourground-color)] mb-2 sm:mb-3">No appointments yet</h3>
-                        <p className="text-sm sm:text-base text-[var(--fourground-color)]/60 mb-4 sm:mb-6">Book your first appointment to get started</p>
+                        <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-[var(--text-color-all)] mb-2 sm:mb-3">No appointments yet</h3>
+                        <p className="text-sm sm:text-base text-[var(--text-color-all)]/60 mb-4 sm:mb-6">Book your first appointment to get started</p>
                         <Link href={"/doctors"} className="inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base bg-gradient-to-r from-[var(--color-light-green)] to-emerald-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-300">
                             <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
                             Browse Doctors

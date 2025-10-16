@@ -75,7 +75,7 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
                 <div className="p-2 bg-[var(--color-primary)]/20 rounded-xl">
                   <Activity className="text-[var(--color-primary)]" size={20} />
                 </div>
-                <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-[var(--fourground-color)]">
+                <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-[var(--text-color-all)]">
                   Update Health Data
                 </h2>
               </div>
@@ -85,7 +85,7 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
               >
                 <X
                   size={20}
-                  className="text-[var(--fourground-color)]/60 group-hover:text-[var(--color-primary)] transition-colors duration-300"
+                  className="text-[var(--text-color-all)]/60 group-hover:text-[var(--color-primary)] transition-colors duration-300"
                 />
               </button>
             </div>
@@ -99,7 +99,7 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
                 <Activity className="text-[var(--color-primary)]" size={16} />
                 <label
                   htmlFor="bloodPressure"
-                  className="text-xs sm:text-sm font-semibold text-[var(--fourground-color)] uppercase tracking-wide"
+                  className="text-xs sm:text-sm font-semibold text-[var(--text-color-all)] uppercase tracking-wide"
                 >
                   Blood Pressure
                 </label>
@@ -111,7 +111,7 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
                 type="text"
                 placeholder="120/80"
                 required
-                className="w-full p-2 sm:p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-all duration-300"
+                className="w-full p-2 sm:p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl text-[var(--text-color-all)] placeholder-[var(--text-color-all)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-all duration-300"
               />
             </div>
 
@@ -121,7 +121,7 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
                 <TrendingUp className="text-[var(--color-primary)]" size={16} />
                 <label
                   htmlFor="dailyStep"
-                  className="text-xs sm:text-sm font-semibold text-[var(--fourground-color)] uppercase tracking-wide"
+                  className="text-xs sm:text-sm font-semibold text-[var(--text-color-all)] uppercase tracking-wide"
                 >
                   Daily Steps
                 </label>
@@ -133,7 +133,7 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
                 type="text"
                 placeholder="8000"
                 required
-                className="w-full p-2 sm:p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-all duration-300"
+                className="w-full p-2 sm:p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl text-[var(--text-color-all)] placeholder-[var(--text-color-all)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-all duration-300"
               />
             </div>
 
@@ -143,7 +143,7 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
                 <TrendingUp className="text-[var(--color-primary)]" size={16} />
                 <label
                   htmlFor="dailyStepTarget"
-                  className="text-xs sm:text-sm font-semibold text-[var(--fourground-color)] uppercase tracking-wide"
+                  className="text-xs sm:text-sm font-semibold text-[var(--text-color-all)] uppercase tracking-wide"
                 >
                   Daily Step Goal
                 </label>
@@ -155,7 +155,7 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
                 type="text"
                 placeholder="10000"
                 required
-                className="w-full p-2 sm:p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-all duration-300"
+                className="w-full p-2 sm:p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl text-[var(--text-color-all)] placeholder-[var(--text-color-all)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-all duration-300"
               />
             </div>
 
@@ -165,7 +165,7 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
                 <Heart className="text-[var(--color-primary)]" size={16} />
                 <label
                   htmlFor="heartRate"
-                  className="text-xs sm:text-sm font-semibold text-[var(--fourground-color)] uppercase tracking-wide"
+                  className="text-xs sm:text-sm font-semibold text-[var(--text-color-all)] uppercase tracking-wide"
                 >
                   Heart Rate
                 </label>
@@ -177,7 +177,7 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
                 type="text"
                 placeholder="72"
                 required
-                className="w-full p-2 sm:p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-all duration-300"
+                className="w-full p-2 sm:p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl text-[var(--text-color-all)] placeholder-[var(--text-color-all)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-all duration-300"
               />
             </div>
 
@@ -187,7 +187,7 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
                 <Weight className="text-[var(--color-primary)]" size={16} />
                 <label
                   htmlFor="weight"
-                  className="text-xs sm:text-sm font-semibold text-[var(--fourground-color)] uppercase tracking-wide"
+                  className="text-xs sm:text-sm font-semibold text-[var(--text-color-all)] uppercase tracking-wide"
                 >
                   Weight (kg)
                 </label>
@@ -199,7 +199,7 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
                 type="text"
                 placeholder="70"
                 required
-                className="w-full p-2 sm:p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-all duration-300"
+                className="w-full p-2 sm:p-3 bg-[var(--sidebar-bg)] border-2 border-[var(--dashboard-border)] rounded-xl text-[var(--text-color-all)] placeholder-[var(--text-color-all)]/50 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/30 focus:border-[var(--color-primary)] transition-all duration-300"
               />
             </div>
 
@@ -221,7 +221,7 @@ const UpdateModal = ({ setIsOpen, userHealthStats, setHealthStats }) => {
             </button>
 
             {/* Help Text */}
-            <p className="text-center text-[10px] sm:text-xs md:text-sm text-[var(--fourground-color)]/60">
+            <p className="text-center text-[10px] sm:text-xs md:text-sm text-[var(--text-color-all)]/60">
               Enter your current health metrics to track your progress
             </p>
           </form>
