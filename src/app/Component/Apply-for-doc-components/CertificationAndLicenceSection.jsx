@@ -36,7 +36,7 @@ const CertificationAndLicenceSection = ({ setGovernmentIdPdf,setLicenseCertifica
                 </h2>
                 <p
                     className="text-sm opacity-60"
-                    style={{ color: "var(--fourground-color)" }}
+                    style={{ color: "var(--text-color-all)" }}
                 >
                     Provide your medical license and identification details
                 </p>
@@ -48,7 +48,7 @@ const CertificationAndLicenceSection = ({ setGovernmentIdPdf,setLicenseCertifica
                     <label
                         htmlFor="medicalLicenseNumber"
                         className="block mb-2 text-sm font-medium"
-                        style={{ color: "var(--fourground-color)" }}
+                        style={{ color: "var(--text-color-all)" }}
                     >
                         Medical License Number <span style={{ color: "#ef4444" }}>*</span>
                     </label>
@@ -61,7 +61,7 @@ const CertificationAndLicenceSection = ({ setGovernmentIdPdf,setLicenseCertifica
                         })}
                         className="w-full p-3 rounded-xl focus:outline-none focus:ring-2 transition-all duration-300"
                         style={{
-                            color: "var(--fourground-color)",
+                            color: "var(--text-color-all)",
                             borderWidth: "2px",
                             borderColor: "var(--dashboard-border)",
                         }}
@@ -78,7 +78,7 @@ const CertificationAndLicenceSection = ({ setGovernmentIdPdf,setLicenseCertifica
                     <label
                         htmlFor="issuingAuthority"
                         className="block mb-2 text-sm font-medium"
-                        style={{ color: "var(--fourground-color)" }}
+                        style={{ color: "var(--text-color-all)" }}
                     >
                         Issuing Authority <span style={{ color: "#ef4444" }}>*</span>
                     </label>
@@ -91,7 +91,7 @@ const CertificationAndLicenceSection = ({ setGovernmentIdPdf,setLicenseCertifica
                         })}
                         className="w-full p-3 rounded-xl focus:outline-none focus:ring-2 transition-all duration-300"
                         style={{
-                            color: "var(--fourground-color)",
+                            color: "var(--text-color-all)",
                             borderWidth: "2px",
                             borderColor: "var(--dashboard-border)",
                         }}
@@ -108,7 +108,7 @@ const CertificationAndLicenceSection = ({ setGovernmentIdPdf,setLicenseCertifica
                     <label
                         htmlFor="expiryDate"
                         className="block mb-2 text-sm font-medium"
-                        style={{ color: "var(--fourground-color)" }}
+                        style={{ color: "var(--text-color-all)" }}
                     >
                         Expiry Date <span style={{ color: "#ef4444" }}>*</span>
                     </label>
@@ -118,7 +118,7 @@ const CertificationAndLicenceSection = ({ setGovernmentIdPdf,setLicenseCertifica
                         {...register("expiryDate", { required: "Expiry date is required" })}
                         className="w-full p-3 rounded-xl focus:outline-none focus:ring-2 transition-all duration-300"
                         style={{
-                            color: "var(--fourground-color)",
+                            color: "var(--text-color-all)",
                             borderWidth: "2px",
                             borderColor: "var(--dashboard-border)",
                         }}
@@ -133,7 +133,7 @@ const CertificationAndLicenceSection = ({ setGovernmentIdPdf,setLicenseCertifica
                     <label
                         htmlFor="licenseCertificate"
                         className="block mb-2 text-sm font-medium"
-                        style={{ color: "var(--fourground-color)" }}
+                        style={{ color: "var(--text-color-all)" }}
                     >
                         License Certificate (PDF) <span style={{ color: "#ef4444" }}>*</span>
                     </label>
@@ -147,7 +147,7 @@ const CertificationAndLicenceSection = ({ setGovernmentIdPdf,setLicenseCertifica
                         onChange={(e) => handlePdfUpload(e, setLicenseCertificate)}
                         className="w-full p-3 rounded-xl focus:outline-none focus:ring-2 transition-all duration-300"
                         style={{
-                            color: "var(--fourground-color)",
+                            color: "var(--text-color-all)",
                             borderWidth: "2px",
                             borderColor: "var(--dashboard-border)",
                         }}
@@ -164,7 +164,7 @@ const CertificationAndLicenceSection = ({ setGovernmentIdPdf,setLicenseCertifica
                     <label
                         htmlFor="govtId"
                         className="block mb-2 text-sm font-medium"
-                        style={{ color: "var(--fourground-color)" }}
+                        style={{ color: "var(--text-color-all)" }}
                     >
                         Government ID (PDF) <span style={{ color: "#ef4444" }}>*</span>
                     </label>
@@ -178,7 +178,7 @@ const CertificationAndLicenceSection = ({ setGovernmentIdPdf,setLicenseCertifica
                         onChange={(e) => handlePdfUpload(e, setGovernmentIdPdf)}
                         className="w-full p-3 rounded-xl focus:outline-none focus:ring-2 transition-all duration-300"
                         style={{
-                            color: "var(--fourground-color)",
+                            color: "var(--text-color-all)",
                             borderWidth: "2px",
                             borderColor: "var(--dashboard-border)",
                         }}

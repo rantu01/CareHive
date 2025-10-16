@@ -18,10 +18,10 @@ const RecipeHighlightSection = () => {
         </div>
 
         <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[var(--color-primary)] font-heading">
-          Discover the <span className="text-[var(--fourground-color)]">Recipe of the Day</span>
+          Discover the <span className="text-[var(--text-color-all)]">Recipe of the Day</span>
         </h2>
 
-        <p className="text-lg text-[var(--fourground-color)] opacity-80 mb-10 max-w-3xl mx-auto leading-relaxed">
+        <p className="text-lg text-[var(--text-color-all)] opacity-80 mb-10 max-w-3xl mx-auto leading-relaxed">
           Explore healthy, delicious recipes crafted by our experts to support your daily wellness goals.
         </p>
 
@@ -29,7 +29,7 @@ const RecipeHighlightSection = () => {
         <motion.div
           whileHover={{ y: -5 }}
           transition={{ duration: 0.3 }}
-          className="max-w-3xl mx-auto bg-[var(--gray-color)] rounded-3xl shadow-lg border border-[var(--dashboard-border)] overflow-hidden"
+          className="max-w-3xl mx-auto bg-[var(--bg-color-all)] rounded-3xl shadow-lg border border-[var(--dashboard-border)] overflow-hidden"
         >
           <div className="relative">
             <img
@@ -43,15 +43,15 @@ const RecipeHighlightSection = () => {
             </div>
             <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1 shadow-md">
               <Star className="w-4 h-4 text-yellow-400 fill-current" />
-              <span className="font-medium text-[var(--fourground-color)] text-sm">4.8</span>
+              <span className="font-medium text-[var(--text-color-all)] text-sm">4.8</span>
             </div>
           </div>
 
           <div className="p-6 text-left">
-            <h3 className="text-xl font-bold text-[var(--fourground-color)] mb-2">
+            <h3 className="text-xl font-bold text-[var(--text-color-all)] mb-2">
               Avocado Quinoa Salad
             </h3>
-            <p className="text-[var(--fourground-color)] opacity-80 mb-4">
+            <p className="text-[var(--text-color-all)] opacity-80 mb-4">
               A refreshing mix of quinoa, avocado, and greens for your daily energy boost.
             </p>
 

@@ -41,7 +41,7 @@ export default function AdminToolsPage() {
         {/* Headline */}
         <h1
           className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 tracking-tight"
-          style={{ color: "var(--fourground-color)" }}
+          style={{ color: "var(--text-color-all)" }}
         >
           Manage{" "}
           <span
@@ -70,7 +70,7 @@ export default function AdminToolsPage() {
 
         <p
           className="text-lg sm:text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed opacity-90 mb-16"
-          style={{ color: "var(--fourground-color)" }}
+          style={{ color: "var(--text-color-all)" }}
         >
           Empower your wellness platform by adding tailored gym training plans and calming yoga techniques for your users.
         </p>

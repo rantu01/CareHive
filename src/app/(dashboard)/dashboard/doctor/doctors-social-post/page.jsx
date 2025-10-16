@@ -125,7 +125,7 @@ const Page = () => {
   };
 
   return (
-    <div style={{ background: "var(--dashboard-bg)", color: "var(--fourground-color)" }}>
+    <div style={{ background: "var(--dashboard-bg)", color: "var(--text-color-all)" }}>
       <div  className="max-w-6xl mx-auto p-8 pt-28">
         {/* Heading */}
         <motion.div
@@ -176,8 +176,8 @@ const Page = () => {
                     required
                     className="w-full p-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-[var(--color-secondary)] transition duration-200"
                     style={{
-                      backgroundColor: "var(--gray-color)",
-                      color: "var(--fourground-color)",
+                      backgroundColor: "var(--bg-color-all)",
+                      color: "var(--text-color-all)",
                       borderColor: "var(--dashboard-border)",
                     }}
                   />
@@ -192,8 +192,8 @@ const Page = () => {
                     required
                     className="w-full p-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-[var(--color-secondary)] transition duration-200"
                     style={{
-                      backgroundColor: "var(--gray-color)",
-                      color: "var(--fourground-color)",
+                      backgroundColor: "var(--bg-color-all)",
+                      color: "var(--text-color-all)",
                       borderColor: "var(--dashboard-border)",
                     }}
                   >
@@ -218,8 +218,8 @@ const Page = () => {
                   required
                   className="w-full p-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-[var(--color-secondary)] transition duration-200"
                   style={{
-                    backgroundColor: "var(--gray-color)",
-                    color: "var(--fourground-color)",
+                    backgroundColor: "var(--bg-color-all)",
+                    color: "var(--text-color-all)",
                     borderColor: "var(--dashboard-border)",
                   }}
                 />

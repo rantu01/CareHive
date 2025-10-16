@@ -34,7 +34,7 @@ export default function PerformanceAndActions() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 my-8">
       {/* Performance Section */}
-      <div className="bg-[var(--sidebar-bg)] text-[var(--fourground-color)] rounded-xl p-6 shadow-md">
+      <div className="bg-[var(--sidebar-bg)] text-[var(--text-color-all)] rounded-xl p-6 shadow-md">
         <h2 className="flex items-center gap-2 text-lg font-semibold mb-4">
           <TrendingUp className="w-5 h-5" />
           This Month Performance
@@ -43,10 +43,10 @@ export default function PerformanceAndActions() {
           {performanceData.map((item, i) => (
             <div
               key={i}
-              className={`flex justify-between items-center px-4 py-3 rounded-lg bg-[var(--gray-color)] text-[var(--fourground-color)] ${
+              className={`flex justify-between items-center px-4 py-3 rounded-lg bg-[var(--bg-color-all)] text-[var(--text-color-all)] ${
                 item.highlight
                   ? " text-green-400 font-semibold"
-                  : "bg-[#1e293b] text-[var(--fourground-color)]"
+                  : "bg-[#1e293b] text-[var(--text-color-all)]"
               }`}
             >
               <span>{item.label}</span>
@@ -57,7 +57,7 @@ export default function PerformanceAndActions() {
       </div>
 
       {/* Quick Actions */}
-      <div className="bg-[var(--sidebar-bg)] text-[var(--fourground-color)] rounded-xl p-6 shadow-md">
+      <div className="bg-[var(--sidebar-bg)] text-[var(--text-color-all)] rounded-xl p-6 shadow-md">
         <h2 className="flex items-center gap-2 text-lg font-semibold mb-4">
           Quick Actions
         </h2>
@@ -65,10 +65,10 @@ export default function PerformanceAndActions() {
           {quickActions.map((action, i) => (
             <button
               key={i}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition bg-[var(--sidebar-bg)] border border-[var(--dashboard-border)] hover:bg-[var(--gray-color)] ${
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition bg-[var(--sidebar-bg)] border border-[var(--dashboard-border)] hover:bg-[var(--bg-color-all)] ${
                 action.highlight
                   ? "bg-teal-600 hover:bg-teal-700 text-white font-semibold"
-                  : "bg-[#1e293b] hover:bg-[#2c3a52] text-[var(--fourground-color)] "
+                  : "bg-[#1e293b] hover:bg-[#2c3a52] text-[var(--text-color-all)] "
               }`}
             >
               <action.icon className="w-5 h-5" />

@@ -117,7 +117,7 @@ const DoctorMessages = () => {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h2 className="text-2xl font-bold text-[var(--fourground-color)] font-heading">
+          <h2 className="text-2xl font-bold text-[var(--text-color-all)] font-heading">
             Patient Messages
           </h2>
           <p className="text-sm text-[var(--color-secondary)] mt-1">
@@ -133,7 +133,7 @@ const DoctorMessages = () => {
       <div className="space-y-4 max-h-[600px] overflow-y-auto pr-2">
         {messages.length === 0 ? (
           <div className="text-center py-12">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[var(--gray-color)] flex items-center justify-center">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[var(--bg-color-all)] flex items-center justify-center">
               <svg
                 className="w-8 h-8 text-[var(--color-secondary)]"
                 fill="none"
@@ -148,7 +148,7 @@ const DoctorMessages = () => {
                 />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold text-[var(--fourground-color)] mb-2">
+            <h3 className="text-lg font-semibold text-[var(--text-color-all)] mb-2">
               No messages yet
             </h3>
             <p className="text-sm text-[var(--color-secondary)]">
@@ -166,7 +166,7 @@ const DoctorMessages = () => {
                 className={`relative rounded-xl p-5 transition-all duration-300 ${
                   isSender
                     ? "bg-gradient-to-r from-[var(--color-primary)]/10 to-[var(--color-secondary)]/10 border-l-4 border-[var(--color-primary)] ml-8"
-                    : "bg-[var(--gray-color)] border-l-4 border-[var(--color-secondary)] mr-8"
+                    : "bg-[var(--bg-color-all)] border-l-4 border-[var(--color-secondary)] mr-8"
                 }`}
               >
                 {/* Message Header */}
@@ -191,13 +191,13 @@ const DoctorMessages = () => {
                       >
                         {isSender ? "You" : msg.senderEmail.split("@")[0]}
                       </h3>
-                      <p className="text-xs text-[var(--fourground-color)] opacity-70">
+                      <p className="text-xs text-[var(--text-color-all)] opacity-70">
                         {msg.senderEmail}
                       </p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <span className="text-xs font-medium text-[var(--fourground-color)] opacity-80">
+                    <span className="text-xs font-medium text-[var(--text-color-all)] opacity-80">
                       {formatTime(msg.timestamp)}
                     </span>
                     <div className="text-xs text-[var(--color-secondary)]">
@@ -208,7 +208,7 @@ const DoctorMessages = () => {
 
                 {/* Message Body */}
                 <div className="mb-4">
-                  <p className="text-[var(--fourground-color)] leading-relaxed">
+                  <p className="text-[var(--text-color-all)] leading-relaxed">
                     {msg.message}
                   </p>
                 </div>
@@ -243,7 +243,7 @@ const DoctorMessages = () => {
                             <input
                               type="text"
                               placeholder="Type your reply message..."
-                              className="w-full px-4 py-3 rounded-xl bg-[var(--sidebar-bg)] text-[var(--fourground-color)] border border-[var(--dashboard-border)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all"
+                              className="w-full px-4 py-3 rounded-xl bg-[var(--sidebar-bg)] text-[var(--text-color-all)] border border-[var(--dashboard-border)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all"
                               value={replyText[i] || ""}
                               onChange={(e) =>
                                 setReplyText((prev) => ({
@@ -267,7 +267,7 @@ const DoctorMessages = () => {
                             </button>
                             <button
                               onClick={() => toggleReply(i)}
-                              className="px-4 py-3 bg-[var(--gray-color)] hover:bg-[var(--dashboard-border)] text-[var(--fourground-color)] rounded-xl font-medium transition-colors"
+                              className="px-4 py-3 bg-[var(--bg-color-all)] hover:bg-[var(--dashboard-border)] text-[var(--text-color-all)] rounded-xl font-medium transition-colors"
                             >
                               Cancel
                             </button>
@@ -290,33 +290,33 @@ const DoctorMessages = () => {
       {messages.length > 0 && (
         <div className="mt-6 pt-6 border-t border-[var(--dashboard-border)]">
           <div className="grid grid-cols-3 gap-4 text-center">
-            <div className="bg-[var(--gray-color)] rounded-lg p-3">
+            <div className="bg-[var(--bg-color-all)] rounded-lg p-3">
               <div className="text-lg font-bold text-[var(--color-primary)]">
                 {
                   messages.filter((msg) => msg.senderEmail === user.email)
                     .length
                 }
               </div>
-              <div className="text-xs text-[var(--fourground-color)] opacity-70">
+              <div className="text-xs text-[var(--text-color-all)] opacity-70">
                 Sent
               </div>
             </div>
-            <div className="bg-[var(--gray-color)] rounded-lg p-3">
+            <div className="bg-[var(--bg-color-all)] rounded-lg p-3">
               <div className="text-lg font-bold text-[var(--color-secondary)]">
                 {
                   messages.filter((msg) => msg.senderEmail !== user.email)
                     .length
                 }
               </div>
-              <div className="text-xs text-[var(--fourground-color)] opacity-70">
+              <div className="text-xs text-[var(--text-color-all)] opacity-70">
                 Received
               </div>
             </div>
-            <div className="bg-[var(--gray-color)] rounded-lg p-3">
-              <div className="text-lg font-bold text-[var(--fourground-color)]">
+            <div className="bg-[var(--bg-color-all)] rounded-lg p-3">
+              <div className="text-lg font-bold text-[var(--text-color-all)]">
                 {messages.length}
               </div>
-              <div className="text-xs text-[var(--fourground-color)] opacity-70">
+              <div className="text-xs text-[var(--text-color-all)] opacity-70">
                 Total
               </div>
             </div>

@@ -50,20 +50,20 @@ const FeaturedServices = () => {
         <div className="flex items-start space-x-4">
           <div
             className="w-12 h-12 rounded-xl flex-shrink-0 animate-pulse"
-            style={{ backgroundColor: "var(--gray-color)" }}
+            style={{ backgroundColor: "var(--bg-color-all)" }}
           ></div>
           <div className="flex-1 space-y-3">
             <div
               className="h-5 rounded w-3/4 animate-pulse"
-              style={{ backgroundColor: "var(--gray-color)" }}
+              style={{ backgroundColor: "var(--bg-color-all)" }}
             ></div>
             <div
               className="h-3 rounded w-full animate-pulse"
-              style={{ backgroundColor: "var(--gray-color)" }}
+              style={{ backgroundColor: "var(--bg-color-all)" }}
             ></div>
             <div
               className="h-3 rounded w-2/3 animate-pulse"
-              style={{ backgroundColor: "var(--gray-color)" }}
+              style={{ backgroundColor: "var(--bg-color-all)" }}
             ></div>
           </div>
         </div>
@@ -115,7 +115,7 @@ const FeaturedServices = () => {
 
           <h2
             className="text-4xl sm:text-5xl md:text-5xl font-bold mb-6 tracking-tight"
-            style={{ color: "var(--fourground-color)" }}
+            style={{ color: "var(--text-color-all)" }}
           >
             Exceptional{" "}
             {/* 2. MEDICAL CARE TEXT: Set solid color */}
@@ -140,7 +140,7 @@ const FeaturedServices = () => {
           </h2>
           <p
             className="text-lg sm:text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed opacity-90"
-            style={{ color: "var(--fourground-color)" }}
+            style={{ color: "var(--text-color-all)" }}
           >
             Comprehensive healthcare solutions tailored to your needs with expert care and cutting-edge technology.
           </p>
@@ -164,7 +164,7 @@ const FeaturedServices = () => {
                   {services.length} Services
                 </span>
                 <span className="text-sm opacity-70"
-                      style={{ color: "var(--fourground-color)" }}>
+                      style={{ color: "var(--text-color-all)" }}>
                   Showing {Math.min(3, services.length)} of {services.length}
                 </span>
               </div>
@@ -193,7 +193,7 @@ const FeaturedServices = () => {
                   className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg disabled:opacity-30 disabled:cursor-not-allowed group"
                   style={{
                     backgroundColor: "var(--color-primary)", // Changed background
-                    color: "var(--fourground-color)", // Set text color for visibility
+                    color: "var(--text-color-all)", // Set text color for visibility
                   }}
                 >
                   <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" 
@@ -262,7 +262,7 @@ const FeaturedServices = () => {
                               style={{ 
                                 color: activeService === index 
                                   ? "var(--color-secondary)" 
-                                  : "var(--fourground-color)" 
+                                  : "var(--text-color-all)" 
                               }}
                             >
                               {service.service_name}
@@ -278,7 +278,7 @@ const FeaturedServices = () => {
                                     style={{
                                       backgroundColor: activeService === index 
                                         ? "var(--color-secondary)" 
-                                        : "var(--gray-color)",
+                                        : "var(--bg-color-all)",
                                       color: activeService === index 
                                         ? "var(--color-white)" 
                                         : "var(--color-secondary)",
@@ -302,7 +302,7 @@ const FeaturedServices = () => {
 
                           <p
                             className="text-base mb-4 line-clamp-2 leading-relaxed opacity-90"
-                            style={{ color: "var(--fourground-color)" }}
+                            style={{ color: "var(--text-color-all)" }}
                           >
                             {service.description}
                           </p>
@@ -332,8 +332,8 @@ const FeaturedServices = () => {
                               <span
                                 className="px-3 py-1 text-xs font-medium rounded-full transition-all duration-300"
                                 style={{
-                                  backgroundColor: "var(--gray-color)",
-                                  color: "var(--fourground-color)",
+                                  backgroundColor: "var(--bg-color-all)",
+                                  color: "var(--text-color-all)",
                                 }}
                               >
                                 +{service.specialties.length - 3} more
@@ -426,7 +426,7 @@ const FeaturedServices = () => {
                     </h3>
                     <p
                       className="text-base mb-6 leading-relaxed opacity-90"
-                      style={{ color: "var(--fourground-color)" }}
+                      style={{ color: "var(--text-color-all)" }}
                     >
                       {visibleServices[activeService]?.description || "Experience world-class healthcare services with our expert team and cutting-edge technology."}
                     </p>

@@ -72,7 +72,7 @@ const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
                     style={{
                         backgroundColor: meetingType === "inPerson" ? 'var(--color-secondary)' : 'var(--dashboard-bg)',
                         borderColor: meetingType === "inPerson" ? '#ef4444' : 'var(--dashboard-border)',
-                        color: meetingType === "inPerson" ? 'white' : 'var(--fourground-color)',
+                        color: meetingType === "inPerson" ? 'white' : 'var(--text-color-all)',
                     }}
                 >
                     <div className="flex flex-col items-center gap-2">
@@ -98,7 +98,7 @@ const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
                     style={{
                         backgroundColor: meetingType === "online" ? 'var(--color-secondary)' : 'var(--dashboard-bg)',
                         borderColor: meetingType === "online" ? '#ef4444' : 'var(--dashboard-border)',
-                        color: meetingType === "online" ? 'white' : 'var(--fourground-color)',
+                        color: meetingType === "online" ? 'white' : 'var(--text-color-all)',
                     }}
                 >
                     <div className="flex flex-col items-center gap-2">
@@ -121,7 +121,7 @@ const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
         <div className="space-y-5">
             {/* Meeting Type Selection */}
             <div className="space-y-3">
-                <label className="block text-base font-semibold" style={{ color: 'var(--fourground-color)' }}>
+                <label className="block text-base font-semibold" style={{ color: 'var(--text-color-all)' }}>
                     Consultation Type
                 </label>
                 {meetingButtons}
@@ -129,7 +129,7 @@ const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
 
             {/* Time Slot Selection */}
             <div className="space-y-3">
-                <label className="block text-base font-semibold" style={{ color: 'var(--fourground-color)' }}>
+                <label className="block text-base font-semibold" style={{ color: 'var(--text-color-all)' }}>
                     Select Appointment Time
                 </label>
                 <select
@@ -137,7 +137,7 @@ const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
                     style={{
                         backgroundColor: 'var(--dashboard-bg)',
                         borderColor: 'var(--dashboard-border)',
-                        color: 'var(--fourground-color)',
+                        color: 'var(--text-color-all)',
                     }}
                     value={selectedSlot}
                     onChange={(e) => setSelectedSlot(e.target.value)}

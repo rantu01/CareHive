@@ -54,7 +54,7 @@ export default function PaymentSuccessClient() {
       <div className="min-h-screen flex items-center justify-center bg-[var(--color-white)]">
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--color-secondary)] mb-4"></div>
-          <p className="text-[var(--fourground-color)] text-lg">Loading payment info...</p>
+          <p className="text-[var(--text-color-all)] text-lg">Loading payment info...</p>
         </div>
       </div>
     );
@@ -90,7 +90,7 @@ export default function PaymentSuccessClient() {
         </div>
 
         {/* Main Card */}
-        <div className="rounded-3xl shadow-xl overflow-hidden border border-[var(--gray-color)]">
+        <div className="rounded-3xl shadow-xl overflow-hidden border border-[var(--bg-color-all)]">
           {/* Amount Section */}
           <div className="bg-gradient-to-r from-[var(--color-secondary)] to-[#5A9FD4] px-8 py-8 text-center">
             <div className="flex items-center justify-center gap-3 mb-3">
@@ -134,7 +134,7 @@ export default function PaymentSuccessClient() {
             </div>
 
             {/* Session Info */}
-            <div className="bg-[var(--gray-color)] rounded-2xl p-6 mb-8 border-l-4 border-[var(--color-secondary)]">
+            <div className="bg-[var(--bg-color-all)] rounded-2xl p-6 mb-8 border-l-4 border-[var(--color-secondary)]">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div className="flex-1">
                   <p className="text-xs opacity-60 uppercase tracking-wider font-semibold mb-2">
@@ -159,13 +159,13 @@ export default function PaymentSuccessClient() {
                   <User size={24} className="text-[#2D8F2D]" strokeWidth={2} />
                 </div>
                 <div className="flex-1">
-                  <p className="text-xs text-[var(--fourground-color)] opacity-60 uppercase tracking-wider font-semibold mb-1">
+                  <p className="text-xs text-[var(--text-color-all)] opacity-60 uppercase tracking-wider font-semibold mb-1">
                     Your Serial Number
                   </p>
-                  <p className="text-[var(--fourground-color)] font-bold text-3xl md:text-4xl">
+                  <p className="text-[var(--text-color-all)] font-bold text-3xl md:text-4xl">
                     #{patientSerial || '—'}
                   </p>
-                  <p className="text-sm text-[var(--fourground-color)] opacity-70 mt-2">
+                  <p className="text-sm text-[var(--text-color-all)] opacity-70 mt-2">
                     Please arrive early and mention this number at the reception.
                   </p>
                 </div>
@@ -181,7 +181,7 @@ export default function PaymentSuccessClient() {
             </button>
 
             {/* Footer */}
-            <div className="mt-8 text-center bg-[var(--gray-color)] rounded-xl p-6">
+            <div className="mt-8 text-center bg-[var(--bg-color-all)] rounded-xl p-6">
               <p className="opacity-70 text-sm leading-relaxed">
                 Thank you for your payment! A confirmation email has been sent to{" "}
                 <span className="font-semibold text-[var(--color-secondary)]">
@@ -200,14 +200,14 @@ function SectionHeader({ title, color }) {
   return (
     <div className="flex items-center gap-3 mb-6">
       <div className="w-1 h-8" style={{ backgroundColor: color, borderRadius: "8px" }}></div>
-      <h3 className="text-2xl font-bold text-[var(--fourground-color)]">{title}</h3>
+      <h3 className="text-2xl font-bold text-[var(--text-color-all)]">{title}</h3>
     </div>
   );
 }
 
 function InfoItem({ icon, label, value }) {
   return (
-    <div className="group hover:bg-[var(--gray-color)] p-4 rounded-xl transition-all duration-200 cursor-pointer">
+    <div className="group hover:bg-[var(--bg-color-all)] p-4 rounded-xl transition-all duration-200 cursor-pointer">
       <div className="flex items-start gap-4">
         <div className="bg-[var(--color-secondary)] bg-opacity-10 p-3 rounded-xl group-hover:scale-110 transition-transform duration-200">
           {icon}

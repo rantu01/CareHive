@@ -83,11 +83,11 @@ export default function CalorieTracker() {
       {/* Header */}
       <h1
         className="text-xl font-medium text-center mb-2 transition-all duration-1000"
-        style={{ color: "var(--fourground-color)" }}
+        style={{ color: "var(--text-color-all)" }}
       >
         Calorie Tracker – Track Your Daily Meals & Macros
       </h1>
-      <p style={{ color: "var(--fourground-color)" }}>
+      <p style={{ color: "var(--text-color-all)" }}>
         Easily log your meals, track calories, carbs, protein, and fats, and stay
         on top of your daily nutrition goals. Visualize your progress with an
         intuitive summary and progress bar.
@@ -98,7 +98,7 @@ export default function CalorieTracker() {
         className="p-6 rounded-2xl shadow"
         style={{
           background: "var(--dashboard-bg)",
-          color: "var(--fourground-color)",
+          color: "var(--text-color-all)",
         }}
       >
         <h2 className="text-xl font-bold mb-3">Set Daily Calorie Goal</h2>
@@ -109,7 +109,7 @@ export default function CalorieTracker() {
           className="p-3 rounded w-40 focus:outline-none focus:ring-2 transition"
           style={{
             border: "1px solid var(--dashboard-border)",
-            color: "var(--fourground-color)",
+            color: "var(--text-color-all)",
           }}
           placeholder="2000"
         />
@@ -120,7 +120,7 @@ export default function CalorieTracker() {
         className="p-6 rounded-2xl shadow"
         style={{
           background: "var(--dashboard-bg)",
-          color: "var(--fourground-color)",
+          color: "var(--text-color-all)",
         }}
       >
         <h2 className="text-xl font-bold mb-3">Add Food</h2>
@@ -133,7 +133,7 @@ export default function CalorieTracker() {
             className="p-3 rounded col-span-2 focus:outline-none focus:ring-2 transition"
             style={{
               border: "1px solid var(--dashboard-border)",
-              color: "var(--fourground-color)",
+              color: "var(--text-color-all)",
             }}
           />
           <input
@@ -144,7 +144,7 @@ export default function CalorieTracker() {
             className="p-3 rounded focus:outline-none focus:ring-2 transition"
             style={{
               border: "1px solid var(--dashboard-border)",
-              color: "var(--fourground-color)",
+              color: "var(--text-color-all)",
             }}
           />
           <input
@@ -155,7 +155,7 @@ export default function CalorieTracker() {
             className="p-3 rounded focus:outline-none focus:ring-2 transition"
             style={{
               border: "1px solid var(--dashboard-border)",
-              color: "var(--fourground-color)",
+              color: "var(--text-color-all)",
             }}
           />
           <input
@@ -166,7 +166,7 @@ export default function CalorieTracker() {
             className="p-3 rounded focus:outline-none focus:ring-2 transition"
             style={{
               border: "1px solid var(--dashboard-border)",
-              color: "var(--fourground-color)",
+              color: "var(--text-color-all)",
             }}
           />
           <input
@@ -177,7 +177,7 @@ export default function CalorieTracker() {
             className="p-3 rounded focus:outline-none focus:ring-2 transition"
             style={{
               border: "1px solid var(--dashboard-border)",
-              color: "var(--fourground-color)",
+              color: "var(--text-color-all)",
             }}
           />
           <input
@@ -188,7 +188,7 @@ export default function CalorieTracker() {
             className="p-3 rounded focus:outline-none focus:ring-2 transition"
             style={{
               border: "1px solid var(--dashboard-border)",
-              color: "var(--fourground-color)",
+              color: "var(--text-color-all)",
             }}
           />
           <select
@@ -197,7 +197,7 @@ export default function CalorieTracker() {
             className="p-3 rounded focus:outline-none focus:ring-2 transition"
             style={{
               border: "1px solid var(--dashboard-border)",
-              color: "var(--fourground-color)",
+              color: "var(--text-color-all)",
             }}
           >
             <option value="breakfast">Breakfast</option>
@@ -210,7 +210,7 @@ export default function CalorieTracker() {
             className="col-span-2 py-3 rounded-xl font-semibold text-white shadow-lg hover:shadow-xl hover:scale-105 transition transform mb-8"
             style={{
               background:
-                "linear-gradient(90deg, var(--color-secondary), var(--fourground-color))",
+                "linear-gradient(90deg, var(--color-secondary), var(--text-color-all))",
             }}
           >
             Add Meal
@@ -223,7 +223,7 @@ export default function CalorieTracker() {
         className="p-6 rounded-2xl shadow space-y-4"
         style={{
           background: "var(--dashboard-bg)",
-          color: "var(--fourground-color)",
+          color: "var(--text-color-all)",
         }}
       >
         <h2 className="text-xl font-bold">Daily Summary</h2>
@@ -232,7 +232,7 @@ export default function CalorieTracker() {
         <div
           className="w-full rounded-full h-5 overflow-hidden"
           style={{
-            background: "var(--gray-color)",
+            background: "var(--bg-color-all)",
             border: "1px solid var(--dashboard-border)",
           }}
         >
@@ -263,7 +263,7 @@ export default function CalorieTracker() {
         <div>
           <h3 className="font-semibold mb-2">Meals</h3>
           {meals.length === 0 ? (
-            <p style={{ color: "var(--fourground-color)" }}>
+            <p style={{ color: "var(--text-color-all)" }}>
               No meals added yet.
             </p>
           ) : (
@@ -274,19 +274,19 @@ export default function CalorieTracker() {
                   className="p-3 rounded flex justify-between items-center transition"
                   style={{
                     border: "1px solid var(--dashboard-border)",
-                    background: "var(--gray-color)",
+                    background: "var(--bg-color-all)",
                   }}
                 >
                   <div>
                     <p
                       className="font-medium"
-                      style={{ color: "var(--fourground-color)" }}
+                      style={{ color: "var(--text-color-all)" }}
                     >
                       {meal.food}
                     </p>
                     <p
                       className="text-sm"
-                      style={{ color: "var(--fourground-color)" }}
+                      style={{ color: "var(--text-color-all)" }}
                     >
                       {meal.type} • {meal.calories} kcal • {meal.carbs}g C |{" "}
                       {meal.protein}g P | {meal.fat}g F
@@ -294,7 +294,7 @@ export default function CalorieTracker() {
                   </div>
                   <span
                     className="text-sm"
-                    style={{ color: "var(--fourground-color)" }}
+                    style={{ color: "var(--text-color-all)" }}
                   >
                     {meal.portionSize}
                   </span>

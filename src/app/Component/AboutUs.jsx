@@ -42,14 +42,14 @@ const features = [
 
 const AboutUs = () => {
   return (
-    <section className="bg-[var(--dashboard-bg)] text-[var(--fourground-color)] font-[var(--font-primary)]">
+    <section className="bg-[var(--dashboard-bg)] text-[var(--text-color-all)] font-[var(--font-primary)]">
       {/* Section Title */}
       <div className="max-w-7xl mx-auto px-6 pt-24 mb-10 text-center">
         <h2 className="text-4xl md:text-5xl font-extrabold text-[var(--color-primary)] mb-4 flex justify-center items-center">
           About Us
           <Sparkles className="w-7 h-7 text-[var(--color-primary)] ml-3" />
         </h2>
-        <p className="text-lg text-[var(--fourground-color)] opacity-80 max-w-2xl mx-auto">
+        <p className="text-lg text-[var(--text-color-all)] opacity-80 max-w-2xl mx-auto">
           Committed to delivering exceptional healthcare with compassion,
           technology, and expertise.
         </p>
@@ -67,19 +67,19 @@ const AboutUs = () => {
             <div className="w-4 h-0.5 bg-[var(--color-primary)]"></div>
           </div>
 
-          <h1 className="text-3xl md:text-4xl font-extrabold mb-4 text-[var(--color-primary)] flex items-center gap-3 font-[var(--font-heading)]">
+          <h1 className="text-3xl md:text-4xl  mb-4 text-[var(--color-primary)] flex items-center gap-3 font-[var(--font-heading)]">
             <Apple className="w-7 h-7" />
             Dedicated to Your Health & Wellness
             <Sparkles className="w-7 h-7" />
           </h1>
 
-          <p className="text-base text-[var(--fourground-color)] opacity-90 mb-4 leading-relaxed">
+          <p className="text-base text-[var(--text-color-all)] opacity-90 mb-4 leading-relaxed">
             Your health is our top priority. We provide compassionate, modern,
             and personalized care tailored to your unique needs — ensuring your
             well-being every step of the way.
           </p>
 
-          <p className="text-base text-[var(--fourground-color)] opacity-90 leading-relaxed">
+          <p className="text-base text-[var(--text-color-all)] opacity-90 leading-relaxed">
             Our team of experienced professionals combines cutting-edge
             technology with a holistic approach to deliver treatments that heal
             and empower. We believe in nurturing a healthy mind and body for a
@@ -106,7 +106,7 @@ const AboutUs = () => {
 
       {/* Why Choose Us */}
       <div className="max-w-6xl mx-auto px-6 py-16">
-        <h3 className="text-3xl font-bold text-center mb-10 text-[var(--color-primary)] font-[var(--font-heading)]">
+        <h3 className="text-3xl  text-center mb-10 text-[var(--color-primary)] font-[var(--font-heading)]">
           Why Choose Us?
         </h3>
 
@@ -114,7 +114,7 @@ const AboutUs = () => {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="bg-[var(--gray-color)] p-6 rounded-2xl shadow hover:shadow-md transition text-center"
+              className="bg-[var(--bg-color-all)] p-6 rounded-2xl shadow hover:shadow-md transition text-center"
             >
               <div className="text-[var(--color-primary)] text-4xl mb-3 flex justify-center">
                 {feature.icon}
@@ -128,9 +128,9 @@ const AboutUs = () => {
       </div>
 
       {/* Meet Experts */}
-      <div className="bg-[var(--gray-color)] py-16">
+      <div className="bg-[var(--bg-color-all)] py-16">
         <div className="max-w-7xl mx-auto px-6">
-          <h3 className="flex items-center justify-center gap-3 text-3xl font-bold text-center mb-10 text-[var(--color-primary)] font-[var(--font-heading)]">
+          <h3 className="flex items-center justify-center gap-3 text-3xl  text-center mb-10 text-[var(--color-primary)] font-[var(--font-heading)]">
             Meet Our Dedicated Experts
             <Sparkles className="w-7 h-7 text-[var(--color-primary)]" />
           </h3>
@@ -150,7 +150,7 @@ const AboutUs = () => {
                   <h4 className="font-semibold text-xl text-[var(--color-primary)]">
                     {doc.name}
                   </h4>
-                  <p className="opacity-80 text-[var(--fourground-color)]">
+                  <p className="opacity-80 text-[var(--text-color-all)]">
                     {doc.specialty}
                   </p>
                 </div>

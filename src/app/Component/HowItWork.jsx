@@ -41,7 +41,7 @@ const HowItWorkGrid = () => {
           How It Works
         </h2>
         
-        <p className="text-xl text-[var(--fourground-color)] max-w-2xl mx-auto leading-relaxed">
+        <p className="text-xl text-[var(--text-color-all)] max-w-2xl mx-auto leading-relaxed">
           Follow these simple steps to take control of your health and wellness journey with our comprehensive platform.
         </p>
       </div>
@@ -51,7 +51,7 @@ const HowItWorkGrid = () => {
           {steps.map((step, idx) => (
             <div
               key={idx}
-              className="group relative bg-[var(--gray-color)] rounded-2xl p-8 flex flex-col items-center text-center border border-[var(--dashboard-border)] hover:border-[var(--color-primary)] transition-all duration-500 hover:shadow-2xl"
+              className="group relative bg-[var(--bg-color-all)] rounded-2xl p-8 flex flex-col items-center text-center border border-[var(--dashboard-border)] hover:border-[var(--color-primary)] transition-all duration-500 hover:shadow-2xl"
             >
               {/* Step Number */}
               <div className="absolute -top-4 -left-4 w-8 h-8 bg-[var(--color-primary)] text-white rounded-full flex items-center justify-center font-bold text-sm">
@@ -59,18 +59,18 @@ const HowItWorkGrid = () => {
               </div>
               
               {/* Icon Container */}
-              <div className="w-24 h-24 bg-[var(--gray-color)] rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[var(--color-primary)] transition-all duration-500">
+              <div className="w-24 h-24 bg-[var(--bg-color-all)] rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[var(--color-primary)] transition-all duration-500">
                 <div className="text-[var(--color-primary)] group-hover:text-white transition-colors duration-500">
                   {step.icon}
                 </div>
               </div>
               
               {/* Content */}
-              <h3 className="text-2xl font-bold mb-4 text-[var(--color-primary)] group-hover:text-[var(--fourground-color)] transition-colors duration-300">
+              <h3 className="text-2xl font-bold mb-4 text-[var(--color-primary)] group-hover:text-[var(--text-color-all)] transition-colors duration-300">
                 {step.title}
               </h3>
               
-              <p className="text-[var(--fourground-color)] text-base leading-relaxed mb-4 flex-grow">
+              <p className="text-[var(--text-color-all)] text-base leading-relaxed mb-4 flex-grow">
                 {step.description}
               </p>
               

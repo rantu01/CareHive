@@ -20,7 +20,7 @@ const Page = () => {
     <div
       style={{
         background: "var(--dashboard-bg)",
-        color: "var(--fourground-color)",
+        color: "var(--text-color-all)",
         minHeight: "100vh",
         fontFamily: "var(--font-primary)",
       }}
@@ -52,7 +52,7 @@ const Page = () => {
                 : "opacity-0 translate-y-4"
             }`}
             style={{
-              color: "var(--fourground-color)",
+              color: "var(--text-color-all)",
               lineHeight: "1.7",
               fontFamily: "var(--font-primary)",
             }}
@@ -93,7 +93,7 @@ const Page = () => {
               <h3
                 className="text-2xl font-semibold"
                 style={{
-                  color: "var(--fourground-color)",
+                  color: "var(--text-color-all)",
                   fontFamily: "var(--font-heading)",
                 }}
               >
@@ -124,7 +124,7 @@ const Page = () => {
                 <h3
                   className="text-2xl font-semibold"
                   style={{
-                    color: "var(--fourground-color)",
+                    color: "var(--text-color-all)",
                     fontFamily: "var(--font-heading)",
                   }}
                 >
@@ -159,7 +159,7 @@ const Page = () => {
                 <h3
                   className="text-2xl font-semibold"
                   style={{
-                    color: "var(--fourground-color)",
+                    color: "var(--text-color-all)",
                     fontFamily: "var(--font-heading)",
                   }}
                 >

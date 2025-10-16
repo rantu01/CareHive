@@ -8,7 +8,7 @@ export default function PaymentSuccessPage() {
         <div className="min-h-screen flex items-center justify-center bg-[var(--color-white)]">
           <div className="text-center">
             <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--color-secondary)] mb-4"></div>
-            <p className="text-[var(--fourground-color)] text-lg">Loading payment info...</p>
+            <p className="text-[var(--text-color-all)] text-lg">Loading payment info...</p>
           </div>
         </div>
       }

@@ -108,7 +108,7 @@ const DailyWellnessCheckIn = () => {
           🌿 Wellness Check-In
         </h2>
         
-        <p className="text-lg text-[var(--fourground-color)] opacity-80">
+        <p className="text-lg text-[var(--text-color-all)] opacity-80">
           Take a moment to reflect on your day and receive personalized wellness tips
         </p>
       </div>
@@ -117,7 +117,7 @@ const DailyWellnessCheckIn = () => {
       <motion.form 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-[var(--gray-color)] rounded-3xl shadow-xl border border-[var(--dashboard-border)] p-8 space-y-8"
+        className="bg-[var(--bg-color-all)] rounded-3xl shadow-xl border border-[var(--dashboard-border)] p-8 space-y-8"
         onSubmit={handleSubmit}
       >
         {/* Mood Selection */}
@@ -142,7 +142,7 @@ const DailyWellnessCheckIn = () => {
                 onClick={() => setSelectedMood(mood.emoji)}
               >
                 <span className="text-3xl mb-1">{mood.emoji}</span>
-                <span className="text-xs font-medium text-[var(--fourground-color)] text-center leading-tight">
+                <span className="text-xs font-medium text-[var(--text-color-all)] text-center leading-tight">
                   {mood.label.split(" ")[0]}
                 </span>
               </motion.button>
@@ -154,7 +154,7 @@ const DailyWellnessCheckIn = () => {
         <div className="grid md:grid-cols-3 gap-6">
           {/* Sleep */}
           <div className="space-y-3">
-            <label className="flex items-center gap-2 text-[var(--fourground-color)] font-medium">
+            <label className="flex items-center gap-2 text-[var(--text-color-all)] font-medium">
               <Moon className="w-4 h-4 text-[var(--color-primary)]" />
               Sleep Hours
             </label>
@@ -175,7 +175,7 @@ const DailyWellnessCheckIn = () => {
 
           {/* Water */}
           <div className="space-y-3">
-            <label className="flex items-center gap-2 text-[var(--fourground-color)] font-medium">
+            <label className="flex items-center gap-2 text-[var(--text-color-all)] font-medium">
               <Droplets className="w-4 h-4 text-[var(--color-primary)]" />
               Water Intake
             </label>
@@ -197,7 +197,7 @@ const DailyWellnessCheckIn = () => {
 
           {/* Exercise */}
           <div className="space-y-3">
-            <label className="flex items-center gap-2 text-[var(--fourground-color)] font-medium">
+            <label className="flex items-center gap-2 text-[var(--text-color-all)] font-medium">
               <Activity className="w-4 h-4 text-[var(--color-primary)]" />
               Exercise Today?
             </label>
@@ -208,7 +208,7 @@ const DailyWellnessCheckIn = () => {
                 className={`flex-1 py-2 rounded-xl border-2 font-medium transition-all ${
                   exercise 
                     ? "border-[var(--color-primary)] bg-[var(--color-primary)] text-white" 
-                    : "border-[var(--dashboard-border)] text-[var(--fourground-color)] hover:border-[var(--color-primary)]"
+                    : "border-[var(--dashboard-border)] text-[var(--text-color-all)] hover:border-[var(--color-primary)]"
                 }`}
               >
                 Yes
@@ -219,7 +219,7 @@ const DailyWellnessCheckIn = () => {
                 className={`flex-1 py-2 rounded-xl border-2 font-medium transition-all ${
                   !exercise 
                     ? "border-[var(--color-primary)] bg-[var(--color-primary)] text-white" 
-                    : "border-[var(--dashboard-border)] text-[var(--fourground-color)] hover:border-[var(--color-primary)]"
+                    : "border-[var(--dashboard-border)] text-[var(--text-color-all)] hover:border-[var(--color-primary)]"
                 }`}
               >
                 No
@@ -273,12 +273,12 @@ const DailyWellnessCheckIn = () => {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1 }}
-                      className="flex items-start gap-3 p-3 rounded-xl bg-[var(--gray-color)] border border-[var(--dashboard-border)]"
+                      className="flex items-start gap-3 p-3 rounded-xl bg-[var(--bg-color-all)] border border-[var(--dashboard-border)]"
                     >
                       <div className="w-6 h-6 bg-[var(--color-primary)] text-white rounded-full flex items-center justify-center text-sm font-bold mt-0.5 flex-shrink-0">
                         {index + 1}
                       </div>
-                      <p className="text-[var(--fourground-color)] leading-relaxed text-sm">{tip}</p>
+                      <p className="text-[var(--text-color-all)] leading-relaxed text-sm">{tip}</p>
                     </motion.div>
                   ))}
                 </div>
@@ -322,7 +322,7 @@ const DailyWellnessCheckIn = () => {
                 <h3 className="text-xl font-bold text-white mt-2">Oops! Missing Mood</h3>
               </div>
               <div className="p-6">
-                <p className="text-[var(--fourground-color)] mb-4">
+                <p className="text-[var(--text-color-all)] mb-4">
                   Please select your <strong>current mood</strong> before getting personalized tips.
                 </p>
                 <motion.button

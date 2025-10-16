@@ -108,7 +108,7 @@ export default function HealthLog() {
       </h2>
       <p
         className="text-center text-base md:text-lg mb-10 animate-fadeIn delay-200 max-w-4xl mx-auto"
-        style={{ color: "var(--fourground-color)" }}
+        style={{ color: "var(--text-color-all)" }}
       >
         Monitor your BMI and daily calorie intake with ease. Receive professional, personalized
         advice to maintain a healthy lifestyle and reach your fitness goals efficiently.
@@ -124,7 +124,7 @@ export default function HealthLog() {
           <div className="group relative">
             <label
               className="block text-sm font-medium mb-2 transition-colors group-focus-within:text-[var(--color-secondary)]"
-              style={{ color: "var(--fourground-color)" }}
+              style={{ color: "var(--text-color-all)" }}
             >
               Your BMI
             </label>
@@ -136,14 +136,14 @@ export default function HealthLog() {
               placeholder="Enter your BMI"
               required
               className="w-full px-5 py-3 border rounded-xl outline-none focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-transparent transition duration-300 shadow-sm hover:shadow-md hover:scale-[1.02]"
-              style={{ borderColor: "var(--dashboard-border)", color: "var(--fourground-color)" }}
+              style={{ borderColor: "var(--dashboard-border)", color: "var(--text-color-all)" }}
             />
           </div>
 
           <div className="group relative">
             <label
               className="block text-sm font-medium mb-2 transition-colors group-focus-within:text-[var(--color-secondary)]"
-              style={{ color: "var(--fourground-color)" }}
+              style={{ color: "var(--text-color-all)" }}
             >
               Target Calorie Intake
             </label>
@@ -154,14 +154,14 @@ export default function HealthLog() {
               placeholder="Enter your target calories"
               required
               className="w-full px-5 py-3 border rounded-xl outline-none focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-transparent transition duration-300 shadow-sm hover:shadow-md hover:scale-[1.02]"
-              style={{ borderColor: "var(--dashboard-border)", color: "var(--fourground-color)" }}
+              style={{ borderColor: "var(--dashboard-border)", color: "var(--text-color-all)" }}
             />
           </div>
 
           <div className="group relative">
             <label
               className="block text-sm font-medium mb-2 transition-colors group-focus-within:text-[var(--color-secondary)]"
-              style={{ color: "var(--fourground-color)" }}
+              style={{ color: "var(--text-color-all)" }}
             >
               Today's Calorie Intake
             </label>
@@ -172,7 +172,7 @@ export default function HealthLog() {
               placeholder="Enter today's calories"
               required
               className="w-full px-5 py-3 border rounded-xl outline-none focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-transparent transition duration-300 shadow-sm hover:shadow-md hover:scale-[1.02]"
-              style={{ borderColor: "var(--dashboard-border)", color: "var(--fourground-color)" }}
+              style={{ borderColor: "var(--dashboard-border)", color: "var(--text-color-all)" }}
             />
           </div>
 
@@ -195,7 +195,7 @@ export default function HealthLog() {
                 style={{
                   borderColor: "var(--dashboard-border)",
                   background: "var(--dashboard-bg)",
-                  color: "var(--fourground-color)",
+                  color: "var(--text-color-all)",
                 }}
               >
                 <span

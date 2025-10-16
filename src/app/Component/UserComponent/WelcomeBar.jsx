@@ -34,7 +34,7 @@ const WelcomeBar = () => {
           </div>
 
           {/* Additional Context Information */}
-          <div className="flex items-center gap-6 text-sm text-[var(--fourground-color)]/60">
+          <div className="flex items-center gap-6 text-sm text-[var(--text-color-all)]/60">
             <div className="flex items-center gap-2">
               <Calendar size={16} className="text-[var(--color-primary)]" />
               <span>{new Date().toLocaleDateString('en-US', {

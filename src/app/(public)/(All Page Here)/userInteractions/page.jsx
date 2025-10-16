@@ -120,7 +120,7 @@ const UserInteractions = () => {
           Community Blogs & Health Insights
           <span className="absolute left-0 -bottom-2 w-full h-1 bg-[var(--color-primary)] rounded-full"></span>
         </h1>
-        <p className="text-base md:text-lg text-[var(--fourground-color)] opacity-80 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-base md:text-lg text-[var(--text-color-all)] opacity-80 max-w-2xl mx-auto leading-relaxed">
           Discover inspiring blogs, share your thoughts, and engage with the
           health community through meaningful discussions.
         </p>
@@ -136,17 +136,17 @@ const UserInteractions = () => {
             className="p-6 md:p-8 rounded-2xl shadow-md bg-[var(--dashboard-bg)] border border-[var(--dashboard-border)] hover:shadow-xl transition-all duration-300"
           >
             {/* Blog Header */}
-            <h2 className="text-2xl md:text-3xl font-bold mb-2 text-[var(--fourground-color)]">
+            <h2 className="text-2xl md:text-3xl font-bold mb-2 text-[var(--text-color-all)]">
               {blog.title}
             </h2>
-            <div className="flex flex-col sm:flex-row sm:justify-between mb-4 text-sm text-[var(--fourground-color)] opacity-70">
+            <div className="flex flex-col sm:flex-row sm:justify-between mb-4 text-sm text-[var(--text-color-all)] opacity-70">
               <p>📌 {blog.category}</p>
               <p>
                 ✍️ {blog?.author?.name} ({blog?.author?.email})
               </p>
             </div>
 
-            <p className="text-base text-[var(--fourground-color)] opacity-90 mb-6 leading-relaxed">
+            <p className="text-base text-[var(--text-color-all)] opacity-90 mb-6 leading-relaxed">
               {blog.content}
             </p>
 
@@ -162,14 +162,14 @@ const UserInteractions = () => {
               >
                 <ThumbsUp size={18} /> {blog.likes?.length || 0}
               </button>
-              <span className="text-sm flex items-center gap-1 text-[var(--fourground-color)] opacity-70">
+              <span className="text-sm flex items-center gap-1 text-[var(--text-color-all)] opacity-70">
                 <MessageSquare size={16} /> {blog.comments?.length || 0} Comments
               </span>
             </div>
 
             {/* Comments */}
             <section className="mt-8">
-              <h3 className="font-semibold text-lg mb-4 text-[var(--fourground-color)] flex items-center gap-2">
+              <h3 className="font-semibold text-lg mb-4 text-[var(--text-color-all)] flex items-center gap-2">
                 💬 Comments
               </h3>
 
@@ -183,7 +183,7 @@ const UserInteractions = () => {
                       exit={{ opacity: 0, y: -10 }}
                       className={`p-4 rounded-xl border border-[var(--dashboard-border)] shadow-sm ${
                         user?.email === c.user.email
-                          ? "bg-[var(--gray-color)]"
+                          ? "bg-[var(--bg-color-all)]"
                           : "bg-[var(--sidebar-bg)]"
                       }`}
                     >
@@ -198,7 +198,7 @@ const UserInteractions = () => {
                                 [c._id]: e.target.value,
                               }))
                             }
-                            className="flex-1 px-3 py-2 rounded-lg bg-[var(--dashboard-bg)] border border-[var(--dashboard-border)] text-[var(--fourground-color)] focus:ring-2 focus:ring-[var(--color-secondary)]"
+                            className="flex-1 px-3 py-2 rounded-lg bg-[var(--dashboard-bg)] border border-[var(--dashboard-border)] text-[var(--text-color-all)] focus:ring-2 focus:ring-[var(--color-secondary)]"
                           />
                           <div className="flex gap-2 mt-2 sm:mt-0">
                             <button
@@ -217,7 +217,7 @@ const UserInteractions = () => {
                                   return copy;
                                 })
                               }
-                              className="px-4 py-2 bg-[var(--gray-color)] text-[var(--fourground-color)] rounded-lg hover:brightness-90 transition"
+                              className="px-4 py-2 bg-[var(--bg-color-all)] text-[var(--text-color-all)] rounded-lg hover:brightness-90 transition"
                             >
                               Cancel
                             </button>
@@ -225,11 +225,11 @@ const UserInteractions = () => {
                         </div>
                       ) : (
                         <>
-                          <p className="text-sm text-[var(--fourground-color)] leading-relaxed">
+                          <p className="text-sm text-[var(--text-color-all)] leading-relaxed">
                             <span className="font-medium">{c.user.name}:</span>{" "}
                             {c.text}
                           </p>
-                          <p className="text-xs text-[var(--fourground-color)] opacity-60 mt-1">
+                          <p className="text-xs text-[var(--text-color-all)] opacity-60 mt-1">
                             {new Date(c.createdAt).toLocaleString()}
                           </p>
 
@@ -274,7 +274,7 @@ const UserInteractions = () => {
                       }))
                     }
                     placeholder="Write a comment..."
-                    className="flex-1 px-4 py-3 rounded-full border border-[var(--dashboard-border)] bg-[var(--dashboard-bg)] focus:ring-2 focus:ring-[var(--color-secondary)] text-[var(--fourground-color)]"
+                    className="flex-1 px-4 py-3 rounded-full border border-[var(--dashboard-border)] bg-[var(--dashboard-bg)] focus:ring-2 focus:ring-[var(--color-secondary)] text-[var(--text-color-all)]"
                   />
                   <button
                     onClick={() => handleComment(blog._id)}

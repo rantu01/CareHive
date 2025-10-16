@@ -87,7 +87,7 @@ const filteredDoctors = doctors.filter((doc) => {
       className="container mx-auto min-h-screen py-28 px-5"
       style={{
         fontFamily: "var(--font-primary)",
-        color: "var(--fourground-color)",
+        color: "var(--text-color-all)",
       }}
     >
       {/* Header */}
@@ -105,7 +105,7 @@ const filteredDoctors = doctors.filter((doc) => {
           className="max-w-3xl mx-auto text-lg"
           style={{
             fontFamily: "var(--font-primary)",
-            color: "var(--fourground-color)",
+            color: "var(--text-color-all)",
           }}
         >
           Find highly skilled medical professionals. Use the search to quickly
@@ -124,7 +124,7 @@ const filteredDoctors = doctors.filter((doc) => {
             className="w-full px-6 py-3 rounded-full shadow-lg focus:outline-none focus:ring-4 transition duration-300"
             style={{
               border: "2px solid var(--dashboard-blue)",
-              color: "var(--fourground-color)",
+              color: "var(--text-color-all)",
               fontFamily: "var(--font-primary)",
             }}
           />
@@ -132,7 +132,7 @@ const filteredDoctors = doctors.filter((doc) => {
             <button
               onClick={() => setSearchTerm("")}
               className="absolute right-5 top-1/2 transform -translate-y-1/2 transition-colors"
-              style={{ color: "var(--fourground-color)" }}
+              style={{ color: "var(--text-color-all)" }}
             >
               ✖
             </button>

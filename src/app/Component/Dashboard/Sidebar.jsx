@@ -99,7 +99,7 @@ export default function Sidebar({
                 </h1>
                 <p
                   className="text-xs opacity-70"
-                  style={{ color: "var(--fourground-color)" }}
+                  style={{ color: "var(--text-color-all)" }}
                 >
                   Medical Platform
                 </p>
@@ -158,7 +158,7 @@ export default function Sidebar({
                       color:
                         pathname === resolvedPath
                           ? "var(--color-white)"
-                          : "var(--fourground-color)",
+                          : "var(--text-color-all)",
                       border:
                         pathname === resolvedPath
                           ? "none"
@@ -171,7 +171,7 @@ export default function Sidebar({
                           `[href="${resolvedPath}"]`
                         );
                         if (element) {
-                          element.style.backgroundColor = "var(--gray-color)";
+                          element.style.backgroundColor = "var(--bg-color-all)";
                           element.style.borderColor = "var(--dashboard-border)";
                         }
                       }
@@ -243,7 +243,7 @@ export default function Sidebar({
               isCollapsed ? "justify-center" : ""
             }`}
             style={{
-              color: "var(--fourground-color)",
+              color: "var(--text-color-all)",
               backgroundColor:
                 pathname === "/profile"
                   ? "var(--color-primary)"
@@ -253,7 +253,7 @@ export default function Sidebar({
             }}
             onMouseEnter={(e) => {
               if (pathname !== "/profile") {
-                e.currentTarget.style.backgroundColor = "var(--gray-color)";
+                e.currentTarget.style.backgroundColor = "var(--bg-color-all)";
                 e.currentTarget.style.borderColor = "var(--dashboard-border)";
                 e.currentTarget.style.transform = "scale(1.05)";
               }
@@ -286,7 +286,7 @@ export default function Sidebar({
                 className={`font-medium ${
                   pathname === "/profile"
                     ? "text-white"
-                    : "text-[var(--fourground-color)]"
+                    : "text-[var(--text-color-all)]"
                 }`}
               >
                 My Profile

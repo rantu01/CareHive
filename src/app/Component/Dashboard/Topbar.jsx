@@ -97,10 +97,10 @@ export default function Topbar({ toggleSidebar }) {
           borderBottom: "2px solid var(--dashboard-border)",
         }}
       >
-        <div className="w-8 h-8 rounded-lg bg-[var(--gray-color)]"></div>
+        <div className="w-8 h-8 rounded-lg bg-[var(--bg-color-all)]"></div>
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-[var(--gray-color)]"></div>
-          <div className="w-8 h-8 rounded-full bg-[var(--gray-color)]"></div>
+          <div className="w-8 h-8 rounded-lg bg-[var(--bg-color-all)]"></div>
+          <div className="w-8 h-8 rounded-full bg-[var(--bg-color-all)]"></div>
         </div>
       </header>
     );
@@ -156,7 +156,7 @@ export default function Topbar({ toggleSidebar }) {
       style={{
         backgroundColor: "var(--sidebar-bg)",
         borderBottom: "2px solid var(--dashboard-border)",
-        color: "var(--fourground-color)",
+        color: "var(--text-color-all)",
         boxShadow: "0 2px 20px rgba(0, 0, 0, 0.08)",
       }}
     >
@@ -166,8 +166,8 @@ export default function Topbar({ toggleSidebar }) {
           onClick={toggleSidebar}
           className="cursor-pointer w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-105 group"
           style={{
-            color: "var(--fourground-color)",
-            backgroundColor: "var(--gray-color)",
+            color: "var(--text-color-all)",
+            backgroundColor: "var(--bg-color-all)",
             boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
           }}
         >
@@ -191,7 +191,7 @@ export default function Topbar({ toggleSidebar }) {
             style={{
               backgroundColor: "var(--dashboard-bg)",
               borderColor: "var(--dashboard-border)",
-              color: "var(--fourground-color)",
+              color: "var(--text-color-all)",
             }}
           />
         </div>
@@ -219,8 +219,8 @@ export default function Topbar({ toggleSidebar }) {
             onClick={() => setOpenDropdown(openDropdown === 'notifications' ? null : 'notifications')}
             className="cursor-pointer relative w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-105 group"
             style={{
-              color: "var(--fourground-color)",
-              backgroundColor: "var(--gray-color)",
+              color: "var(--text-color-all)",
+              backgroundColor: "var(--bg-color-all)",
               boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
             }}
           >
@@ -271,8 +271,8 @@ export default function Topbar({ toggleSidebar }) {
               <div className="max-h-64 overflow-y-auto">
                 {storedNotifications.length === 0 ? (
                   <div className="text-center py-8">
-                    <Bell size={32} className="mx-auto mb-2 opacity-50" style={{ color: "var(--fourground-color)" }} />
-                    <p className="text-sm opacity-70" style={{ color: "var(--fourground-color)" }}>
+                    <Bell size={32} className="mx-auto mb-2 opacity-50" style={{ color: "var(--text-color-all)" }} />
+                    <p className="text-sm opacity-70" style={{ color: "var(--text-color-all)" }}>
                       No notifications
                     </p>
                   </div>
@@ -284,7 +284,7 @@ export default function Topbar({ toggleSidebar }) {
                         !n.read ? 'animate-pulse' : ''
                       }`}
                       style={{
-                        backgroundColor: n.read ? "transparent" : "var(--gray-color)",
+                        backgroundColor: n.read ? "transparent" : "var(--bg-color-all)",
                         borderColor: "var(--dashboard-border)",
                       }}
                       onClick={() => handleMarkAsRead(n)}
@@ -299,18 +299,18 @@ export default function Topbar({ toggleSidebar }) {
                           <p
                             className="font-semibold text-sm truncate"
                             style={{
-                              color: n.read ? "var(--fourground-color)" : "var(--color-primary)",
+                              color: n.read ? "var(--text-color-all)" : "var(--color-primary)",
                             }}
                           >
                             {n.title}
                           </p>
                           <p
                             className="text-xs mt-1 line-clamp-2"
-                            style={{ color: "var(--fourground-color)" }}
+                            style={{ color: "var(--text-color-all)" }}
                           >
                             {n.body}
                           </p>
-                          <p className="text-xs opacity-60 mt-1" style={{ color: "var(--fourground-color)" }}>
+                          <p className="text-xs opacity-60 mt-1" style={{ color: "var(--text-color-all)" }}>
                             {new Date(n.createdAt || Date.now()).toLocaleDateString()}
                           </p>
                         </div>
@@ -343,7 +343,7 @@ export default function Topbar({ toggleSidebar }) {
         <div className="relative" ref={profileRef}>
           <button
             onClick={() => setOpenDropdown(openDropdown === 'profile' ? null : 'profile')}
-            className="flex items-center gap-2 sm:gap-3 cursor-pointer group p-1 rounded-xl transition-all duration-300 hover:bg-[var(--gray-color)]"
+            className="flex items-center gap-2 sm:gap-3 cursor-pointer group p-1 rounded-xl transition-all duration-300 hover:bg-[var(--bg-color-all)]"
           >
             <div
               className="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg border-2"
@@ -370,7 +370,7 @@ export default function Topbar({ toggleSidebar }) {
 
             <div className="hidden sm:flex flex-col text-sm leading-tight text-left">
               <span
-                style={{ color: "var(--fourground-color)" }}
+                style={{ color: "var(--text-color-all)" }}
                 className="font-semibold transition-colors duration-300 group-hover:text-[var(--color-primary)]"
               >
                 {user?.displayName || "No Name"}
@@ -418,7 +418,7 @@ export default function Topbar({ toggleSidebar }) {
                     )}
                   </div>
                   <div>
-                    <p className="font-semibold" style={{ color: "var(--fourground-color)" }}>
+                    <p className="font-semibold" style={{ color: "var(--text-color-all)" }}>
                       {user?.displayName || "No Name"}
                     </p>
                     <p className="text-sm capitalize" style={{ color: "var(--color-primary)" }}>
@@ -432,18 +432,18 @@ export default function Topbar({ toggleSidebar }) {
               <div className="p-2">
                 <Link
                   href="/dashboard/profile"
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-300 hover:scale-105 hover:bg-[var(--gray-color)] group"
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-300 hover:scale-105 hover:bg-[var(--bg-color-all)] group"
                 >
                   <UserPlus size={18} style={{ color: "var(--color-primary)" }} />
-                  <span style={{ color: "var(--fourground-color)" }}>My Profile</span>
+                  <span style={{ color: "var(--text-color-all)" }}>My Profile</span>
                 </Link>
                 
                 <Link
                   href="/dashboard/settings"
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-300 hover:scale-105 hover:bg-[var(--gray-color)] group"
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-300 hover:scale-105 hover:bg-[var(--bg-color-all)] group"
                 >
                   <Settings size={18} style={{ color: "var(--color-primary)" }} />
-                  <span style={{ color: "var(--fourground-color)" }}>Settings</span>
+                  <span style={{ color: "var(--text-color-all)" }}>Settings</span>
                 </Link>
               </div>
 

@@ -110,10 +110,10 @@ export default function ManageDoctors() {
       <div className="flex justify-center items-center min-h-96">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-lg font-semibold text-[var(--fourground-color)]">
+          <p className="text-lg font-semibold text-[var(--text-color-all)]">
             Loading doctors...
           </p>
-          <p className="text-sm text-[var(--fourground-color)] opacity-70 mt-2">
+          <p className="text-sm text-[var(--text-color-all)] opacity-70 mt-2">
             Please wait while we fetch doctor profiles
           </p>
         </div>
@@ -122,7 +122,7 @@ export default function ManageDoctors() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--gray-color)] p-4 sm:p-6 lg:p-8">
+    <div className="min-h-screen bg-[var(--bg-color-all)] p-4 sm:p-6 lg:p-8">
       {/* Enhanced Header Section */}
       <div className="mb-8">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
@@ -130,7 +130,7 @@ export default function ManageDoctors() {
             <h1 className="text-4xl sm:text-5xl font-bold text-[var(--color-primary)] mb-4">
               Doctor Management
             </h1>
-            <p className="text-lg text-[var(--fourground-color)] opacity-80 max-w-2xl">
+            <p className="text-lg text-[var(--text-color-all)] opacity-80 max-w-2xl">
               Manage verification status and access permissions for medical professionals
             </p>
           </div>
@@ -138,17 +138,17 @@ export default function ManageDoctors() {
             <div className="flex items-center justify-center space-x-4">
               <div className="text-center">
                 <div className="text-2xl font-bold text-[var(--color-primary)]">{stats.total}</div>
-                <div className="text-sm text-[var(--fourground-color)] opacity-70">Total</div>
+                <div className="text-sm text-[var(--text-color-all)] opacity-70">Total</div>
               </div>
               <div className="w-px h-8 bg-[var(--dashboard-border)]"></div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-green-500">{stats.verified}</div>
-                <div className="text-sm text-[var(--fourground-color)] opacity-70">Verified</div>
+                <div className="text-sm text-[var(--text-color-all)] opacity-70">Verified</div>
               </div>
               <div className="w-px h-8 bg-[var(--dashboard-border)]"></div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-amber-500">{stats.pending}</div>
-                <div className="text-sm text-[var(--fourground-color)] opacity-70">Pending</div>
+                <div className="text-sm text-[var(--text-color-all)] opacity-70">Pending</div>
               </div>
             </div>
           </div>
@@ -160,7 +160,7 @@ export default function ManageDoctors() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Search Input */}
           <div>
-            <label className="block text-sm font-semibold text-[var(--fourground-color)] mb-3">
+            <label className="block text-sm font-semibold text-[var(--text-color-all)] mb-3">
               Search Doctors
             </label>
             <div className="relative group">
@@ -184,20 +184,20 @@ export default function ManageDoctors() {
                 placeholder="Search by name or email..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="block w-full pl-12 pr-4 py-3 border border-[var(--dashboard-border)] rounded-xl bg-[var(--sidebar-bg)] text-[var(--fourground-color)] placeholder-[var(--fourground-color)]/60 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all duration-200"
+                className="block w-full pl-12 pr-4 py-3 border border-[var(--dashboard-border)] rounded-xl bg-[var(--sidebar-bg)] text-[var(--text-color-all)] placeholder-[var(--text-color-all)]/60 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all duration-200"
               />
             </div>
           </div>
 
           {/* Status Filter */}
           <div>
-            <label className="block text-sm font-semibold text-[var(--fourground-color)] mb-3">
+            <label className="block text-sm font-semibold text-[var(--text-color-all)] mb-3">
               Filter by Status
             </label>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="block w-full px-4 py-3 border border-[var(--dashboard-border)] rounded-xl bg-[var(--sidebar-bg)] text-[var(--fourground-color)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all duration-200"
+              className="block w-full px-4 py-3 border border-[var(--dashboard-border)] rounded-xl bg-[var(--sidebar-bg)] text-[var(--text-color-all)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all duration-200"
             >
               <option value="all">All Status</option>
               <option value="verified">Verified Only</option>
@@ -231,10 +231,10 @@ export default function ManageDoctors() {
                     {doctor.personalInfo?.fullName?.charAt(0) || "D"}
                   </div>
                   <div>
-                    <h2 className="text-xl font-bold text-[var(--fourground-color)] group-hover:text-[var(--color-primary)] transition-colors">
+                    <h2 className="text-xl font-bold text-[var(--text-color-all)] group-hover:text-[var(--color-primary)] transition-colors">
                       {doctor.personalInfo?.fullName || "Unnamed Doctor"}
                     </h2>
-                    <p className="text-[var(--fourground-color)] opacity-70 text-sm mt-1">
+                    <p className="text-[var(--text-color-all)] opacity-70 text-sm mt-1">
                       {doctor.personalInfo?.email}
                     </p>
                   </div>
@@ -262,26 +262,26 @@ export default function ManageDoctors() {
                     </>
                   )}
                 </span>
-                <span className="text-xs text-[var(--fourground-color)] opacity-70">
+                <span className="text-xs text-[var(--text-color-all)] opacity-70">
                   ID: {doctor._id?.slice(-6)}
                 </span>
               </div>
 
               {/* Additional Info */}
               <div className="space-y-3 mb-6">
-                <div className="flex items-center justify-between py-2 border-b border-[var(--gray-color)]">
-                  <span className="text-sm text-[var(--fourground-color)] opacity-70">
+                <div className="flex items-center justify-between py-2 border-b border-[var(--bg-color-all)]">
+                  <span className="text-sm text-[var(--text-color-all)] opacity-70">
                     Specialty:
                   </span>
-                  <span className="text-sm font-medium text-[var(--fourground-color)]">
+                  <span className="text-sm font-medium text-[var(--text-color-all)]">
                     {doctor.specialization || "Not specified"}
                   </span>
                 </div>
-                <div className="flex items-center justify-between py-2 border-b border-[var(--gray-color)]">
-                  <span className="text-sm text-[var(--fourground-color)] opacity-70">
+                <div className="flex items-center justify-between py-2 border-b border-[var(--bg-color-all)]">
+                  <span className="text-sm text-[var(--text-color-all)] opacity-70">
                     Experience:
                   </span>
-                  <span className="text-sm font-medium text-[var(--fourground-color)]">
+                  <span className="text-sm font-medium text-[var(--text-color-all)]">
                     {doctor.experience || "N/A"} years
                   </span>
                 </div>
@@ -324,7 +324,7 @@ export default function ManageDoctors() {
               </button>
 
               {/* Quick Actions */}
-              <div className="flex justify-between mt-4 pt-4 border-t border-[var(--gray-color)]">
+              <div className="flex justify-between mt-4 pt-4 border-t border-[var(--bg-color-all)]">
                 <button className="text-xs text-[var(--color-primary)] font-medium hover:underline transition-colors">
                   View Profile
                 </button>
@@ -343,10 +343,10 @@ export default function ManageDoctors() {
           <div className="w-24 h-24 mx-auto mb-6 rounded-3xl flex items-center justify-center text-4xl bg-[var(--color-primary)] text-white shadow-lg">
             👨‍⚕️
           </div>
-          <h3 className="text-2xl font-bold text-[var(--fourground-color)] mb-3">
+          <h3 className="text-2xl font-bold text-[var(--text-color-all)] mb-3">
             {searchTerm || statusFilter !== "all" ? "No Matching Doctors Found" : "No Doctors Available"}
           </h3>
-          <p className="text-[var(--fourground-color)] opacity-80 max-w-md mx-auto mb-8">
+          <p className="text-[var(--text-color-all)] opacity-80 max-w-md mx-auto mb-8">
             {searchTerm || statusFilter !== "all" 
               ? "Try adjusting your search criteria or filters to find what you're looking for."
               : "There are no doctor profiles available for management at the moment."
@@ -370,7 +370,7 @@ export default function ManageDoctors() {
       {/* Results Count */}
       {filteredDoctors.length > 0 && (
         <div className="mt-8 text-center">
-          <p className="text-sm text-[var(--fourground-color)] opacity-70">
+          <p className="text-sm text-[var(--text-color-all)] opacity-70">
             Showing {filteredDoctors.length} of {doctors.length} doctors
           </p>
         </div>

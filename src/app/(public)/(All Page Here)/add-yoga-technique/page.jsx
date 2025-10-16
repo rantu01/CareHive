@@ -76,13 +76,13 @@
 //         {/* Headline */}
 //         <h1
 //           className="text-4xl sm:text-5xl font-bold mb-6 text-center"
-//           style={{ color: "var(--fourground-color)" }}
+//           style={{ color: "var(--text-color-all)" }}
 //         >
 //           Add <span style={{ color: "var(--color-secondary)" }}>Yoga Technique</span>
 //         </h1>
 //         <p
 //           className="text-lg sm:text-xl text-center mb-10 opacity-90"
-//           style={{ color: "var(--fourground-color)" }}
+//           style={{ color: "var(--text-color-all)" }}
 //         >
 //           Share your knowledge of ancient yoga practices by adding detailed techniques
 //           with proper guidance and safety instructions.
@@ -106,7 +106,7 @@
 //               onChange={handleChange}
 //               placeholder="e.g., Tree Pose"
 //               className="w-full p-3 rounded-lg border bg-transparent focus:ring-2 outline-none"
-//               style={{ borderColor: "var(--dashboard-border)", color: "var(--fourground-color)" }}
+//               style={{ borderColor: "var(--dashboard-border)", color: "var(--text-color-all)" }}
 //               required
 //             />
 //           </div>
@@ -121,7 +121,7 @@
 //               onChange={handleChange}
 //               placeholder="e.g., Vrksasana"
 //               className="w-full p-3 rounded-lg border bg-transparent focus:ring-2 outline-none"
-//               style={{ borderColor: "var(--dashboard-border)", color: "var(--fourground-color)" }}
+//               style={{ borderColor: "var(--dashboard-border)", color: "var(--text-color-all)" }}
 //               required
 //             />
 //           </div>
@@ -136,7 +136,7 @@
 //               onChange={handleChange}
 //               placeholder="e.g., Standing Asana, Pranayama, Meditation"
 //               className="w-full p-3 rounded-lg border bg-transparent focus:ring-2 outline-none"
-//               style={{ borderColor: "var(--dashboard-border)", color: "var(--fourground-color)" }}
+//               style={{ borderColor: "var(--dashboard-border)", color: "var(--text-color-all)" }}
 //               required
 //             />
 //           </div>
@@ -151,7 +151,7 @@
 //               onChange={handleChange}
 //               placeholder="e.g., Hatha, Vinyasa, Yin"
 //               className="w-full p-3 rounded-lg border bg-transparent focus:ring-2 outline-none"
-//               style={{ borderColor: "var(--dashboard-border)", color: "var(--fourground-color)" }}
+//               style={{ borderColor: "var(--dashboard-border)", color: "var(--text-color-all)" }}
 //             />
 //           </div>
 
@@ -163,7 +163,7 @@
 //               value={formData.level}
 //               onChange={handleChange}
 //               className="w-full p-3 rounded-lg border bg-transparent focus:ring-2 outline-none"
-//               style={{ borderColor: "var(--dashboard-border)", color: "var(--fourground-color)" }}
+//               style={{ borderColor: "var(--dashboard-border)", color: "var(--text-color-all)" }}
 //               required
 //             >
 //               <option value="">Select level</option>
@@ -182,7 +182,7 @@
 //               onChange={handleChange}
 //               placeholder="e.g., Improves balance, Strengthens legs, Calms the mind"
 //               className="w-full p-3 rounded-lg border bg-transparent focus:ring-2 outline-none"
-//               style={{ borderColor: "var(--dashboard-border)", color: "var(--fourground-color)" }}
+//               style={{ borderColor: "var(--dashboard-border)", color: "var(--text-color-all)" }}
 //               rows="3"
 //             ></textarea>
 //           </div>
@@ -198,7 +198,7 @@
 //               onChange={handleChange}
 //               placeholder="Write the steps clearly..."
 //               className="w-full p-3 rounded-lg border bg-transparent focus:ring-2 outline-none"
-//               style={{ borderColor: "var(--dashboard-border)", color: "var(--fourground-color)" }}
+//               style={{ borderColor: "var(--dashboard-border)", color: "var(--text-color-all)" }}
 //               rows="4"
 //               required
 //             ></textarea>
@@ -215,7 +215,7 @@
 //               onChange={handleChange}
 //               placeholder="e.g., Avoid if you have high blood pressure, etc."
 //               className="w-full p-3 rounded-lg border bg-transparent focus:ring-2 outline-none"
-//               style={{ borderColor: "var(--dashboard-border)", color: "var(--fourground-color)" }}
+//               style={{ borderColor: "var(--dashboard-border)", color: "var(--text-color-all)" }}
 //               rows="3"
 //             ></textarea>
 //           </div>
@@ -230,7 +230,7 @@
 //               onChange={handleChange}
 //               placeholder="https://example.com/yoga-pose.jpg"
 //               className="w-full p-3 rounded-lg border bg-transparent focus:ring-2 outline-none"
-//               style={{ borderColor: "var(--dashboard-border)", color: "var(--fourground-color)" }}
+//               style={{ borderColor: "var(--dashboard-border)", color: "var(--text-color-all)" }}
 //             />
 //           </div>
 
@@ -406,7 +406,7 @@ export default function AddYogaTechnique() {
         {/* Headline */}
         <h1
           className="text-4xl sm:text-5xl font-bold mb-6 text-center"
-          style={{ color: "var(--fourground-color)" }}
+          style={{ color: "var(--text-color-all)" }}
         >
           {editing ? "Update Yoga Technique" : (
             <>Add <span style={{ color: "var(--color-secondary)" }}>Yoga Technique</span></>
@@ -414,7 +414,7 @@ export default function AddYogaTechnique() {
         </h1>
         <p
           className="text-lg sm:text-xl text-center mb-10 opacity-90"
-          style={{ color: "var(--fourground-color)" }}
+          style={{ color: "var(--text-color-all)" }}
         >
           {editing
             ? "Edit the selected yoga technique below."
@@ -443,7 +443,7 @@ export default function AddYogaTechnique() {
                 className="w-full p-3 rounded-lg border bg-transparent focus:ring-2 outline-none"
                 style={{
                   borderColor: "var(--dashboard-border)",
-                  color: "var(--fourground-color)",
+                  color: "var(--text-color-all)",
                 }}
                 required
               />
@@ -460,7 +460,7 @@ export default function AddYogaTechnique() {
               className="w-full p-3 rounded-lg border bg-transparent focus:ring-2 outline-none"
               style={{
                 borderColor: "var(--dashboard-border)",
-                color: "var(--fourground-color)",
+                color: "var(--text-color-all)",
               }}
               required
             >
@@ -482,7 +482,7 @@ export default function AddYogaTechnique() {
                 className="w-full p-3 rounded-lg border bg-transparent focus:ring-2 outline-none"
                 style={{
                   borderColor: "var(--dashboard-border)",
-                  color: "var(--fourground-color)",
+                  color: "var(--text-color-all)",
                 }}
                 rows="3"
               />
@@ -500,7 +500,7 @@ export default function AddYogaTechnique() {
               className="w-full p-3 rounded-lg border bg-transparent focus:ring-2 outline-none"
               style={{
                 borderColor: "var(--dashboard-border)",
-                color: "var(--fourground-color)",
+                color: "var(--text-color-all)",
               }}
             />
           </div>
@@ -521,7 +521,7 @@ export default function AddYogaTechnique() {
         <div className="mt-16">
           <h2
             className="text-2xl font-bold mb-6 text-center"
-            style={{ color: "var(--fourground-color)" }}
+            style={{ color: "var(--text-color-all)" }}
           >
             Manage Yoga Techniques
           </h2>
@@ -534,7 +534,7 @@ export default function AddYogaTechnique() {
                 style={{ borderColor: "var(--dashboard-border)" }}
               >
                 <div>
-                  <h3 className="text-xl font-semibold mb-2" style={{ color: "var(--fourground-color)" }}>
+                  <h3 className="text-xl font-semibold mb-2" style={{ color: "var(--text-color-all)" }}>
                     {tech.techniqueName}
                   </h3>
                   <p className="text-sm opacity-80 mb-2">{tech.sanskritName}</p>

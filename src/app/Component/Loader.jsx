@@ -13,7 +13,7 @@ export default function Loader() {
         {/* Text */}
         <p
           className="mt-4 text-lg font-semibold"
-          style={{ color: "var(--fourground-color)" }}
+          style={{ color: "var(--text-color-all)" }}
         >
           Loading...
         </p>

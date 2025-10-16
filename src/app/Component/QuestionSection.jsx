@@ -63,7 +63,7 @@ const QuestionSection = () => {
           </div>
         </h2>
 
-        <p className="text-lg text-[var(--fourground-color)] opacity-80 max-w-4xl mx-auto">
+        <p className="text-lg text-[var(--text-color-all)] opacity-80 max-w-4xl mx-auto">
           Find answers to the most common questions about maintaining your
           health and wellness. Get clear, concise guidance from our expert team.
         </p>
@@ -85,7 +85,7 @@ const QuestionSection = () => {
                 backgroundColor: "var(--dashboard-bg)",
                 border: "1px solid var(--dashboard-border)",
                 fontFamily: "var(--font-primary)",
-                color: "var(--fourground-color)",
+                color: "var(--text-color-all)",
               }}
             >
               <button

@@ -55,7 +55,7 @@ const RecipeOfTheDay = () => {
         <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[var(--color-primary)] font-heading">
           Recipe of the Day
         </h2>
-        <p className="text-xl text-[var(--fourground-color)] leading-relaxed opacity-80">
+        <p className="text-xl text-[var(--text-color-all)] leading-relaxed opacity-80">
           Discover delicious and nutritious recipes to support your wellness journey. Each dish is
           carefully selected for health benefits and ease of preparation.
         </p>
@@ -75,7 +75,7 @@ const RecipeOfTheDay = () => {
               whileHover={{ y: -5 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="bg-[var(--gray-color)] rounded-3xl shadow-lg border border-[var(--dashboard-border)] overflow-hidden hover:shadow-2xl transition-all duration-300">
+              <div className="bg-[var(--bg-color-all)] rounded-3xl shadow-lg border border-[var(--dashboard-border)] overflow-hidden hover:shadow-2xl transition-all duration-300">
                 {/* Image */}
                 <div className="relative overflow-hidden">
                   <motion.img
@@ -89,7 +89,7 @@ const RecipeOfTheDay = () => {
                   {/* Rating Badge */}
                   <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-1 shadow-lg">
                     {renderStars(recipe.rating)}
-                    <span className="text-sm font-semibold text-[var(--fourground-color)] ml-1">
+                    <span className="text-sm font-semibold text-[var(--text-color-all)] ml-1">
                       {recipe.rating}
                     </span>
                   </div>
@@ -103,17 +103,17 @@ const RecipeOfTheDay = () => {
                 {/* Content */}
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-3">
-                    <h3 className="text-xl font-bold text-[var(--fourground-color)] pr-2">{recipe.title}</h3>
+                    <h3 className="text-xl font-bold text-[var(--text-color-all)] pr-2">{recipe.title}</h3>
                     <span className="text-xs font-semibold text-[var(--color-primary)] bg-[var(--color-primary)] bg-opacity-10 px-2 py-1 rounded-full">
                       {recipe.difficulty}
                     </span>
                   </div>
-                  <p className="text-[var(--fourground-color)] opacity-80 mb-4 leading-relaxed">
+                  <p className="text-[var(--text-color-all)] opacity-80 mb-4 leading-relaxed">
                     {recipe.description}
                   </p>
-                  <div className="flex items-center gap-2 mb-4 p-3 bg-[var(--gray-color)] rounded-xl">
+                  <div className="flex items-center gap-2 mb-4 p-3 bg-[var(--bg-color-all)] rounded-xl">
                     <Leaf className="w-4 h-4 text-[var(--color-primary)]" />
-                    <span className="text-sm font-medium text-[var(--fourground-color)]">
+                    <span className="text-sm font-medium text-[var(--text-color-all)]">
                       {recipe.nutrition}
                     </span>
                   </div>
@@ -148,7 +148,7 @@ const RecipeOfTheDay = () => {
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: i * 0.1 }}
-                                className="flex items-start gap-3 text-[var(--fourground-color)]"
+                                className="flex items-start gap-3 text-[var(--text-color-all)]"
                               >
                                 <Zap className="w-4 h-4 text-[var(--color-primary)] mt-0.5 flex-shrink-0" />
                                 <span className="text-sm leading-relaxed">{benefit}</span>
