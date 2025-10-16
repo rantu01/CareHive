@@ -37,7 +37,7 @@ export const navItems = {
     },
     {
       name: "Patients",
-      path: "/dashboard/doctor/patients",
+      path: (doctorId) => `/dashboard/doctor/${doctorId}/patients`,
       icon: <Users size={18} />,
     },
     {
