@@ -40,7 +40,7 @@ export const navItems = {
     },
     {
       name: "Patients",
-      path: "/dashboard/doctor/patients",
+      path: (doctorId) => `/dashboard/doctor/${doctorId}/patients`,
       icon: <Users size={18} />,
     },
     {
@@ -78,6 +78,21 @@ export const navItems = {
     {
       name: "Doctor Approval",
       path: "/dashboard/admin/doctor-approval",
+      icon: <CheckCircle2 size={18} />,
+    },
+    // {
+    //   name: "Add Fitness Info",
+    //   path: "/dashboard/admin/add-fitness-info",
+    //   icon: <CheckCircle2 size={18} />,
+    // },
+    {
+      name: "Add Gym Plans",
+      path: "/dashboard/admin/add-gym-plans",
+      icon: <CheckCircle2 size={18} />,
+    },
+    {
+      name: "Add Yoga Technique",
+      path: "/dashboard/admin/add-yoga-technique",
       icon: <CheckCircle2 size={18} />,
     },
   ],

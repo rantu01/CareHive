@@ -411,7 +411,7 @@ export default function ReportPage() {
         {/* Tables use overflow-x-auto for responsiveness */}
         <div className="overflow-x-auto">
           {/* 💡 Improvement: The table width is now controlled by content, allowing the scroll to take effect immediately */}
-          <table className="divide-y divide-[var(--dashboard-border)] min-w-[600px] sm:min-w-full"> {/* 💡 Added a min-width to force scroll on small devices when content is narrow */}
+          <table className="divide-y divide-[var(--dashboard-border)] min-w-[600px] sm:min-w-full">
             <thead>
               <tr style={{ backgroundColor: "var(--bg-color-all)" }}>
                 {/* 💡 Smaller padding and text on mobile */}

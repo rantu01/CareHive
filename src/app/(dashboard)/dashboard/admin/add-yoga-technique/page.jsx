@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -71,7 +70,7 @@ export default function AddYogaTechnique() {
           title: "✅ Success!",
           text: editing ? "Yoga technique updated!" : "Yoga technique added!",
           icon: "success",
-          confirmButtonColor: "#4CAF50",
+          confirmButtonColor: "var(--color-primary)",
         });
         setFormData({
           techniqueName: "",
@@ -92,7 +91,7 @@ export default function AddYogaTechnique() {
         title: "❌ Error!",
         text: error.message,
         icon: "error",
-        confirmButtonColor: "#f87171",
+        confirmButtonColor: "var(--color-primary)",
       });
     }
   };
@@ -105,7 +104,7 @@ export default function AddYogaTechnique() {
       showCancelButton: true,
       confirmButtonText: "Yes, delete it!",
       cancelButtonText: "Cancel",
-      confirmButtonColor: "#e74c3c",
+      confirmButtonColor: "var(--color-primary)",
     });
 
     if (!confirm.isConfirmed) return;
@@ -144,7 +143,7 @@ export default function AddYogaTechnique() {
   return (
     <section
       className="py-24 sm:py-32 relative overflow-hidden"
-      style={{ backgroundColor: "var(--dashboard-bg)" }}
+      style={{ backgroundColor: "var(--bg-color-all)" }}
     >
       {/* Background accent glow */}
       <div className="absolute inset-0 overflow-hidden">
@@ -159,9 +158,9 @@ export default function AddYogaTechnique() {
         <div className="text-center mb-10">
           <h1
             className="text-4xl sm:text-5xl font-extrabold mb-4 tracking-tight flex justify-center items-center gap-3"
-            style={{ color: "var(--text-color-all)" }}
+            style={{ color: "var(--color-secondary)" }}
           >
-            <Flower2 className="w-8 h-8 text-green-400 animate-pulse" />
+            <Flower2 className="w-8 h-8" style={{ color: "var(--color-primary)" }} />
             {editing ? "Update Yoga Technique" : "Add Yoga Technique"}
           </h1>
           <p
@@ -177,7 +176,12 @@ export default function AddYogaTechnique() {
         {/* Form */}
         <form
           onSubmit={handleSubmit}
-          className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-2xl transition-all hover:shadow-[0_0_30px_rgba(34,197,94,0.3)]"
+          className="rounded-2xl p-8 shadow-2xl transition-all"
+          style={{ 
+            backgroundColor: "var(--dashboard-bg)",
+            borderColor: "var(--dashboard-border)",
+            border: "1px solid var(--dashboard-border)"
+          }}
         >
           {Object.entries({
             techniqueName: "Technique Name (English)",
@@ -185,16 +189,22 @@ export default function AddYogaTechnique() {
             category: "Category",
             style: "Style",
           }).map(([name, label]) => (
-            <div key={name}>
-              <label className="block text-sm font-medium mb-2">{label}</label>
+            <div key={name} className="mb-4">
+              <label 
+                className="block text-sm font-medium mb-2"
+                style={{ color: "var(--text-color-all)" }}
+              >
+                {label}
+              </label>
               <input
                 type="text"
                 name={name}
                 value={formData[name]}
                 onChange={handleChange}
-                className="w-full p-3 rounded-lg border bg-transparent focus:ring-2 outline-none transition-all"
+                className="w-full p-3 rounded-lg border focus:ring-2 outline-none transition-all"
                 style={{
                   borderColor: "var(--dashboard-border)",
+                  backgroundColor: "var(--dashboard-bg)",
                   color: "var(--text-color-all)",
                 }}
                 required
@@ -203,17 +213,21 @@ export default function AddYogaTechnique() {
           ))}
 
           {/* Difficulty Level */}
-          <div>
-            <label className="block text-sm font-medium mb-2">
+          <div className="mb-4">
+            <label 
+              className="block text-sm font-medium mb-2"
+              style={{ color: "var(--text-color-all)" }}
+            >
               Difficulty Level
             </label>
             <select
               name="level"
               value={formData.level}
               onChange={handleChange}
-              className="w-full p-3 rounded-lg border bg-transparent focus:ring-2 outline-none"
+              className="w-full p-3 rounded-lg border focus:ring-2 outline-none"
               style={{
                 borderColor: "var(--dashboard-border)",
+                backgroundColor: "var(--dashboard-bg)",
                 color: "var(--text-color-all)",
               }}
               required
@@ -231,15 +245,21 @@ export default function AddYogaTechnique() {
             ["instructions", "Instructions (Step-by-step)"],
             ["precautions", "Contraindications / Precautions"],
           ].map(([name, label]) => (
-            <div key={name}>
-              <label className="block text-sm font-medium mb-2">{label}</label>
+            <div key={name} className="mb-4">
+              <label 
+                className="block text-sm font-medium mb-2"
+                style={{ color: "var(--text-color-all)" }}
+              >
+                {label}
+              </label>
               <textarea
                 name={name}
                 value={formData[name]}
                 onChange={handleChange}
-                className="w-full p-3 rounded-lg border bg-transparent focus:ring-2 outline-none"
+                className="w-full p-3 rounded-lg border focus:ring-2 outline-none"
                 style={{
                   borderColor: "var(--dashboard-border)",
+                  backgroundColor: "var(--dashboard-bg)",
                   color: "var(--text-color-all)",
                 }}
                 rows="3"
@@ -248,8 +268,11 @@ export default function AddYogaTechnique() {
           ))}
 
           {/* Image URL */}
-          <div>
-            <label className="block text-sm font-medium mb-2">
+          <div className="mb-4">
+            <label 
+              className="block text-sm font-medium mb-2"
+              style={{ color: "var(--text-color-all)" }}
+            >
               Visual Aid (Image URL)
             </label>
             <input
@@ -257,9 +280,10 @@ export default function AddYogaTechnique() {
               name="image"
               value={formData.image}
               onChange={handleChange}
-              className="w-full p-3 rounded-lg border bg-transparent focus:ring-2 outline-none"
+              className="w-full p-3 rounded-lg border focus:ring-2 outline-none"
               style={{
                 borderColor: "var(--dashboard-border)",
+                backgroundColor: "var(--dashboard-bg)",
                 color: "var(--text-color-all)",
               }}
             />
@@ -270,8 +294,7 @@ export default function AddYogaTechnique() {
             type="submit"
             className="w-full py-3 mt-4 rounded-xl font-semibold text-lg transition-all hover:scale-105 shadow-lg"
             style={{
-              background:
-                "linear-gradient(90deg, var(--color-secondary), var(--color-primary))",
+              backgroundColor: "var(--color-primary)",
               color: "white",
             }}
           >
@@ -282,17 +305,20 @@ export default function AddYogaTechnique() {
         {/* Manage Techniques */}
         <div className="mt-20">
           <div className="flex items-center justify-center gap-2 mb-6">
-            <BookOpenText className="w-6 h-6 text-cyan-400 animate-pulse" />
+            <BookOpenText className="w-6 h-6" style={{ color: "var(--color-primary)" }} />
             <h2
               className="text-2xl font-bold text-center"
-              style={{ color: "var(--text-color-all)" }}
+              style={{ color: "var(--color-secondary)" }}
             >
               Manage Yoga Techniques
             </h2>
           </div>
 
           {techniques.length === 0 ? (
-            <p className="text-center text-lg opacity-70">
+            <p 
+              className="text-center text-lg opacity-70"
+              style={{ color: "var(--text-color-all)" }}
+            >
               No techniques found yet.
             </p>
           ) : (
@@ -300,26 +326,43 @@ export default function AddYogaTechnique() {
               {techniques.map((tech) => (
                 <div
                   key={tech._id}
-                  className="relative bg-white/10 border border-white/20 rounded-2xl p-6 backdrop-blur-lg shadow-md transition-all hover:-translate-y-2 hover:shadow-[0_0_25px_rgba(56,189,248,0.4)]"
+                  className="relative rounded-2xl p-6 shadow-md transition-all hover:-translate-y-2"
+                  style={{ 
+                    backgroundColor: "var(--dashboard-bg)",
+                    borderColor: "var(--dashboard-border)",
+                    border: "1px solid var(--dashboard-border)"
+                  }}
                 >
                   {/* Pulse Badge */}
-                  <span className="absolute top-4 right-4 w-3 h-3 rounded-full bg-green-400 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.6)]"></span>
+                  <span 
+                    className="absolute top-4 right-4 w-3 h-3 rounded-full animate-pulse"
+                    style={{ backgroundColor: "var(--color-primary)" }}
+                  ></span>
 
                   <div>
                     <h3
                       className="text-xl font-semibold mb-1 flex items-center gap-2"
                       style={{ color: "var(--text-color-all)" }}
                     >
-                      <HeartPulse className="w-5 h-5 text-green-400" />
+                      <HeartPulse className="w-5 h-5" style={{ color: "var(--color-primary)" }} />
                       {tech.techniqueName}
                     </h3>
-                    <p className="text-sm opacity-80 mb-1">
+                    <p 
+                      className="text-sm opacity-80 mb-1"
+                      style={{ color: "var(--text-color-all)" }}
+                    >
                       {tech.sanskritName}
                     </p>
-                    <p className="text-sm opacity-80 mb-1">
+                    <p 
+                      className="text-sm opacity-80 mb-1"
+                      style={{ color: "var(--text-color-all)" }}
+                    >
                       Category: {tech.category}
                     </p>
-                    <p className="text-sm opacity-80 mb-1">
+                    <p 
+                      className="text-sm opacity-80 mb-1"
+                      style={{ color: "var(--text-color-all)" }}
+                    >
                       Level: {tech.level}
                     </p>
                   </div>
@@ -329,7 +372,7 @@ export default function AddYogaTechnique() {
                       onClick={() => handleEdit(tech)}
                       className="flex-1 py-2 rounded-lg font-medium hover:scale-105 transition-all flex items-center justify-center gap-2"
                       style={{
-                        backgroundColor: "var(--color-secondary)",
+                        backgroundColor: "var(--color-primary)",
                         color: "white",
                       }}
                     >
@@ -338,7 +381,10 @@ export default function AddYogaTechnique() {
                     <button
                       onClick={() => handleDelete(tech._id)}
                       className="flex-1 py-2 rounded-lg font-medium hover:scale-105 transition-all flex items-center justify-center gap-2"
-                      style={{ backgroundColor: "#e74c3c", color: "white" }}
+                      style={{ 
+                        backgroundColor: "var(--color-primary)", 
+                        color: "white" 
+                      }}
                     >
                       <Trash2 className="w-4 h-4" /> Delete
                     </button>
@@ -352,6 +398,3 @@ export default function AddYogaTechnique() {
     </section>
   );
 }
-
-
-
