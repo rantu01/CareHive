@@ -22,8 +22,8 @@ export const formatTime = (dateString) => {
 
 // Parse time slot
 export const parseTimeSlot = (slot) => {
-    const parts = slot.split('-');
-    if (parts.length >= 3) {
+    const parts = slot?.split('-');
+    if (parts?.length >= 3) {
         const startTime = parts[1];
         const endTime = parts[2];
         return `${startTime} - ${endTime}`;

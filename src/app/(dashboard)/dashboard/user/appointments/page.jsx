@@ -39,11 +39,13 @@ const page = () => {
 
                 {/* Appointments List */}
                 <div className="grid gap-4 sm:gap-5 md:gap-6 lg:gap-8">
-                    {appointmentData?.map(({ doctorName, hospitalName, bookedAt, bookedSlot, meetingType, serialNo, fees, docId }) => (
-                        <div 
-                            key={bookedAt} 
+                    {appointmentData?.map(({ doctorName, hospitalName, bookedAt, bookedSlot, meetingType, serialNo, fees, docId }, index) => (
+                        <div
+                            key={index}
                             className="group backdrop-blur-sm shadow-lg hover:shadow-2xl rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 lg:p-8 border border-[var(--dashboard-border)]/30 hover:border-[var(--color-light-green)]/30 transition-all duration-300 relative overflow-hidden"
                         >
+
+
                             {/* Decorative Elements */}
                             <div className="absolute top-0 right-0 w-24 sm:w-32 h-24 sm:h-32 bg-gradient-to-bl from-[var(--color-light-green)]/5 to-transparent rounded-full blur-2xl -translate-y-12 sm:-translate-y-16 translate-x-12 sm:translate-x-16"></div>
                             <div className="absolute bottom-0 left-0 w-20 sm:w-24 h-20 sm:h-24 bg-gradient-to-tr from-emerald-400/5 to-transparent rounded-full blur-xl translate-y-10 sm:translate-y-12 -translate-x-10 sm:-translate-x-12"></div>
@@ -61,7 +63,7 @@ const page = () => {
                                                 <div className="w-2 h-2 bg-white rounded-full"></div>
                                             </div>
                                         </div>
-                                        
+
                                         <div className="space-y-2 sm:space-y-2.5 md:space-y-3 flex-1 min-w-0">
                                             <div>
                                                 <p className="text-[var(--text-color-all)] font-bold text-base sm:text-lg md:text-xl lg:text-2xl transition-colors duration-300 truncate">
@@ -141,7 +143,7 @@ const page = () => {
                                                 <span className="text-[var(--text-color-all)] font-semibold text-sm sm:text-base">In-Person Visit</span>
                                             </button>
                                         )}
-                                     
+
                                     </div>
                                 </div>
                             </div>

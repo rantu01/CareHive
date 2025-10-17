@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import usePendingDoctorApprovals from "@/app/Hooks/usePendingDoctorApprovals";
 import { LogOut, User } from "lucide-react";
 import { useState } from "react";
+import UseAuth from "@/app/Hooks/UseAuth";
 
 export default function Sidebar({
   items = [],
@@ -15,9 +16,16 @@ export default function Sidebar({
 }) {
   const pathname = usePathname();
   const [hoveredItem, setHoveredItem] = useState(null);
+  const { user, signOutUser } = UseAuth();
 
   // Get pending doctor approvals count (for admin only)
   const { pendingCount } = usePendingDoctorApprovals(role);
+
+  const handleLogout = () => {
+    signOutUser()
+      .then(() => setIsOpen(false))
+      .catch((error) => console.log(error));
+  };
 
   return (
     <>
@@ -43,8 +51,8 @@ export default function Sidebar({
           backgroundColor: "var(--sidebar-bg)",
           borderRight: "1px solid var(--dashboard-border)",
           boxShadow: "0 0 40px rgba(0,0,0,0.1)",
-          right: "auto", 
-          overflowX: "hidden", 
+          right: "auto",
+          overflowX: "hidden",
         }}
       >
         {/* Enhanced Mobile close button */}
@@ -296,6 +304,7 @@ export default function Sidebar({
 
           {/* Enhanced Logout Button */}
           <button
+            onClick={handleLogout}
             className={`flex items-center gap-3 px-4 py-3 rounded-xl font-semibold transition-all duration-300 w-full group ${
               isCollapsed ? "justify-center" : ""
             }`}
