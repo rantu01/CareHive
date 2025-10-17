@@ -33,7 +33,7 @@ const RecipeHighlightSection = () => {
         >
           <div className="relative">
             <img
-              src="https://i.ibb.co.com/wFhLsMqZ/f3.png"
+              src="https://i.ibb.co.com/fYJmV0gs/image.png"
               alt="Recipe of the Day"
               className="w-full h-72 object-cover"
             />
