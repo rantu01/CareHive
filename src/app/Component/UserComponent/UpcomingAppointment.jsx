@@ -77,12 +77,13 @@ const UpcomingAppointment = () => {
                         {/* Appointments List */}
                         {appointmentData?.slice(0, 3)?.map((appointment, index) => (
                             <div
-                                key={appointment?.bookedAt}
+                                key={index}
                                 className="group bg-[var(--dashboard-bg)] p-4 md:p-5 rounded-2xl border-2 border-[var(--dashboard-border)] shadow-md hover:shadow-lg hover:border-[var(--color-light-green)]/30 transition-all duration-300 hover:-translate-y-1"
                             >
                                 {/* Desktop Layout */}
                                 <div className="hidden md:flex items-center justify-between">
                                     {/* Doctor Info */}
+
                                     <div className="flex items-center gap-4 flex-1">
                                         <div className="relative">
                                             <div className="bg-[var(--color-primary)] p-3 rounded-2xl shadow-lg group-hover:scale-110 transition-transform duration-300">
@@ -108,7 +109,7 @@ const UpcomingAppointment = () => {
                                                 </div>
                                                 <div className="flex items-center gap-1">
                                                     <MapPin size={12} />
-                                                    <span>{appointment?.meetingType.toUpperCase()}</span>
+                                                    <span>{appointment?.meetingType?.toUpperCase()}</span>
                                                 </div>
                                             </div>
                                         </div>
