@@ -13,6 +13,7 @@ import {
   Clipboard,
   MessageCircle,
   Thermometer,
+  MessageCircleCode,
 } from "lucide-react";
 
 export const navItems = {
@@ -51,7 +52,7 @@ export const navItems = {
     {
       name: "Chat with Users",
       path: "/dashboard/doctor/messages",
-      icon: <PlusSquare size={18} />,
+      icon: <MessageCircleCode size={18} />,
     },
   ],
   admin: [

@@ -1,6 +1,7 @@
 // components/Header.js
 "use client";
 import UseAuth from "@/app/Hooks/UseAuth";
+import { useEffect, useState } from "react";
 import {
   Calendar,
   Clock,
@@ -12,12 +13,27 @@ import {
 export default function Header() {
   const { user } = UseAuth();
   const displayName = user?.displayName || "Doctor";
+  const [greeting, setGreeting] = useState("");
   const today = new Date().toLocaleDateString("en-US", {
     weekday: "long",
     month: "long",
     day: "numeric",
     year: "numeric",
   });
+  useEffect(() => {
+    const updateGreeting = () => {
+      const hour = new Date().getHours();
+      if (hour < 12) setGreeting("Good Morning");
+      else if (hour < 17) setGreeting("Good Afternoon");
+      else if (hour < 20) setGreeting("Good Evening");
+      else setGreeting("Good Night");
+    };
+
+    updateGreeting(); 
+    const interval = setInterval(updateGreeting, 60000); 
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="bg-gradient-to-r from-[var(--color-primary)] to-cyan-400 p-6 rounded-xl shadow-md text-white">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -29,8 +45,9 @@ export default function Header() {
             </button>
             <div>
               <h1 className="text-2xl font-bold">
-                Good morning, {displayName}!
+                {greeting}, {displayName}!
               </h1>
+
               <div className="flex items-center text-sm mt-1 space-x-3">
                 <div className="flex items-center space-x-1">
                   <Calendar className="w-4 h-4" />
