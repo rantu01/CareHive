@@ -20,7 +20,6 @@ export default function DashboardStats({ doctorId }) {
         const res = await fetch(`/api/all-doctor-appointments`);
         const data = await res.json();
         const allAppointments = data.appointments;
-console.log("stats:", data);
 
         // Doctor specific filter
         const doctorAppointments = allAppointments.filter(
