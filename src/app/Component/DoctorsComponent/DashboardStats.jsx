@@ -5,7 +5,6 @@ import { Calendar, Users, DollarSign, Star } from "lucide-react";
 import StatCard from "./StatCard";
 
 export default function DashboardStats({ doctorId }) {
-  console.log("stats doctorId:" , doctorId);
   
   const [stats, setStats] = useState({
     todayAppointments: 0,

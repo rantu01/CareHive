@@ -25,6 +25,7 @@ export async function GET() {
             patientEmail: "$appointmentDetails.patientEmail",
             patientName: "$appointmentDetails.patientName",
             serialNo: "$appointmentDetails.serialNo",
+            status: "$appointmentDetails.status",
             userId: "$appointmentDetails.userId",
           },
         },
