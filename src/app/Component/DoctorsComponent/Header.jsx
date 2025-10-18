@@ -1,6 +1,5 @@
 // components/Header.js
 "use client";
-import UseAuth from "@/app/Hooks/UseAuth";
 import { useEffect, useState } from "react";
 import {
   Calendar,
@@ -10,16 +9,19 @@ import {
   Stethoscope,
 } from "lucide-react";
 
-export default function Header() {
-  const { user } = UseAuth();
-  const displayName = user?.displayName || "Doctor";
+export default function Header({ doctorId }) {
   const [greeting, setGreeting] = useState("");
+  const [doctorName, setDoctorName] = useState("");
+  const [totalAppointments, setTotalAppointments] = useState(0);
+
   const today = new Date().toLocaleDateString("en-US", {
     weekday: "long",
     month: "long",
     day: "numeric",
     year: "numeric",
   });
+
+  // Greeting
   useEffect(() => {
     const updateGreeting = () => {
       const hour = new Date().getHours();
@@ -29,10 +31,38 @@ export default function Header() {
       else setGreeting("Good Night");
     };
 
-    updateGreeting(); 
-    const interval = setInterval(updateGreeting, 60000); 
+    updateGreeting();
+    const interval = setInterval(updateGreeting, 60000);
     return () => clearInterval(interval);
   }, []);
+
+  // Fetch doctor data and appointment 
+  useEffect(() => {
+    if (!doctorId) return;
+
+    async function fetchStats() {
+      try {
+        const res = await fetch(`/api/all-doctor-appointments`);
+        const data = await res.json();
+        const allAppointments = data.appointments || [];
+
+        const doctorAppointments = allAppointments.filter(
+          (appt) => appt.docId === doctorId
+        );
+
+        setTotalAppointments(doctorAppointments.length);
+
+        // Get doctor name dynamically from first matching appointment
+        if (doctorAppointments.length > 0) {
+          setDoctorName(doctorAppointments[0].doctorName || "Doctor");
+        }
+      } catch (err) {
+        console.error("Failed to fetch stats:", err);
+      }
+    }
+
+    fetchStats();
+  }, [doctorId]);
 
   return (
     <div className="bg-gradient-to-r from-[var(--color-primary)] to-cyan-400 p-6 rounded-xl shadow-md text-white">
@@ -45,7 +75,7 @@ export default function Header() {
             </button>
             <div>
               <h1 className="text-2xl font-bold">
-                {greeting}, {displayName}!
+                {greeting}, {doctorName || "Doctor"}!
               </h1>
 
               <div className="flex items-center text-sm mt-1 space-x-3">
@@ -55,11 +85,17 @@ export default function Header() {
                 </div>
                 <div className="flex items-center space-x-1">
                   <Clock className="w-4 h-4" />
-                  <span>8 appointments scheduled</span>
+                  <span>
+                    {totalAppointments}{" "}
+                    {totalAppointments === 1
+                      ? "appointment scheduled"
+                      : "appointments scheduled"}
+                  </span>
                 </div>
               </div>
             </div>
           </div>
+
           {/* Status */}
           <div className="flex items-center space-x-4 mt-3 text-sm">
             <div className="flex items-center space-x-1">

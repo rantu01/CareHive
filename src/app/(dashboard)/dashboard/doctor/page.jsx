@@ -43,7 +43,7 @@ export default function DoctorDashboard() {
   }
 
   return (
-    <div className="ml-5">
+    <div className="lg:ml-5">
       <Header doctorId={doctorId} />
       <DashboardStats doctorId={doctorId} />
       <DoctorsSchedule doctorId={doctorId} />
