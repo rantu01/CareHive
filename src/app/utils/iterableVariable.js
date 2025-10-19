@@ -262,3 +262,29 @@ export const bodyPartSymptoms = {
     "itching"
   ]
 };
+
+
+export const bodyParts = [
+        "head",
+        "eyes",
+        "ears",
+        "nose",
+        "throat",
+        "neck",
+        "shoulders",
+        "arms",
+        "elbows",
+        "wrists",
+        "hands",
+        "fingers",
+        "chest",
+        "back",
+        "stomach",
+        "hips",
+        "legs",
+        "knees",
+        "calves",
+        "ankles",
+        "feet",
+        "toes"
+    ];

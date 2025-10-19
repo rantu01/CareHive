@@ -19,7 +19,7 @@ export const pdfGenerator = (payment, sl) => {
     // Clean Header
     doc.setFillColor(...colors.primary);
     doc.rect(0, 0, pageWidth, 35, 'F');
-    
+
     // Title
     doc.setTextColor(...colors.white);
     doc.setFontSize(16);
@@ -32,13 +32,13 @@ export const pdfGenerator = (payment, sl) => {
     doc.setDrawColor(...colors.border);
     doc.setLineWidth(0.5);
     doc.roundedRect(20, amountY, pageWidth - 40, 25, 5, 5, 'FD');
-    
+
     // Amount label
     doc.setTextColor(...colors.secondary);
     doc.setFontSize(9);
     doc.setFont("helvetica", "bold");
     doc.text("TOTAL AMOUNT", pageWidth / 2, amountY + 10, { align: 'center' });
-    
+
     // Amount value
     doc.setTextColor(...colors.dark);
     doc.setFontSize(18);
@@ -55,7 +55,7 @@ export const pdfGenerator = (payment, sl) => {
     // Combined Information Section
     doc.setFillColor(...colors.light);
     doc.roundedRect(20, yPos, pageWidth - 40, 12, 3, 3, 'F');
-    
+
     doc.setTextColor(...colors.dark);
     doc.setFontSize(10);
     doc.setFont("helvetica", "bold");
@@ -76,7 +76,7 @@ export const pdfGenerator = (payment, sl) => {
 
     allDetails.forEach((detail, index) => {
         const isEven = index % 2 === 0;
-        
+
         if (isEven) {
             doc.setFillColor(...colors.light);
             doc.roundedRect(20, yPos, pageWidth - 40, 10, 2, 2, 'F');
@@ -99,51 +99,56 @@ export const pdfGenerator = (payment, sl) => {
 
     yPos += 8;
 
-    // Compact Status & Serial Section
-    doc.setFillColor(...colors.white);
-    doc.setDrawColor(...colors.border);
-    doc.setLineWidth(0.5);
-    doc.roundedRect(20, yPos, pageWidth - 40, 25, 5, 5, 'FD');
+    // Status & Serial Section - Side by Side Cards
+    const cardHeight = 28;
+    const cardSpacing = 5;
+    const leftCardWidth = (pageWidth - 40 - cardSpacing) / 2;
+    const rightCardWidth = leftCardWidth;
 
-    // Serial Number
+    // Serial Number Card
+    doc.setFillColor(...colors.light);
+    doc.roundedRect(20, yPos, leftCardWidth, cardHeight, 4, 4, 'F');
+
     doc.setTextColor(...colors.secondary);
     doc.setFontSize(7);
     doc.setFont("helvetica", "bold");
-    doc.text("SERIAL NO", 26, yPos + 8);
-    
+    doc.text("SERIAL NUMBER", 26, yPos + 9);
+
     doc.setTextColor(...colors.primary);
-    doc.setFontSize(14);
+    doc.setFontSize(16);
     doc.setFont("helvetica", "bold");
-    doc.text(`#${sl || '—'}`, 26, yPos + 18);
+    doc.text(`#${sl || '—'}`, 26, yPos + 21);
 
-    // Status
-    doc.setTextColor(...colors.secondary);
-    doc.setFontSize(7);
-    doc.setFont("helvetica", "bold");
-    doc.text("STATUS", pageWidth - 40, yPos + 8, { align: 'right' });
-    
-    // Status badge
+    // Status Card - No border, colored background
     const statusColor = payment.payment_status === 'succeeded' ? colors.success : colors.accent;
     doc.setFillColor(...statusColor);
-    doc.roundedRect(pageWidth - 50, yPos + 10, 30, 10, 5, 5, 'F');
-    
-    doc.setTextColor(...colors.white);
-    doc.setFontSize(8);
-    doc.setFont("helvetica", "bold");
-    doc.text(payment.payment_status.toUpperCase(), pageWidth - 35, yPos + 16, { align: 'center' });
+    doc.roundedRect(20 + leftCardWidth + cardSpacing, yPos, rightCardWidth, cardHeight, 4, 4, 'F');
 
-    yPos += 32;
+    doc.setTextColor(...colors.white);
+    doc.setFontSize(7);
+    doc.setFont("helvetica", "bold");
+    doc.text("PAYMENT STATUS", 20 + leftCardWidth + cardSpacing + 6, yPos + 9);
+
+    doc.setFontSize(14);
+    doc.setFont("helvetica", "bold");
+    doc.text(
+        payment.payment_status.toUpperCase(),
+        20 + leftCardWidth + cardSpacing + 6,
+        yPos + 21
+    );
+
+    yPos += cardHeight + 8;
 
     // Session ID (if space)
     if (yPos < 250) {
         doc.setFillColor(...colors.light);
         doc.roundedRect(20, yPos, pageWidth - 40, 15, 3, 3, 'F');
-        
+
         doc.setTextColor(...colors.secondary);
         doc.setFontSize(7);
         doc.setFont("helvetica", "bold");
         doc.text("SESSION ID", 26, yPos + 7);
-        
+
         doc.setTextColor(...colors.dark);
         doc.setFontSize(8);
         doc.setFont("helvetica", "normal");
@@ -160,7 +165,7 @@ export const pdfGenerator = (payment, sl) => {
     doc.setFontSize(8);
     doc.setFont("helvetica", "normal");
     doc.text("Thank you for your payment", pageWidth / 2, footerY + 6, { align: 'center' });
-    
+
     doc.setFontSize(6);
     doc.text("Automated receipt • " + new Date().toLocaleDateString(), pageWidth / 2, footerY + 10, { align: 'center' });
 
