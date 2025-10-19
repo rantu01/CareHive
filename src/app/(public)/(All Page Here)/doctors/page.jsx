@@ -11,7 +11,7 @@ export default function DoctorsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [bookedDoctors, setBookedDoctors] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
-  const { user } = useUser();
+
 
   // ✅ Handle appointment booking
   const handleBookAppointment = async (booking) => {
@@ -38,26 +38,8 @@ export default function DoctorsPage() {
     fetchDoctors();
   }, []);
 
-  // ✅ Fetch user's booked appointments
-  useEffect(() => {
-    const fetchBookedAppointments = async () => {
-      if (!user) {
-        setBookedDoctors([]);
-        return;
-      }
-      try {
-        const res = await fetch(`/api/appointments?userId=${user.uid}`);
-        const data = await res.json();
-        if (Array.isArray(data)) {
-          const bookedIds = data.map((appointment) => appointment.doctorId);
-          setBookedDoctors(bookedIds);
-        }
-      } catch (error) {
-        console.error("Error fetching booked appointments:", error);
-      }
-    };
-    fetchBookedAppointments();
-  }, [user]);
+
+
 
   // ✅ Smart Multi-field Search Logic
   // ✅ Smart Multi-field Search Logic
