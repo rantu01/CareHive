@@ -13,6 +13,7 @@ import {
   Clipboard,
   MessageCircle,
   Thermometer,
+  MessageCircleCode,
 } from "lucide-react";
 
 export const navItems = {
@@ -51,7 +52,7 @@ export const navItems = {
     {
       name: "Chat with Users",
       path: "/dashboard/doctor/messages",
-      icon: <PlusSquare size={18} />,
+      icon: <MessageCircleCode size={18} />,
     },
   ],
   admin: [
@@ -78,6 +79,21 @@ export const navItems = {
     {
       name: "Doctor Approval",
       path: "/dashboard/admin/doctor-approval",
+      icon: <CheckCircle2 size={18} />,
+    },
+    // {
+    //   name: "Add Fitness Info",
+    //   path: "/dashboard/admin/add-fitness-info",
+    //   icon: <CheckCircle2 size={18} />,
+    // },
+    {
+      name: "Add Gym Plans",
+      path: "/dashboard/admin/add-gym-plans",
+      icon: <CheckCircle2 size={18} />,
+    },
+    {
+      name: "Add Yoga Technique",
+      path: "/dashboard/admin/add-yoga-technique",
       icon: <CheckCircle2 size={18} />,
     },
   ],
