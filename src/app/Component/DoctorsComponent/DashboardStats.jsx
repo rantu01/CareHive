@@ -5,7 +5,6 @@ import { Calendar, Users, DollarSign, Star } from "lucide-react";
 import StatCard from "./StatCard";
 
 export default function DashboardStats({ doctorId }) {
-  console.log("stats doctorId:" , doctorId);
   
   const [stats, setStats] = useState({
     todayAppointments: 0,
@@ -20,7 +19,6 @@ export default function DashboardStats({ doctorId }) {
         const res = await fetch(`/api/all-doctor-appointments`);
         const data = await res.json();
         const allAppointments = data.appointments;
-console.log("stats:", data);
 
         // Doctor specific filter
         const doctorAppointments = allAppointments.filter(

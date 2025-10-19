@@ -75,8 +75,12 @@ export async function GET(req) {
     const db = client.db("carehive");
     const collection = db.collection("calories");
 
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = new URL(req.params);
+
+    console.log("key of",searchParams)
     const userId = searchParams.get("userId") || "guest";
+
+    console.log("this is",userId)
 
     // Today’s start time (midnight)
     const today = new Date();

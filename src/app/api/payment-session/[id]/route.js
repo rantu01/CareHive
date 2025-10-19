@@ -4,8 +4,10 @@ import Stripe from "stripe";
 const stripe = new Stripe(process.env.NEXT_STRIPE_SECRET_KEY);
 
 export async function GET(req, { params }) {
+
+  const { id } = await params;
   try {
-    const session = await stripe.checkout.sessions.retrieve(params.id, {
+    const session = await stripe.checkout.sessions.retrieve(id, {
       expand: ["payment_intent"],
     });
     return NextResponse.json(session);

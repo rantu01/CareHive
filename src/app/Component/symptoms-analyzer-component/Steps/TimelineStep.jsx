@@ -1,8 +1,13 @@
 import React from 'react';
 
-const TimelineStep = ({ step, index, currentStep, formData }) => {
-    const isCompleted = index < currentStep;
-    const isActive = index === currentStep;
+const TimelineStep = ({ step, index, currentStep, formData, isFormCompleted }) => {
+    const isCompleted = isFormCompleted ||
+        index < currentStep ||
+        (step === "Select Gender" && formData.gender) ||
+        (step === "Age" && formData.age && formData.age > 0 && formData.age <= 120) ||
+        (step === "Body Part" && formData.bodyPart) ||
+        (step === "Symptoms" && formData.symptoms);
+    const isActive = index === currentStep && !isFormCompleted;
 
     const getCompletedValue = () => {
         switch(step) {

@@ -1,41 +1,23 @@
+import { useState } from "react";
+import SelectedButton from "../SelectButton/SelectedButton";
+import DropDownMenu from "../DropDownMenu/DropDownMenu";
+import { bodyParts } from "@/app/utils/iterableVariable";
+
 const BodyPartStep = ({ value, onChange }) => {
-    const bodyParts = [
-        "head",
-        "eyes",
-        "ears",
-        "nose",
-        "throat",
-        "neck",
-        "shoulders",
-        "arms",
-        "elbows",
-        "wrists",
-        "hands",
-        "fingers",
-        "chest",
-        "back",
-        "stomach",
-        "hips",
-        "legs",
-        "knees",
-        "calves",
-        "ankles",
-        "feet",
-        "toes"
-    ];
+
+    const [isOpen, setIsOpen] = useState(false);
+
 
     return (
         <div className="space-y-3">
-            <select
-                value={value}
-                onChange={(e) => onChange(e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none bg-white"
-            >
-                <option value="">Select a body part</option>
-                {bodyParts.map((part) => (
-                    <option key={part} value={part}>{part}</option>
-                ))}
-            </select>
+            <div className="relative">
+                {/* Selected Value / Trigger */}
+                <SelectedButton setIsOpen={setIsOpen} isOpen={isOpen} value={value} selecType="body part"/>
+
+                {/* Dropdown Menu */}
+                {isOpen && <DropDownMenu iterable={bodyParts} value={value} onChange={onChange} setIsOpen={setIsOpen} />}
+
+            </div>
         </div>
     );
 };

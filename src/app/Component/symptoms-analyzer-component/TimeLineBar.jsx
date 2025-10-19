@@ -9,6 +9,7 @@ import CompletionSummary from "./Summary/CompletionSummary";
 
 const TimeLineBar = () => {
     const [currentStep, setCurrentStep] = useState(0);
+    const [isFormCompleted, setIsFormCompleted] = useState(false);
     const [formData, setFormData] = useState({
         gender: '',
         age: '',
@@ -23,9 +24,11 @@ const TimeLineBar = () => {
         "Symptoms",
     ];
 
-    const handleNext = () => {
+    const handleNextClick = () => {
         if (currentStep < steps.length - 1) {
             setCurrentStep(currentStep + 1);
+        } else if (currentStep === steps.length - 1 && !isFormCompleted) {
+            setIsFormCompleted(true);
         }
     };
 
@@ -66,7 +69,7 @@ const TimeLineBar = () => {
             case 2:
                 return <BodyPartStep value={formData.bodyPart} onChange={(value) => handleInputChange('bodyPart', value)} />;
             case 3:
-                return <SymptomsStep value={formData.bodyPart} onChange={(value) => handleInputChange('symptoms', value)} />;
+                return <SymptomsStep value={formData.symptoms} bodyPart={formData.bodyPart} onChange={(value) => handleInputChange('symptoms', value)} />;
             default:
                 return null;
         }
@@ -97,7 +100,7 @@ const TimeLineBar = () => {
                     currentStep={currentStep}
                     steps={steps}
                     onPrev={handlePrev}
-                    onNext={handleNext}
+                    onNext={handleNextClick}
                     isNextDisabled={isNextDisabled()}
                 />
             </div>

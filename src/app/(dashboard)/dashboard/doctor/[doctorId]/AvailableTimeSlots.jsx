@@ -90,7 +90,7 @@ useEffect(() => {
   if (loading) return <p>Loading slots...</p>;
 
   return (
-    <div className="bg-[var(--sidebar-bg)] p-6 rounded-xl shadow-md w-full">
+    <div className="lg:ml-5 bg-[var(--sidebar-bg)] p-6 rounded-xl shadow-md w-full">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
         <h2 className="text-xl font-semibold flex items-center gap-2 text-[var(--text-color-all)]">

@@ -21,7 +21,6 @@ export async function GET(request, { params }) {
     const userAppointmentsCollection = db.collection("userAppointments")
     const doctorList = await userAppointmentsCollection.find({ userId: userId }).toArray();
 
-    console.log("the doctor list is", doctorList, userId)
 
     return NextResponse.json(doctorList);
   } catch (error) {
