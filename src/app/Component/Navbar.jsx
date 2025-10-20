@@ -41,9 +41,8 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled || !isHome ? "py-3 shadow-lg" : "py-4"
-      }`}
+      className={`fixed w-full z-50 transition-all duration-300 ${scrolled || !isHome ? "py-3 shadow-lg" : "py-4"
+        }`}
       style={{
         backgroundColor: bgColor,
         fontFamily: "var(--font-primary)",
@@ -130,6 +129,19 @@ const Navbar = () => {
                   >
                     Dashboard
                   </Link>
+
+
+                  <Link
+                    href="/join-challange"
+                    className="font-medium px-4 py-2 rounded-xl text-sm lg:text-base transition-all duration-300"
+                    style={{
+                      color: textColor,
+                      fontWeight: 500,
+                    }}
+                  >
+                    Join Challange
+                  </Link>
+
                   <button
                     onClick={handleLogout}
                     className="font-medium py-2 px-4 lg:px-5 rounded-xl border-2 transition-all duration-300 hover:opacity-90"
@@ -228,11 +240,10 @@ const Navbar = () => {
                   <Link
                     key={idx}
                     href={link.href}
-                    className={`py-3 px-4 rounded-xl font-medium transition-all duration-200 ${
-                      isActive
+                    className={`py-3 px-4 rounded-xl font-medium transition-all duration-200 ${isActive
                         ? "bg-[var(--color-primary)] bg-opacity-10 text-[var(--color-primary)]"
                         : "hover:bg-[var(--color-primary)] hover:bg-opacity-10 text-[var(--color-primary)]"
-                    }`}
+                      }`}
                     onClick={() => setIsOpen(false)}
                   >
                     {link.label}
