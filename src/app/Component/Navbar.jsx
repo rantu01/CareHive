@@ -151,7 +151,7 @@ const Navbar = () => {
                       borderColor: "var(--color-primary)",
                     }}
                   >
-                    Logout
+                    Logout 
                   </button>
                 </>
               ) : (
