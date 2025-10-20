@@ -1,34 +1,34 @@
 import { AuthContext } from '@/app/context/authContext';
 import { Upload } from 'lucide-react';
-import React, { use } from 'react';
+import React, { use, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-const PersonalInfoSection = ({profileImage,setProfileImage}) => {
-    const { register,formState: { errors } } = useFormContext();
-    const {user}=use(AuthContext)
+const PersonalInfoSection = ({setProfileImage }) => {
+    const { register, formState: { errors } } = useFormContext();
+    const { user } = use(AuthContext)
 
-
-    const handleImageUpload = async (e) => {
+    const [previewImage,setPreviewImage] = useState("");
+    
+    const handlePreviewImage = async (e) => {
         const file = e.target.files[0];
         if (file) {
+            // for uploading to cloudinary
             const imageData = new FormData()
             imageData.append("file", file)
             imageData.append("upload_preset", "carehive_persist")
             imageData.append("cloud_name", "dqbwtffom")
 
-            const response = await fetch(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_IMAGE_CLOUD}/auto/upload`,
-                {
-                    method: "POST",
-                    body: imageData
-                }
-            )
+            console.log("preview section image data",imageData)
+            setProfileImage(imageData)
 
-            const uploadImageURL = await response.json()
-            setProfileImage(uploadImageURL?.url)
+            // for instant preview
+            const imageUrl = URL.createObjectURL(file);
+            setPreviewImage(imageUrl)
         } else return
     };
 
-    
+
+
     return (
         <section>
             <h2
@@ -48,8 +48,8 @@ const PersonalInfoSection = ({profileImage,setProfileImage}) => {
                             boxShadow: "0 0 0 4px var(--color-white)",
                         }}
                     >
-                        {profileImage && <img
-                            src={profileImage}
+                        {previewImage && <img
+                            src={previewImage}
                             alt="profile"
                             className="w-full h-full object-cover"
                         />}
@@ -66,7 +66,7 @@ const PersonalInfoSection = ({profileImage,setProfileImage}) => {
                         <input
                             type="file"
                             accept="image/*"
-                            onChange={handleImageUpload}
+                            onChange={handlePreviewImage}
                             className="hidden"
                         />
                     </label>

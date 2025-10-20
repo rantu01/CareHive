@@ -7,14 +7,6 @@ import { useFormContext } from 'react-hook-form';
 import Swal from 'sweetalert2';
 
 const AvailableTimeSection = ({
-  patientLimit,
-  setPatientLimit,
-  setAvailableDays,
-  setTimeLoop,
-  timeLoop,
-  slots,
-  setSlots,
-  doctorAvailableDays,
   spokenLanguage,
   setSpokenLanguage,
   setDoctorHospital,
@@ -56,7 +48,7 @@ const AvailableTimeSection = ({
   }, [areaBasedHospital]);
 
 
-  const [timeFrom, setTimeFrom] = useState('');
+
 
   const handleSpokenLanguage = (e) => {
     if (e.target.value && e.target.checked) {
@@ -67,211 +59,21 @@ const AvailableTimeSection = ({
     }
   };
 
-  const handleAvailableWeekDays = (e) => {
-    if (e.target.value && e.target.checked) {
-      setAvailableDays([...doctorAvailableDays, e.target.value]);
-      setTimeLoop(timeLoop + 1);
-    } else {
-      const newArray = doctorAvailableDays.filter((day) => day !== e.target.value);
-      setAvailableDays(newArray);
-      setTimeLoop(timeLoop - 1);
-
-      const toRemove = e.target.value;
-      delete slots[toRemove];
-      delete patientLimit[toRemove];
-      setSlots({ ...slots });
-    }
-  };
-
-  const captureAvailableSlot = (day, from, to) => {
-    setSlots((prev) => ({
-      ...prev,
-      [day]: `${from}-${to}`,
-    }));
-  };
-
-  const capturePatientLimit = (day, limit) => {
-    setPatientLimit((prev) => ({
-      ...prev,
-      [day]: limit || '0',
-    }));
-  };
 
 
 
 
-  const feeFields = (
-    <div className={`grid grid-cols-1 ${consatlationType === "both" ? "md:grid-cols-2" : ""} gap-4`}>
-      {(consatlationType === "inPerson" || consatlationType === "both") && (
-        <div>
-          <label htmlFor="offline-fee" className="block font-medium mb-2" style={{ color: 'var(--text-color-all)' }}>
-            Offline Fee
-          </label>
-          <input
-            type="number"
-            id="offline-fee"
-            placeholder="Offline Fee"
-            {...register("offlineFee", { required: consatlationType === "offline" || consatlationType === "both" })}
-            className="w-full p-3 rounded-lg focus:outline-none"
-            style={{
-              borderWidth: "2px",
-              borderColor: "var(--dashboard-border)",
-              color: "var(--text-color-all)",
-            }}
-          />
-        </div>
-      )}
-
-      {(consatlationType === "online" || consatlationType === "both") && (
-        <div>
-          <label htmlFor="online-fee" className="block font-medium mb-2" style={{ color: 'var(--text-color-all)' }}>
-            Online Fee
-          </label>
-          <input
-            type="number"
-            id="online-fee"
-            placeholder="Online Fee"
-            {...register("onlineFee", { required: consatlationType === "online" || consatlationType === "both" })}
-            className="w-full p-3 rounded-lg focus:outline-none"
-            style={{
-              borderWidth: "2px",
-              borderColor: "var(--dashboard-border)",
-              color: "var(--text-color-all)",
-            }}
-          />
-        </div>
-      )}
-    </div>
-  );
 
   return (
     <section className="flex flex-col gap-6">
       <h2 className="text-xl md:text-2xl font-semibold text-center" style={{ color: 'var(--dashboard-blue)' }}>
-        Available Days & Time
+        Where You Want Apply
       </h2>
 
-      {/* Week Days Selection */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {weekDays.map((day) => (
-          <div key={day.value} className="flex flex-col gap-3">
-            <div
-              className="flex items-center p-3 rounded-xl transition-all duration-300 border-2"
-              style={{
-                backgroundColor: 'var(--bg-color-all)',
-                borderColor: 'var(--dashboard-border)',
-              }}
-            >
-              <input
-                id={`${day.value}-checkbox`}
-                type="checkbox"
-                value={day.value}
-                name="day-checkbox"
-                onChange={handleAvailableWeekDays}
-                className="w-4 h-4 rounded focus:ring-2"
-                style={{ accentColor: 'var(--dashboard-blue)' }}
-              />
-              <label
-                htmlFor={`${day.value}-checkbox`}
-                className="ml-2 text-sm font-medium cursor-pointer"
-                style={{ color: 'var(--text-color-all)' }}
-              >
-                {day.name}
-              </label>
-            </div>
 
-            {doctorAvailableDays.includes(day.value) && (
-              <div className="flex flex-col gap-3 p-3 rounded-xl border-2" style={{ borderColor: 'var(--dashboard-border)' }}>
-                {/* Time Slot Inputs */}
-                <div className="grid grid-cols-2 gap-2">
-                  <div>
-                    <label htmlFor={`from-${day.value}`} className="block text-sm mb-1" style={{ color: 'var(--text-color-all)' }}>
-                      From
-                    </label>
-                    <input
-                      type="time"
-                      id={`from-${day.value}`}
-                      required
-                      onChange={(e) => setTimeFrom(e.target.value)}
-                      className="w-full p-2 rounded-lg focus:outline-none focus:ring-2"
-                      style={{
-                        color: 'var(--text-color-all)',
-                        borderWidth: '2px',
-                        borderColor: 'var(--dashboard-border)',
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor={`to-${day.value}`} className="block text-sm mb-1" style={{ color: 'var(--text-color-all)' }}>
-                      To
-                    </label>
-                    <input
-                      type="time"
-                      id={`to-${day.value}`}
-                      required
-                      onChange={(e) => captureAvailableSlot(day.value, timeFrom, e.target.value)}
-                      className="w-full p-2 rounded-lg focus:outline-none focus:ring-2"
-                      style={{
-                        color: 'var(--text-color-all)',
-                        borderWidth: '2px',
-                        borderColor: 'var(--dashboard-border)',
-                      }}
-                    />
-                  </div>
-                </div>
-
-                {/* Patient Limit */}
-                <div>
-                  <label htmlFor={`max-patient-${day.value}`} className="block text-sm mb-1 font-medium" style={{ color: 'var(--text-color-all)' }}>
-                    Maximum Patients
-                  </label>
-                  <input
-                    id={`max-patient-${day.value}`}
-                    type="number"
-                    min="0"
-                    onChange={(e) => capturePatientLimit(day.value, e.target.value)}
-                    placeholder="e.g. 10"
-                    required
-                    className="w-full p-2 rounded-lg focus:outline-none"
-                    style={{
-                      borderWidth: '2px',
-                      borderColor: 'var(--dashboard-border)',
-                      color: 'var(--text-color-all)',
-                    }}
-                  />
-                </div>
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
 
       {/* Consultation & Fee Section */}
       <div className="flex flex-col gap-5 p-4 rounded-xl border-2" style={{ borderColor: 'var(--dashboard-border)' }}>
-        {/* Consultation Type */}
-        <div>
-          <label htmlFor="consultation" className="block font-medium mb-2" style={{ color: 'var(--text-color-all)' }}>
-            Consultation Type
-          </label>
-          <select
-            id="consultation"
-            {...register("consultation", { required: true })}
-            className="w-full p-3 rounded-lg focus:outline-none focus:ring-2"
-            style={{
-              backgroundColor: 'var(--bg-color-all)',
-              color: 'var(--text-color-all)',
-              borderWidth: '2px',
-              borderColor: 'var(--dashboard-border)',
-            }}
-
-            value={consatlationType}
-
-            onChange={(e) => setConsaltationType(e.target.value)}
-          >
-            <option value="online">Online</option>
-            <option value="inPerson">Offline</option>
-            <option value="both">Both</option>
-          </select>
-        </div>
 
         {/* Hospital Name */}
         <div>
@@ -342,8 +144,6 @@ const AvailableTimeSection = ({
 
         </div>
 
-        {/* Fees */}
-        {feeFields}
 
         {/* Spoken Languages */}
         <div>

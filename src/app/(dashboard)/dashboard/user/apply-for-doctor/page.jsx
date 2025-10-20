@@ -2,7 +2,7 @@
 import axios from "axios";
 import { Calendar, Camera, Flag, Heart, Hospital, Mail, MapPin, MessageCircle, Phone, Upload, User, ChevronLeft, ChevronRight } from "lucide-react";
 import { use, useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, set, useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { AuthContext } from "@/app/context/authContext";
 import PersonalInfoSection from "@/app/Component/Apply-for-doc-components/PersonalInfoSection";
@@ -10,27 +10,31 @@ import EducationSection from "@/app/Component/Apply-for-doc-components/Education
 import WorkExperience from "@/app/Component/Apply-for-doc-components/WorkExperience";
 import AvailableTimeSection from "@/app/Component/Apply-for-doc-components/AvailableTimeSection";
 import CertificationAndLicenceSection from "@/app/Component/Apply-for-doc-components/CertificationAndLicenceSection";
+import { generateFormData, handleImageUpload } from "@/app/utils/applyfordoctorFn";
 
 const Page = () => {
     const methods = useForm();
     const { register, handleSubmit } = methods;
     const { user } = use(AuthContext);
 
+    // image data state for upload in cloudinary
     const [profileImage, setProfileImage] = useState("");
+
+    const [applyingLoading, setApplyingLoading] = useState(false);
+
+    console.log("after uploading profile image is", profileImage)
+
     const [licenseCertificatePdf, setLicenseCertificate] = useState("");
     const [governmentIdPdf, setGovernmentIdPdf] = useState("");
-    const [timeLoop, setTimeLoop] = useState(0);
-    const [doctorAvailableDays, setAvailableDays] = useState([]);
-    const [slots, setSlots] = useState({});
+
     const [spokenLanguage, setSpokenLanguage] = useState([]);
-    const [patientLimit, setPatientLimit] = useState({});
 
     const [doctorHospital, setDoctorHospital] = useState("")
-    const [doctorHospitalId,setDoctorHospitalId]=useState("")
+    const [doctorHospitalId, setDoctorHospitalId] = useState("")
 
 
-    console.log("doctor hospital id",doctorHospitalId)
-    console.log("doctor hospital ",doctorHospital)
+    console.log("doctor hospital id", doctorHospitalId)
+    console.log("doctor hospital ", doctorHospital)
     // Carousel state
     const [currentStep, setCurrentStep] = useState(0);
 
@@ -38,7 +42,7 @@ const Page = () => {
         { id: 0, title: "Personal Info", shortTitle: "Personal", icon: User },
         { id: 1, title: "Education", shortTitle: "Education", icon: Calendar },
         { id: 2, title: "Experience", shortTitle: "Work", icon: Hospital },
-        { id: 3, title: "Availability", shortTitle: "Time", icon: MessageCircle },
+        { id: 3, title: "Hospital", shortTitle: "Hospital", icon: MessageCircle },
         { id: 4, title: "Certification", shortTitle: "License", icon: Flag }
     ];
 
@@ -63,74 +67,26 @@ const Page = () => {
 
 
     const onSubmit = async (data) => {
-        const formData = {
-            _id: { "$oid": `${user?.uid}` },
-            personalInfo: {
-                fullName: data?.fullName,
-                dateOfBirth: data?.dob,
-                gender: data?.gender,
-                contactNumber: {
-                    mobile: data?.mobile,
-                    whatsapp: data?.whatsapp
-                },
-                email: user?.email,
-                address: {
-                    current: data?.presentAddress,
-                    permanent: data?.permanentAddress
-                }
-            },
-            educationAndCredentials: {
-                medicalDegree: data?.degreeName,
-                postGraduate: data?.postGraduate,
-                university: {
-                    name: data?.universityName,
-                    graduationYear: data?.graduationYear
-                },
-                specialization: data?.specialization,
-                workExperience: [
-                    {
-                        hospitalName: data?.previousHospital,
-                        position: data?.previousPosition,
-                        years: `${data?.previousFrom}-${data?.previousTo}`
-                    },
-                    {
-                        hospitalName: data?.currentHospital,
-                        position: data?.currentPosition,
-                        years: `${data?.currentFrom}-${data?.currentTo}`
-                    }
-                ],
-            },
-            licenseAndVerification: {
-                medicalLicenseNumber: data?.medicalLicenseNumber,
-                expiryDate: data?.expiryDate,
-                documents: {
-                    licenseCertificate: licenseCertificatePdf,
-                    govtId: governmentIdPdf
-                }
-            },
-            practiceInfo: {
-                consultationType: data?.consultation,
-                workingHours: slots,
-                patientLimit: patientLimit,
-                totalCapacity:patientLimit,
-                consultationFees: {
-                    online: data?.onlineFee,
-                    inPerson: data?.offlineFee
-                },
-                languagesSpoken: spokenLanguage,
-                profilePhoto: profileImage,
-                clinicAddress: doctorHospital,
-                clinicId:doctorHospitalId
-            },
-            status: {
-                isVerified: false,
-                adminRemarks: "",
-                submittedAt: new Date().toISOString(),
-                approvedAt: null
-            }
-        };
+
+
+
+
 
         try {
+            setApplyingLoading(true);
+            const imageUrl = await handleImageUpload(profileImage); // upload image to cloudinary and get the url
+
+
+            console.log("image url while submitting")
+
+            const formData = generateFormData(data, imageUrl,user,licenseCertificatePdf,governmentIdPdf,spokenLanguage,doctorHospital,doctorHospitalId) ; // generate the form data object
+
+
+
+
+
+            console.log("form data generated by function",formData)
+
             const res = await axios.post("/api/approved-doctor", formData, {
                 headers: {
                     "Content-Type": "application/json",
@@ -161,6 +117,8 @@ const Page = () => {
                 icon: "error",
                 confirmButtonText: "Try Again",
             });
+        } finally {
+            setApplyingLoading(false);
         }
     };
 
@@ -260,7 +218,6 @@ const Page = () => {
                                 {currentStep === 0 && (
                                     <div className="animate-fadeIn">
                                         <PersonalInfoSection
-                                            profileImage={profileImage}
                                             setProfileImage={setProfileImage}
                                         />
                                     </div>
@@ -280,16 +237,8 @@ const Page = () => {
                                         <AvailableTimeSection
                                             setDoctorHospital={setDoctorHospital}
                                             setDoctorHospitalId={setDoctorHospitalId}
-                                            slots={slots}
-                                            setSlots={setSlots}
-                                            doctorAvailableDays={doctorAvailableDays}
-                                            setAvailableDays={setAvailableDays}
-                                            setTimeLoop={setTimeLoop}
-                                            timeLoop={timeLoop}
                                             spokenLanguage={spokenLanguage}
                                             setSpokenLanguage={setSpokenLanguage}
-                                            patientLimit={patientLimit}
-                                            setPatientLimit={setPatientLimit}
                                         />
                                     </div>
                                 )}
@@ -352,7 +301,7 @@ const Page = () => {
                                     type="submit"
                                     className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-semibold bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg text-sm sm:text-base"
                                 >
-                                    <span>Submit Registration</span>
+                                    <span>  {applyingLoading ? "Submtting..." : "Submit Registration"}</span>
                                     <Flag className="w-4 h-4 sm:w-5 sm:h-5" />
                                 </button>
                             )}
