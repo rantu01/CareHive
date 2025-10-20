@@ -75,7 +75,7 @@ export async function POST(req) {
                 );
             }
 
-            console.log("web hook serial", serialNo)
+
 
             const appointmentData = {
                 userId: metadata.userId,
@@ -94,7 +94,6 @@ export async function POST(req) {
                 serialNo: serialNo,
             };
 
-            console.log("web hook appoinment data", appointmentData)
 
             // 9️⃣ Save appointment
             const existing = await userAppointmentsCollection.findOne({ userId: metadata.userId });
@@ -113,13 +112,13 @@ export async function POST(req) {
                     appointmentDetails: [appointmentData],
                 });
 
-                console.log("inserted2222222")
+
             }
         }
 
         return NextResponse.json({ received: true });
     } catch (err) {
-        console.error("Webhook Error:", err);
+
         return new NextResponse(`Webhook Error: ${err.message}`, { status: 400 });
     }
 }
