@@ -11,7 +11,7 @@ export default function ChallengeCard() {
       totalDays: 14
     },
     goal: {
-      targetValue: 10,
+      targetValue: 1,
       unit: "minutes"
     },
     difficulty: "medium",
@@ -20,7 +20,7 @@ export default function ChallengeCard() {
       completionRate: 68
     },
     reward: {
-      value: 80,
+      value: 8,
       title: "Mindful Master"
     }
   };
