@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
   try {
+    // ✅ Correct destructuring
     const { docId } = await params;
 
     if (!docId) {
@@ -16,24 +17,26 @@ export async function GET(request, { params }) {
     const db = client.db("carehive");
     const collection = db.collection("userAppointments");
 
-    // Unwind appointmentDetails and match by docId
+    // ✅ Unwind appointmentDetails and match by doctorId (not docId)
     const pipeline = [
       { $unwind: "$appointmentDetails" },
-      { $match: { "appointmentDetails.docId": docId } },
+      { $match: { "appointmentDetails.doctorId": docId } },
       {
         $project: {
           _id: 0,
-          bookedAt: "$appointmentDetails.bookedAt",
+          bookedAt: "$appointmentDetails.createdAt",
           bookedSlot: "$appointmentDetails.bookedSlot",
-          docId: "$appointmentDetails.docId",
+          doctorId: "$appointmentDetails.doctorId",
           doctorName: "$appointmentDetails.doctorName",
-          fees: "$appointmentDetails.fees",
+          fees: "$appointmentDetails.doctorFee",
           hospitalName: "$appointmentDetails.hospitalName",
           meetingType: "$appointmentDetails.meetingType",
           patientEmail: "$appointmentDetails.patientEmail",
           patientName: "$appointmentDetails.patientName",
           serialNo: "$appointmentDetails.serialNo",
           userId: "$appointmentDetails.userId",
+          paymentStatus: "$appointmentDetails.paymentStatus",
+          status: "$appointmentDetails.status",
         },
       },
       { $sort: { bookedAt: -1 } },
@@ -41,10 +44,10 @@ export async function GET(request, { params }) {
 
     const appointments = await collection.aggregate(pipeline).toArray();
 
-    // Summary info
     const total = appointments.length;
     const byMeetingType = appointments.reduce((acc, curr) => {
-      acc[curr.meetingType] = (acc[curr.meetingType] || 0) + 1;
+      acc[curr.meetingType || "unknown"] =
+        (acc[curr.meetingType || "unknown"] || 0) + 1;
       return acc;
     }, {});
 
