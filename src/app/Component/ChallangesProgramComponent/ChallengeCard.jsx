@@ -26,7 +26,7 @@ export default function ChallengeCard() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4" style={{ backgroundColor: '#f1f5f9' }}>
+    <div className="p-4">
       <div className="w-full max-w-md rounded-2xl overflow-hidden shadow-xl" style={{ backgroundColor: '#ffffff' }}>
         {/* Cover Image */}
         <div className="relative h-48 overflow-hidden">
@@ -56,7 +56,7 @@ export default function ChallengeCard() {
           </div>
         </div>
 
-        {/* Content */}
+
         <div className="p-6">
           <h2 
             className="text-2xl font-bold mb-2"
@@ -74,53 +74,6 @@ export default function ChallengeCard() {
           >
             {challenge.description}
           </p>
-
-          {/* Stats Grid */}
-          <div className="grid grid-cols-2 gap-4 mb-6">
-            <div className="flex items-center gap-2">
-              <Calendar 
-                size={20} 
-                style={{ color: '#19b4b4' }}
-              />
-              <div>
-                <p className="text-xs" style={{ color: '#1e293b', opacity: 0.7 }}>Duration</p>
-                <p className="font-semibold" style={{ color: '#111827' }}>{challenge.duration.totalDays} days</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Clock 
-                size={20} 
-                style={{ color: '#19b4b4' }}
-              />
-              <div>
-                <p className="text-xs" style={{ color: '#1e293b', opacity: 0.7 }}>Daily Goal</p>
-                <p className="font-semibold" style={{ color: '#111827' }}>{challenge.goal.targetValue} {challenge.goal.unit}</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Users 
-                size={20} 
-                style={{ color: '#19b4b4' }}
-              />
-              <div>
-                <p className="text-xs" style={{ color: '#1e293b', opacity: 0.7 }}>Participants</p>
-                <p className="font-semibold" style={{ color: '#111827' }}>{challenge.stats.totalParticipants}</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Award 
-                size={20} 
-                style={{ color: '#19b4b4' }}
-              />
-              <div>
-                <p className="text-xs" style={{ color: '#1e293b', opacity: 0.7 }}>Reward</p>
-                <p className="font-semibold" style={{ color: '#111827' }}>{challenge.reward.value} pts</p>
-              </div>
-            </div>
-          </div>
 
           {/* Completion Rate */}
           <div className="mb-6">
@@ -147,6 +100,8 @@ export default function ChallengeCard() {
             Join Challenge
           </button>
         </div>
+
+        
       </div>
     </div>
   );
