@@ -40,7 +40,7 @@ const page = () => {
                 {/* Appointments List */}
                 <div className="grid gap-4 sm:gap-5 md:gap-6 lg:gap-8">
 
-                    {appointmentData?.map(({ doctorName, hospitalName, createdAt, bookedSlot, meetingType, serialNo, doctorFee, docId }, index) => (
+                    {appointmentData?.map(({ doctorName, hospitalName, createdAt, bookedSlot, meetingType, serialNo, doctorFee }, index) => (
                         <div
                             key={index}
                             className="group backdrop-blur-sm shadow-lg hover:shadow-2xl rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 lg:p-8 border border-[var(--dashboard-border)]/30 hover:border-[var(--color-light-green)]/30 transition-all duration-300 relative overflow-hidden"
