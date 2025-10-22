@@ -8,12 +8,19 @@ export default function OrganDonorsPage() {
   const [error, setError] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  const [searchQuery, setSearchQuery] = useState("");
+  const [organFilter, setOrganFilter] = useState("");
+
   useEffect(() => {
     async function fetchDonors() {
       try {
         const res = await fetch("/api/organ-donation");
         if (!res.ok) throw new Error("Failed to fetch organ donors");
-        const data = await res.json();
+        let data = await res.json();
+
+        // Only organ donors
+        data = data.filter((donor) => donor.organs && donor.organs.length > 0);
+
         setDonors(data);
       } catch (err) {
         setError(err.message);
@@ -24,34 +31,37 @@ export default function OrganDonorsPage() {
     fetchDonors();
   }, []);
 
-  // Auto-rotate cards
+  // Auto-rotate carousel
   useEffect(() => {
     if (donors.length <= 3) return;
-    
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % donors.length);
     }, 5000);
-    
     return () => clearInterval(interval);
   }, [donors.length]);
 
-  const nextDonor = () => {
-    setCurrentIndex((prev) => (prev + 1) % donors.length);
-  };
-
-  const prevDonor = () => {
+  const nextDonor = () => setCurrentIndex((prev) => (prev + 1) % donors.length);
+  const prevDonor = () =>
     setCurrentIndex((prev) => (prev - 1 + donors.length) % donors.length);
-  };
 
+  // Get three visible donors (left, center, right)
   const getVisibleDonors = () => {
     if (donors.length <= 3) return donors;
-    
-    const indices = [];
-    for (let i = -1; i <= 1; i++) {
-      indices.push((currentIndex + i + donors.length) % donors.length);
-    }
-    return indices.map(index => donors[index]);
+    const left = (currentIndex - 1 + donors.length) % donors.length;
+    const right = (currentIndex + 1) % donors.length;
+    return [donors[left], donors[currentIndex], donors[right]];
   };
+
+  // Filter donors by search & organ
+  const filteredDonors = donors.filter((donor) => {
+    const matchesSearch =
+      donor.fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (donor.email && donor.email.toLowerCase().includes(searchQuery.toLowerCase()));
+    const matchesOrgan = organFilter
+      ? donor.organs?.some((organ) => organ.toLowerCase() === organFilter.toLowerCase())
+      : true;
+    return matchesSearch && matchesOrgan;
+  });
 
   if (loading)
     return (
@@ -73,7 +83,7 @@ export default function OrganDonorsPage() {
   return (
     <div className="min-h-screen bg-[var(--bg-color-all)] py-8 px-4">
       <div className="max-w-7xl mx-auto">
-        {/* Header Section */}
+        {/* Header */}
         <div className="text-center mb-12">
           <div className="w-20 h-20 mx-auto mb-4 bg-[var(--color-primary)] rounded-full flex items-center justify-center">
             <span className="text-3xl text-white">💚</span>
@@ -86,28 +96,26 @@ export default function OrganDonorsPage() {
           </p>
         </div>
 
+        {/* Carousel */}
         {donors.length === 0 ? (
           <div className="text-center py-16 bg-[var(--dashboard-bg)] rounded-2xl shadow-lg border border-[var(--dashboard-border)]">
             <div className="w-24 h-24 mx-auto mb-4 bg-[var(--bg-color-all)] rounded-full flex items-center justify-center">
               <span className="text-4xl">💔</span>
             </div>
-            <h3 className="text-xl font-semibold text-[var(--text-color-all)] mb-2">
-              No organ donors found
-            </h3>
+            <h3 className="text-xl font-semibold text-[var(--text-color-all)] mb-2">No organ donors found</h3>
             <p className="text-[var(--text-color-all)] opacity-70">
               Be the first to register as an organ donor and save lives.
             </p>
           </div>
         ) : (
           <div className="relative">
-            {/* Navigation Buttons */}
+            {/* Navigation */}
             <button
               onClick={prevDonor}
               className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-12 h-12 bg-[var(--color-primary)] text-white rounded-full flex items-center justify-center shadow-lg hover:bg-[var(--color-secondary)] transition-all duration-300 hover:scale-110"
             >
               ←
             </button>
-            
             <button
               onClick={nextDonor}
               className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-12 h-12 bg-[var(--color-primary)] text-white rounded-full flex items-center justify-center shadow-lg hover:bg-[var(--color-secondary)] transition-all duration-300 hover:scale-110"
@@ -115,14 +123,10 @@ export default function OrganDonorsPage() {
               →
             </button>
 
-            {/* Cards Container */}
+            {/* Cards */}
             <div className="flex items-center justify-center gap-6 px-12">
-              {getVisibleDonors().map((donor, index) => {
-                const isCenter = index === 1 && donors.length > 3;
-                const position = donors.length > 3 ? 
-                  index === 0 ? "left" : 
-                  index === 1 ? "center" : "right" : "center";
-
+              {getVisibleDonors().map((donor, i) => {
+                const position = i === 1 ? "center" : i === 0 ? "left" : "right";
                 return (
                   <div
                     key={donor._id}
@@ -131,62 +135,58 @@ export default function OrganDonorsPage() {
                         ? "scale-100 opacity-100 z-20"
                         : "scale-90 opacity-70 z-10"
                     } ${
-                      position === "left" ? "-translate-x-4" : 
-                      position === "right" ? "translate-x-4" : ""
+                      position === "left" ? "-translate-x-4" : position === "right" ? "translate-x-4" : ""
                     }`}
                     style={{
                       width: position === "center" ? "400px" : "360px",
-                      flex: position === "center" ? "0 0 400px" : "0 0 360px"
+                      flex: position === "center" ? "0 0 400px" : "0 0 360px",
                     }}
                   >
-                    <div className={`bg-[var(--dashboard-bg)] rounded-2xl shadow-xl border-2 transition-all duration-300 ${
-                      position === "center" 
-                        ? "border-[var(--color-primary)] shadow-2xl" 
-                        : "border-[var(--dashboard-border)] shadow-lg"
-                    } overflow-hidden`}>
-                      
-                      {/* Card Header */}
-                      <div className={`p-6 border-b border-[var(--dashboard-border)] ${
-                        position === "center" ? "bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary)]/80" : "bg-[var(--bg-color-all)]"
-                      }`}>
+                    {/* Card content */}
+                    <div
+                      className={`bg-[var(--dashboard-bg)] rounded-2xl shadow-xl border-2 transition-all duration-300 ${
+                        position === "center" ? "border-[var(--color-primary)] shadow-2xl" : "border-[var(--dashboard-border)] shadow-lg"
+                      } overflow-hidden`}
+                    >
+                      {/* Header */}
+                      <div
+                        className={`p-6 border-b border-[var(--dashboard-border)] ${
+                          position === "center"
+                            ? "bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary)]/80"
+                            : "bg-[var(--bg-color-all)]"
+                        }`}
+                      >
                         <div className="flex items-center justify-between">
-                          <h2 className={`text-xl font-bold ${
-                            position === "center" ? "text-white" : "text-[var(--text-color-all)]"
-                          }`}>
+                          <h2 className={`text-xl font-bold ${position === "center" ? "text-white" : "text-[var(--text-color-all)]"}`}>
                             {donor.fullName}
                           </h2>
-                          <div className={`badge badge-lg ${
-                            donor.verified 
-                              ? "bg-green-100 text-green-700 border-green-300" 
-                              : "bg-yellow-100 text-yellow-700 border-yellow-300"
-                          }`}>
+                          <div
+                            className={`badge badge-lg ${
+                              donor.verified
+                                ? "bg-green-100 text-green-700 border-green-300"
+                                : "bg-yellow-100 text-yellow-700 border-yellow-300"
+                            }`}
+                          >
                             {donor.verified ? "✅ Verified" : "⏳ Pending"}
                           </div>
                         </div>
-                        <p className={`mt-2 text-sm ${
-                          position === "center" ? "text-white/90" : "text-[var(--text-color-all)] opacity-70"
-                        }`}>
+                        <p className={`mt-2 text-sm ${position === "center" ? "text-white/90" : "text-[var(--text-color-all)] opacity-70"}`}>
                           Organ Donor Hero
                         </p>
                       </div>
 
-                      {/* Card Body */}
+                      {/* Body */}
                       <div className="p-6 space-y-4">
-                        {/* Organs Section */}
+                        {/* Organs */}
                         <div className="flex items-start gap-3">
                           <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
                             <span className="text-green-600 text-sm">💚</span>
                           </div>
                           <div>
-                            <h3 className="font-semibold text-[var(--text-color-all)] text-sm mb-1">
-                              Organs Pledged
-                            </h3>
+                            <h3 className="font-semibold text-[var(--text-color-all)] text-sm mb-1">Organs Pledged</h3>
                             <div className="flex flex-wrap gap-1">
                               {donor.organs?.map((organ, i) => (
-                                <span
-                                  key={i}
-                                  className="px-2 py-1 bg-green-50 text-green-700 rounded-md text-xs font-medium border border-green-200"
-                                >
+                                <span key={i} className="px-2 py-1 bg-green-50 text-green-700 rounded-md text-xs font-medium border border-green-200">
                                   {organ.trim()}
                                 </span>
                               )) || "Not specified"}
@@ -194,7 +194,7 @@ export default function OrganDonorsPage() {
                           </div>
                         </div>
 
-                        {/* Location */}
+                        {/* Location & Contact */}
                         <div className="flex items-center gap-3">
                           <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
                             <span className="text-blue-600 text-sm">📍</span>
@@ -205,7 +205,6 @@ export default function OrganDonorsPage() {
                           </div>
                         </div>
 
-                        {/* Contact */}
                         <div className="flex items-center gap-3">
                           <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
                             <span className="text-purple-600 text-sm">📞</span>
@@ -228,51 +227,17 @@ export default function OrganDonorsPage() {
                             </div>
                           </div>
                         )}
-
-                        {/* Donation History */}
-                        {donor.donationHistory?.length > 0 && (
-                          <div className="flex items-start gap-3">
-                            <div className="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center flex-shrink-0">
-                              <span className="text-indigo-600 text-sm">📋</span>
-                            </div>
-                            <div className="flex-1">
-                              <h3 className="font-semibold text-[var(--text-color-all)] text-sm mb-2">
-                                Donation History
-                              </h3>
-                              <div className="space-y-2">
-                                {donor.donationHistory.slice(0, 2).map((d, i) => (
-                                  <div key={i} className="bg-[var(--bg-color-all)] rounded-lg p-3">
-                                    <p className="text-xs text-[var(--text-color-all)] font-medium">
-                                      {new Date(d.date).toLocaleDateString()}
-                                    </p>
-                                    <p className="text-xs text-[var(--text-color-all)] opacity-70">
-                                      {d.hospital}
-                                    </p>
-                                    {d.recipient && d.recipient !== "N/A" && (
-                                      <p className="text-xs text-green-600 font-medium">
-                                        Recipient: {d.recipient}
-                                      </p>
-                                    )}
-                                  </div>
-                                ))}
-                                {donor.donationHistory.length > 2 && (
-                                  <p className="text-xs text-[var(--text-color-all)] opacity-70 text-center">
-                                    +{donor.donationHistory.length - 2} more donations
-                                  </p>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                        )}
                       </div>
 
-                      {/* Card Footer */}
+                      {/* Footer */}
                       <div className="p-4 bg-[var(--bg-color-all)] border-t border-[var(--dashboard-border)]">
-                        <button className={`w-full py-2 px-4 rounded-xl font-semibold transition-all duration-300 ${
-                          position === "center"
-                            ? "bg-[var(--color-primary)] text-white hover:bg-[var(--color-secondary)]"
-                            : "bg-white text-[var(--color-primary)] border border-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white"
-                        }`}>
+                        <button
+                          className={`w-full py-2 px-4 rounded-xl font-semibold transition-all duration-300 ${
+                            position === "center"
+                              ? "bg-[var(--color-primary)] text-white hover:bg-[var(--color-secondary)]"
+                              : "bg-white text-[var(--color-primary)] border border-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white"
+                          }`}
+                        >
                           View Full Profile
                         </button>
                       </div>
@@ -282,7 +247,7 @@ export default function OrganDonorsPage() {
               })}
             </div>
 
-            {/* Dots Indicator */}
+            {/* Dots */}
             {donors.length > 3 && (
               <div className="flex justify-center mt-8 space-x-2">
                 {donors.map((_, index) => (
@@ -308,19 +273,64 @@ export default function OrganDonorsPage() {
           </div>
         )}
 
-        {/* Footer CTA */}
-        <div className="text-center mt-12">
-          <div className="bg-[var(--dashboard-bg)] rounded-2xl p-8 shadow-lg border border-[var(--dashboard-border)] max-w-2xl mx-auto">
-            <h3 className="text-xl font-bold text-[var(--color-secondary)] mb-3">
-              Ready to Make a Difference?
-            </h3>
-            <p className="text-[var(--text-color-all)] mb-4">
-              Join these heroes and register as an organ donor today.
-            </p>
-            <button className="btn bg-[var(--color-primary)] text-white border-none hover:bg-[var(--color-secondary)] px-8">
-              Become a Donor
-            </button>
-          </div>
+        {/* Search & Filter */}
+        <div className="mb-6 flex flex-col md:flex-row items-center justify-between gap-4">
+          <input
+            type="text"
+            placeholder="Search by name or email"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full md:w-1/2 px-4 py-2 border border-[var(--dashboard-border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+          />
+          <select
+            value={organFilter}
+            onChange={(e) => setOrganFilter(e.target.value)}
+            className="w-full md:w-1/4 px-4 py-2 border border-[var(--dashboard-border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
+          >
+            <option value="">All Organs</option>
+            <option value="Heart">Heart</option>
+            <option value="Liver">Liver</option>
+            <option value="Kidney">Kidney</option>
+            <option value="Lungs">Lungs</option>
+            <option value="Pancreas">Pancreas</option>
+            <option value="Cornea">Cornea</option>
+            <option value="Skin">Skin</option>
+            <option value="Bone Marrow">Bone Marrow</option>
+          </select>
+        </div>
+
+        {/* Donors Table */}
+        <div className="overflow-x-auto bg-[var(--dashboard-bg)] rounded-2xl shadow-lg border border-[var(--dashboard-border)]">
+          <table className="w-full min-w-[600px] divide-y divide-[var(--dashboard-border)]">
+            <thead className="bg-[var(--bg-color-all)]">
+              <tr>
+                <th className="px-4 py-3 text-left text-sm font-semibold text-[var(--color-secondary)]">Name</th>
+                <th className="px-4 py-3 text-left text-sm font-semibold text-[var(--color-secondary)]">Organs</th>
+                <th className="px-4 py-3 text-left text-sm font-semibold text-[var(--color-secondary)]">Location</th>
+                <th className="px-4 py-3 text-left text-sm font-semibold text-[var(--color-secondary)]">Contact</th>
+                <th className="px-4 py-3 text-left text-sm font-semibold text-[var(--color-secondary)]">Email</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[var(--dashboard-border)]">
+              {filteredDonors.length === 0 ? (
+                <tr>
+                  <td colSpan={5} className="text-center py-6 text-[var(--text-color-all)] opacity-70">
+                    No donors found.
+                  </td>
+                </tr>
+              ) : (
+                filteredDonors.map((donor) => (
+                  <tr key={donor._id} className="hover:bg-[var(--bg-color-all)] transition-all">
+                    <td className="px-4 py-3 text-sm">{donor.fullName}</td>
+                    <td className="px-4 py-3 text-sm">{donor.organs?.join(", ") || "N/A"}</td>
+                    <td className="px-4 py-3 text-sm">{donor.location}</td>
+                    <td className="px-4 py-3 text-sm">{donor.contactNumber}</td>
+                    <td className="px-4 py-3 text-sm break-all">{donor.email || "N/A"}</td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

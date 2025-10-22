@@ -12,7 +12,7 @@ export default function Notifications() {
       try {
         const res = await fetch("/api/users");
         const data = await res.json();
-        const adminUser = data.find((u) => u.role === "admin");
+        const adminUser = data?.find((u) => u.role === "admin");
         setUser(adminUser);
       } catch (err) {
         console.error("Failed to fetch user:", err);
