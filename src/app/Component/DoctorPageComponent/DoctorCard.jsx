@@ -128,7 +128,7 @@ const DoctorCard = ({ doc, personal, education, practice, isBooked, setSelectedD
                             color: "var(--color-white)",
                         }}
                     >
-                        Learn more
+                        View Details
                     </button>
                 </div>
             </div>
