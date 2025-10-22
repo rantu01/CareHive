@@ -1,8 +1,17 @@
+
+
+
 "use client";
 
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { MdFitnessCenter } from "react-icons/md";
+import {
+  Dumbbell,
+  HeartPulse,
+  Flame,
+  Timer,
+  ClipboardList,
+} from "lucide-react";
 
 export default function AllGymPlansPage() {
   const [plans, setPlans] = useState([]);
@@ -12,11 +21,8 @@ export default function AllGymPlansPage() {
     try {
       const res = await fetch("/api/gym-plans");
       const data = await res.json();
-      if (data.success) {
-        setPlans(data.data);
-      } else {
-        setPlans([]);
-      }
+      if (data.success) setPlans(data.data);
+      else setPlans([]);
     } catch (error) {
       console.error("Error fetching gym plans:", error);
       setPlans([]);
@@ -31,18 +37,27 @@ export default function AllGymPlansPage() {
 
   if (loading) {
     return (
-      <div className="text-center mt-20 text-lg font-semibold text-[#3b7f81]">
+      <div
+        className="text-center mt-20 text-lg font-semibold"
+        style={{ color: "var(--color-secondary)" }}
+      >
         Loading gym plans...
       </div>
     );
   }
 
   return (
-    <div className="relative min-h-screen py-24 px-6 overflow-hidden bg-gradient-to-br from-[#f0f4f8] via-[#ffffff] to-[#e7f4f3] text-[#000000]">
-      {/* Premium Glowing Background Shapes */}
-      <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-[#78c0b5]/25 blur-[220px] rounded-full animate-pulse-slow"></div>
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#5ca2a5]/25 blur-[220px] rounded-full animate-pulse-slow"></div>
-      <div className="absolute top-1/3 right-1/2 w-[400px] h-[400px] bg-[#3b7f81]/10 blur-[220px] rounded-full animate-pulse-slow"></div>
+    <div
+      className="relative min-h-screen py-24 px-6 overflow-hidden transition-colors duration-300"
+      style={{
+        background: "var(--bg-color-all)",
+        color: "var(--text-color-all)",
+      }}
+    >
+      {/* Background glows */}
+      <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-[var(--color-secondary)]/20 blur-[220px] rounded-full animate-pulse-slow"></div>
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[var(--color-primary)]/20 blur-[220px] rounded-full animate-pulse-slow"></div>
+      <div className="absolute top-1/3 right-1/2 w-[400px] h-[400px] bg-[var(--color-primary)]/10 blur-[220px] rounded-full animate-pulse-slow"></div>
 
       {/* Header Section */}
       <div className="relative text-center mb-28 mt-14 z-10">
@@ -51,19 +66,26 @@ export default function AllGymPlansPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-          
           <h1
-            className="text-5xl sm:text-6xl font-extrabold mb-4 bg-gradient-to-r from-[#3b7f81] via-[#5ca2a5] to-[#78c0b5] bg-clip-text text-transparent drop-shadow-md tracking-tight"
-            style={{ fontFamily: "'Playfair Display', serif" }}
+            className="text-5xl sm:text-6xl font-extrabold mb-4 bg-clip-text text-transparent drop-shadow-md tracking-tight flex justify-center items-center gap-3"
+            style={{
+              fontFamily: "'Playfair Display', serif",
+              backgroundImage:
+                "linear-gradient(to right, var(--color-secondary), var(--color-primary))",
+            }}
           >
+            <Dumbbell className="w-10 h-10" style={{ color: "var(--color-primary)" }} />
             Discover All Gym Training Plans
           </h1>
           <p
-            className="text-[#1f3f40] max-w-3xl mx-auto text-lg sm:text-xl leading-relaxed"
-            style={{ fontFamily: "'Inter', sans-serif" }}
+            className="max-w-3xl mx-auto text-lg sm:text-xl leading-relaxed opacity-90"
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              color: "var(--text-color-all)",
+            }}
           >
-            Premium programs designed to enhance strength, performance, and endurance.
-            Choose plans tailored to every unique fitness journey.
+            Premium programs designed to enhance strength, performance, and
+            endurance. Choose plans tailored to every unique fitness journey.
           </p>
         </motion.div>
       </div>
@@ -87,7 +109,11 @@ export default function AllGymPlansPage() {
             }}
             whileHover={{ scale: 1.06, translateY: -6 }}
             transition={{ duration: 0.5 }}
-            className="relative bg-white border border-[#dce9e8] rounded-3xl p-6 shadow-xl hover:shadow-3xl transition-all flex flex-col overflow-hidden group"
+            className="relative border rounded-3xl p-6 shadow-xl hover:shadow-3xl transition-all flex flex-col overflow-hidden group"
+            style={{
+              background: "var(--dashboard-bg, #ffffff)",
+              borderColor: "var(--dashboard-border, #dce9e8)",
+            }}
           >
             {/* Plan Image */}
             {plan.image && (
@@ -104,15 +130,30 @@ export default function AllGymPlansPage() {
             {/* Plan Info */}
             <div className="flex-1 relative z-10">
               <h2
-                className="text-2xl font-bold mb-2 text-[#1f3f40]"
-                style={{ fontFamily: "'Playfair Display', serif" }}
+                className="text-2xl font-bold mb-2 flex items-center gap-2"
+                style={{
+                  fontFamily: "'Playfair Display', serif",
+                  color: "var(--color-secondary)",
+                }}
               >
+                <Flame
+                  className="w-5 h-5 group-hover:rotate-12 transition-transform"
+                  style={{ color: "var(--color-primary)" }}
+                />
                 {plan.planName}
               </h2>
-              <p className="text-sm mb-3 italic text-[#3b7f81]">
+              <p
+                className="text-sm mb-3 italic opacity-80 flex items-center gap-2"
+                style={{ color: "var(--color-secondary)" }}
+              >
+                <Timer
+                  className="w-4 h-4"
+                  style={{ color: "var(--color-primary)" }}
+                />
                 {plan.category} • {plan.duration} • {plan.intensity}
               </p>
-              <p className="text-[#1f3f40] text-sm leading-relaxed mb-5">
+
+              <p className="text-sm leading-relaxed mb-5 opacity-90">
                 {plan.description?.length > 120
                   ? plan.description.slice(0, 120) + "..."
                   : plan.description}
@@ -120,16 +161,39 @@ export default function AllGymPlansPage() {
             </div>
 
             {/* Exercises + Equipment */}
-            <div className="border-t border-[#f0f4f8] pt-4 text-sm text-[#1f3f40] space-y-2">
+            <div className="border-t pt-4 text-sm space-y-2 flex flex-col"
+              style={{
+                borderColor: "var(--dashboard-border, #e0e7ea)",
+                color: "var(--text-color-all)",
+              }}
+            >
               {plan.exercises && (
-                <p>
-                  <span className="font-semibold text-[#5ca2a5]">Exercises:</span>{" "}
+                <p className="flex items-center gap-2">
+                  <HeartPulse
+                    className="w-4 h-4"
+                    style={{ color: "var(--color-primary)" }}
+                  />
+                  <span
+                    className="font-semibold"
+                    style={{ color: "var(--color-primary)" }}
+                  >
+                    Exercises:
+                  </span>{" "}
                   {plan.exercises}
                 </p>
               )}
               {plan.equipment && (
-                <p>
-                  <span className="font-semibold text-[#78c0b5]">Equipment:</span>{" "}
+                <p className="flex items-center gap-2">
+                  <ClipboardList
+                    className="w-4 h-4"
+                    style={{ color: "var(--color-secondary)" }}
+                  />
+                  <span
+                    className="font-semibold"
+                    style={{ color: "var(--color-secondary)" }}
+                  >
+                    Equipment:
+                  </span>{" "}
                   {plan.equipment}
                 </p>
               )}
@@ -140,3 +204,5 @@ export default function AllGymPlansPage() {
     </div>
   );
 }
+
+
