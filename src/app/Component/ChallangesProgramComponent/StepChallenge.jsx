@@ -3,6 +3,7 @@
 import React, { use, useState } from 'react';
 import { Users, ChevronUp, ChevronDown, Facebook, Twitter, Instagram } from 'lucide-react';
 import { AuthContext } from '@/app/context/authContext';
+import { cannotJoinSwal, successfulJoinSwal } from '@/app/utils/challengesSwal';
 
 export default function StepChallenge({ challengeDetails }) {
     const [rulesExpanded, setRulesExpanded] = useState(true);
@@ -25,6 +26,40 @@ export default function StepChallenge({ challengeDetails }) {
         instructions,
         checkpoints,
     } = challengeDetails;
+
+
+
+    const handleJoinChallenge = () => {
+        if (!user) {
+            toast.error("Please log in to join the challenge.");
+            return;
+        }
+
+        const today = new Date();
+        const todayDateOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+        const startDate = new Date(duration?.startDate);
+        const startDateOnly = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+
+        if (todayDateOnly >= startDateOnly) {
+            cannotJoinSwal()
+            return;
+        }
+
+        
+        const participantInfo = {
+            userId: user?.uid,
+            challengeId: _id,
+            joinedAt: new Date().toISOString(),
+            progress: 0,
+            status: "active",
+            startDate: startDate.toISOString()
+        };
+
+        console.log("✅ Participant Info:", participantInfo);
+        successfulJoinSwal()
+    };
+
 
 
     return (
@@ -53,7 +88,7 @@ export default function StepChallenge({ challengeDetails }) {
                         </nav>
 
                         <div className="flex items-center gap-4">
-                            <button className="bg-[var(--color-primary)] hover:bg-[var(--color-secondary)] text-[var(--color-white)] px-6 py-2 rounded-lg transition-colors font-medium">
+                            <button onClick={handleJoinChallenge} className="bg-[var(--color-primary)] hover:bg-[var(--color-secondary)] text-[var(--color-white)] px-6 py-2 rounded-lg transition-colors font-medium cursor-pointer">
                                 Join the Challenge
                             </button>
                         </div>
@@ -167,8 +202,8 @@ export default function StepChallenge({ challengeDetails }) {
                                     <div key={index} className="flex gap-4">
                                         <div
                                             className={`w-3 h-3 rounded-full mt-1.5 flex-shrink-0 ${checkpoint.completed
-                                                    ? "bg-[var(--color-primary)]"
-                                                    : "bg-[var(--dashboard-border)]"
+                                                ? "bg-[var(--color-primary)]"
+                                                : "bg-[var(--dashboard-border)]"
                                                 }`}
                                         ></div>
                                         <div className="flex-1">

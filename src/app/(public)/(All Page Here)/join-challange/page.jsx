@@ -7,7 +7,6 @@ import { use } from 'react';
 
 const page = () => {
     const { challangesData } = use(ChallangesDataContext);
-    console.log("him gim", challangesData)
     
     return (
         <div className='min-h-screen px-4 sm:px-6 lg:px-8 pt-24 pb-16'>
