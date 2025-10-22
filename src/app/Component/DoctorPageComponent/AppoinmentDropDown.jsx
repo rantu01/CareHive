@@ -23,7 +23,7 @@ const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
         doctorName: selectedDoctor?.personalInfo?.fullName,
         hospitalName: selectedDoctor.practiceInfo?.clinicAddress,
         hospitalId: selectedDoctor.practiceInfo?.clinicId,
-        specialization:selectedDoctor.educationAndCredentials?.specialization,
+        specialization: selectedDoctor.educationAndCredentials?.specialization,
         bookedSlot: selectedSlot,
         meetingType: meetingType,
         docId: selectedDoctor?._id,
@@ -35,6 +35,17 @@ const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
     }
 
     const handleBooking = (booking) => {
+
+        if (!booking.patientName || !booking.patientEmail) {
+            Swal.fire({
+                title: "Missing Information",
+                text: "Please ensure you're signed in and have provided your name and email.",
+                icon: "error"
+            });
+            return;
+        }
+
+
         console.log(selectedDoctor.practiceInfo.patientLimit[selectedDay])
         if (selectedDoctor?.practiceInfo?.patientLimit[selectedDay] == 0) {
             Swal.fire("Slot is full")
