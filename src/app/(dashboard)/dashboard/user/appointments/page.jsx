@@ -39,12 +39,13 @@ const page = () => {
 
                 {/* Appointments List */}
                 <div className="grid gap-4 sm:gap-5 md:gap-6 lg:gap-8">
-                    {appointmentData?.map(({ doctorName, hospitalName, bookedAt, bookedSlot, meetingType, serialNo, fees, docId }, index) => (
+
+                    {appointmentData?.map(({ doctorName, hospitalName, createdAt, bookedSlot, meetingType, serialNo, doctorFee }, index) => (
                         <div
                             key={index}
                             className="group backdrop-blur-sm shadow-lg hover:shadow-2xl rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 lg:p-8 border border-[var(--dashboard-border)]/30 hover:border-[var(--color-light-green)]/30 transition-all duration-300 relative overflow-hidden"
                         >
-
+                            {console.log("dddddddddddddddddd",createdAt)}
 
                             {/* Decorative Elements */}
                             <div className="absolute top-0 right-0 w-24 sm:w-32 h-24 sm:h-32 bg-gradient-to-bl from-[var(--color-light-green)]/5 to-transparent rounded-full blur-2xl -translate-y-12 sm:-translate-y-16 translate-x-12 sm:translate-x-16"></div>
@@ -86,7 +87,7 @@ const page = () => {
                                                     <div className="min-w-0 flex-1">
                                                         <p className="text-[var(--text-color-all)]/50 text-[10px] sm:text-xs font-medium">Booked On</p>
                                                         <p className="text-[var(--text-color-all)] text-xs sm:text-sm font-semibold truncate">
-                                                            {formatDate(bookedAt)}
+                                                            {formatDate(createdAt)}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -122,7 +123,7 @@ const page = () => {
                                                     <div className="min-w-0 flex-1">
                                                         <p className="text-[var(--text-color-all)]/50 text-[10px] sm:text-xs font-medium">Fees</p>
                                                         <p className="text-[var(--text-color-all)] text-xs sm:text-sm font-semibold">
-                                                            ৳{fees}
+                                                            ৳{doctorFee}
                                                         </p>
                                                     </div>
                                                 </div>
