@@ -1,27 +1,27 @@
-// components/Header.js
 "use client";
+
 import { useEffect, useState } from "react";
-import {
-  Calendar,
-  Clock,
-  MessageCircle,
-  Plus,
-  Stethoscope,
-} from "lucide-react";
+import { Calendar, Clock, MessageCircle, Stethoscope } from "lucide-react";
 
 export default function Header({ doctorId }) {
   const [greeting, setGreeting] = useState("");
   const [doctorName, setDoctorName] = useState("");
-  const [totalAppointments, setTotalAppointments] = useState(0);
+  const [stats, setStats] = useState({
+    totalAppointments: 0,
+    completed: 0,
+    inProgress: 0,
+    upcoming: 0,
+  });
 
-  const today = new Date().toLocaleDateString("en-US", {
+  const todayDate = new Date();
+  const todayFormatted = todayDate.toLocaleDateString("en-US", {
     weekday: "long",
     month: "long",
     day: "numeric",
     year: "numeric",
   });
 
-  // Greeting
+  // Greeting logic
   useEffect(() => {
     const updateGreeting = () => {
       const hour = new Date().getHours();
@@ -30,39 +30,70 @@ export default function Header({ doctorId }) {
       else if (hour < 20) setGreeting("Good Evening");
       else setGreeting("Good Night");
     };
-
     updateGreeting();
     const interval = setInterval(updateGreeting, 60000);
     return () => clearInterval(interval);
   }, []);
 
-  // Fetch doctor data and appointment 
+  // Fetch doctor info + appointments
   useEffect(() => {
     if (!doctorId) return;
 
-    async function fetchStats() {
+    async function fetchData() {
       try {
-        const res = await fetch(`/api/all-doctor-appointments`);
+        const res = await fetch(`/api/doctor-appointments/${doctorId}`);
         const data = await res.json();
-        const allAppointments = data.appointments || [];
+        const appointments = data.appointments || [];
 
-        const doctorAppointments = allAppointments.filter(
-          (appt) => appt.docId === doctorId
-        );
-
-        setTotalAppointments(doctorAppointments.length);
-
-        // Get doctor name dynamically from first matching appointment
-        if (doctorAppointments.length > 0) {
-          setDoctorName(doctorAppointments[0].doctorName || "Doctor");
+        // Set doctor name dynamically
+        if (appointments.length > 0) {
+          setDoctorName(appointments[0].doctorName || "Doctor");
         }
+
+        // Total appointments
+        const totalAppointments = appointments.length;
+
+        // Today filter
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const tomorrow = new Date(today);
+        tomorrow.setDate(today.getDate() + 1);
+
+        const todayAppointments = appointments.filter((appt) => {
+          const booked = new Date(appt.bookedAt);
+          return booked >= today && booked < tomorrow;
+        });
+
+        // Status counts
+        const completed = todayAppointments.filter(
+          (appt) => appt.status?.toLowerCase() === "completed"
+        ).length;
+        const inProgress = todayAppointments.filter(
+          (appt) => appt.status?.toLowerCase() === "in-progress"
+        ).length;
+        const upcoming = todayAppointments.length - completed - inProgress;
+
+        setStats({
+          totalAppointments,
+          completed,
+          inProgress,
+          upcoming,
+        });
       } catch (err) {
-        console.error("Failed to fetch stats:", err);
+        console.error("Failed to fetch header data:", err);
       }
     }
 
-    fetchStats();
+    fetchData();
   }, [doctorId]);
+
+  // Helper for animated dot
+  const AnimatedDot = ({ color }) => (
+    <span className="relative flex w-3 h-3">
+      <span className={`absolute inline-flex h-full w-full rounded-full opacity-75 animate-ping ${color}`}></span>
+      <span className={`relative inline-flex rounded-full h-3 w-3 ${color}`}></span>
+    </span>
+  );
 
   return (
     <div className="bg-gradient-to-r from-[var(--color-primary)] to-cyan-400 p-6 rounded-xl shadow-md text-white">
@@ -77,17 +108,16 @@ export default function Header({ doctorId }) {
               <h1 className="text-2xl font-bold">
                 {greeting}, {doctorName || "Doctor"}!
               </h1>
-
               <div className="flex items-center text-sm mt-1 space-x-3">
                 <div className="flex items-center space-x-1">
                   <Calendar className="w-4 h-4" />
-                  <span>{today}</span>
+                  <span>{todayFormatted}</span>
                 </div>
                 <div className="flex items-center space-x-1">
                   <Clock className="w-4 h-4" />
                   <span>
-                    {totalAppointments}{" "}
-                    {totalAppointments === 1
+                    {stats.totalAppointments}{" "}
+                    {stats.totalAppointments === 1
                       ? "appointment scheduled"
                       : "appointments scheduled"}
                   </span>
@@ -96,19 +126,19 @@ export default function Header({ doctorId }) {
             </div>
           </div>
 
-          {/* Status */}
-          <div className="flex items-center space-x-4 mt-3 text-sm">
-            <div className="flex items-center space-x-1">
-              <span className="w-3 h-3 bg-green-500 rounded-full inline-block"></span>
-              <span>2 completed</span>
+          {/* Status Section */}
+          <div className="flex items-center space-x-6 mt-3 text-sm">
+            <div className="flex items-center space-x-2">
+              <AnimatedDot color="bg-green-500" />
+              <span>{stats.completed} completed</span>
             </div>
-            <div className="flex items-center space-x-1">
-              <span className="w-3 h-3 bg-yellow-500 rounded-full inline-block"></span>
-              <span>1 in progress</span>
+            <div className="flex items-center space-x-2">
+              <AnimatedDot color="bg-yellow-500" />
+              <span>{stats.inProgress} in progress</span>
             </div>
-            <div className="flex items-center space-x-1">
-              <span className="w-3 h-3 bg-blue-500 rounded-full inline-block"></span>
-              <span>5 upcoming</span>
+            <div className="flex items-center space-x-2">
+              <AnimatedDot color="bg-blue-500" />
+              <span>{stats.upcoming} upcoming</span>
             </div>
           </div>
         </div>
@@ -121,10 +151,6 @@ export default function Header({ doctorId }) {
             <span className="absolute top-0 right-0 -mt-1 -mr-1 w-4 h-4 bg-orange-500 text-white rounded-full text-xs flex items-center justify-center">
               3
             </span>
-          </button>
-          <button className="btn border-none bg-white btn-md rounded-2xl flex items-center gap-2 text-[var(--dashboard-blue)] hover:bg-[#ebf7f9]">
-            <Plus className="w-4 h-4" />
-            Add Appointment
           </button>
         </div>
       </div>

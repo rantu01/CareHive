@@ -15,6 +15,8 @@ export default function DoctorsPage() {
 
   // ✅ Handle appointment booking
   const handleBookAppointment = async (booking) => {
+
+    console.log("while booking",booking)
     try {
       const response = await axios.post("/api/payment", booking);
       const responseData = response.data;

@@ -28,7 +28,6 @@ export async function POST(req) {
             const session = event.data.object;
             const metadata = session.metadata;
 
-
             const client = await clientPromise;
             const db = client.db("carehive");
             const userAppointmentsCollection = db.collection("userAppointments");
@@ -86,6 +85,8 @@ export async function POST(req) {
                 hospitalId: metadata.hospitalId,
                 specialization: metadata.specialization,
                 doctorFee: metadata.fees,
+                patientEmail: metadata.patientEmail,
+                patientName: metadata.patientName,
                 paymentStatus: "Paid",
                 status: "upcoming",
                 sessionId: session.id,
@@ -126,6 +127,6 @@ export async function POST(req) {
 
 export const config = {
     api: {
-        bodyParser: false, // Stripe requires raw body
+        bodyParser: false,
     },
 };

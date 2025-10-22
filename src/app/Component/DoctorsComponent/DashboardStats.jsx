@@ -5,10 +5,11 @@ import { Calendar, Users, DollarSign, Star } from "lucide-react";
 import StatCard from "./StatCard";
 
 export default function DashboardStats({ doctorId }) {
-  
   const [stats, setStats] = useState({
     todayAppointments: 0,
-    totalPatients: 0,
+    completedPatients: 0,
+    pendingPatients: 0,
+    monthlyEarnings: 0,
   });
 
   useEffect(() => {
@@ -16,31 +17,47 @@ export default function DashboardStats({ doctorId }) {
 
     async function fetchStats() {
       try {
-        const res = await fetch(`/api/all-doctor-appointments`);
+        const res = await fetch(`/api/doctor-appointments/${doctorId}`);
         const data = await res.json();
-        const allAppointments = data.appointments;
+        const allAppointments = data.appointments || [];
 
-        // Doctor specific filter
-        const doctorAppointments = allAppointments.filter(
-          appt => appt.docId == doctorId
+        // আজকের day (Monday, Tuesday...)
+        const todayName = new Date().toLocaleDateString("en-US", {
+          weekday: "long",
+        });
+
+        // আজকের appointments filter by bookedSlot day
+        const todayAppointments = allAppointments.filter((appt) =>
+          appt.bookedSlot?.toLowerCase().includes(todayName.toLowerCase())
         );
 
-        // Today filter
+        // Completed patients
+        const completedPatients = todayAppointments.filter(
+          (appt) => appt.status?.toLowerCase() === "completed"
+        ).length;
+
+        // Pending patients
+        const pendingPatients = todayAppointments.length - completedPatients;
+
+        // Monthly earnings (Paid appointments)
         const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const tomorrow = new Date(today);
-        tomorrow.setDate(today.getDate() + 1);
+        const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
+        const monthEnd = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+        const monthlyEarnings = allAppointments
+          .filter(
+            (appt) =>
+              new Date(appt.bookedAt) >= monthStart &&
+              new Date(appt.bookedAt) < monthEnd &&
+              appt.paymentStatus === "Paid"
+          )
+          .reduce((sum, appt) => sum + Number(appt.fees || appt.doctorFee || 0), 0);
 
-        const todayAppointments = doctorAppointments.filter(appt => {
-          const booked = new Date(appt.bookedAt);
-          return booked >= today && booked < tomorrow;
-        }).length;
-
-        // Total unique patients
-        const patientIds = new Set(doctorAppointments.map(appt => appt.userId));
-        const totalPatients = patientIds.size;
-
-        setStats({ todayAppointments, totalPatients });
+        setStats({
+          todayAppointments: todayAppointments.length,
+          completedPatients,
+          pendingPatients,
+          monthlyEarnings,
+        });
       } catch (err) {
         console.error("Failed to fetch stats:", err);
       }
@@ -58,22 +75,21 @@ export default function DashboardStats({ doctorId }) {
       />
 
       <StatCard
-        title="Total Patients"
-        value={stats.totalPatients}
+        title="Completed Patients"
+        value={stats.completedPatients}
+        icon={Users}
+      />
+
+      <StatCard
+        title="Pending Patients"
+        value={stats.pendingPatients}
         icon={Users}
       />
 
       <StatCard
         title="This Month Earnings"
-        value="$8,420"
-        suffix="revenue"
+        value={`৳${stats.monthlyEarnings.toLocaleString()}`}
         icon={DollarSign}
-      />
-
-      <StatCard
-        title="Rating"
-        value="4.9 / 5.0"
-        icon={Star}
       />
     </div>
   );

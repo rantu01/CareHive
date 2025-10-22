@@ -1,6 +1,6 @@
 "use client";
 
-import { Calendar, Clock, Video, Phone, User } from "lucide-react";
+import { Calendar, Clock, Video, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -10,40 +10,47 @@ export default function DoctorsSchedule({ doctorId }) {
   const { user } = UseAuth();
   const router = useRouter();
   const [appointments, setAppointments] = useState([]);
+  const [meetingLinks, setMeetingLinks] = useState({});
 
-  // Fetch appointments from API
+  // ✅ Fetch today's schedule
   useEffect(() => {
     if (!doctorId) return;
-    async function fetchAppointments() {
+
+    async function fetchData() {
       try {
-        const res = await fetch("/api/all-doctor-appointments");
+        const res = await fetch(`/api/doctor-appointments/${doctorId}`);
         const data = await res.json();
-        if (data.appointments) {
-          // Filter doctor-specific + fallback status
-          const doctorAppointments = data.appointments
-            .filter((appt) => appt.docId === doctorId)
-            .map((a) => ({
-              ...a,
-              status: a.status?.toLowerCase() || "upcoming",
-            }))
-             .sort((a, b) => a.serialNo - b.serialNo);
-          setAppointments(doctorAppointments);
-        }
+
+        const todayName = new Date().toLocaleDateString("en-US", {
+          weekday: "long",
+        });
+
+        const todayAppointments = (data.appointments || [])
+          .filter((appt) =>
+            appt.bookedSlot?.toLowerCase().includes(todayName.toLowerCase())
+          )
+          .sort((a, b) => a.serialNo - b.serialNo);
+
+        setAppointments(todayAppointments);
+
+        const meetRes = await fetch(`/api/doctors-slots/${doctorId}`);
+        const meetData = await meetRes.json();
+        setMeetingLinks(meetData?.meetLink || {});
       } catch (err) {
-        console.error("Error loading appointments:", err);
+        console.error("Error fetching schedule:", err);
       }
     }
-    fetchAppointments();
+
+    fetchData();
   }, [doctorId]);
 
-  // Update appointment status
+  // ✅ Update appointment status
   const handleUpdateStatus = async (userId, serialNo, newStatus) => {
     try {
       await axios.put(`/api/doc-appointments-status/${userId}/${serialNo}`, {
         status: newStatus,
       });
 
-      // Update frontend instantly
       setAppointments((prev) =>
         prev.map((appt) =>
           appt.userId === userId && appt.serialNo === serialNo
@@ -60,30 +67,37 @@ export default function DoctorsSchedule({ doctorId }) {
     router.push("/dashboard/doctor/messages");
   };
 
-  // Status Badge component
+  // ✅ Animated Status Badge
   const StatusBadge = ({ status }) => {
-    let color = "bg-gray-500";
-    if (status === "completed") color = "bg-green-600";
-    else if (status === "in-progress") color = "bg-gray-600";
-    else if (status === "upcoming") color = "bg-blue-600";
-
-    return (
-      <span className={`px-3 py-1 text-xs rounded-full text-white ${color}`}>
-        {status}
-      </span>
-    );
+    const base =
+      "px-3 py-1 text-xs rounded-full font-semibold text-white transition-all";
+    if (status === "completed")
+      return <span className={`${base} bg-green-600`}>Completed</span>;
+    if (status === "in-progress")
+      return (
+        <span
+          className={`${base} bg-gradient-to-r from-yellow-400 to-orange-500 shadow-md animate-pulse`}
+        >
+          In Progress...
+        </span>
+      );
+    return <span className={`${base} bg-blue-600`}>Upcoming</span>;
   };
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      {/* Today's Schedule */}
+      {/* ✅ Today's Schedule */}
       <div className="lg:col-span-2 bg-[var(--sidebar-bg)] text-[var(--text-color-all)] rounded-xl p-6 shadow-md">
         <div className="flex items-center justify-between mb-4">
           <h2 className="flex items-center gap-2 text-lg font-semibold text-[var(--text-color-all)]">
             <Calendar className="w-5 h-5" />
             Today's Schedule
           </h2>
-          <button className="btn btn-sm rounded-lg bg-[var(--color-primary)] hover:bg-[#18cfcf] border-none text-white">
+
+          <button
+            onClick={() => router.push("/dashboard/doctor/schedule")}
+            className="btn btn-sm rounded-lg bg-[var(--color-primary)] hover:bg-[#18cfcf] border-none text-white"
+          >
             View Calendar
           </button>
         </div>
@@ -92,81 +106,87 @@ export default function DoctorsSchedule({ doctorId }) {
           {appointments.length === 0 ? (
             <p className="text-sm text-gray-400">No appointments today.</p>
           ) : (
-            appointments.map((item, i) => (
-              <div
-                key={i}
-                className="flex justify-between items-center bg-[var(--sidebar-bg)] rounded-xl p-4 border border-[var(--dashboard-border)] hover:bg-[var(--bg-color-all)]"
-              >
-                {/* Left info */}
-                <div className="flex items-center gap-3">
-                  <div className="bg-[var(--color-primary)] p-2 rounded-full">
-                    <User className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium">{item.patientName}</h3>
-                    <p className="text-sm text-gray-400">{item.meetingType}</p>
-                    <div className="flex items-center gap-2 text-xs text-gray-400 mt-1">
-                      <Clock className="w-4 h-4" />
-                      <span>{item.bookedSlot?.split("-")[1]}</span>
+            appointments.slice(0, 5).map((item, i) => {
+              const day = item.bookedSlot?.split("-")[0]?.toLowerCase();
+              const meetUrl = meetingLinks?.[day] || "#";
+
+              return (
+                <div
+                  key={i}
+                  className="flex justify-between items-center bg-[var(--sidebar-bg)] rounded-xl p-4 border border-[var(--dashboard-border)] hover:bg-[var(--bg-color-all)] hover:shadow-md transition-all duration-200"
+                >
+                  {/* Left Side */}
+                  <div className="flex items-center gap-3">
+                    <div className="bg-[var(--color-primary)] p-2 rounded-full shadow-sm">
+                      <User className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="font-medium">{item.patientName}</h3>
+                      <div className="flex items-center gap-2 text-xs text-gray-400 mt-1">
+                        <Clock className="w-4 h-4" />
+                        <span>{item.bookedSlot?.split("-")[1]}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Right: status & actions */}
-                <div className="flex items-center gap-2">
-                  <StatusBadge status={item.status} />
+                  {/* Right Side */}
+                  <div className="flex items-center gap-2">
+                    <StatusBadge status={item.status} />
 
-                  {/* Upcoming → Start Consultation button */}
-                  {item.status === "upcoming" && (
-                    <button
-                      className="btn btn-sm bg-gray-700 hover:bg-gray-600 border-none text-white"
-                      onClick={() =>
-                        handleUpdateStatus(item.userId, item.serialNo, "in-progress")
-                      }
-                    >
-                      Start Consultation
-                    </button>
-                  )}
-
-                  {/* In-progress → Complete + Join button */}
-                  {item.status === "in-progress" && (
-                    <>
+                    {item.status === "upcoming" && (
                       <button
-                        className="btn btn-sm bg-green-600 hover:bg-green-700 border-none text-white"
+                        className="btn btn-sm bg-gradient-to-r from-gray-700 to-gray-600 hover:from-gray-600 hover:to-gray-700 border-none text-white transition-all"
                         onClick={() =>
-                          handleUpdateStatus(item.userId, item.serialNo, "completed")
+                          handleUpdateStatus(item.userId, item.serialNo, "in-progress")
                         }
                       >
-                        Complete
+                        Start Meeting
                       </button>
-                      <button className="btn btn-sm bg-[var(--color-primary)] hover:bg-[#18cfcf] border-none text-white flex items-center gap-1">
-                        <Video className="w-4 h-4" /> Join
-                      </button>
-                    </>
-                  )}
+                    )}
 
-                  {/* Upcoming / Video & Phone buttons (optional) */}
-                  {item.status === "upcoming" && (
-                    <>
-                      <button className="btn btn-sm bg-gray-700 hover:bg-gray-600 border-none text-white">
-                        <Video className="w-4 h-4" />
-                      </button>
-                    </>
-                  )}
+                    {item.status === "in-progress" && (
+                      <>
+                        <a
+                          href={meetUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn btn-sm bg-gradient-to-r from-[var(--color-primary)] to-[#18cfcf] border-none text-white flex items-center gap-1 shadow-sm hover:shadow-lg transition-all"
+                        >
+                          <Video className="w-4 h-4" /> Join
+                        </a>
+                        <button
+                          className="btn btn-sm bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 border-none text-white"
+                          onClick={() =>
+                            handleUpdateStatus(item.userId, item.serialNo, "completed")
+                          }
+                        >
+                          Complete
+                        </button>
+                      </>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))
+              );
+            })
           )}
         </div>
+
+        {appointments.length > 5 && (
+          <button
+            onClick={() => router.push("/dashboard/doctor/schedule")}
+            className="w-full mt-6 btn btn-sm rounded-lg bg-gray-700 hover:bg-gray-600 border-none text-white"
+          >
+            View All Appointments →
+          </button>
+        )}
       </div>
 
-      {/* Patient Messages */}
       <PatientMessages handleReplyRedirect={handleReplyRedirect} />
     </div>
   );
 }
 
-// Patient Messages component
+// 📨 Messages Sidebar
 function PatientMessages({ handleReplyRedirect }) {
   const { user } = UseAuth();
   const router = useRouter();
