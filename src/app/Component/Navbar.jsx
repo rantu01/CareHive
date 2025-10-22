@@ -7,17 +7,34 @@ import UseAuth from "../Hooks/UseAuth";
 import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "Doctors", href: "/doctors" },
-  { label: "Wellness", href: "/wellness" },
-  { label: "Fitness", href: "/fitness" },
-  { label: "Hospitals", href: "/hospitals" },
+  {
+    label: "Donation",
+    dropdown: [
+      { label: "Blood", href: "/donation" },
+      { label: "Organ", href: "/organ-donation" },
+    ],
+  },
+  {
+    label: "Health",
+    dropdown: [
+      { label: "Wellness", href: "/wellness" },
+      { label: "Fitness", href: "/fitness" },
+    ],
+  },
+  {
+    label: "Medical",
+    dropdown: [
+      { label: "Hospitals", href: "/hospitals" },
+      { label: "Doctors", href: "/doctors" },
+    ],
+  },
   { label: "Blog", href: "/userInteractions" },
 ];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState({});
   const { user, signOutUser } = UseAuth();
   const pathname = usePathname();
 
@@ -33,16 +50,17 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // ✅ Transparent only on Home page when not scrolled (no blur)
   const isHome = pathname === "/";
-  const bgColor = isHome && !scrolled ? "transparent" : "var(--color-secondary)";
+  const bgColor =
+    isHome && !scrolled ? "transparent" : "var(--color-secondary)";
   const textColor = "var(--color-white)";
   const logoColor = "var(--color-white)";
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-300 ${scrolled || !isHome ? "py-3 shadow-lg" : "py-4"
-        }`}
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        scrolled || !isHome ? "py-3 shadow-lg" : "py-4"
+      }`}
       style={{
         backgroundColor: bgColor,
         fontFamily: "var(--font-primary)",
@@ -93,6 +111,48 @@ const Navbar = () => {
                   pathname === link.href ||
                   (link.href !== "/" && pathname.startsWith(link.href));
 
+                if (link.dropdown) {
+                  return (
+                    <div
+                      key={idx}
+                      className="relative group"
+                      onMouseEnter={() =>
+                        setDropdownOpen((prev) => ({ ...prev, [idx]: true }))
+                      }
+                      onMouseLeave={() =>
+                        setDropdownOpen((prev) => ({ ...prev, [idx]: false }))
+                      }
+                    >
+                      <span
+                        className="relative px-3 py-2 text-sm lg:text-base font-medium cursor-pointer transition-all duration-300"
+                        style={{
+                          color: textColor,
+                          fontWeight: isActive ? 600 : 500,
+                        }}
+                      >
+                        {link.label}
+                      </span>
+                      <div
+                        className={`absolute top-full left-0 mt-1 w-40 bg-[var(--color-secondary)] rounded-lg shadow-lg transition-all duration-200 ${
+                          dropdownOpen[idx]
+                            ? "opacity-100 visible"
+                            : "opacity-0 invisible"
+                        }`}
+                      >
+                        {link.dropdown.map((item, dIdx) => (
+                          <Link
+                            key={dIdx}
+                            href={item.href}
+                            className="block px-4 py-2 text-white hover:bg-[var(--color-primary)] hover:bg-opacity-20 rounded-lg"
+                          >
+                            {item.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                }
+
                 return (
                   <Link
                     key={idx}
@@ -120,26 +180,18 @@ const Navbar = () => {
               {user ? (
                 <>
                   <Link
-                    href="/dashboard"
-                    className="font-medium px-4 py-2 rounded-xl text-sm lg:text-base transition-all duration-300"
-                    style={{
-                      color: textColor,
-                      fontWeight: 500,
-                    }}
-                  >
-                    Dashboard
-                  </Link>
-
-
-                  <Link
                     href="/join-challange"
                     className="font-medium px-4 py-2 rounded-xl text-sm lg:text-base transition-all duration-300"
-                    style={{
-                      color: textColor,
-                      fontWeight: 500,
-                    }}
+                    style={{ color: textColor, fontWeight: 500 }}
                   >
                     Join Challange
+                  </Link>
+                  <Link
+                    href="/dashboard"
+                    className="outline font-medium px-4 py-2 rounded-xl text-sm lg:text-base transition-all duration-300"
+                    style={{ color: textColor, fontWeight: 500 }}
+                  >
+                    Dashboard
                   </Link>
 
                   <button
@@ -151,7 +203,7 @@ const Navbar = () => {
                       borderColor: "var(--color-primary)",
                     }}
                   >
-                    Logout 
+                    Logout
                   </button>
                 </>
               ) : (
@@ -159,10 +211,7 @@ const Navbar = () => {
                   <Link
                     href="/login"
                     className="font-medium px-4 py-2 rounded-xl text-sm lg:text-base border-2 transition-all duration-300 hover:opacity-80"
-                    style={{
-                      color: textColor,
-                      borderColor: textColor,
-                    }}
+                    style={{ color: textColor, borderColor: textColor }}
                   >
                     Login
                   </Link>
@@ -232,18 +281,30 @@ const Navbar = () => {
           <div className="md:hidden mt-4 bg-white rounded-2xl shadow-2xl border border-[var(--dashboard-border)]">
             <div className="flex flex-col space-y-1 p-4">
               {navLinks.map((link, idx) => {
-                const isActive =
-                  pathname === link.href ||
-                  (link.href !== "/" && pathname.startsWith(link.href));
-
+                if (link.dropdown) {
+                  return (
+                    <div key={idx} className="flex flex-col">
+                      <span className="py-3 px-4 font-medium text-[var(--color-primary)] cursor-pointer">
+                        {link.label}
+                      </span>
+                      {link.dropdown.map((item, dIdx) => (
+                        <Link
+                          key={dIdx}
+                          href={item.href}
+                          className="py-3 pl-6 pr-4 rounded-xl font-medium border-l-2 border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:bg-opacity-10"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  );
+                }
                 return (
                   <Link
                     key={idx}
                     href={link.href}
-                    className={`py-3 px-4 rounded-xl font-medium transition-all duration-200 ${isActive
-                        ? "bg-[var(--color-primary)] bg-opacity-10 text-[var(--color-primary)]"
-                        : "hover:bg-[var(--color-primary)] hover:bg-opacity-10 text-[var(--color-primary)]"
-                      }`}
+                    className="py-3 px-4 rounded-xl font-medium text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:bg-opacity-10"
                     onClick={() => setIsOpen(false)}
                   >
                     {link.label}
