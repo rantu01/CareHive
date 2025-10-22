@@ -100,7 +100,7 @@ const Blood = () => {
       
       {/* HERO SECTION */}
       <section
-        className="flex flex-col md:flex-row items-center justify-between px-6 md:px-16 py-24 bg-cover bg-center relative"
+        className="flex flex-col md:flex-row items-center justify-between px-6 md:px-16 py-20 bg-cover bg-center relative"
         style={{
           backgroundImage: "url('https://i.ibb.co/x8YccY9P/blood.jpg')",
         }}
