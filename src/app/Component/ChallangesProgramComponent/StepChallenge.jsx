@@ -3,7 +3,9 @@
 import React, { use, useState } from 'react';
 import { Users, ChevronUp, ChevronDown, Facebook, Twitter, Instagram } from 'lucide-react';
 import { AuthContext } from '@/app/context/authContext';
-import { cannotJoinSwal, successfulJoinSwal } from '@/app/utils/challengesSwal';
+import { alreadyJoinedSwal, cannotJoinSwal, loginRequiredSwal, successfulJoinSwal } from '@/app/utils/challengesSwal';
+import Swal from 'sweetalert2';
+import axios from 'axios';
 
 export default function StepChallenge({ challengeDetails }) {
     const [rulesExpanded, setRulesExpanded] = useState(true);
@@ -31,7 +33,7 @@ export default function StepChallenge({ challengeDetails }) {
 
     const handleJoinChallenge = () => {
         if (!user) {
-            toast.error("Please log in to join the challenge.");
+            loginRequiredSwal()
             return;
         }
 
@@ -46,7 +48,7 @@ export default function StepChallenge({ challengeDetails }) {
             return;
         }
 
-        
+
         const participantInfo = {
             userId: user?.uid,
             challengeId: _id,
@@ -57,7 +59,15 @@ export default function StepChallenge({ challengeDetails }) {
         };
 
         console.log("✅ Participant Info:", participantInfo);
-        successfulJoinSwal()
+
+        axios.post("/api/join-challenges", participantInfo)
+            .then((res) => {
+                console.log("✅ Join Response:", res.data);
+                successfulJoinSwal(); 
+            })
+            .catch((err) => {
+                alreadyJoinedSwal() 
+            })
     };
 
 
