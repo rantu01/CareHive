@@ -105,7 +105,7 @@ const UpcomingAppointment = () => {
                                             <div className="flex items-center gap-4 text-xs text-[var(--color-primary)]/60">
                                                 <div className="flex items-center gap-1">
                                                     <Clock size={12} />
-                                                    <span>{formatDate(appointment?.bookedAt)}</span>
+                                                    <span>{formatDate(appointment?.createdAt)}</span>
                                                 </div>
                                                 <div className="flex items-center gap-1">
                                                     <MapPin size={12} />

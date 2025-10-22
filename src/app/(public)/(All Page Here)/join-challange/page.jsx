@@ -7,7 +7,9 @@ import Dropdown from '@/app/Component/ChallangesProgramComponent/Dropdown';
 import { use } from 'react';
 
 const page = () => {
-    
+    const { challangesData } = use(ChallangesDataContext);
+
+    console.log("him gim", challangesData)
     return (
         <div className='pt-32'>
 
@@ -35,19 +37,19 @@ const page = () => {
 
             <main >
                 <div className='grid grid-cols-1 md:grid-cols-4'>
-                    {/* <ChallengeCard />
-                    <ChallengeCard />
-                    <ChallengeCard />
-                    <ChallengeCard />
-                    <ChallengeCard />
-                    <ChallengeCard /> */}
+                    {challangesData &&
 
-
+                        challangesData.map((challenges) => (
+                            <ChallengeCard
+                                key={challenges._id}
+                                challenges={challenges}
+                            />
+                        ))
+                    }
                 </div>
-
-                <div>
+                {/* <div>
                     <ChallangeDetails />
-                </div>
+                </div> */}
             </main>
 
 

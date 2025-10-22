@@ -63,33 +63,6 @@ const DoctorCard = ({ doc, personal, education, practice, isBooked, setSelectedD
 
                 </h2>
 
-                {/* Rating and Reviews */}
-                {/* <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-1">
-                        <span style={{ color: "#FFA500" }}>★★★★</span>
-                        <span style={{ color: "var(--text-color-all)", opacity: 0.3 }}>★</span>
-                        <span
-                            className="ml-1 text-sm font-medium"
-                            style={{ color: "var(--text-color-all)" }}
-                        >
-                            4.5
-                        </span>
-                    </div>
-                    <div
-                        className="flex items-center gap-1 text-sm"
-                        style={{ color: "var(--text-color-all)", opacity: 0.7 }}
-                    >
-                        <span
-                            className="w-5 h-5 rounded-full flex items-center justify-center text-xs"
-                            style={{ backgroundColor: "var(--color-primary)", color: "var(--color-white)" }}
-                        >
-                            ✓
-                        </span>
-                        <span>14</span>
-                    </div>
-                </div> */}
-
-                {/* Specialization */}
                 <p
                     className="text-sm leading-relaxed"
                     style={{ color: "var(--text-color-all)", opacity: 0.8 }}
@@ -107,18 +80,6 @@ const DoctorCard = ({ doc, personal, education, practice, isBooked, setSelectedD
 
                 {/* Action Buttons */}
                 <div className="flex gap-3 pt-2">
-                    {/* <button
-                        onClick={() => handleBookAppointment()}
-                        disabled={isBooked}
-                        className={`py-3 px-4 font-semibold rounded-xl text-sm transition-all duration-300 cursor-pointer ${isBooked ? "opacity-60 cursor-not-allowed" : "hover:opacity-90"
-                            }`}
-                        style={{
-                            backgroundColor: isBooked ? "gray" : "#FF6B35",
-                            color: "var(--color-white)",
-                        }}
-                    >
-                        {isBooked ? "Booked ✅" : "Book appointment"}
-                    </button> */}
 
                     <button
                         onClick={() => setSelectedDoctor(doc)}
@@ -128,7 +89,7 @@ const DoctorCard = ({ doc, personal, education, practice, isBooked, setSelectedD
                             color: "var(--color-white)",
                         }}
                     >
-                        Learn more
+                        Doctor Details
                     </button>
                 </div>
             </div>
