@@ -3,29 +3,8 @@ import { Calendar, Users, Award, Clock } from 'lucide-react';
 import Link from 'next/link';
 
 export default function ChallengeCard({ challenges }) {
-  const challenge = {
-    title: "Mindful Morning Routine Challenge",
-    description: "Start your day with 10 minutes of meditation and journaling for 14 days to improve focus and reduce stress.",
-    category: "Mindfulness",
-    coverImage: "https://cdn.pixabay.com/photo/2017/08/06/00/27/yoga-2587066_960_720.jpg",
-    duration: {
-      totalDays: 14
-    },
-    goal: {
-      targetValue: 10,
-      unit: "minutes"
-    },
-    difficulty: "medium",
-    stats: {
-      totalParticipants: 220,
-      completionRate: 68
-    },
-    reward: {
-      value: 80,
-      title: "Mindful Master"
-    }
-  };
-  const { title, description, category, coverImage, difficulty, stats } = challenges
+
+  const { _id, title, description, category, coverImage, difficulty, stats } = challenges
   return (
     <div className="p-4">
       <div className="w-full max-w-md rounded-2xl overflow-hidden shadow-xl" style={{ backgroundColor: '#ffffff' }}>
@@ -75,7 +54,8 @@ export default function ChallengeCard({ challenges }) {
             className="text-sm mb-6 leading-relaxed"
             style={{ color: '#1e293b' }}
           >
-            {description}
+
+            {description.length > 55 ? `${description.slice(0, 80)}...` : description}
           </p>
 
           {/* Completion Rate */}
@@ -96,12 +76,14 @@ export default function ChallengeCard({ challenges }) {
           </div>
 
           {/* Join Button */}
-          <Link href={`/`}
-            className="w-full py-3 rounded-lg font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-95 cursor-pointer"
+          <Link
+            href={`challange-details/${_id}`}
+            className="block w-full py-3 rounded-lg font-semibold text-white text-center transition-all duration-200 hover:opacity-90 active:scale-95 cursor-pointer"
             style={{ backgroundColor: '#19b4b4' }}
           >
             Join Challenge
           </Link>
+
         </div>
 
 
