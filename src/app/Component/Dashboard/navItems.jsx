@@ -26,6 +26,7 @@ export const navItems = {
     { name: "Report Analyzer", path: "/dashboard/user/report-analyzer", icon: <Clipboard size={24} /> },
     { name: "Chat With doctor", path: "/dashboard/user/doctor-chat", icon: <MessageCircle size={24} /> },
     { name: "Symptoms Analyzer", path: "/dashboard/user/symptoms-analyzer", icon: <Thermometer size={24} /> },
+    { name: "Donate", path: "/dashboard/user/add-donor", icon: <Thermometer size={24} /> },
   ],
   doctor: [
     { name: "Overview", path: "/dashboard/doctor", icon: <Home size={18} /> },
