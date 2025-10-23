@@ -52,7 +52,7 @@ export default function MapView({ userCoords, hospitals }) {
         }
       `}</style>
 
-      <div className="w-full h-96 rounded-xl overflow-hidden shadow mt-6">
+      <div className="w-full h-full rounded-xl overflow-hidden shadow mt-6">
         <MapContainer
           center={[userCoords.lat, userCoords.lon]}
           zoom={13}

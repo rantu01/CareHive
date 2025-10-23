@@ -1,8 +1,13 @@
+"use client"
+
+import ChallangeDetails from '@/app/Component/ChallangesProgramComponent/ChallangeDetails';
 import ChallengeCard from '@/app/Component/ChallangesProgramComponent/ChallengeCard';
+import { ChallangesDataContext } from '@/app/Component/ChallangesProgramComponent/ChellangesContexts/ChallangesDataContext';
 import Dropdown from '@/app/Component/ChallangesProgramComponent/Dropdown';
-import React from 'react';
+import { use } from 'react';
 
 const page = () => {
+    
     return (
         <div className='pt-32'>
 
@@ -30,7 +35,18 @@ const page = () => {
 
             <main >
                 <div className='grid grid-cols-1 md:grid-cols-4'>
+                    {/* <ChallengeCard />
                     <ChallengeCard />
+                    <ChallengeCard />
+                    <ChallengeCard />
+                    <ChallengeCard />
+                    <ChallengeCard /> */}
+
+
+                </div>
+
+                <div>
+                    <ChallangeDetails />
                 </div>
             </main>
 

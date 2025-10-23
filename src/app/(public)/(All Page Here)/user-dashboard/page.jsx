@@ -10,6 +10,8 @@ import UserGoal from "@/app/Component/UserComponent/UserGoal";
 import WelcomeBar from "@/app/Component/UserComponent/WelcomeBar";
 import UseAuth from "@/app/Hooks/UseAuth";
 import { use } from "react";
+import { AlertTriangle, Loader2 } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function UserDashboard() {
   const { userHealthStats } = use(DashBoardDataContext);
@@ -38,7 +40,9 @@ export default function UserDashboard() {
         const lon = pos.coords.longitude;
         setUserCoords({ lat, lon });
 
-        setMsg(`📍 Lat: ${lat.toFixed(4)}, Lon: ${lon.toFixed(4)} — Sending SOS...`);
+        // setMsg(
+        //   `📍 Lat: ${lat.toFixed(4)}, Lon: ${lon.toFixed(4)} — Sending SOS...`
+        // );
 
         try {
           const res = await fetch("/api/sos", {
@@ -81,24 +85,69 @@ export default function UserDashboard() {
         <WelcomeBar />
 
         {/* 🆘 SOS Section */}
-        <div className="mt-6 mb-10 text-center">
-          <h2 className="text-2xl font-bold mb-3 text-[var(--text-color-all)]">
-            🚨 Emergency Health Assistance (SOS)
-          </h2>
-          <button
+        <div className="mt-6 mb-10 text-center fixed bottom-10 right-5 z-50">
+          <motion.button
             onClick={handleSOS}
             disabled={loading}
-            className={`bg-red-600 text-white font-bold py-3 px-8 rounded-lg shadow-md hover:bg-red-700 transition ${
-              loading ? "opacity-70 cursor-not-allowed" : ""
-            }`}
+            title="Send Emergency SOS"
+            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: loading ? 1 : 1.1 }}
+            className={`
+          relative 
+          w-16 h-16 md:w-18 md:h-18 
+          rounded-full cursor-pointer
+          ${
+            loading
+              ? "bg-gradient-to-r from-red-400 to-red-500"
+              : "bg-gradient-to-r from-red-600 to-red-700"
+          }
+          text-white 
+          font-extrabold text-lg md:text-xl 
+          flex items-center justify-center 
+          shadow-[0_0_20px_rgba(255,0,0,0.6)]
+          transition-all duration-300
+          focus:outline-none
+          focus:ring-4 focus:ring-red-400/60
+          overflow-hidden
+          group
+        `}
           >
-            {loading ? "Sending SOS..." : "Send SOS"}
-          </button>
-          {msg && (
-            <p className="mt-3 text-[var(--text-color-all)] font-medium">
-              {msg}
-            </p>
-          )}
+            {/* 🔴 Animated Pulsing Circle (only when NOT loading) */}
+            {!loading && (
+              <span className="absolute inset-0 rounded-full bg-red-500/40 animate-ping"></span>
+            )}
+
+            {/* 🚨 SOS Icon / Loader Icon */}
+            {loading ? (
+              <Loader2 className="animate-spin relative z-10 w-6 h-6 md:w-8 md:h-8 text-white drop-shadow-lg" />
+            ) : (
+              <AlertTriangle className="relative z-10 w-6 h-6 md:w-8 md:h-8 text-white drop-shadow-lg" />
+            )}
+
+            {/* 🩸 SOS Text */}
+            {!loading && (
+              <motion.span
+                initial={{ opacity: 0, y: 8 }}
+                whileHover={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className="absolute bottom-2 text-[10px] md:text-xs font-bold text-white tracking-wider opacity-0 group-hover:opacity-100"
+              >
+                SOS
+              </motion.span>
+            )}
+
+            {/* 🌀 Sending Text Animation (only when loading) */}
+            {loading && (
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: [0, 1, 0] }}
+                transition={{ duration: 1.2, repeat: Infinity }}
+                className="absolute bottom-2 text-[10px] md:text-xs font-bold text-white tracking-wider"
+              >
+                Sending...
+              </motion.span>
+            )}
+          </motion.button>
         </div>
 
         {/* KPI Cards */}
@@ -145,13 +194,15 @@ export default function UserDashboard() {
       {/* 🗺️ Modal Map View */}
       {showMap && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-[2000] p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl h-[500px] relative">
-            <button
-              onClick={() => setShowMap(false)}
-              className="absolute top-3 right-3 bg-red-500 hover:bg-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm"
-            >
-              ✕
-            </button>
+          <button
+            onClick={() => setShowMap(false)}
+            className="absolute top-6 right-6 bg-red-500 hover:bg-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-lg shadow-lg z-[2100] cursor-pointer"
+          >
+            ✕
+          </button>
+
+          {/* Modal Box */}
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl h-[500px] relative overflow-hidden">
             <MapView userCoords={userCoords} hospitals={hospitals} />
           </div>
         </div>

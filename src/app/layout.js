@@ -5,6 +5,7 @@ import TanstackProviders from "./TanstackProvider/TanstackProvider";
 import DashBoardDataProvider from "./Component/UserComponent/UserDashBoardDataContext/DashBoardDataProvider";
 import { ThemeProvider } from "next-themes";
 import { UserProvider } from "./context/UserContext";
+import ChallangesDataProvider from "./Component/ChallangesProgramComponent/ChellangesContexts/ChallangesDataProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,21 +31,21 @@ export default function RootLayout({ children }) {
         cz-shortcut-listen="true"
       >
         <UserProvider>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem={true}
-        >
-          <TanstackProviders>
-            <AuthProvider>
-              <DashBoardDataProvider>
-                
-                {children}
-                
-              </DashBoardDataProvider>
-            </AuthProvider>
-          </TanstackProviders>
-        </ThemeProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem={true}
+          >
+            <TanstackProviders>
+              <AuthProvider>
+                <DashBoardDataProvider>
+                  <ChallangesDataProvider>
+                    {children}
+                  </ChallangesDataProvider>
+                </DashBoardDataProvider>
+              </AuthProvider>
+            </TanstackProviders>
+          </ThemeProvider>
         </UserProvider>
       </body>
     </html>

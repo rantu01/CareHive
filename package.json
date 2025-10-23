@@ -41,7 +41,7 @@
     "react-leaflet": "^5.0.0",
     "recharts": "^3.2.1",
     "stripe": "^19.1.0",
-    "sweetalert2": "^11.23.0",
+    "sweetalert2": "^11.26.3",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
