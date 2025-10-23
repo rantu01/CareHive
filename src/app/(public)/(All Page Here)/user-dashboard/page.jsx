@@ -26,10 +26,12 @@ export default function UserDashboard() {
 
   // 🚨 Handle SOS
   const handleSOS = async () => {
-    if (!navigator.geolocation) {
-      alert("Geolocation not supported by your browser");
-      return;
-    }
+  if (typeof window === "undefined") return; // ✅ Prevent SSR crash
+
+  if (!navigator.geolocation) {
+    alert("Geolocation not supported by your browser");
+    return;
+  }
 
     setLoading(true);
     setMsg("Fetching your location...");
