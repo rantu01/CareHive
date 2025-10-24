@@ -9,6 +9,7 @@ import ProgressPage from "../progress/page";
 import AllGymPlansPage from "../gym-plans/page";
 import Wellness from "@/app/Component/Wellness";
 import { MdFitnessCenter } from "react-icons/md";
+import Reports from "@/app/Component/Reports";
 
 export default function Fitness() {
   return (
@@ -147,6 +148,7 @@ export default function Fitness() {
         <YogaTechnique />
         <Wellness />
         <ProgressPage />
+        <Reports></Reports>
       </div>
     </section>
   );
