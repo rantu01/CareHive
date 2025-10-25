@@ -2,9 +2,11 @@
 
 import { useUser } from "@/app/context/UserContext";
 import { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 
 export default function AddDonorPage() {
-  const { user, role, loading: userLoading } = useUser();
+  const { user, loading: userLoading } = useUser();
+
   const [formData, setFormData] = useState({
     type: "blood",
     fullName: "",
@@ -22,34 +24,58 @@ export default function AddDonorPage() {
   const [error, setError] = useState(null);
   const [currentStep, setCurrentStep] = useState(1);
 
-  // ✅ Prefill email when user data is available
+  // Prefill email when user data available
   useEffect(() => {
-    if (user && user.email) {
+    if (user?.email) {
       setFormData((prev) => ({ ...prev, email: user.email }));
     }
   }, [user]);
 
-  // ✅ Handle input changes
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       [name]: type === "checkbox" ? checked : value,
-    });
+    }));
   };
 
-  // ✅ Handle form submission
+  // Handle Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (currentStep !== 3) return;
+
+    const confirmColor = getComputedStyle(document.documentElement)
+      .getPropertyValue("--color-primary")
+      .trim();
+    const bgColor = getComputedStyle(document.documentElement)
+      .getPropertyValue("--bg-color-all")
+      .trim();
+    const textColor = getComputedStyle(document.documentElement)
+      .getPropertyValue("--text-color-all")
+      .trim();
+
+    const result = await Swal.fire({
+      title: "Confirm Submission?",
+      text: "Please confirm to complete your donor registration.",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes, Submit",
+      cancelButtonText: "Cancel",
+      background: bgColor,
+      color: textColor,
+      confirmButtonColor: confirmColor,
+      cancelButtonColor: "#d33",
+    });
+
+    if (!result.isConfirmed) return;
+
     setLoading(true);
-    setMessage(null);
     setError(null);
+    setMessage(null);
 
     try {
       const endpoint =
-        formData.type === "blood"
-          ? "/api/blood-donation"
-          : "/api/organ-donation";
+        formData.type === "blood" ? "/api/blood-donation" : "/api/organ-donation";
 
       const payload = {
         fullName: formData.fullName,
@@ -75,7 +101,7 @@ export default function AddDonorPage() {
             date: new Date().toISOString().split("T")[0],
             hospital: formData.donationHistory,
             recipient: "N/A",
-            notes: "User-entered record",
+            notes: "User entered record",
           },
         ];
       }
@@ -89,7 +115,16 @@ export default function AddDonorPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to add donor");
 
-      setMessage("✅ Donor registration successful! Thank you for your generosity.");
+      await Swal.fire({
+        icon: "success",
+        title: "Registration Successful 🎉",
+        text: "Thank you for your generosity!",
+        background: bgColor,
+        color: textColor,
+        confirmButtonColor: confirmColor,
+      });
+
+      setMessage("✅ Donor registration successful!");
       setFormData({
         type: "blood",
         fullName: "",
@@ -103,400 +138,266 @@ export default function AddDonorPage() {
       });
       setCurrentStep(1);
     } catch (err) {
+      await Swal.fire({
+        icon: "error",
+        title: "Submission Failed ❌",
+        text: err.message,
+        background: bgColor,
+        color: textColor,
+        confirmButtonColor: confirmColor,
+      });
       setError(err.message);
     } finally {
       setLoading(false);
     }
   };
 
-  // ✅ Navigation between steps
-  const nextStep = () => {
-    if (currentStep < 3) setCurrentStep(currentStep + 1);
-  };
+  const nextStep = () => currentStep < 3 && setCurrentStep((s) => s + 1);
+  const prevStep = () => currentStep > 1 && setCurrentStep((s) => s - 1);
 
-  const prevStep = () => {
-    if (currentStep > 1) setCurrentStep(currentStep - 1);
-  };
-
-  // ✅ Loading state for user
-  if (userLoading) {
+  if (userLoading)
     return (
       <div className="flex justify-center items-center min-h-screen bg-[var(--bg-color-all)]">
-        <div className="text-center">
-          <span className="loading loading-spinner loading-lg text-[var(--color-primary)]"></span>
-          <p className="mt-4 text-[var(--text-color-all)]">Loading your profile...</p>
-        </div>
+        <span className="loading loading-spinner text-[var(--color-primary)]"></span>
       </div>
     );
-  }
 
   return (
-    <div className="min-h-screen bg-[var(--bg-color-all)] py-8 px-4">
-      <div className="max-w-4xl mx-auto">
-        {/* Header Section */}
+    <div className="min-h-screen bg-[var(--bg-color-all)] py-10 px-4">
+      <div className="max-w-4xl mx-auto bg-[var(--bg-color-all)] rounded-2xl shadow-xl p-8 border border-[var(--color-primary)]">
+        {/* Header */}
         <div className="text-center mb-8">
-          <div className="w-20 h-20 mx-auto mb-4 bg-[var(--color-primary)] rounded-full flex items-center justify-center">
-            <span className="text-3xl text-white">❤️</span>
-          </div>
-          <h1 className="text-4xl font-bold mb-3 text-[var(--color-secondary)] font-heading">
+          <h1 className="text-4xl font-bold text-[var(--color-secondary)] font-heading mb-3">
             Become a Lifesaver
           </h1>
-          <p className="text-lg text-[var(--text-color-all)] max-w-2xl mx-auto">
-            Join our community of donors and make a difference in someone's life
+          <p className="text-[var(--text-color-all)] opacity-80">
+            Join our donor registry and help save lives.
           </p>
         </div>
 
-        {/* Progress Steps */}
-        <div className="bg-[var(--dashboard-bg)] rounded-2xl p-6 shadow-lg border border-[var(--dashboard-border)] mb-8">
-          <div className="flex items-center justify-between mb-8">
-            {[1, 2, 3].map((step) => (
-              <div key={step} className="flex flex-col items-center flex-1">
-                <div className={`w-12 h-12 rounded-full flex items-center justify-center font-semibold text-lg mb-2 transition-all duration-300 ${
+        {/* Steps */}
+        <div className="flex justify-between mb-10">
+          {[1, 2, 3].map((step) => (
+            <div key={step} className="flex flex-col items-center flex-1">
+              <div
+                className={`w-10 h-10 flex items-center justify-center rounded-full font-semibold text-[var(--bg-color-all)] ${
                   step === currentStep
-                    ? "bg-[var(--color-primary)] text-white shadow-lg scale-110"
+                    ? "bg-[var(--color-primary)] scale-110"
                     : step < currentStep
-                    ? "bg-green-500 text-white"
-                    : "bg-[var(--bg-color-all)] text-[var(--text-color-all)] border-2 border-[var(--dashboard-border)]"
-                }`}>
-                  {step < currentStep ? "✓" : step}
-                </div>
-                <span className={`text-sm font-medium ${
-                  step === currentStep ? "text-[var(--color-primary)]" : "text-[var(--text-color-all)]"
-                }`}>
-                  {step === 1 && "Basic Info"}
-                  {step === 2 && "Donation Type"}
-                  {step === 3 && "Final Details"}
-                </span>
+                    ? "bg-green-500"
+                    : "bg-gray-300"
+                }`}
+              >
+                {step < currentStep ? "✓" : step}
               </div>
-            ))}
-            <div className="absolute top-1/2 left-0 right-0 h-1 bg-[var(--bg-color-all)] -translate-y-1/2 -z-10 mx-8">
-              <div 
-                className="h-full bg-[var(--color-primary)] transition-all duration-500"
-                style={{ width: `${((currentStep - 1) / 2) * 100}%` }}
-              ></div>
+              <p
+                className={`mt-2 text-sm ${
+                  step === currentStep
+                    ? "text-[var(--color-primary)]"
+                    : "text-[var(--text-color-all)] opacity-70"
+                }`}
+              >
+                {step === 1 && "Basic Info"}
+                {step === 2 && "Donation Type"}
+                {step === 3 && "Final Details"}
+              </p>
             </div>
-          </div>
+          ))}
         </div>
 
-        {/* Main Form Container */}
-        <div className="bg-[var(--dashboard-bg)] rounded-2xl shadow-xl border border-[var(--dashboard-border)] overflow-hidden">
-          <div className="p-8">
-            {message && (
-              <div className="alert alert-success mb-6 bg-green-50 border-green-200 text-green-800">
-                <span>🎉 {message}</span>
+        {/* Form */}
+        <form onSubmit={handleSubmit}>
+          {currentStep === 1 && (
+            <div className="space-y-5 animate-fadeIn">
+              <h2 className="text-2xl text-[var(--color-secondary)] font-semibold">
+                Personal Information
+              </h2>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <input
+                  type="text"
+                  name="fullName"
+                  placeholder="Full Name"
+                  value={formData.fullName}
+                  onChange={handleChange}
+                  required
+                  className="input input-bordered bg-[var(--bg-color-all)] text-[var(--text-color-all)] border border-[var(--color-primary)]"
+                />
+                <input
+                  type="text"
+                  name="contactNumber"
+                  placeholder="Contact Number"
+                  value={formData.contactNumber}
+                  onChange={handleChange}
+                  required
+                  className="input input-bordered bg-[var(--bg-color-all)] text-[var(--text-color-all)] border border-[var(--color-primary)]"
+                />
               </div>
-            )}
-            {error && (
-              <div className="alert alert-error mb-6 bg-red-50 border-red-200 text-red-800">
-                <span>❌ {error}</span>
-              </div>
-            )}
 
-            <form onSubmit={handleSubmit}>
-              {/* Step 1: Basic Information */}
-              {currentStep === 1 && (
-                <div className="space-y-6 animate-fadeIn">
-                  <h2 className="text-2xl font-bold text-[var(--color-secondary)] mb-6 font-heading">
-                    Personal Information
-                  </h2>
-                  
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="form-control">
-                      <label className="label font-semibold text-[var(--text-color-all)] mb-2">
-                        Full Name *
-                      </label>
-                      <input
-                        type="text"
-                        name="fullName"
-                        value={formData.fullName}
-                        onChange={handleChange}
-                        className="input input-bordered w-full bg-white border-[var(--dashboard-border)] focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-opacity-20"
-                        placeholder="Dr. Nayeem Khan"
-                        required
-                      />
-                    </div>
+              <input
+                type="text"
+                name="location"
+                placeholder="Location"
+                value={formData.location}
+                onChange={handleChange}
+                required
+                className="input input-bordered w-full bg-[var(--bg-color-all)] text-[var(--text-color-all)] border border-[var(--color-primary)]"
+              />
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                readOnly
+                className="input input-bordered w-full bg-[var(--bg-color-all)] text-[var(--text-color-all)] opacity-70"
+              />
+            </div>
+          )}
 
-                    <div className="form-control">
-                      <label className="label font-semibold text-[var(--text-color-all)] mb-2">
-                        Contact Number *
-                      </label>
-                      <input
-                        type="text"
-                        name="contactNumber"
-                        value={formData.contactNumber}
-                        onChange={handleChange}
-                        className="input input-bordered w-full bg-white border-[var(--dashboard-border)] focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-opacity-20"
-                        placeholder="+8801XXXXXXXXX"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div className="form-control">
-                    <label className="label font-semibold text-[var(--text-color-all)] mb-2">
-                      Location *
-                    </label>
-                    <input
-                      type="text"
-                      name="location"
-                      value={formData.location}
-                      onChange={handleChange}
-                      className="input input-bordered w-full bg-white border-[var(--dashboard-border)] focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-opacity-20"
-                      placeholder="Dhaka, Chattogram, etc."
-                      required
-                    />
-                  </div>
-
-                  <div className="form-control">
-                    <label className="label font-semibold text-[var(--text-color-all)] mb-2">
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      readOnly
-                      className="input input-bordered w-full bg-[var(--bg-color-all)] border-[var(--dashboard-border)] cursor-not-allowed"
-                    />
-                    <label className="label">
-                      <span className="label-text-alt text-[var(--text-color-all)] opacity-70">
-                        Your registered email (cannot be changed)
-                      </span>
-                    </label>
-                  </div>
-                </div>
-              )}
-
-              {/* Step 2: Donation Type */}
-              {currentStep === 2 && (
-                <div className="space-y-6 animate-fadeIn">
-                  <h2 className="text-2xl font-bold text-[var(--color-secondary)] mb-6 font-heading">
-                    Donation Type
-                  </h2>
-
-                  <div className="form-control">
-                    <label className="label font-semibold text-[var(--text-color-all)] mb-4">
-                      I want to donate:
-                    </label>
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <label className={`cursor-pointer border-2 rounded-xl p-4 transition-all duration-300 ${
-                        formData.type === "blood" 
-                          ? "border-[var(--color-primary)] bg-[var(--color-primary)] bg-opacity-10 shadow-md" 
-                          : "border-[var(--dashboard-border)] hover:border-[var(--color-primary)] hover:border-opacity-50"
-                      }`}>
-                        <input
-                          type="radio"
-                          name="type"
-                          value="blood"
-                          checked={formData.type === "blood"}
-                          onChange={handleChange}
-                          className="hidden"
-                        />
-                        <div className="flex items-center gap-3">
-                          <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
-                            <span className="text-2xl text-red-600">🩸</span>
-                          </div>
-                          <div>
-                            <div className="font-semibold text-[var(--text-color-all)]">Blood Donation</div>
-                            <div className="text-sm text-[var(--text-color-all)] opacity-70">Save lives with blood</div>
-                          </div>
-                        </div>
-                      </label>
-
-                      <label className={`cursor-pointer border-2 rounded-xl p-4 transition-all duration-300 ${
-                        formData.type === "organ" 
-                          ? "border-[var(--color-primary)] bg-[var(--color-primary)] bg-opacity-10 shadow-md" 
-                          : "border-[var(--dashboard-border)] hover:border-[var(--color-primary)] hover:border-opacity-50"
-                      }`}>
-                        <input
-                          type="radio"
-                          name="type"
-                          value="organ"
-                          checked={formData.type === "organ"}
-                          onChange={handleChange}
-                          className="hidden"
-                        />
-                        <div className="flex items-center gap-3">
-                          <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                            <span className="text-2xl text-green-600">💚</span>
-                          </div>
-                          <div>
-                            <div className="font-semibold text-[var(--text-color-all)]">Organ Donation</div>
-                            <div className="text-sm text-[var(--text-color-all)] opacity-70">Give the gift of life</div>
-                          </div>
-                        </div>
-                      </label>
-                    </div>
-                  </div>
-
-                  {/* Conditional Fields */}
-                  {formData.type === "blood" && (
-                    <div className="form-control">
-                      <label className="label font-semibold text-[var(--text-color-all)] mb-2">
-                        Blood Group *
-                      </label>
-                      <select
-                        name="bloodGroup"
-                        value={formData.bloodGroup}
-                        onChange={handleChange}
-                        className="select select-bordered w-full bg-white border-[var(--dashboard-border)] focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-opacity-20"
-                        required
-                      >
-                        <option value="">Select your blood group</option>
-                        <option value="A+">A+</option>
-                        <option value="A-">A-</option>
-                        <option value="B+">B+</option>
-                        <option value="B-">B-</option>
-                        <option value="O+">O+</option>
-                        <option value="O-">O-</option>
-                        <option value="AB+">AB+</option>
-                        <option value="AB-">AB-</option>
-                      </select>
-                    </div>
-                  )}
-
-                  {formData.type === "organ" && (
-                    <div className="form-control">
-                      <label className="label font-semibold text-[var(--text-color-all)] mb-2">
-                        Organs to Donate *
-                      </label>
-                      <input
-                        type="text"
-                        name="organs"
-                        value={formData.organs}
-                        onChange={handleChange}
-                        className="input input-bordered w-full bg-white border-[var(--dashboard-border)] focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-opacity-20"
-                        placeholder="Kidney, Liver, Heart (comma separated)"
-                        required
-                      />
-                      <label className="label">
-                        <span className="label-text-alt text-[var(--text-color-all)] opacity-70">
-                          Separate multiple organs with commas
-                        </span>
-                      </label>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Step 3: Additional Details */}
-              {currentStep === 3 && (
-                <div className="space-y-6 animate-fadeIn">
-                  <h2 className="text-2xl font-bold text-[var(--color-secondary)] mb-6 font-heading">
-                    Additional Information
-                  </h2>
-
-                  <div className="form-control">
-                    <label className="label font-semibold text-[var(--text-color-all)] mb-2">
-                      Previous Donation History (Optional)
-                    </label>
-                    <input
-                      type="text"
-                      name="donationHistory"
-                      value={formData.donationHistory}
-                      onChange={handleChange}
-                      className="input input-bordered w-full bg-white border-[var(--dashboard-border)] focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)] focus:ring-opacity-20"
-                      placeholder="e.g., Dhaka Medical College Hospital"
-                    />
-                    <label className="label">
-                      <span className="label-text-alt text-[var(--text-color-all)] opacity-70">
-                        Let us know about your previous donation experiences
-                      </span>
-                    </label>
-                  </div>
-
-                  <div className="form-control">
-                    <label className="cursor-pointer flex items-start gap-3 p-4 border-2 border-[var(--dashboard-border)] rounded-xl hover:border-[var(--color-primary)] hover:border-opacity-50 transition-all duration-300">
-                      <input
-                        type="checkbox"
-                        name="verified"
-                        checked={formData.verified}
-                        onChange={handleChange}
-                        className="checkbox checkbox-success mt-1"
-                      />
-                      <div>
-                        <div className="font-semibold text-[var(--text-color-all)]">Verified Donor</div>
-                        <div className="text-sm text-[var(--text-color-all)] opacity-70 mt-1">
-                          Check this if you have been previously verified as a donor by a medical institution
-                        </div>
-                      </div>
-                    </label>
-                  </div>
-
-                  {/* Summary Card */}
-                  <div className="bg-[var(--bg-color-all)] rounded-xl p-4 border border-[var(--dashboard-border)]">
-                    <h3 className="font-semibold text-[var(--text-color-all)] mb-3">Registration Summary</h3>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
-                        <span className="text-[var(--text-color-all)] opacity-70">Name:</span>
-                        <span className="font-medium text-[var(--text-color-all)]">{formData.fullName || "Not provided"}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-[var(--text-color-all)] opacity-70">Donation Type:</span>
-                        <span className="font-medium text-[var(--text-color-all)] capitalize">{formData.type}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-[var(--text-color-all)] opacity-70">Location:</span>
-                        <span className="font-medium text-[var(--text-color-all)]">{formData.location || "Not provided"}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Navigation Buttons */}
-              <div className="flex justify-between mt-8 pt-6 border-t border-[var(--dashboard-border)]">
-                <button
-                  type="button"
-                  onClick={prevStep}
-                  className={`btn btn-outline border-[var(--dashboard-border)] text-[var(--text-color-all)] hover:bg-[var(--bg-color-all)] ${
-                    currentStep === 1 ? "invisible" : ""
+          {currentStep === 2 && (
+            <div className="space-y-6 animate-fadeIn">
+              <h2 className="text-2xl text-[var(--color-secondary)] font-semibold">
+                Donation Type
+              </h2>
+              <div className="flex gap-4">
+                <label
+                  className={`flex-1 border-2 p-4 rounded-xl cursor-pointer ${
+                    formData.type === "blood"
+                      ? "border-[var(--color-primary)] bg-[var(--bg-color-all)]"
+                      : "border-gray-300"
                   }`}
                 >
-                  ← Previous
-                </button>
+                  <input
+                    type="radio"
+                    name="type"
+                    value="blood"
+                    checked={formData.type === "blood"}
+                    onChange={handleChange}
+                    className="hidden"
+                  />
+                  <p className="text-[var(--text-color-all)] font-medium">🩸 Blood Donation</p>
+                </label>
 
-                {currentStep < 3 ? (
-                  <button
-                    type="button"
-                    onClick={nextStep}
-                    className="btn bg-[var(--color-primary)] text-white border-none hover:bg-[var(--color-secondary)] ml-auto"
-                  >
-                    Next Step →
-                  </button>
-                ) : (
-                  <button
-                    type="submit"
-                    className={`btn bg-[var(--color-primary)] text-white border-none hover:bg-[var(--color-secondary)] ml-auto min-w-32 ${
-                      loading ? "loading" : ""
-                    }`}
-                    disabled={loading}
-                  >
-                    {loading ? (
-                      <>
-                        <span className="loading loading-spinner"></span>
-                        Submitting...
-                      </>
-                    ) : (
-                      "Complete Registration"
-                    )}
-                  </button>
-                )}
+                <label
+                  className={`flex-1 border-2 p-4 rounded-xl cursor-pointer ${
+                    formData.type === "organ"
+                      ? "border-[var(--color-primary)] bg-[var(--bg-color-all)]"
+                      : "border-gray-300"
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="type"
+                    value="organ"
+                    checked={formData.type === "organ"}
+                    onChange={handleChange}
+                    className="hidden"
+                  />
+                  <p className="text-[var(--text-color-all)] font-medium">💚 Organ Donation</p>
+                </label>
               </div>
-            </form>
-          </div>
-        </div>
 
-        {/* Footer Note */}
-        <div className="text-center mt-8 text-sm text-[var(--text-color-all)] opacity-70">
-          <p>Your information is secure and will only be used for matching with recipients in need.</p>
+              {formData.type === "blood" && (
+                <select
+                  name="bloodGroup"
+                  value={formData.bloodGroup}
+                  onChange={handleChange}
+                  required
+                  className="select select-bordered w-full border border-[var(--color-primary)] bg-[var(--bg-color-all)] text-[var(--text-color-all)]"
+                >
+                  <option value="">Select Blood Group</option>
+                  {["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"].map((g) => (
+                    <option key={g} value={g}>
+                      {g}
+                    </option>
+                  ))}
+                </select>
+              )}
+
+              {formData.type === "organ" && (
+                <input
+                  type="text"
+                  name="organs"
+                  placeholder="Organs to Donate (e.g., Kidney, Liver)"
+                  value={formData.organs}
+                  onChange={handleChange}
+                  required
+                  className="input input-bordered w-full bg-[var(--bg-color-all)] text-[var(--text-color-all)] border border-[var(--color-primary)]"
+                />
+              )}
+            </div>
+          )}
+
+          {currentStep === 3 && (
+            <div className="space-y-6 animate-fadeIn">
+              <h2 className="text-2xl text-[var(--color-secondary)] font-semibold">
+                Additional Information
+              </h2>
+              <input
+                type="text"
+                name="donationHistory"
+                placeholder="Hospital name (if any)"
+                value={formData.donationHistory}
+                onChange={handleChange}
+                className="input input-bordered w-full bg-[var(--bg-color-all)] text-[var(--text-color-all)] border border-[var(--color-primary)]"
+              />
+              <label className="flex items-center gap-3">
+                <input
+                  type="checkbox"
+                  name="verified"
+                  checked={formData.verified}
+                  onChange={handleChange}
+                  className="checkbox checkbox-success"
+                />
+                <span className="text-[var(--text-color-all)]">Verified Donor</span>
+              </label>
+            </div>
+          )}
+        </form>
+
+        {/* Buttons */}
+        <div className="flex justify-between mt-8 pt-6 border-t border-gray-300">
+          <button
+            type="button"
+            onClick={prevStep}
+            className={`btn border border-[var(--color-primary)] text-[var(--color-primary)] ${
+              currentStep === 1 ? "invisible" : ""
+            }`}
+          >
+            ← Previous
+          </button>
+          {currentStep < 3 ? (
+            <button
+              type="button"
+              onClick={nextStep}
+              className="btn bg-[var(--color-primary)] text-[var(--bg-color-all)] border-none"
+            >
+              Next Step →
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={handleSubmit}
+              disabled={loading}
+              className={`btn bg-[var(--color-primary)] text-[var(--bg-color-all)] border-none ${
+                loading ? "loading" : ""
+              }`}
+            >
+              {loading ? "Submitting..." : "Complete Registration"}
+            </button>
+          )}
         </div>
       </div>
 
       <style jsx>{`
         @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
         .animate-fadeIn {
           animation: fadeIn 0.5s ease-out;

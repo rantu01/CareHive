@@ -180,13 +180,6 @@ const Navbar = () => {
               {user ? (
                 <>
                   <Link
-                    href="/join-challange"
-                    className="font-medium px-4 py-2 rounded-xl text-sm lg:text-base transition-all duration-300"
-                    style={{ color: textColor, fontWeight: 500 }}
-                  >
-                    Join Challange
-                  </Link>
-                  <Link
                     href="/dashboard"
                     className="outline font-medium px-4 py-2 rounded-xl text-sm lg:text-base transition-all duration-300"
                     style={{ color: textColor, fontWeight: 500 }}
