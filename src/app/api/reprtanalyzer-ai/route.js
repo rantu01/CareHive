@@ -1,169 +1,162 @@
-
+import { buildMedicalAnalysisPrompt } from "@/app/utils/reportanalyzer-prompt";
 import axios from "axios";
 import { NextResponse } from "next/server";
 
 /**
- * Builds an enhanced prompt for medical document analysis
- * @param {string} documentText - Extracted text from medical document
- * @param {string|null} conversationHistory - Previous conversation context
- * @param {string|null} userQuestion - User's specific question
- * @returns {string} Formatted prompt for AI
+ * Builds medical analysis prompt
  */
-function buildMedicalAnalysisPrompt(documentText, conversationHistory = null, userQuestion = null) {
-    // Initial analysis prompt (when no conversation exists)
-    if (!userQuestion) {
-        return `You are an expert medical AI assistant specializing in interpreting health reports, prescriptions, and lab results. Your role is to explain medical documents in clear, accessible language while maintaining accuracy.
 
-DOCUMENT CONTENT:
-"""
-${documentText}
-"""
+/**
+ * Process file with Gemini 2.0 Flash
+ */
+async function processWithGemini(file, prompt) {
+    const fileType = file.type;
+    const apiKey = process.env.NEXT_PUBLIC_OPEN_AI;
 
-TASK: Provide a comprehensive yet concise analysis of this medical document.
-
-ANALYSIS STRUCTURE:
-
-1. Document Type Identification: Identify what type of document this is (lab report, prescription, imaging report, consultation notes, etc.)
-
-2. Summary: Provide a brief 2-3 sentence overview of the document's key purpose and findings
-
-3. Key Findings: List the most important medical findings, test results, or prescriptions. For each:
-   - State the measurement/finding clearly
-   - Indicate if it's normal, abnormal, or borderline
-   - Explain clinical significance in simple terms
-
-4. Medications & Dosages (if applicable): List all medications with:
-   - Drug name and dosage
-   - Purpose/indication
-   - Important administration instructions
-   - Common side effects to watch for
-
-5. Abnormal Values & Concerns: Highlight any results outside normal ranges or concerning findings:
-   - Explain what the abnormality means
-   - Potential implications
-   - Level of urgency (routine follow-up vs immediate attention)
-
-6. Recommendations: Based on the document, provide:
-   - Follow-up actions mentioned
-   - Lifestyle modifications suggested
-   - When to seek medical attention
-
-GUIDELINES:
-- Use simple, patient-friendly language
-- Avoid unnecessary medical jargon; when used, explain it
-- Be empathetic and reassuring while being honest about findings
-- Never diagnose conditions not explicitly stated in the document
-- For concerning findings, always recommend consulting with a healthcare provider
-- Include normal reference ranges when discussing lab values
-- Highlight urgent matters clearly
-
-IMPORTANT DISCLAIMERS:
-- Clearly state you're providing information, not medical advice
-- Emphasize the importance of discussing results with their doctor
-- Note that individual circumstances may affect interpretation
-
-Respond in a structured, easy-to-read format with clear sections.`;
+    if (!apiKey) {
+        throw new Error('Gemini API key not configured');
     }
 
-    // Conversation follow-up prompt (when user asks questions)
-    return `You are an expert medical AI assistant helping a patient understand their health document.
+    try {
+        // Convert file to base64
+        const bytes = await file.arrayBuffer();
+        const base64 = Buffer.from(bytes).toString('base64');
 
-ORIGINAL DOCUMENT:
-"""
-${documentText}
-"""
+        // Determine mime type
+        let mimeType = fileType;
+        if (fileType === 'application/pdf') {
+            mimeType = 'application/pdf';
+        } else if (fileType.startsWith('image/')) {
+            mimeType = fileType;
+        }
 
-${conversationHistory ? `CONVERSATION HISTORY:\n${conversationHistory}\n` : ''}
+        // Call Gemini API with file and prompt
+        const response = await axios.post(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`,
+            {
+                contents: [
+                    {
+                        parts: [
+                            {
+                                text: prompt
+                            },
+                            {
+                                inline_data: {
+                                    mime_type: mimeType,
+                                    data: base64
+                                }
+                            }
+                        ]
+                    }
+                ],
+                generationConfig: {
+                    temperature: 0.7,
+                    topK: 40,
+                    topP: 0.95,
+                    maxOutputTokens: 8192,
+                }
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                timeout: 60000 // 60 second timeout
+            }
+        );
 
-USER'S QUESTION:
-"""
-${userQuestion}
-"""
+        const aiResponse = response?.data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
-INSTRUCTIONS:
-- Answer the user's specific question based on the medical document provided
-- Reference specific values, medications, or findings from the document when relevant
-- Keep your response focused and concise (3-5 sentences unless more detail is needed)
-- Use simple, patient-friendly language
-- If the question cannot be answered from the document alone, explain what information is missing
-- For medical advice questions, remind them to consult their healthcare provider
-- If the question is about prognosis, treatment options, or diagnosis not in the document, explain you can only interpret what's written
-- Be supportive and reduce anxiety when appropriate
+        if (!aiResponse) {
+            throw new Error('No response from Gemini API');
+        }
 
-RESPONSE TONE:
-- Professional yet warm and approachable
-- Empathetic and reassuring
-- Clear and educational
-- Non-judgmental
+        return aiResponse;
 
-Provide a direct, helpful answer to their question.`;
+    } catch (error) {
+        if (error.response) {
+            console.error('Gemini API Error:', error.response.data);
+            throw new Error(error.response.data?.error?.message || 'Gemini API error');
+        }
+        throw error;
+    }
 }
 
 /**
  * POST /api/reprtanalyzer-ai
- * Analyzes medical documents using AI
+ * Analyzes medical documents using Gemini AI
  */
 export async function POST(request) {
     try {
-        const body = await request.json();
-        const { text, conversationHistory, userQuestion } = body;
+        const formData = await request.formData();
+        const file = formData.get('file');
+        const userQuestion = formData.get('userQuestion');
+        const conversationHistory = formData.get('conversationHistory');
 
-        // Validate required fields
-        if (!text || typeof text !== 'string') {
+        // Validate file
+        if (!file) {
             return NextResponse.json(
-                { status: 400, error: "Document text is required" },
+                { status: 400, error: 'No file uploaded' },
                 { status: 400 }
             );
         }
 
-        // Build appropriate prompt based on whether it's initial analysis or chat
-        const prompt = buildMedicalAnalysisPrompt(
-            text,
-            conversationHistory || null,
-            userQuestion || null
-        );
+        console.log('File received:', {
+            name: file.name,
+            type: file.type,
+            size: file.size,
+            hasQuestion: !!userQuestion
+        });
 
-        console.log('Processing medical document analysis...');
-
-        // Call Gemini API with your API key
-        const response = await axios.post(
-            'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent',
-           {
-               contents: [
-                    {
-                        parts: [
-                            {
-                                 text: prompt || 'Explain how AI works in a few words',
-                           },
-                        ],
-                     },
-                ],
-            },
-           {
-               headers: {
-                   'Content-Type': 'application/json',
-                     'X-goog-api-key': `${process.env.NEXT_PUBLIC_OPEN_AI}`,
-                 },
-            }
-         );
-
-        // Extract AI response
-        const aiResponse = response?.data?.candidates?.[0]?.content?.parts?.[0]?.text;
-
-        if (!aiResponse) {
-            console.error('No response from AI:', response.data);
+        // Validate file size (10MB max)
+        const maxSize = 10 * 1024 * 1024;
+        if (file.size > maxSize) {
             return NextResponse.json(
-                { status: 500, error: "Failed to generate AI response" },
-                { status: 500 }
+                { status: 400, error: 'File size exceeds 10MB limit' },
+                { status: 400 }
             );
         }
 
+        // Validate file type
+        const allowedTypes = [
+            'application/pdf',
+            'image/jpeg',
+            'image/jpg',
+            'image/png'
+        ];
+
+        if (!allowedTypes.includes(file.type)) {
+            return NextResponse.json(
+                { 
+                    status: 400, 
+                    error: `Unsupported file type: ${file.type}. Supported: PDF, JPG, PNG` 
+                },
+                { status: 400 }
+            );
+        }
+
+        console.log('Processing document with Gemini 2.0 Flash...');
+
+        // Build prompt based on whether it's initial analysis or follow-up question
+        const prompt = buildMedicalAnalysisPrompt(
+            userQuestion || null,
+            conversationHistory || null
+        );
+
+        // Process with Gemini
+        const aiResponse = await processWithGemini(file, prompt);
+
         console.log('Analysis completed successfully');
 
-        // Return response in format expected by frontend
-        return NextResponse.json({ 
-            status: 200, 
-            data: aiResponse 
+        // Return response
+        return NextResponse.json({
+            status: 200,
+            data: { 
+                aiResponse,
+                fileName: file.name,
+                fileType: file.type,
+                fileSize: file.size,
+                timestamp: new Date().toISOString()
+            }
         });
 
     } catch (error) {
@@ -171,25 +164,64 @@ export async function POST(request) {
 
         // Handle specific error types
         if (error.response) {
-            // API returned an error
+            const status = error.response.status;
+            const message = error.response.data?.error?.message || 'AI service error';
+            
+            // Handle rate limiting
+            if (status === 429) {
+                return NextResponse.json(
+                    {
+                        status: 429,
+                        error: 'Rate limit exceeded. Please try again in a moment.'
+                    },
+                    { status: 429 }
+                );
+            }
+
+            // Handle invalid API key
+            if (status === 401 || status === 403) {
+                return NextResponse.json(
+                    {
+                        status: 500,
+                        error: 'API configuration error. Please contact support.'
+                    },
+                    { status: 500 }
+                );
+            }
+
             return NextResponse.json(
                 {
-                    status: error.response.status,
-                    error: "AI service error",
-                    details: error.response.data?.error?.message || "Unknown API error"
+                    status: status,
+                    error: 'AI service error',
+                    details: message
                 },
-                { status: error.response.status }
+                { status: status }
             );
         } else if (error.request) {
             // Request made but no response
             return NextResponse.json(
-                { status: 503, error: "AI service unavailable. Please try again later." },
+                { 
+                    status: 503, 
+                    error: 'AI service unavailable. Please try again later.' 
+                },
                 { status: 503 }
+            );
+        } else if (error.code === 'ECONNABORTED') {
+            // Timeout error
+            return NextResponse.json(
+                { 
+                    status: 504, 
+                    error: 'Request timeout. Please try with a smaller file.' 
+                },
+                { status: 504 }
             );
         } else {
             // Other errors
             return NextResponse.json(
-                { status: 500, error: "Internal server error" },
+                { 
+                    status: 500, 
+                    error: error.message || 'Internal server error' 
+                },
                 { status: 500 }
             );
         }
@@ -202,9 +234,12 @@ export async function POST(request) {
  */
 export async function GET() {
     return NextResponse.json({
-        status: "healthy",
-        service: "Medical Report Analyzer API",
-        version: "1.0.0",
+        status: 'healthy',
+        service: 'Medical Report Analyzer API',
+        version: '2.0.0',
+        model: 'Gemini 2.0 Flash',
+        supportedFormats: ['PDF', 'JPG', 'PNG'],
+        maxFileSize: '10MB',
         timestamp: new Date().toISOString(),
     });
 }
