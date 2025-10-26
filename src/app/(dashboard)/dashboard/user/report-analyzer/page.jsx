@@ -95,7 +95,7 @@ export default function HealthReportAnalyzer() {
             return;
         }
 
-        // Validate file size (10MB max)
+
         const maxSize = 10 * 1024 * 1024;
         if (uploadedFile.size > maxSize) {
             Swal.fire({

@@ -2,13 +2,7 @@ import { buildMedicalAnalysisPrompt } from "@/app/utils/reportanalyzer-prompt";
 import axios from "axios";
 import { NextResponse } from "next/server";
 
-/**
- * Builds medical analysis prompt
- */
 
-/**
- * Process file with Gemini 2.0 Flash
- */
 async function processWithGemini(file, prompt) {
     const fileType = file.type;
     const apiKey = process.env.NEXT_PUBLIC_OPEN_AI;
@@ -81,10 +75,7 @@ async function processWithGemini(file, prompt) {
     }
 }
 
-/**
- * POST /api/reprtanalyzer-ai
- * Analyzes medical documents using Gemini AI
- */
+
 export async function POST(request) {
     try {
         const formData = await request.formData();
