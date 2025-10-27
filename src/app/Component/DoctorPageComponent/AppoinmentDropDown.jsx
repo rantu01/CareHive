@@ -30,8 +30,9 @@ const AppointmentDropdown = ({ selectedDoctor, handleBookAppointment }) => {
         patientName: user?.displayName,
         patientEmail: user?.email,
         fees: selectedDoctor?.practiceInfo?.consultationFees[meetingType],
+        meetLink:selectedDoctor?.practiceInfo?.meetLink[selectedDay],
         bookedAt: new Date(),
-        userId: user?.uid
+        userId: user?.uid,
     }
 
     const handleBooking = (booking) => {

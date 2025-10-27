@@ -43,8 +43,7 @@ export default function DoctorsPage() {
 
 
 
-  // ✅ Smart Multi-field Search Logic
-  // ✅ Smart Multi-field Search Logic
+
 const filteredDoctors = doctors.filter((doc) => {
   const personal = doc.personalInfo || {};
   const education = doc.educationAndCredentials || {};

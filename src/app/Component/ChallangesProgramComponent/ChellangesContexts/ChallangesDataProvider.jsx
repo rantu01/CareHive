@@ -8,7 +8,6 @@ import axios from "axios";
 const ChallangesDataProvider = ({ children }) => {
 
 
-    const challanges = "challanges data provider"
 
     const fetchChallangesData = async () => {
         try {
@@ -34,7 +33,9 @@ const ChallangesDataProvider = ({ children }) => {
     console.log("the challenges data is",challangesData)
 
     const allChallangesData = {
-        challanges
+
+        // challengesData,
+        challangesData
 
     };
 

@@ -30,7 +30,7 @@ export default function PaymentSuccessClient() {
   const { user } = use(AuthContext)
   const userId = user?.uid
 
-console.log("pppppp",payment?.metadata)
+
 
   useEffect(() => {
     if (sessionId) {
