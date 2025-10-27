@@ -220,7 +220,7 @@ export default function Blood() {
     <div className="relative">
       <div className="relative z-10">
         <img
-          src="https://i.ibb.co/s9w0rb5h/donar.jpg"
+          src="https://i.ibb.co.com/hxWq7JWg/blood-donar2.jpg"
           alt="Blood Donor Hero"
           className="w-full max-w-md mx-auto rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-500"
         />
@@ -467,12 +467,12 @@ function DonorCard({ donor }) {
         <div className="space-y-3 mb-6">
           <div className="flex items-center gap-3 p-3 rounded-lg bg-[var(--bg-color-all)]">
             <AiOutlinePhone className="w-5 h-5 text-[var(--color-primary)] flex-shrink-0" />
-            <span className="text-sm truncate">{donor.contactNumber}</span>
+            <span className="text-sm truncate">{donor?.contactNumber}</span>
           </div>
           <div className="flex items-center gap-3 p-3 rounded-lg bg-[var(--bg-color-all)]">
             <AiOutlineMail className="w-5 h-5 text-[var(--color-primary)] flex-shrink-0" />
             <span className="text-sm truncate">
-              {donor.email || "Not provided"}
+              {donor?.email || "Not provided"}
             </span>
           </div>
           <div className="flex items-center gap-3 p-3 rounded-lg bg-[var(--bg-color-all)]">
@@ -495,7 +495,7 @@ function DonorCard({ donor }) {
                 d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
               />
             </svg>
-            <span className="text-sm truncate">{donor.location}</span>
+            <span className="text-sm truncate">{donor?.location}</span>
           </div>
         </div>
 
