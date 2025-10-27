@@ -125,7 +125,7 @@ const BmiCalculator = () => {
                 type="number"
                 value={heightCm}
                 onChange={(e) => setHeightCm(e.target.value)}
-                className="flex-1 px-2 py-2 border rounded-lg outline-none transition"
+                className="flex-1 px-2 py-2 border w-1 rounded-lg outline-none transition"
                 placeholder="Enter height in cm"
                 style={{ borderColor: "var(--dashboard-border)" }}
               />
@@ -157,7 +157,7 @@ const BmiCalculator = () => {
           <label className="block text-sm font-medium mb-2" style={{ color: "var(--text-color-all)" }}>
             Weight
           </label>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-0.5">
             <select
               value={weightUnit}
               onChange={(e) => setWeightUnit(e.target.value)}
@@ -171,7 +171,7 @@ const BmiCalculator = () => {
               type="number"
               value={weight}
               onChange={(e) => setWeight(e.target.value)}
-              className="flex-1 px-2 py-2 border rounded-lg outline-none transition"
+              className="flex-1 px-2 py-2 border w-3 rounded-lg outline-none transition"
               placeholder={`Enter weight in ${weightUnit}`}
               style={{ borderColor: "var(--dashboard-border)" }}
             />
