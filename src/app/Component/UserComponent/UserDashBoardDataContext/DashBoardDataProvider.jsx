@@ -14,8 +14,6 @@ const DashBoardDataProvider = ({ children }) => {
   const [appointmentData, setAppointmentData] = useState([])
 
 
-  console.log("appoinment data provider",appointmentData)
-
   const [userHealthStats, setHealthStats] = useState([])
 
   const [userToDo, setUserToDo] = useState([])

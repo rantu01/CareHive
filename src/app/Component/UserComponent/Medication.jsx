@@ -42,7 +42,6 @@ const Medication = () => {
 
   const { medicineData } = use(DashBoardDataContext)
 
-  console.log("medication data", medicineData)
 
   const medicationDataList = medicineData[0]?.medicineData
 
@@ -111,9 +110,6 @@ const Medication = () => {
   // Handle form submit
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // console.log([timeValue])
-    // console.log(userMedicineWeekDays)
     addNewMedicineMutation.mutate()
   };
 
@@ -165,7 +161,6 @@ const Medication = () => {
     const today = currentDate.getDay();
 
     if (dayIndex == today) {
-      console.log("matcheds")
       return true
     }
   }
@@ -175,11 +170,8 @@ const Medication = () => {
   const checkCurrentTime = (pillTime) => {
     const [hours, minutes] = pillTime.split(':').map(Number);
 
-    console.log(hours, minutes)
-
     const now = new Date();
     const formattedTime = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    console.log("formatted time", formattedTime)
   }
 
   return (
