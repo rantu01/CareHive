@@ -155,7 +155,7 @@ const page = () => {
                         </div>
                         <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-[var(--text-color-all)] mb-2 sm:mb-3">No appointments yet</h3>
                         <p className="text-sm sm:text-base text-[var(--text-color-all)]/60 mb-4 sm:mb-6">Book your first appointment to get started</p>
-                        <Link href={"/doctors"} className="inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base bg-gradient-to-r from-[var(--color-light-green)] to-emerald-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-300">
+                        <Link href={"/doctors"} className="inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base bg-[var(--color-primary)] text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-300">
                             <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
                             Browse Doctors
                         </Link>
