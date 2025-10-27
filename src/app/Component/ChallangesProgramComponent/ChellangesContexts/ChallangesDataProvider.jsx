@@ -12,7 +12,6 @@ const ChallangesDataProvider = ({ children }) => {
     const fetchChallangesData = async () => {
         try {
             const response = await axios.get('/api/challenges');
-            console.log(response)
             return response.data
         } catch (error) {
             console.error("Error fetching challanges data:", error);
@@ -29,8 +28,6 @@ const ChallangesDataProvider = ({ children }) => {
         queryFn: fetchChallangesData
     })
 
-
-    console.log("the challenges data is",challangesData)
 
     const allChallangesData = {
 
