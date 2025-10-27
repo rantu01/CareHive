@@ -20,6 +20,10 @@ export default function Blood() {
   const [searchQuery, setSearchQuery] = useState("");
   const [bloodFilter, setBloodFilter] = useState("");
 
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const donorsPerPage = 9; // Number of donors per page
+
   // Stats for impact section
   const [stats, setStats] = useState({
     totalDonors: 0,
@@ -27,7 +31,7 @@ export default function Blood() {
     activeDonors: 0,
   });
 
-  // ✅ Fetch only blood donors
+  // Fetch only blood donors
   useEffect(() => {
     async function fetchDonors() {
       try {
@@ -58,7 +62,7 @@ export default function Blood() {
     fetchDonors();
   }, []);
 
-  // ✅ Handle Search + Filter
+  // Handle Search + Filter
   useEffect(() => {
     let results = donors;
 
@@ -77,9 +81,21 @@ export default function Blood() {
     }
 
     setFilteredDonors(results);
+    setCurrentPage(1); // Reset to first page when filters change
   }, [searchQuery, bloodFilter, donors]);
 
-  // ✅ Loading
+  // Pagination logic
+  const indexOfLastDonor = currentPage * donorsPerPage;
+  const indexOfFirstDonor = indexOfLastDonor - donorsPerPage;
+  const currentDonors = filteredDonors.slice(
+    indexOfFirstDonor,
+    indexOfLastDonor
+  );
+  const totalPages = Math.ceil(filteredDonors.length / donorsPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Loading
   if (loading)
     return (
       <div className="flex justify-center items-center min-h-screen bg-[var(--bg-color-all)]">
@@ -95,7 +111,7 @@ export default function Blood() {
       </div>
     );
 
-  // ✅ Error
+  // Error
   if (error)
     return (
       <div className="flex justify-center items-center min-h-screen bg-[var(--bg-color-all)]">
@@ -285,7 +301,7 @@ export default function Blood() {
         </div>
       </section>
 
-      {/* DONOR CARDS - Enhanced */}
+      {/* DONOR CARDS */}
       <section className="py-16 px-6 md:px-16">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
@@ -305,7 +321,7 @@ export default function Blood() {
             </p>
           </div>
 
-          {filteredDonors.length === 0 ? (
+          {currentDonors.length === 0 ? (
             <div className="text-center py-20 bg-[var(--dashboard-bg)] rounded-2xl border border-[var(--dashboard-border)]">
               <div className="w-24 h-24 bg-[var(--color-primary)]/10 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Heart className="w-12 h-12 text-[var(--color-primary)]" />
@@ -320,134 +336,56 @@ export default function Blood() {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredDonors.map((donor) => (
-                <div
-                  key={donor._id}
-                  className="group relative bg-[var(--dashboard-bg)] rounded-2xl overflow-hidden border border-[var(--dashboard-border)] hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
-                >
-                  {/* Verified Badge */}
-                  {donor.verified && (
-                    <div className="absolute top-4 right-4 z-20">
-                      <div className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-lg">
-                        <AiOutlineCheckCircle className="w-3 h-3" />
-                        Verified
-                      </div>
-                    </div>
+            <div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {currentDonors.map((donor) => (
+                  <DonorCard key={donor._id} donor={donor} />
+                ))}
+              </div>
+
+              {/* Pagination Controls */}
+              {totalPages > 1 && (
+                <div className="flex justify-center mt-12 gap-3 flex-wrap">
+                  <button
+                    onClick={() => paginate(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    className="px-4 py-2 bg-[var(--dashboard-bg)] border border-[var(--dashboard-border)] rounded-lg hover:bg-[var(--color-primary)] hover:text-white transition-colors"
+                  >
+                    Previous
+                  </button>
+
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                    (page) => (
+                      <button
+                        key={page}
+                        onClick={() => paginate(page)}
+                        className={`px-4 py-2 border border-[var(--dashboard-border)] rounded-lg ${
+                          page === currentPage
+                            ? "bg-[var(--color-primary)] text-white"
+                            : "bg-[var(--dashboard-bg)] text-[var(--text-color-all)] hover:bg-[var(--color-primary)] hover:text-white transition-colors"
+                        }`}
+                      >
+                        {page}
+                      </button>
+                    )
                   )}
 
-                  {/* Header with Gradient */}
-                  <div className="h-3 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)]"></div>
-
-                  <div className="p-6">
-                    {/* Donor Info */}
-                    <div className="flex items-center space-x-4 mb-6">
-                      <div className="relative">
-                        <img
-                          src={
-                            donor.image ||
-                            "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-                          }
-                          alt={donor.fullName}
-                          className="w-20 h-20 rounded-2xl border-4 border-white shadow-lg object-cover group-hover:scale-110 transition-transform duration-300"
-                        />
-                        {donor.verified && (
-                          <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-white flex items-center justify-center">
-                            <AiOutlineCheckCircle className="w-3 h-3 text-white" />
-                          </div>
-                        )}
-                      </div>
-                      <div className="flex-1">
-                        <h3
-                          className="text-xl font-bold truncate"
-                          style={{ color: "var(--color-secondary)" }}
-                        >
-                          {donor.fullName}
-                        </h3>
-                        <div className="flex items-center gap-2 mt-1">
-                          <div
-                            className={`px-3 py-1 rounded-full text-sm font-bold ${
-                              donor.bloodGroup
-                                ? "bg-red-100 text-red-800"
-                                : "bg-gray-100 text-gray-800"
-                            }`}
-                          >
-                            {donor.bloodGroup || "N/A"}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Donor Details */}
-                    <div className="space-y-3 mb-6">
-                      <div className="flex items-center gap-3 p-3 rounded-lg bg-[var(--bg-color-all)]">
-                        <AiOutlinePhone className="w-5 h-5 text-[var(--color-primary)] flex-shrink-0" />
-                        <span className="text-sm truncate">
-                          {donor.contactNumber}
-                        </span>
-                      </div>
-
-                      <div className="flex items-center gap-3 p-3 rounded-lg bg-[var(--bg-color-all)]">
-                        <AiOutlineMail className="w-5 h-5 text-[var(--color-primary)] flex-shrink-0" />
-                        <span className="text-sm truncate">
-                          {donor.email || "Not provided"}
-                        </span>
-                      </div>
-
-                      <div className="flex items-center gap-3 p-3 rounded-lg bg-[var(--bg-color-all)]">
-                        <svg
-                          className="w-5 h-5 text-[var(--color-primary)] flex-shrink-0"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                          />
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                          />
-                        </svg>
-                        <span className="text-sm truncate">
-                          {donor.location}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Action Button */}
-                    <a
-                      href={`https://wa.me/${donor.contactNumber.replace(
-                        /[^0-9]/g,
-                        ""
-                      )}?text=I%20need%20blood%20donation%20help`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block w-full py-3 rounded-xl font-bold text-center shadow-lg hover:scale-105 transition-all duration-300 group relative overflow-hidden"
-                      style={{
-                        backgroundColor: "var(--color-primary)",
-                        color: "#fff",
-                      }}
-                    >
-                      <span className="relative z-10">
-                        Contact via WhatsApp
-                      </span>
-                      <div className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-                    </a>
-                  </div>
+                  <button
+                    onClick={() => paginate(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    className="px-4 py-2 bg-[var(--dashboard-bg)] border border-[var(--dashboard-border)] rounded-lg hover:bg-[var(--color-primary)] hover:text-white transition-colors"
+                  >
+                    Next
+                  </button>
                 </div>
-              ))}
+              )}
             </div>
           )}
         </div>
       </section>
 
       {/* CTA SECTION */}
+      {/* ... keep your CTA section unchanged ... */}
       <section className="py-20 px-6 md:px-16">
         <div className="max-w-7xl mx-auto">
           <div className="bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] rounded-3xl p-12 text-center text-white relative overflow-hidden">
@@ -461,17 +399,120 @@ export default function Blood() {
                 difference between life and death for someone in need.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="px-8 py-4 bg-white text-[var(--color-primary)] rounded-xl font-bold hover:scale-105 transition-transform duration-300">
+                <Link href="dashboard/user/add-donor">
+                  <button className="px-8 py-4 bg-white text-[var(--color-primary)] rounded-xl font-bold hover:scale-105 transition-transform duration-300">
                   Register as Donor
                 </button>
-                <button className="px-8 py-4 border-2 border-white text-white rounded-xl font-bold hover:bg-white hover:text-[var(--color-primary)] transition-all duration-300">
-                  Learn About Donation
-                </button>
+                </Link>
               </div>
             </div>
           </div>
         </div>
       </section>
+    </div>
+  );
+}
+
+// Donor Card component (kept same as your existing code)
+function DonorCard({ donor }) {
+  return (
+    <div className="group relative bg-[var(--dashboard-bg)] rounded-2xl overflow-hidden border border-[var(--dashboard-border)] hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+      {donor.verified && (
+        <div className="absolute top-4 right-4 z-20">
+          <div className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-lg">
+            <AiOutlineCheckCircle className="w-3 h-3" />
+            Verified
+          </div>
+        </div>
+      )}
+      <div className="h-3 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)]"></div>
+      <div className="p-6">
+        <div className="flex items-center space-x-4 mb-6">
+          <div className="relative">
+            <img
+              src={
+                donor.image ||
+                "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+              }
+              alt={donor.fullName}
+              className="w-20 h-20 rounded-2xl border-4 border-white shadow-lg object-cover group-hover:scale-110 transition-transform duration-300"
+            />
+            {donor.verified && (
+              <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-white flex items-center justify-center">
+                <AiOutlineCheckCircle className="w-3 h-3 text-white" />
+              </div>
+            )}
+          </div>
+          <div className="flex-1">
+            <h3
+              className="text-xl font-bold truncate"
+              style={{ color: "var(--color-secondary)" }}
+            >
+              {donor.fullName}
+            </h3>
+            <div className="flex items-center gap-2 mt-1">
+              <div
+                className={`px-3 py-1 rounded-full text-sm font-bold ${
+                  donor.bloodGroup
+                    ? "bg-red-100 text-red-800"
+                    : "bg-gray-100 text-gray-800"
+                }`}
+              >
+                {donor.bloodGroup || "N/A"}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-3 mb-6">
+          <div className="flex items-center gap-3 p-3 rounded-lg bg-[var(--bg-color-all)]">
+            <AiOutlinePhone className="w-5 h-5 text-[var(--color-primary)] flex-shrink-0" />
+            <span className="text-sm truncate">{donor.contactNumber}</span>
+          </div>
+          <div className="flex items-center gap-3 p-3 rounded-lg bg-[var(--bg-color-all)]">
+            <AiOutlineMail className="w-5 h-5 text-[var(--color-primary)] flex-shrink-0" />
+            <span className="text-sm truncate">
+              {donor.email || "Not provided"}
+            </span>
+          </div>
+          <div className="flex items-center gap-3 p-3 rounded-lg bg-[var(--bg-color-all)]">
+            <svg
+              className="w-5 h-5 text-[var(--color-primary)] flex-shrink-0"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+              />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+            </svg>
+            <span className="text-sm truncate">{donor.location}</span>
+          </div>
+        </div>
+
+        <a
+          href={`https://wa.me/${donor.contactNumber.replace(
+            /[^0-9]/g,
+            ""
+          )}?text=I%20need%20blood%20donation%20help`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block w-full py-3 rounded-xl font-bold text-center shadow-lg hover:scale-105 transition-all duration-300 group relative overflow-hidden"
+          style={{ backgroundColor: "var(--color-primary)", color: "#fff" }}
+        >
+          <span className="relative z-10">Contact via WhatsApp</span>
+          <div className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+        </a>
+      </div>
     </div>
   );
 }
