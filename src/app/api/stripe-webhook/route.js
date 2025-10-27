@@ -90,6 +90,7 @@ export async function POST(req) {
                 paymentStatus: "Paid",
                 status: "upcoming",
                 sessionId: session.id,
+                meetLink:metadata.meetLink,
                 paymentIntent: session.payment_intent,
                 createdAt: new Date(),
                 serialNo: serialNo,
