@@ -12,11 +12,15 @@ import {
 } from "lucide-react";
 import Swal from "sweetalert2";
 import UseAuth from "@/app/Hooks/UseAuth";
+import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
 
 const UserInteractions = () => {
   const { user } = UseAuth();
   const [blogs, setBlogs] = useState([]);
   const [selectedBlog, setSelectedBlog] = useState(null);
+
+  console.log("ssssssss", selectedBlog)
   const [loading, setLoading] = useState(true);
   const [commentText, setCommentText] = useState({});
   const [editingComment, setEditingComment] = useState({});
@@ -189,6 +193,13 @@ const UserInteractions = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+
+  const handleSummarizeText = async () => {
+    const response = await axios.post('/api/summarize-blog', { blogDetails: selectedBlog?.content })
+    console.log("summarize response", response)
+  }
+
+
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-96">
@@ -226,19 +237,25 @@ const UserInteractions = () => {
                   </div>
                 </div>
               </div>
+              <div>
+                <div>
+                  <button onClick={handleSummarizeText} className="rounded-xl bg-[var(--color-primary)] px-3 py-2">
+                    Summarize Text
+                  </button>
+                </div>
+                <p className="text-base leading-relaxed" style={{ color: "var(--text-color-all)" }}>
+                  {selectedBlog.content}
+                </p>
+              </div>
 
-              <p className="text-base leading-relaxed" style={{ color: "var(--text-color-all)" }}>
-                {selectedBlog.content}
-              </p>
 
               <div className="flex items-center gap-6 pt-4 border-t" style={{ borderColor: "var(--dashboard-border)" }}>
                 <button
                   onClick={() => handleLike(selectedBlog._id)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl font-semibold transition-all ${
-                    selectedBlog.likes?.some((l) => l.email === user?.email)
-                      ? "bg-[var(--color-primary)] text-white"
-                      : "bg-[var(--color-secondary)] text-white"
-                  }`}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl font-semibold transition-all ${selectedBlog.likes?.some((l) => l.email === user?.email)
+                    ? "bg-[var(--color-primary)] text-white"
+                    : "bg-[var(--color-secondary)] text-white"
+                    }`}
                 >
                   <Heart
                     size={18}
@@ -381,9 +398,8 @@ const UserInteractions = () => {
               key={blog._id}
               onClick={() => handleSelectBlog(blog)}
               whileHover={{ scale: 1.02 }}
-              className={`cursor-pointer rounded-2xl p-4 shadow-md transition-all ${
-                selectedBlog?._id === blog._id ? "ring-2 ring-[var(--color-primary)]" : ""
-              }`}
+              className={`cursor-pointer rounded-2xl p-4 shadow-md transition-all ${selectedBlog?._id === blog._id ? "ring-2 ring-[var(--color-primary)]" : ""
+                }`}
               style={{
                 backgroundColor: "var(--dashboard-bg)",
                 border: "1px solid var(--dashboard-border)",
