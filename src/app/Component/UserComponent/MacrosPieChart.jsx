@@ -2,34 +2,43 @@
 
 import { ResponsiveContainer, RadialBarChart, RadialBar } from "recharts";
 import { Utensils, Flame } from "lucide-react";
+import { use } from "react";
+import { DashBoardDataContext } from "./UserDashBoardDataContext/DashboardDataContext";
 
 const NutritionCard = () => {
   // Your raw JSON data
-  const foodLog = {
-    "_id": { "$oid": "68cafdd21cd955f72029ecaa" },
-    "userId": "guest",
-    "food": "Biryani ",
-    "calories": 120,
-    "carbs": 2.5,
-    "protein": 23,
-    "fat": 33,
-    "portionSize": "1",
-    "type": "dinner",
-    "dailyGoal": 2000,
-    "date": { "$date": "2025-09-17T18:28:34.349Z" }
-  }
+  // const foodLog = {
+  //   "_id": { "$oid": "68cafdd21cd955f72029ecaa" },
+  //   "userId": "guest",
+  //   "food": "Biryani ",
+  //   "calories": 120,
+  //   "carbs": 2.5,
+  //   "protein": 23,
+  //   "fat": 33,
+  //   "portionSize": "1",
+  //   "type": "dinner",
+  //   "dailyGoal": 2000,
+  //   "date": { "$date": "2025-09-17T18:28:34.349Z" }
+  // }
+
+  const { mealData } = use(DashBoardDataContext)
+
+  const foodLog = mealData
+
+
+  console.log("ffffffff", foodLog)
 
 
   // Mock values for eaten & burned calories (you can adjust when API is ready)
-  const eatenCalories = foodLog.calories;
+  const eatenCalories = foodLog?.calories;
   const burnedCalories = 0; // no burned info in JSON
-  const remainingCalories = foodLog.dailyGoal - eatenCalories;
+  const remainingCalories = foodLog?.dailyGoal - eatenCalories;
 
   // Macro breakdown
   const macros = [
-    { name: "Carbohydrates", value: foodLog.carbs, goal: 325, color: "bg-blue-400" },
-    { name: "Proteins", value: foodLog.protein, goal: 75, color: "bg-green-500" },
-    { name: "Fats", value: foodLog.fat, goal: 44, color: "bg-orange-400" },
+    { name: "Carbohydrates", value: foodLog?.carbs, goal: 325, color: "bg-blue-400" },
+    { name: "Proteins", value: foodLog?.protein, goal: 75, color: "bg-green-500" },
+    { name: "Fats", value: foodLog?.fat, goal: 44, color: "bg-orange-400" },
   ];
 
   // Radial chart data
@@ -41,7 +50,7 @@ const NutritionCard = () => {
   return (
     <div className="p-6 rounded-2xl shadow-md w-full">
       <h2 className="text-lg font-semibold mb-4 text-[var(--text-color-all)]">
-        Calories Intake – {foodLog.food}
+        Calories Intake – {foodLog?.food}
       </h2>
 
       <div className="flex flex-col md:flex-row gap-6 items-center">
