@@ -6,27 +6,12 @@ import { use } from "react";
 import { DashBoardDataContext } from "./UserDashBoardDataContext/DashboardDataContext";
 
 const NutritionCard = () => {
-  // Your raw JSON data
-  // const foodLog = {
-  //   "_id": { "$oid": "68cafdd21cd955f72029ecaa" },
-  //   "userId": "guest",
-  //   "food": "Biryani ",
-  //   "calories": 120,
-  //   "carbs": 2.5,
-  //   "protein": 23,
-  //   "fat": 33,
-  //   "portionSize": "1",
-  //   "type": "dinner",
-  //   "dailyGoal": 2000,
-  //   "date": { "$date": "2025-09-17T18:28:34.349Z" }
-  // }
 
   const { mealData } = use(DashBoardDataContext)
 
   const foodLog = mealData
 
 
-  console.log("ffffffff", foodLog)
 
 
   // Mock values for eaten & burned calories (you can adjust when API is ready)

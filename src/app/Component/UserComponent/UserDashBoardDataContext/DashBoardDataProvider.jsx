@@ -28,7 +28,6 @@ const DashBoardDataProvider = ({ children }) => {
 
   const [goalData, setGoalData] = useState([]);
 
-  console.log("meal ;;;;;;;; ",mealData)
 
   useEffect(() => {
     const getUserStats = async () => {

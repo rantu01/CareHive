@@ -9,6 +9,8 @@ import {
   Send,
   User,
   ArrowRight,
+  Sparkles,
+  X,
 } from "lucide-react";
 import Swal from "sweetalert2";
 import UseAuth from "@/app/Hooks/UseAuth";
@@ -24,7 +26,7 @@ const UserInteractions = () => {
   const [commentText, setCommentText] = useState({});
   const [editingComment, setEditingComment] = useState({});
 
-
+  const [showSummary, setShowSummary] = useState(false)
   // Fetch blogs
   const fetchBlogs = async () => {
     try {
@@ -196,13 +198,19 @@ const UserInteractions = () => {
 
   const handleSummarizeText = async (content) => {
     const response = await axios.post('/api/summarize-blog', { blogDetails: content })
-    return response?.data?.summarizeText
+
+    if (response.status == 200) {
+      setShowSummary(true)
+      return response?.data?.summarizeText
+    } else {
+      Swal.fire("Oppps Someting Went Wrong")
+    }
+
   }
 
   const { mutate, data: summarizedText, isPending } = useMutation({
     mutationFn: handleSummarizeText,
   })
-
 
   if (loading) {
     return (
@@ -243,23 +251,55 @@ const UserInteractions = () => {
               </div>
               <div>
                 <div>
-                  <button onClick={() => mutate(selectedBlog?.content)} className="rounded-xl bg-[var(--color-primary)] px-3 py-2">
-                    {isPending ? "Summarizing..." : "Sumarize text"}
+
+                  <button
+                    onClick={() => mutate(selectedBlog?.content)}
+                    disabled={isPending}
+                    className="cursor-pointer mb-5 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2.5 flex items-center gap-2 transition-all shadow-lg hover:shadow-xl"
+                  >
+                    {isPending ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        <span className="text-white font-medium">Summarizing...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles className="w-4 h-4 text-white" />
+                        <span className="text-white font-medium">Summarize Text</span>
+                      </>
+                    )}
                   </button>
                 </div>
                 <p className="text-base leading-relaxed" style={{ color: "var(--text-color-all)" }}>
                   {selectedBlog.content}
                 </p>
 
-                {summarizedText && (
-                  <div className="mt-6 p-6 rounded-lg bg-gradient-to-br from-blue-50 to-indigo-50 border border-indigo-200 shadow-lg">
-                    <div className="flex items-center gap-2 mb-3">
-                      <svg className="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                      </svg>
-                      <h3 className="text-lg font-semibold text-indigo-900">AI Summary</h3>
+                {summarizedText && showSummary && (
+                  <div className="mt-6 p-6 rounded-lg bg-gradient-to-br from-purple-900/20 to-blue-900/20 border border-purple-500/30 shadow-lg backdrop-blur-sm">
+                    <div className="flex items-center justify-between gap-2 mb-3">
+                      <div className="flex gap-3 items-center ">
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center">
+                          <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                            <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                        <div className="text-lg font-semibold" style={{ color: "var(--text-color-all)" }}>
+                          AI Generated Summary
+                        </div>
+                      </div>
+
+                      <div>
+                        <button
+                          onClick={() => setShowSummary(false)}
+                          className="cursor-pointer rounded-xl bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 px-3 py-2 flex items-center gap-2 transition-all shadow-lg hover:shadow-xl"
+                        >
+                          <X className="w-4 h-4 text-white" />
+                          <span className="text-white font-medium">Hide Summary</span>
+                        </button>
+                      </div>
                     </div>
-                    <p className="text-base leading-relaxed text-gray-700">
+                    <p className="text-base leading-relaxed opacity-90" style={{ color: "var(--text-color-all)" }}>
                       {summarizedText}
                     </p>
                   </div>
@@ -414,7 +454,7 @@ const UserInteractions = () => {
           {blogs.map((blog) => (
             <motion.div
               key={blog._id}
-              onClick={() => handleSelectBlog(blog)}
+              onClick={() => { handleSelectBlog(blog); setShowSummary(false) }}
               whileHover={{ scale: 1.02 }}
               className={`cursor-pointer rounded-2xl p-4 shadow-md transition-all ${selectedBlog?._id === blog._id ? "ring-2 ring-[var(--color-primary)]" : ""
                 }`}

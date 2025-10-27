@@ -58,11 +58,9 @@ export default function StepChallenge({ challengeDetails }) {
             startDate: startDate.toISOString()
         };
 
-        console.log("✅ Participant Info:", participantInfo);
 
         axios.post("/api/join-challenges", participantInfo)
             .then((res) => {
-                console.log("✅ Join Response:", res.data);
                 successfulJoinSwal(); 
             })
             .catch((err) => {
