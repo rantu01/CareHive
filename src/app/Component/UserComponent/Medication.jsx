@@ -6,10 +6,11 @@ import { AuthContext } from "@/app/context/authContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import axios from "axios";
-import { Plus, Bell, Check, Pill, Delete, X, Clock, Calendar } from "lucide-react";
+import { Plus, Bell, Check, Pill, Delete, X, Clock, Calendar, Download } from "lucide-react";
 import { use, useState } from "react";
 import Swal from "sweetalert2";
 import { DashBoardDataContext } from "./UserDashBoardDataContext/DashboardDataContext";
+import { daysMap, generatePDF } from "@/app/utils/generatePdf";
 
 
 const Medication = () => {
@@ -45,15 +46,6 @@ const Medication = () => {
 
   const medicationDataList = medicineData[0]?.medicineData
 
-  const formatNextTime = (timeString) => {
-    const date = new Date(timeString);
-    return date.toLocaleString("en-US", {
-      weekday: "short",
-      hour: "numeric",
-      minute: "numeric",
-      hour12: true,
-    });
-  };
 
 
   // get the time values
@@ -229,6 +221,14 @@ const Medication = () => {
           <Plus size={20} className="group-hover:rotate-90 transition-transform duration-300" />
           <span>Add Medication</span>
         </button>
+
+        <button
+          onClick={()=>generatePDF(daysMap, medicationDataList)}
+          className="group w-full lg:w-auto bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary)]/90 text-white rounded-xl flex items-center justify-center gap-3 px-6 py-4 md:py-4 cursor-pointer hover:from-[var(--color-primary)]/90 hover:to-[var(--color-primary)] shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 font-semibold text-sm md:text-base relative z-10 border border-[var(--color-primary)]/30"
+        >
+          <Download size={20} className="group-hover:rotate-90 transition-transform duration-300" />
+          <span>Download Pdf</span>
+        </button>
       </header>
 
       {/* Medication Cards */}
@@ -322,14 +322,6 @@ const Medication = () => {
 
               {/* Action Buttons */}
               <div className="flex gap-3 justify-between flex-wrap pt-4 border-t border-[var(--dashboard-border)]/30">
-                <button className="flex items-center gap-2 bg-[var(--card-bg)] hover:bg-[var(--hover-color)] border-2 border-[var(--dashboard-border)] px-4 py-2.5 rounded-xl cursor-pointer text-[var(--text-color-all)] transition-all duration-200 text-sm font-medium hover:scale-105 hover:shadow-md group">
-                  <Bell size={16} className="group-hover:animate-pulse" />
-                  Remind
-                </button>
-                <button className="flex items-center gap-2 bg-gradient-to-r from-green-500/20 to-green-600/20 hover:from-green-500/30 hover:to-green-600/30 border-2 border-green-500/30 px-4 py-2.5 rounded-xl cursor-pointer text-green-600 transition-all duration-200 text-sm font-medium hover:scale-105 hover:shadow-md group">
-                  <Check size={16} className="group-hover:animate-bounce" />
-                  Mark Taken
-                </button>
                 <button
                   onClick={() => handleDelete(med?.id)}
                   className="flex items-center gap-2 bg-gradient-to-r from-red-500/20 to-red-600/20 hover:from-red-500/30 hover:to-red-600/30 border-2 border-red-500/30 px-4 py-2.5 rounded-xl cursor-pointer text-red-600 transition-all duration-200 text-sm font-medium hover:scale-105 hover:shadow-md group"
