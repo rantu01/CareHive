@@ -13,7 +13,7 @@ const Hero = () => {
     "https://i.ibb.co/WWFcMMpN/image.png",
     "https://i.ibb.co/7x0r29bf/front-view-young-female-with-carpet-exercises-blue-wall.webp",
     "https://i.ibb.co.com/vCp5hTY8/image.png",
-    "https://i.ibb.co.com/3Y8ZvV85/image.png"
+    "https://i.ibb.co.com/3Y8ZvV85/image.png",
   ];
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const Hero = () => {
   // Auto-rotate background images
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => 
+      setCurrentImageIndex((prevIndex) =>
         prevIndex === backgroundImages.length - 1 ? 0 : prevIndex + 1
       );
     }, 5000); // Change image every 5 seconds
@@ -61,7 +61,7 @@ const Hero = () => {
           <div
             key={index}
             className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+              index === currentImageIndex ? "opacity-100" : "opacity-0"
             }`}
           >
             <img
@@ -82,15 +82,44 @@ const Hero = () => {
         {/* Text Content */}
         <div className="md:w-1/2 text-center md:text-left mb-10 md:mb-0 md:pr-10">
           <h1
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight tracking-tight drop-shadow-lg"
-            style={{ fontFamily: "var(--font-heading)" }}
+            className="text-4xl md:text-5xl lg:text-6xl text-white font-extrabold mb-6 leading-tight tracking-tight drop-shadow-lg"
+            style={{ fontFamily: "var(--font-alt)" }} // Eye-catching font
           >
             Your Journey to{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3ddddd] to-[#19b4b4] animate-gradient-x">
+            <span className="text-transparent bg-clip-text animate-gradient-animated font-bold">
               Better Health
             </span>{" "}
             Starts Here
           </h1>
+
+          <style jsx>{`
+            /* Animate gradient for color-changing effect */
+            @keyframes gradientShift {
+              0% {
+                background-position: 0% 50%;
+              }
+              50% {
+                background-position: 100% 50%;
+              }
+              100% {
+                background-position: 0% 50%;
+              }
+            }
+
+            .animate-gradient-animated {
+              background-image: linear-gradient(
+                90deg,
+                #3ddddd,
+                #19b4b4,
+                #ff6b6b,
+                #f9c74f,
+                #3ddddd
+              );
+              background-size: 300% 300%;
+              animation: gradientShift 5s ease infinite;
+            }
+          `}</style>
+
           <p className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed font-light backdrop-blur-sm bg-white/10 p-4 rounded-2xl">
             Connect with healthcare professionals, track your wellness, and
             transform your life with CareHive.
@@ -161,7 +190,7 @@ const Hero = () => {
               alt="Healthcare background"
               className="w-full h-80 md:h-96 object-cover rounded-3xl"
             />
-            
+
             {/* Image navigation dots */}
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
               {backgroundImages.map((_, index) => (
@@ -169,9 +198,9 @@ const Hero = () => {
                   key={index}
                   onClick={() => setCurrentImageIndex(index)}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === currentImageIndex 
-                      ? 'bg-white scale-125' 
-                      : 'bg-white/50 hover:bg-white/80'
+                    index === currentImageIndex
+                      ? "bg-white scale-125"
+                      : "bg-white/50 hover:bg-white/80"
                   }`}
                 />
               ))}
