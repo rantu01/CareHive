@@ -125,141 +125,115 @@ export default function Blood() {
         color: "var(--text-color-all)",
       }}
     >
-      {/* HERO SECTION - Enhanced */}
-      <section className="relative min-h-[70vh] flex items-center justify-center px-6 md:px-16 py-20 overflow-hidden">
-        {/* Animated Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-primary)]/10 to-[var(--color-secondary)]/10">
-          <div className="absolute top-10 left-10 w-20 h-20 bg-[var(--color-primary)]/20 rounded-full blur-xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-20 w-32 h-32 bg-[var(--color-secondary)]/20 rounded-full blur-xl animate-pulse delay-1000"></div>
-          <div className="absolute top-1/2 left-1/3 w-16 h-16 bg-[var(--color-primary)]/15 rounded-full blur-lg animate-pulse delay-500"></div>
+{/* HERO SECTION - With Background Image (No Overlay, Text Visible) */}
+{/* HERO SECTION - With Soft Overlay */}
+<section className="relative min-h-[80vh] flex items-center justify-center px-6 md:px-16 py-20 overflow-hidden">
+
+  {/* Background Image + Light Overlay */}
+  <div
+    className="absolute inset-0 bg-cover bg-center"
+    style={{
+      backgroundImage:
+        "url('https://i.ibb.co.com/bM569yh6/blood.jpg')",
+    }}
+  ></div>
+
+  {/* 🔆 Light Gradient Overlay */}
+  <div className="absolute inset-0 bg-gradient-to-br from-black/20 to-[var(--color-primary)]/30"></div>
+
+  {/* Floating Lights */}
+  <div className="absolute top-10 left-10 w-20 h-20 bg-[var(--color-primary)]/15 rounded-full blur-2xl animate-pulse"></div>
+  <div className="absolute bottom-20 right-20 w-32 h-32 bg-[var(--color-secondary)]/15 rounded-full blur-2xl animate-pulse delay-1000"></div>
+
+  {/* Main Content */}
+  <div className="relative z-10 max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+
+    {/* Text Section */}
+    <div className="space-y-8 text-white drop-shadow-lg">
+      <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/20 backdrop-blur-md border  border-[var(--color-primary)] shadow-sm">
+  <Droplets className="w-4 h-4 text-[var(--color-primary)]" />
+  <span className="text-sm font-semibold text-[var(--color-primary)]">Life Saving Community</span>
+</div>
+
+
+
+
+     {/* Heading */}
+{/* Heading */}
+{/* Heading */}
+<h1 className="text-5xl md:text-6xl font-extrabold leading-tight tracking-tight">
+  <span className="text-[var(--color-secondary)]">
+    Donate <span className="text-[var(--color-primary)]">Blood</span>
+  </span>
+  <span className="block text-[var(--color-secondary)]">
+    Be Someone’s Lifeline
+  </span>
+</h1>
+
+
+
+      <p className="text-lg md:text-xl opacity-90 leading-relaxed max-w-2xl">
+        Join thousands of heroes who are making a difference every day.  
+        A single donation can save up to <span className="font-semibold">3 lives</span>.
+      </p>
+
+      {/* Buttons */}
+      <div className="flex flex-col sm:flex-row gap-4">
+        <button
+          className="px-8 py-4 rounded-xl font-bold shadow-lg hover:scale-105 transition-all duration-300 group relative overflow-hidden"
+          style={{
+            backgroundColor: "var(--color-primary)",
+            color: "#fff",
+          }}
+        >
+          <Link href="dashboard/user/add-donor">
+            <span className="relative z-10">Become a Donor</span>
+          </Link>
+          <div className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+        </button>
+
+        <button
+          className="px-8 py-4 rounded-xl font-bold border-2 border-white hover:bg-white hover:text-[var(--color-primary)] transition-all duration-300 text-white"
+        >
+          Learn More
+        </button>
+      </div>
+    </div>
+
+    {/* Image Section */}
+    <div className="relative">
+      <div className="relative z-10">
+        <img
+          src="https://i.ibb.co/s9w0rb5h/donar.jpg"
+          alt="Blood Donor Hero"
+          className="w-full max-w-md mx-auto rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-500"
+        />
+      </div>
+
+      {/* Floating Stats Cards */}
+      <div className="absolute -top-4 -left-4 bg-white/80 backdrop-blur-md p-4 rounded-xl shadow-lg border border-white/30">
+        <div className="flex items-center gap-2">
+          <Shield className="w-5 h-5 text-[var(--color-primary)]" />
+          <span className="font-bold text-[var(--color-secondary)]">
+            {stats.activeDonors}+
+          </span>
         </div>
+        <p className="text-xs opacity-70">Active Donors</p>
+      </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-          {/* Text Content */}
-          <div className="space-y-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/20">
-              <Droplets className="w-4 h-4 text-[var(--color-primary)]" />
-              <span className="text-sm font-semibold text-[var(--color-primary)]">
-                Life Saving Community
-              </span>
-            </div>
-
-            <h1 className="text-5xl md:text-6xl font-bold leading-tight">
-              <span className="text-[var(--color-secondary)]">Donate</span>
-              <br />
-              <span className="text-[var(--color-primary)]">Blood,</span>
-              <br />
-              <span className="text-[var(--color-secondary)]">Save Lives</span>
-            </h1>
-
-            <p className="text-xl opacity-80 leading-relaxed max-w-2xl">
-              Join thousands of heroes who are making a difference. Your single
-              donation can save up to 3 lives. Be the reason someone smiles
-              today.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button
-                className="px-8 py-4 rounded-xl font-bold shadow-lg hover:scale-105 transition-all duration-300 group relative overflow-hidden"
-                style={{
-                  backgroundColor: "var(--color-primary)",
-                  color: "#fff",
-                }}
-              >
-                <Link href="dashboard/user/add-donor">
-                  <span className="relative z-10">Become a Donor</span>
-                </Link>
-
-                <div className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              </button>
-
-              <button
-                className="px-8 py-4 rounded-xl font-bold border-2 border-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white transition-all duration-300"
-                style={{
-                  color: "var(--color-primary)",
-                }}
-              >
-                Learn More
-              </button>
-            </div>
-          </div>
-
-          {/* Image Content */}
-          <div className="relative">
-            <div className="relative z-10">
-              <img
-                src="https://i.ibb.co/s9w0rb5h/donar.jpg"
-                alt="Blood Donor Hero"
-                className="w-full max-w-md mx-auto rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-
-            {/* Floating Stats Cards */}
-            <div className="absolute -top-4 -left-4 bg-[var(--dashboard-bg)] p-4 rounded-xl shadow-lg border border-[var(--dashboard-border)]">
-              <div className="flex items-center gap-2">
-                <Shield className="w-5 h-5 text-[var(--color-primary)]" />
-                <span className="font-bold text-[var(--color-secondary)]">
-                  {stats.activeDonors}+
-                </span>
-              </div>
-              <p className="text-xs opacity-70">Active Donors</p>
-            </div>
-
-            <div className="absolute -bottom-4 -right-4 bg-[var(--dashboard-bg)] p-4 rounded-xl shadow-lg border border-[var(--dashboard-border)]">
-              <div className="flex items-center gap-2">
-                <Heart className="w-5 h-5 text-red-500" />
-                <span className="font-bold text-[var(--color-secondary)]">
-                  {stats.livesSaved}+
-                </span>
-              </div>
-              <p className="text-xs opacity-70">Lives Saved</p>
-            </div>
-          </div>
+      <div className="absolute -bottom-4 -right-4 bg-white/80 backdrop-blur-md p-4 rounded-xl shadow-lg border border-white/30">
+        <div className="flex items-center gap-2">
+          <Heart className="w-5 h-5 text-red-500" />
+          <span className="font-bold text-[var(--color-secondary)]">
+            {stats.livesSaved}+
+          </span>
         </div>
-      </section>
+        <p className="text-xs opacity-70">Lives Saved</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-      {/* IMPACT STATS SECTION */}
-      <section className="py-16 px-6 md:px-16">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-[var(--dashboard-bg)] p-8 rounded-2xl border border-[var(--dashboard-border)] text-center hover:shadow-xl transition-shadow duration-300">
-              <div className="w-16 h-16 bg-[var(--color-primary)]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="w-8 h-8 text-[var(--color-primary)]" />
-              </div>
-              <h3 className="text-3xl font-bold text-[var(--color-secondary)] mb-2">
-                {stats.totalDonors}
-              </h3>
-              <p className="text-[var(--text-color-all)] opacity-80">
-                Registered Donors
-              </p>
-            </div>
-
-            <div className="bg-[var(--dashboard-bg)] p-8 rounded-2xl border border-[var(--dashboard-border)] text-center hover:shadow-xl transition-shadow duration-300">
-              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Heart className="w-8 h-8 text-red-500" />
-              </div>
-              <h3 className="text-3xl font-bold text-[var(--color-secondary)] mb-2">
-                {stats.livesSaved}
-              </h3>
-              <p className="text-[var(--text-color-all)] opacity-80">
-                Lives Impacted
-              </p>
-            </div>
-
-            <div className="bg-[var(--dashboard-bg)] p-8 rounded-2xl border border-[var(--dashboard-border)] text-center hover:shadow-xl transition-shadow duration-300">
-              <div className="w-16 h-16 bg-[var(--color-primary)]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Shield className="w-8 h-8 text-[var(--color-primary)]" />
-              </div>
-              <h3 className="text-3xl font-bold text-[var(--color-secondary)] mb-2">
-                {stats.activeDonors}
-              </h3>
-              <p className="text-[var(--text-color-all)] opacity-80">
-                Verified Heroes
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ✅ Search + Filter Bar - Enhanced */}
       <section className="py-8 px-6 md:px-16">
