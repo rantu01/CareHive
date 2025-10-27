@@ -20,10 +20,10 @@ const UserInteractions = () => {
   const [blogs, setBlogs] = useState([]);
   const [selectedBlog, setSelectedBlog] = useState(null);
 
-  console.log("ssssssss", selectedBlog)
   const [loading, setLoading] = useState(true);
   const [commentText, setCommentText] = useState({});
   const [editingComment, setEditingComment] = useState({});
+
 
   // Fetch blogs
   const fetchBlogs = async () => {
@@ -194,10 +194,14 @@ const UserInteractions = () => {
   };
 
 
-  const handleSummarizeText = async () => {
-    const response = await axios.post('/api/summarize-blog', { blogDetails: selectedBlog?.content })
-    console.log("summarize response", response)
+  const handleSummarizeText = async (content) => {
+    const response = await axios.post('/api/summarize-blog', { blogDetails: content })
+    return response?.data?.summarizeText
   }
+
+  const { mutate, data: summarizedText, isPending } = useMutation({
+    mutationFn: handleSummarizeText,
+  })
 
 
   if (loading) {
@@ -239,13 +243,27 @@ const UserInteractions = () => {
               </div>
               <div>
                 <div>
-                  <button onClick={handleSummarizeText} className="rounded-xl bg-[var(--color-primary)] px-3 py-2">
-                    Summarize Text
+                  <button onClick={() => mutate(selectedBlog?.content)} className="rounded-xl bg-[var(--color-primary)] px-3 py-2">
+                    {isPending ? "Summarizing..." : "Sumarize text"}
                   </button>
                 </div>
                 <p className="text-base leading-relaxed" style={{ color: "var(--text-color-all)" }}>
                   {selectedBlog.content}
                 </p>
+
+                {summarizedText && (
+                  <div className="mt-6 p-6 rounded-lg bg-gradient-to-br from-blue-50 to-indigo-50 border border-indigo-200 shadow-lg">
+                    <div className="flex items-center gap-2 mb-3">
+                      <svg className="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                      <h3 className="text-lg font-semibold text-indigo-900">AI Summary</h3>
+                    </div>
+                    <p className="text-base leading-relaxed text-gray-700">
+                      {summarizedText}
+                    </p>
+                  </div>
+                )}
               </div>
 
 

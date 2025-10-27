@@ -45,9 +45,8 @@ export const POST = async (req) => {
         const aiResponseText =
             data?.candidates?.[0]?.content?.parts?.[0]?.text ||
             "Sorry, I couldn’t generate a response.";
-
-        console.log("Gemini send response", aiResponseText)
-        return NextResponse.json({ summarizeText: "aiResponseText" })
+            
+        return NextResponse.json({ status: 200, summarizeText: aiResponseText })
     } catch (error) {
         console.error("Error generating Gemini response:", error.message);
         return NextResponse.json({ error: "something happen wrong please try again" })
