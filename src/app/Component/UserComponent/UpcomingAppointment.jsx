@@ -160,7 +160,7 @@ const UpcomingAppointment = () => {
                                     </div>
 
                                     {/* Join Button - Full Width */}
-                                    <Link href={appointment?.meetLink} className="group/btn w-full px-4 py-2.5 bg-[var(--color-light-green)] text-white rounded-xl font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center gap-2">
+                                    <Link href={appointment?.meetLink || '#'} className="group/btn w-full px-4 py-2.5 bg-[var(--color-light-green)] text-white rounded-xl font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center gap-2">
                                         <Video size={16} className="group-hover/btn:scale-110 transition-transform duration-300" />
                                         <span>Join Video Call</span>
                                     </Link>
