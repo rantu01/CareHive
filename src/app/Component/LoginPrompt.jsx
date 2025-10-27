@@ -22,7 +22,7 @@ export default function LoginPrompt() {
         <p className="mt-4 text-[var(--text-color-all)] text-sm">
           Don’t have an account?{" "}
           <Link
-            href="/register"
+            href="/signup"
             className="text-[var(--color-primary)] font-semibold hover:underline"
           >
             Register here

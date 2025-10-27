@@ -179,13 +179,7 @@ const Navbar = () => {
             <div className="flex items-center space-x-3 ml-6 flex-shrink-0">
               {user ? (
                 <>
-                  <Link
-                    href="/join-challange"
-                    className="font-medium px-4 py-2 rounded-xl text-sm lg:text-base transition-all duration-300"
-                    style={{ color: textColor, fontWeight: 500 }}
-                  >
-                    Join Challange
-                  </Link>
+                  
                   <Link
                     href="/dashboard"
                     className="outline font-medium px-4 py-2 rounded-xl text-sm lg:text-base transition-all duration-300"
@@ -237,7 +231,7 @@ const Navbar = () => {
             <ThemeToggle />
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="outline-none p-2 rounded-lg transition-all duration-300 hover:bg-[var(--color-primary)] hover:bg-opacity-20"
+              className="outline-none p-2 rounded-lg transition-all duration-300 hover:bg-[var(--color-primary)] hover:text-white hover:bg-opacity-20"
               aria-label="Toggle Menu"
               style={{ color: textColor }}
             >

@@ -197,7 +197,7 @@ const MoodBasedHealth = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setSelectedMood(null)}
-                  className="px-6 py-3 border-2 border-[var(--color-primary)] text-[var(--color-primary)] rounded-xl font-semibold hover:bg-[var(--color-primary)] hover:bg-opacity-10 transition-all duration-300"
+                  className="px-6 py-3 border-2 border-[var(--color-primary)] text-[var(--color-primary)] rounded-xl font-semibold hover:bg-[var(--color-primary)] hover:text-white hover:bg-opacity-10 transition-all duration-300"
                 >
                   Choose Different Mood
                 </motion.button>
