@@ -137,7 +137,11 @@ export default function DoctorsSchedule({ doctorId }) {
                       <button
                         className="btn btn-sm bg-gradient-to-r from-gray-700 to-gray-600 hover:from-gray-600 hover:to-gray-700 border-none text-white transition-all"
                         onClick={() =>
-                          handleUpdateStatus(item.userId, item.serialNo, "in-progress")
+                          handleUpdateStatus(
+                            item.userId,
+                            item.serialNo,
+                            "in-progress"
+                          )
                         }
                       >
                         Start Meeting
@@ -157,7 +161,11 @@ export default function DoctorsSchedule({ doctorId }) {
                         <button
                           className="btn btn-sm bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 border-none text-white"
                           onClick={() =>
-                            handleUpdateStatus(item.userId, item.serialNo, "completed")
+                            handleUpdateStatus(
+                              item.userId,
+                              item.serialNo,
+                              "completed"
+                            )
                           }
                         >
                           Complete
@@ -200,7 +208,29 @@ function PatientMessages({ handleReplyRedirect }) {
       .catch((err) => console.error("Error loading messages:", err));
   }, [user]);
 
-  const latestMessages = messagesData.slice(-3).reverse();
+  // const latestMessages = messagesData.slice(-3).reverse();
+
+  // ✅ Safe timestamp normalize
+  const normalizeDate = (msg) => {
+    // 1️⃣ If timestamp exists & valid
+    if (msg?.timestamp) {
+      const t = new Date(msg.timestamp);
+      if (!isNaN(t)) return t.getTime();
+    }
+
+    // 2️⃣ If MongoDB ObjectId exists → extract real time
+    if (msg?._id && msg._id.length >= 8) {
+      const ts = parseInt(msg._id.substring(0, 8), 16) * 1000;
+      return ts;
+    }
+
+    // 3️⃣ Default → treat as newest (so UI never breaks)
+    return Date.now();
+  };
+
+  const latestMessages = [...messagesData]
+    .sort((a, b) => normalizeDate(b) - normalizeDate(a))
+    .slice(0, 3);
 
   return (
     <div className="bg-[var(--sidebar-bg)] text-[var(--text-color-all)] rounded-xl p-6 shadow-md flex flex-col">
@@ -223,7 +253,9 @@ function PatientMessages({ handleReplyRedirect }) {
                   {new Date(msg.timestamp).toLocaleString()}
                 </span>
               </div>
-              <p className="text-sm text-[var(--text-color-all)]">{msg.message}</p>
+              <p className="text-sm text-[var(--text-color-all)]">
+                {msg.message}
+              </p>
               <button
                 onClick={handleReplyRedirect}
                 className="self-start btn btn-xs rounded-lg bg-blue-600 hover:bg-blue-700 border-none text-white"
