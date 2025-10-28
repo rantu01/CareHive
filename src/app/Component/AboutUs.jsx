@@ -11,14 +11,14 @@ const team = [
     image: "https://i.ibb.co.com/gZRDrPDv/rantu.jpg",
   },
   {
-    name: "Dipendra Nath Tagore",
+    name: "Dip Chondo Partho",
     role: "Frontend Developer",
     image: "https://i.ibb.co.com/v6fXffF6/dip.jpg",
   },
   {
     name: "Julfikar Al Rafi",
     role: "Backend Developer",
-    image: "https://i.ibb.co.com/2YKGssdP/rafi.jpg",
+    image: "https://i.ibb.co.com/rKyGNJTN/rafi.jpg",
   },
   {
     name: "Pinky Biswas",
@@ -28,7 +28,7 @@ const team = [
   {
     name: "Rowshon Ummi",
     role: "Content & Documentation Specialist",
-    image: "https://i.ibb.co.com/99cRFYCs/ummi.jpg",
+    image: "https://i.ibb.co.com/r2xZbN9Y/ummi.jpg",
   },
   {
     name: "Umme Sadia Sayti",
@@ -85,7 +85,7 @@ const AboutUs = () => {
             }}
           ></div>
           <img
-            src="https://i.ibb.co/RTc0pdF5/famillt-wellness.jpg"
+            src="https://i.ibb.co.com/sJRNVDxT/sayti.jpg"
             alt="Health care"
             className="w-full h-full object-cover relative z-10"
           />
