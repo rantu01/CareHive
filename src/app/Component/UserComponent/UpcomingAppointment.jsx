@@ -42,7 +42,7 @@ const UpcomingAppointment = () => {
                                     Next {appointmentData?.length} scheduled appointments
                                 </p>
                             </div>
-                        </div> 
+                        </div>
                         <Link href='/dashboard/user/appointments'
                             className="group text-sm md:text-lg px-2 md:px-4 py-2 bg-[var(--color-primary)] text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center gap-2"
                         >
@@ -117,10 +117,10 @@ const UpcomingAppointment = () => {
 
                                     {/* Join Button */}
 
-                                    {appointment?.meetingType !== "inPerson" && <button className="group/btn px-4 py-2 bg-[var(--color-primary)] text-white rounded-xl font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center gap-2">
+                                    <Link href={appointment?.meetLink} target="_blank" className="group/btn px-4 py-2 bg-[var(--color-primary)] text-white rounded-xl font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center gap-2">
                                         <Video size={16} className="group-hover/btn:scale-110 transition-transform duration-300" />
                                         <span>Join</span>
-                                    </button>}
+                                    </Link>
                                 </div>
 
                                 {/* Mobile Layout */}
@@ -160,7 +160,12 @@ const UpcomingAppointment = () => {
                                     </div>
 
                                     {/* Join Button - Full Width */}
-                                    <Link href={appointment?.meetLink} className="group/btn w-full px-4 py-2.5 bg-[var(--color-light-green)] text-white rounded-xl font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center gap-2">
+                                    <Link
+                                        href={appointment?.meetLink}
+                                        className="group/btn w-full px-4 py-2.5 bg-[var(--color-light-green)] text-white rounded-xl font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center gap-2"
+                                        target="_blank" // This opens the link in a new tab
+                                        rel="noopener noreferrer" // Recommended for security when using target="_blank"
+                                    >
                                         <Video size={16} className="group-hover/btn:scale-110 transition-transform duration-300" />
                                         <span>Join Video Call</span>
                                     </Link>

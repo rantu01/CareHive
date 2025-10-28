@@ -171,3 +171,229 @@ export const pdfGenerator = (payment, sl) => {
 
     doc.save("payment_receipt.pdf");
 };
+
+export const daysMap = {
+    "0": "Sunday",
+    "1": "Monday",
+    "2": "Tuesday",
+    "3": "Wednesday",
+    "4": "Thursday",
+    "5": "Friday",
+    "6": "Saturday"
+};
+
+export const generatePDF = async (daysMap,medicines) => {
+    const { jsPDF } = await import('jspdf');
+    const pdf = new jsPDF();
+    const pageWidth = pdf.internal.pageSize.width;
+    const pageHeight = pdf.internal.pageSize.height;
+    const margin = 20;
+    let yPosition = margin;
+
+    const checkPageBreak = (requiredSpace) => {
+        if (yPosition + requiredSpace > pageHeight - margin) {
+            pdf.addPage();
+            yPosition = margin;
+            return true;
+        }
+        return false;
+    };
+
+    const drawHeader = () => {
+        // Header background with gradient effect
+        pdf.setFillColor(79, 70, 229);
+        pdf.roundedRect(margin, yPosition, pageWidth - 2 * margin, 40, 3, 3, 'F');
+
+        // Title
+        pdf.setTextColor(255, 255, 255);
+        pdf.setFontSize(26);
+        pdf.setFont(undefined, 'bold');
+        pdf.text("MEDICINE PRESCRIPTION", pageWidth / 2, yPosition + 17, { align: "center" });
+
+        // Date and line
+        pdf.setFontSize(10);
+        pdf.setFont(undefined, 'normal');
+        const date = new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+        pdf.text(`Date: ${date}`, pageWidth / 2, yPosition + 30, { align: "center" });
+
+        yPosition += 50;
+    };
+
+    drawHeader();
+
+    // Table setup
+    const tableStartX = margin;
+    const tableWidth = pageWidth - 2 * margin;
+    const colWidths = {
+        no: 15,
+        medicine: 50,
+        days: 45,
+        time: 25,
+        pills: 25
+    };
+
+    // Table header
+    const drawTableHeader = () => {
+        // Header background
+        pdf.setFillColor(99, 102, 241); // Indigo
+        pdf.rect(tableStartX, yPosition, tableWidth, 12, 'F');
+
+        // Header text
+        pdf.setTextColor(255, 255, 255);
+        pdf.setFontSize(11);
+        pdf.setFont(undefined, 'bold');
+
+        let xPos = tableStartX + 5;
+        pdf.text("No.", xPos, yPosition + 8);
+        xPos += colWidths.no;
+        pdf.text("Medicine Name", xPos, yPosition + 8);
+        xPos += colWidths.medicine;
+        pdf.text("Days", xPos, yPosition + 8);
+        xPos += colWidths.days;
+        pdf.text("Time", xPos, yPosition + 8);
+        xPos += colWidths.time;
+        pdf.text("Quantity", xPos, yPosition + 8);
+
+        yPosition += 12;
+    };
+
+    drawTableHeader();
+
+    // Table content
+    medicines.forEach((medicine, index) => {
+        const timeEntries = Object.keys(medicine.medicineTakingTime);
+        const days = medicine.medicineTakingDays.map(d => daysMap[d]).join(", ");
+
+        // Calculate row height based on content
+        const maxLines = Math.max(
+            Math.ceil(medicine.medicineName.length / 25),
+            Math.ceil(days.length / 20),
+            timeEntries.length
+        );
+        const rowHeight = Math.max(10, maxLines * 7 + 4);
+
+        // Check if we need a new page
+        if (checkPageBreak(rowHeight + 15)) {
+            drawHeader();
+            drawTableHeader();
+        }
+
+        // Alternating row colors
+        if (index % 2 === 0) {
+            pdf.setFillColor(249, 250, 251); // Light gray
+        } else {
+            pdf.setFillColor(255, 255, 255); // White
+        }
+        pdf.rect(tableStartX, yPosition, tableWidth, rowHeight, 'F');
+
+        // Row border
+        pdf.setDrawColor(229, 231, 235);
+        pdf.setLineWidth(0.3);
+        pdf.rect(tableStartX, yPosition, tableWidth, rowHeight);
+
+        // Cell content
+        pdf.setTextColor(31, 41, 55);
+        pdf.setFontSize(10);
+        pdf.setFont(undefined, 'normal');
+
+        let xPos = tableStartX + 5;
+        const textY = yPosition + 7;
+
+        // Number with badge
+        pdf.setFillColor(79, 70, 229);
+        pdf.circle(xPos + 4, textY - 1, 4, 'F');
+        pdf.setTextColor(255, 255, 255);
+        pdf.setFontSize(9);
+        pdf.setFont(undefined, 'bold');
+        pdf.text(`${index + 1}`, xPos + 4, textY + 1, { align: "center" });
+
+        xPos += colWidths.no;
+
+        // Medicine name
+        pdf.setTextColor(31, 41, 55);
+        pdf.setFontSize(11);
+        pdf.setFont(undefined, 'bold');
+        const medicineLines = pdf.splitTextToSize(medicine.medicineName, colWidths.medicine - 5);
+        pdf.text(medicineLines, xPos, textY);
+
+        xPos += colWidths.medicine;
+
+        // Days
+        pdf.setFontSize(9);
+        pdf.setFont(undefined, 'normal');
+        pdf.setTextColor(75, 85, 99);
+        const daysLines = pdf.splitTextToSize(days, colWidths.days - 5);
+        pdf.text(daysLines, xPos, textY);
+
+        xPos += colWidths.days;
+
+        // Time and Pills (combined)
+        let timeY = textY;
+        timeEntries.forEach((timeKey) => {
+            const timeIdx = timeKey.split('-')[1];
+            const time = medicine.medicineTakingTime[timeKey];
+            const pills = medicine.numberOfPill[`pill-${timeIdx}`];
+
+            // Time
+            pdf.setFontSize(10);
+            pdf.setFont(undefined, 'bold');
+            pdf.setTextColor(79, 70, 229);
+            pdf.text(time, xPos, timeY);
+
+            // Pills
+            pdf.setFont(undefined, 'normal');
+            pdf.setTextColor(107, 114, 128);
+            pdf.setFontSize(9);
+            pdf.text(`${pills} pill${pills > 1 ? 's' : ''}`, xPos + colWidths.time, timeY);
+
+            timeY += 7;
+        });
+
+        yPosition += rowHeight;
+    });
+
+    // Summary section
+    yPosition += 10;
+    if (checkPageBreak(30)) {
+        yPosition = margin;
+    }
+
+    // Summary box
+    pdf.setFillColor(240, 253, 244); // Light green
+    pdf.setDrawColor(74, 222, 128);
+    pdf.setLineWidth(0.5);
+    pdf.roundedRect(margin, yPosition, tableWidth, 25, 2, 2, 'FD');
+
+    pdf.setTextColor(22, 101, 52);
+    pdf.setFontSize(11);
+    pdf.setFont(undefined, 'bold');
+    pdf.text("Important Instructions:", margin + 5, yPosition + 8);
+
+    pdf.setFontSize(9);
+    pdf.setFont(undefined, 'normal');
+    pdf.text("• Take medicines at the prescribed times", margin + 5, yPosition + 15);
+    pdf.text("• Complete the full course as directed", margin + 5, yPosition + 20);
+
+    // Footer
+    yPosition = pageHeight - 20;
+    pdf.setDrawColor(229, 231, 235);
+    pdf.setLineWidth(0.3);
+    pdf.line(margin, yPosition, pageWidth - margin, yPosition);
+
+    yPosition += 5;
+    pdf.setFontSize(8);
+    pdf.setTextColor(107, 114, 128);
+    pdf.setFont(undefined, 'italic');
+    pdf.text("This is a computer-generated prescription. Please consult your doctor for any changes.",
+        pageWidth / 2, yPosition, { align: "center" });
+
+    pdf.setFontSize(7);
+    pdf.text(`Generated on: ${new Date().toLocaleString('en-US')}`,
+        pageWidth / 2, yPosition + 5, { align: "center" });
+
+    pdf.save("medicine-prescription.pdf");
+};

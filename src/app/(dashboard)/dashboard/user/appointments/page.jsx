@@ -40,12 +40,12 @@ const page = () => {
                 {/* Appointments List */}
                 <div className="grid gap-4 sm:gap-5 md:gap-6 lg:gap-8">
 
-                    {appointmentData?.map(({ doctorName, hospitalName, createdAt, bookedSlot, meetingType, serialNo, doctorFee }, index) => (
+                    {appointmentData?.map(({ doctorName, hospitalName, createdAt, bookedSlot, meetLink, serialNo, doctorFee }, index) => (
                         <div
                             key={index}
                             className="group backdrop-blur-sm shadow-lg hover:shadow-2xl rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 lg:p-8 border border-[var(--dashboard-border)]/30 hover:border-[var(--color-light-green)]/30 transition-all duration-300 relative overflow-hidden"
                         >
-                            {console.log("dddddddddddddddddd",createdAt)}
+                            {console.log("dddddddddddddddddd", createdAt)}
 
                             {/* Decorative Elements */}
                             <div className="absolute top-0 right-0 w-24 sm:w-32 h-24 sm:h-32 bg-gradient-to-bl from-[var(--color-light-green)]/5 to-transparent rounded-full blur-2xl -translate-y-12 sm:-translate-y-16 translate-x-12 sm:translate-x-16"></div>
@@ -133,17 +133,12 @@ const page = () => {
 
                                     {/* Right Section - Action Buttons */}
                                     <div className="flex flex-col gap-2.5 sm:gap-3 lg:min-w-[200px]">
-                                        {meetingType === "online" ? (
-                                            <button className="group/btn flex gap-2 sm:gap-2.5 md:gap-3 items-center justify-center px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-green-500/10 to-emerald-500/10 hover:from-green-500/20 hover:to-emerald-500/20 border-2 border-green-500/20 hover:border-green-500/40 rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer">
-                                                <Video className="w-4 h-4 sm:w-5 text-[var(--color-primary)] sm:h-5 group-hover/btn:scale-110 transition-transform duration-300" />
-                                                <span className="text-[var(--text-color-all)] font-semibold text-sm sm:text-base">Join Video Call</span>
-                                            </button>
-                                        ) : (
-                                            <button className="group/btn flex gap-2 sm:gap-2.5 md:gap-3 items-center justify-center px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-green-500/10 to-emerald-500/10 hover:from-green-500/20 hover:to-emerald-500/20 border-2 border-green-500/20 hover:border-green-500/40 rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer">
-                                                <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--color-primary)] group-hover/btn:scale-110 transition-transform duration-300" />
-                                                <span className="text-[var(--text-color-all)] font-semibold text-sm sm:text-base">In-Person Visit</span>
-                                            </button>
-                                        )}
+
+                                        <Link href={meetLink} target="_blank" className="group/btn flex gap-2 sm:gap-2.5 md:gap-3 items-center justify-center px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-green-500/10 to-emerald-500/10 hover:from-green-500/20 hover:to-emerald-500/20 border-2 border-green-500/20 hover:border-green-500/40 rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer">
+                                            <Video className="w-4 h-4 sm:w-5 text-[var(--color-primary)] sm:h-5 group-hover/btn:scale-110 transition-transform duration-300" />
+                                            <span className="text-[var(--text-color-all)] font-semibold text-sm sm:text-base">Join Video Call</span>
+                                        </Link>
+
 
                                     </div>
                                 </div>
@@ -160,7 +155,7 @@ const page = () => {
                         </div>
                         <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-[var(--text-color-all)] mb-2 sm:mb-3">No appointments yet</h3>
                         <p className="text-sm sm:text-base text-[var(--text-color-all)]/60 mb-4 sm:mb-6">Book your first appointment to get started</p>
-                        <Link href={"/doctors"} className="inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base bg-gradient-to-r from-[var(--color-light-green)] to-emerald-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-300">
+                        <Link href={"/doctors"} className="inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base bg-[var(--color-primary)] text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-300">
                             <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
                             Browse Doctors
                         </Link>
