@@ -36,56 +36,65 @@ export default function Header({ doctorId }) {
   }, []);
 
   // Fetch doctor info + appointments
-  useEffect(() => {
-    if (!doctorId) return;
 
-    async function fetchData() {
-      try {
-        const res = await fetch(`/api/doctor-appointments/${doctorId}`);
-        const data = await res.json();
-        const appointments = data.appointments || [];
+ // ✅ Fetch doctor info + stats
+useEffect(() => {
+  if (!doctorId) return;
 
-        // Set doctor name dynamically
-        if (appointments.length > 0) {
-          setDoctorName(appointments[0].doctorName || "Doctor");
-        }
+  async function fetchData() {
+    try {
+      const res = await fetch(`/api/doctor-appointments/${doctorId}`);
+      const data = await res.json();
+      const appointments = data.appointments || [];
 
-        // Total appointments
-        const totalAppointments = appointments.length;
-
-        // Today filter
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const tomorrow = new Date(today);
-        tomorrow.setDate(today.getDate() + 1);
-
-        const todayAppointments = appointments.filter((appt) => {
-          const booked = new Date(appt.bookedAt);
-          return booked >= today && booked < tomorrow;
-        });
-
-        // Status counts
-        const completed = todayAppointments.filter(
-          (appt) => appt.status?.toLowerCase() === "completed"
-        ).length;
-        const inProgress = todayAppointments.filter(
-          (appt) => appt.status?.toLowerCase() === "in-progress"
-        ).length;
-        const upcoming = todayAppointments.length - completed - inProgress;
-
-        setStats({
-          totalAppointments,
-          completed,
-          inProgress,
-          upcoming,
-        });
-      } catch (err) {
-        console.error("Failed to fetch header data:", err);
+      if (appointments.length > 0) {
+        setDoctorName(appointments[0].doctorName || "Doctor");
       }
-    }
 
-    fetchData();
-  }, [doctorId]);
+      // ✅ Today by Day Name (not Date)
+      const todayDayName = new Date()
+        .toLocaleDateString("en-US", { weekday: "long" })
+        .toLowerCase();
+
+      const todayAppointments = appointments.filter((appt) =>
+        appt.bookedSlot?.toLowerCase().includes(todayDayName)
+      );
+
+      const completed = todayAppointments.filter(
+        (a) => a.status?.toLowerCase() === "completed"
+      ).length;
+
+      const inProgress = todayAppointments.filter(
+        (a) => a.status?.toLowerCase() === "in-progress"
+      ).length;
+
+      const upcoming =
+        todayAppointments.length - completed - inProgress;
+
+      // ✅ Current month logic
+      const now = new Date();
+      const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+      const monthEnd = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+
+      const monthlyAppointments = appointments.filter((appt) => {
+        const created = new Date(appt.bookedAt);
+        return created >= monthStart && created < monthEnd;
+      });
+
+      setStats({
+        completed,
+        inProgress,
+        upcoming,
+        totalAppointments: monthlyAppointments.length, // ✅ Changed ✅
+      });
+    } catch (error) {
+      console.error("Header Data Fetch Error:", error);
+    }
+  }
+
+  fetchData();
+}, [doctorId]);
+
 
   // Helper for animated dot
   const AnimatedDot = ({ color }) => (
@@ -118,8 +127,8 @@ export default function Header({ doctorId }) {
                   <span>
                     {stats.totalAppointments}{" "}
                     {stats.totalAppointments === 1
-                      ? "appointment scheduled"
-                      : "appointments scheduled"}
+                      ? "appointment scheduled in this month"
+                      : "appointments scheduled in this month"}
                   </span>
                 </div>
               </div>
