@@ -8,7 +8,7 @@ const team = [
   {
     name: "Runtu Mondal",
     role: "Team Leader & Full-Stack Developer",
-    image: "https://i.ibb.co/3RjYb8vN/runtu.jpg",
+    image: "https://i.ibb.co.com/gZRDrPDv/rantu.jpg",
   },
   {
     name: "Dipendra Nath Tagore",
@@ -18,7 +18,7 @@ const team = [
   {
     name: "Julfikar Al Rafi",
     role: "Backend Developer",
-    image: "https://i.ibb.co/YXkvK1fS/rafi.jpg",
+    image: "https://i.ibb.co.com/2YKGssdP/rafi.jpg",
   },
   {
     name: "Pinky Biswas",
@@ -28,12 +28,12 @@ const team = [
   {
     name: "Rowshon Ummi",
     role: "Content & Documentation Specialist",
-    image: "https://i.ibb.co/LpgZ8mQW/tasnia.jpg",
+    image: "https://i.ibb.co.com/99cRFYCs/ummi.jpg",
   },
   {
     name: "Umme Sadia Sayti",
     role: "Frontend Developer & Presenter",
-    image: "https://i.ibb.co.com/BH3Tf20h/sayti.jpg",
+    image: "https://i.ibb.co.com/pBmd5n3Y/sayti.jpg",
   },
 ];
 
@@ -158,7 +158,7 @@ const AboutUs = () => {
                 <img
                   src={member.image}
                   alt={member.name}
-                  className="w-full h-64 object-cover"
+                  className="w-full h-72 object-cover object-top rounded-t-3xl"
                 />
                 <div className="p-5 text-center">
                   <h4 className="font-semibold text-xl md:text-2xl text-[var(--color-primary)]">
