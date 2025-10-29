@@ -104,10 +104,6 @@ export default function FeaturesSection() {
               <Upload className="w-5 h-5" />
               Try It Free
             </Link>
-            <button className="px-8 py-4 rounded-xl font-bold text-lg flex items-center gap-2 transition-all duration-300 border-2" style={{ borderColor: 'var(--color-primary)', color: 'var(--text-color-all)', backgroundColor: 'var(--bg-color-all)' }}>
-              <Bot className="w-5 h-5" style={{ color: 'var(--color-primary)' }} />
-              See How It Works
-            </button>
           </div>
         </div>
       </section>
