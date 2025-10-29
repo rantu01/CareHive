@@ -4,6 +4,7 @@ import { ResponsiveContainer, RadialBarChart, RadialBar } from "recharts";
 import { Utensils, Flame } from "lucide-react";
 import { use } from "react";
 import { DashBoardDataContext } from "./UserDashBoardDataContext/DashboardDataContext";
+import Link from "next/link";
 
 const NutritionCard = () => {
 
@@ -11,7 +12,7 @@ const NutritionCard = () => {
 
   const foodLog = mealData
 
-
+  console.log("food log data is", foodLog)
 
 
   // Mock values for eaten & burned calories (you can adjust when API is ready)
@@ -31,6 +32,21 @@ const NutritionCard = () => {
     { name: "Remaining", value: remainingCalories, fill: "#f97316" },
     { name: "Used", value: eatenCalories, fill: "#e5e7eb" }, // background
   ];
+
+  if (!foodLog) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[200px] gap-4 text-center">
+        <p className="text-[var(--color-primary)] text-lg font-medium">
+          Please add your calories from the Wellness page
+        </p>
+        <Link href={`/wellness`}
+          className="px-6 py-2 rounded-2xl font-semibold border border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white transition-all duration-300 shadow-md"
+        >
+          Go to Wellness
+        </Link>
+      </div>
+    )
+  }
 
   return (
     <div className="p-6 rounded-2xl shadow-md w-full">

@@ -41,7 +41,7 @@ const page = () => {
       {/* ai health tips */}
 
       <div className="mt-10">
-        <AiHealthTips/>
+        <AiHealthTips />
       </div>
     </div>
   );
