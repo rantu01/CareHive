@@ -196,7 +196,7 @@ export default function HospitalsPage() {
         <button
           onClick={() => setPage((p) => Math.max(p - 1, 1))}
           disabled={page === 1}
-          className="p-2 rounded-lg text-teal-700 hover:bg-teal-50 disabled:opacity-40"
+          className="p-2 rounded-lg text-teal-700 hover:bg-teal-50 disabled:opacity-40 cursor-pointer"
         >
           <ChevronLeft size={20} />
         </button>
@@ -205,7 +205,7 @@ export default function HospitalsPage() {
           <button
             key={num}
             onClick={() => setPage(num)}
-            className={`px-4 py-2 rounded-lg border ${
+            className={`px-4 py-2 rounded-lg border cursor-pointer ${
               page === num
                 ? "text-white"
                 : "text-teal-700 bg-white hover:bg-teal-50"
@@ -222,7 +222,7 @@ export default function HospitalsPage() {
         <button
           onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
           disabled={page === totalPages}
-          className="p-2 rounded-lg text-teal-700 hover:bg-teal-50 disabled:opacity-40"
+          className="p-2 rounded-lg text-teal-700 hover:bg-teal-50 disabled:opacity-40 cursor-pointer"
         >
           <ChevronRight size={20} />
         </button>
