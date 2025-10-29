@@ -19,7 +19,7 @@ const UpcomingAppointment = () => {
         if (apptDate.toDateString() === yesterday.toDateString()) return "Yesterday";
         return apptDate.toDateString();
     }
-
+    console.log("my appoinment data", appointmentData)
     return (
         <div>
             <div className="bg-[var(--card-bg)] border-2 border-[var(--dashboard-border)] p-8 rounded-3xl h-[26rem] max-h-[26rem] shadow-xl hover:shadow-2xl transition-all duration-300 backdrop-blur-sm relative overflow-hidden">
@@ -116,7 +116,6 @@ const UpcomingAppointment = () => {
                                     </div>
 
                                     {/* Join Button */}
-
                                     <Link href={appointment?.meetLink} target="_blank" className="group/btn px-4 py-2 bg-[var(--color-primary)] text-white rounded-xl font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center gap-2">
                                         <Video size={16} className="group-hover/btn:scale-110 transition-transform duration-300" />
                                         <span>Join</span>

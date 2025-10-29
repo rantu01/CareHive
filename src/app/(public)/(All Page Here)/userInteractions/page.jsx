@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Heart,
@@ -15,7 +15,10 @@ import {
 import Swal from "sweetalert2";
 import UseAuth from "@/app/Hooks/UseAuth";
 import axios from "axios";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { AuthContext } from "@/app/context/authContext";
+import PremiumModal from "@/app/Component/PremiumUserComponent/PremiumAlertModal";
+
 
 const UserInteractions = () => {
   const { user } = UseAuth();
@@ -27,6 +30,11 @@ const UserInteractions = () => {
   const [editingComment, setEditingComment] = useState({});
 
   const [showSummary, setShowSummary] = useState(false)
+  const [showPremiumAlertModal, setPremiumModalAlert] = useState(false)
+
+  console.log(showPremiumAlertModal)
+  const userId = user?.uid
+
   // Fetch blogs
   const fetchBlogs = async () => {
     try {
@@ -196,7 +204,38 @@ const UserInteractions = () => {
   };
 
 
+  const handleCheckPremiumUser = async () => {
+    try {
+      const response = await axios.get('/api/check-premium-user', {
+        params: { userId },
+      });
+      return response?.data?.premiumUserStatus ?? false;
+    } catch (error) {
+      console.error("Error checking premium user:", error);
+      return false;
+    }
+  };
+
+
+
+  const { data: isPremiumUser = false, isLoading } = useQuery({
+    queryFn: handleCheckPremiumUser,
+    queryKey: ["premiumUser", userId],
+    enabled: !!userId
+  })
+
   const handleSummarizeText = async (content) => {
+
+
+    if (!userId) {
+      Swal.fire("Please Login First")
+      return
+    }
+
+    if (!isPremiumUser) {
+      return setPremiumModalAlert(true)
+    }
+
     const response = await axios.post('/api/summarize-blog', { blogDetails: content })
 
     if (response.status == 200) {
@@ -251,7 +290,7 @@ const UserInteractions = () => {
               </div>
               <div>
                 <div>
-
+                  {showPremiumAlertModal && <PremiumModal setPremiumModalAlert={setPremiumModalAlert} />}
                   <button
                     onClick={() => mutate(selectedBlog?.content)}
                     disabled={isPending}
@@ -269,11 +308,12 @@ const UserInteractions = () => {
                       </>
                     )}
                   </button>
+
+                  { }
                 </div>
                 <p className="text-base leading-relaxed" style={{ color: "var(--text-color-all)" }}>
                   {selectedBlog.content}
                 </p>
-
                 {summarizedText && showSummary && (
                   <div className="mt-6 p-6 rounded-lg bg-gradient-to-br from-purple-900/20 to-blue-900/20 border border-purple-500/30 shadow-lg backdrop-blur-sm">
                     <div className="flex items-center justify-between gap-2 mb-3">
