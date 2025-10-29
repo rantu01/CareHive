@@ -115,7 +115,7 @@ const UpcomingAppointment = () => {
                                         </div>
                                     </div>
 
-                                    {/* Join Button */}
+                                    {/* Join Button */} 
                                     <Link href={appointment?.meetLink} target="_blank" className="group/btn px-4 py-2 bg-[var(--color-primary)] text-white rounded-xl font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center gap-2">
                                         <Video size={16} className="group-hover/btn:scale-110 transition-transform duration-300" />
                                         <span>Join</span>
@@ -160,7 +160,7 @@ const UpcomingAppointment = () => {
 
                                     {/* Join Button - Full Width */}
                                     <Link
-                                        href={appointment?.meetLink}
+                                        href={appointment?.meetLink || "https://meet.google.com/isu-djqo-qfv"}
                                         className="group/btn w-full px-4 py-2.5 bg-[var(--color-light-green)] text-white rounded-xl font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center gap-2"
                                         target="_blank" // This opens the link in a new tab
                                         rel="noopener noreferrer" // Recommended for security when using target="_blank"
