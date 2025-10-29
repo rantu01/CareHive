@@ -2,10 +2,18 @@
 
 import { useEffect, useState } from "react";
 import { Calendar, Clock, MessageCircle, Stethoscope } from "lucide-react";
+import axios from "axios";
+import UseAuth from "@/app/Hooks/UseAuth";
+import { useRouter } from "next/navigation";
+
 
 export default function Header({ doctorId }) {
   const [greeting, setGreeting] = useState("");
   const [doctorName, setDoctorName] = useState("");
+  const { user } = UseAuth();
+  const router = useRouter();
+  const [unreadCount, setUnreadCount] = useState(0);
+
   const [stats, setStats] = useState({
     totalAppointments: 0,
     completed: 0,
@@ -35,7 +43,30 @@ export default function Header({ doctorId }) {
     return () => clearInterval(interval);
   }, []);
 
-  // Fetch doctor info + appointments
+// ✅ Fetch patient messages count for badge
+const [pendingCount, setPendingCount] = useState(0);
+useEffect(() => {
+  if (!user?.email) return;
+
+  axios
+    .get(`/api/messages?doctorEmail=${user.email}`)
+    .then((res) => {
+      const allMsgs = res.data || [];
+
+      const pending = allMsgs.filter(
+        (msg) =>
+          msg.senderEmail !== user.email &&        // ✅ Only patient messages
+          (!msg.reply || msg.reply.trim() === "")  // ✅ Not replied yet
+      ).length;
+
+      setPendingCount(pending);
+    })
+    .catch((err) => console.error("Message Count Error:", err));
+}, [user]);
+
+
+
+  // ✅ Fetch doctor info + stats
   useEffect(() => {
     if (!doctorId) return;
 
@@ -45,42 +76,47 @@ export default function Header({ doctorId }) {
         const data = await res.json();
         const appointments = data.appointments || [];
 
-        // Set doctor name dynamically
         if (appointments.length > 0) {
           setDoctorName(appointments[0].doctorName || "Doctor");
         }
 
-        // Total appointments
-        const totalAppointments = appointments.length;
+        // ✅ Today by Day Name (not Date)
+        const todayDayName = new Date()
+          .toLocaleDateString("en-US", { weekday: "long" })
+          .toLowerCase();
 
-        // Today filter
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const tomorrow = new Date(today);
-        tomorrow.setDate(today.getDate() + 1);
+        const todayAppointments = appointments.filter((appt) =>
+          appt.bookedSlot?.toLowerCase().includes(todayDayName)
+        );
 
-        const todayAppointments = appointments.filter((appt) => {
-          const booked = new Date(appt.bookedAt);
-          return booked >= today && booked < tomorrow;
-        });
-
-        // Status counts
         const completed = todayAppointments.filter(
-          (appt) => appt.status?.toLowerCase() === "completed"
+          (a) => a.status?.toLowerCase() === "completed"
         ).length;
+
         const inProgress = todayAppointments.filter(
-          (appt) => appt.status?.toLowerCase() === "in-progress"
+          (a) => a.status?.toLowerCase() === "in-progress"
         ).length;
+
         const upcoming = todayAppointments.length - completed - inProgress;
 
+        // ✅ Current month logic
+        const now = new Date();
+        const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+        const monthEnd = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+
+        const monthlyAppointments = appointments.filter((appt) => {
+          const created = new Date(appt.bookedAt);
+          return created >= monthStart && created < monthEnd;
+        });
+
         setStats({
-          totalAppointments,
           completed,
           inProgress,
           upcoming,
+          totalAppointments: monthlyAppointments.length, // ✅ Changed ✅
         });
-      } catch (err) {
-        console.error("Failed to fetch header data:", err);
+      } catch (error) {
+        console.error("Header Data Fetch Error:", error);
       }
     }
 
@@ -90,8 +126,12 @@ export default function Header({ doctorId }) {
   // Helper for animated dot
   const AnimatedDot = ({ color }) => (
     <span className="relative flex w-3 h-3">
-      <span className={`absolute inline-flex h-full w-full rounded-full opacity-75 animate-ping ${color}`}></span>
-      <span className={`relative inline-flex rounded-full h-3 w-3 ${color}`}></span>
+      <span
+        className={`absolute inline-flex h-full w-full rounded-full opacity-75 animate-ping ${color}`}
+      ></span>
+      <span
+        className={`relative inline-flex rounded-full h-3 w-3 ${color}`}
+      ></span>
     </span>
   );
 
@@ -118,8 +158,8 @@ export default function Header({ doctorId }) {
                   <span>
                     {stats.totalAppointments}{" "}
                     {stats.totalAppointments === 1
-                      ? "appointment scheduled"
-                      : "appointments scheduled"}
+                      ? "appointment scheduled in this month"
+                      : "appointments scheduled in this month"}
                   </span>
                 </div>
               </div>
@@ -145,13 +185,21 @@ export default function Header({ doctorId }) {
 
         {/* Right Section */}
         <div className="flex items-center space-x-3">
-          <button className="btn btn-md rounded-2xl relative bg-[#75cddf] border-none hover:bg-[#5fc0d2]">
-            <MessageCircle className="w-5 h-5" />
-            Messages
-            <span className="absolute top-0 right-0 -mt-1 -mr-1 w-4 h-4 bg-orange-500 text-white rounded-full text-xs flex items-center justify-center">
-              3
-            </span>
-          </button>
+<button
+  onClick={() => router.push("/dashboard/doctor/messages")}
+  className="btn btn-md rounded-2xl relative bg-[#75cddf] border-none hover:bg-[#5fc0d2] transition-all"
+>
+  <MessageCircle className="w-5 h-5" />
+  Messages
+
+  {pendingCount > 0 && (
+    <span className="absolute -top-1 -right-1 min-w-[20px] h-[20px] px-1 bg-red-600 text-white rounded-full text-xs flex items-center justify-center animate-bounce shadow-lg">
+      {pendingCount}
+    </span>
+  )}
+</button>
+
+
         </div>
       </div>
     </div>

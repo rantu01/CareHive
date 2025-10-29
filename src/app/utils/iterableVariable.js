@@ -287,4 +287,46 @@ export const bodyParts = [
         "ankles",
         "feet",
         "toes"
-    ];
+    ]; 
+
+
+
+
+export const plans = [
+    {
+      status: 'Starter',
+      price: 'Free',
+      facilityArray: [
+        '24/7 health support',
+        'Daily goal section access',
+        'Health & Wellness tips',
+        'Dedicated support',
+      ],
+      isPopular: false
+    },
+    {
+      status: 'Professional',
+      price: '500',
+      facilityArray: [
+        '24/7 health support',
+        'Daily goal section access',
+        'Health & Wellness tips',
+        'Dedicated support',
+        'Ai based health tips'
+      ],
+      isPopular: true
+    },
+    {
+      status: 'Full Premium',
+      price: '1000',
+      facilityArray: [
+        '24/7 health support',
+        'Daily goal section access',
+        'Health & Wellness tips',
+        'Dedicated support',
+        'Ai based analyzing acceess',
+        'Facility on finding doctor',
+      ],
+      isPopular: false
+    }
+  ];    
