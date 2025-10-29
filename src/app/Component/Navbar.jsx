@@ -333,6 +333,23 @@ const Navbar = () => {
                     >
                       Dashboard
                     </Link>
+
+                    <Link
+                      href="/become-premium-user"
+                      className="group relative overflow-hidden px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(251,191,36,0.4)]"
+                    >
+                      {/* Shine effect */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-30 translate-x-[-100%] group-hover:translate-x-[100%] transition-all duration-700"></div>
+
+                      {/* Content */}
+                      <div className="relative flex items-center gap-2">
+                        <Crown className="w-5 h-5 text-white group-hover:rotate-12 transition-transform duration-300" />
+                        <span className="font-semibold text-sm lg:text-base text-white">
+                          Premium
+                        </span>
+                      </div>
+                    </Link>
+
                     <button
                       onClick={handleLogout}
                       className="w-full py-3 px-4 rounded-xl font-medium border-2 bg-[var(--color-primary)] text-white border-[var(--color-primary)]"
