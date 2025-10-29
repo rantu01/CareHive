@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Heart,
@@ -9,17 +9,31 @@ import {
   Send,
   User,
   ArrowRight,
+  Sparkles,
+  X,
 } from "lucide-react";
 import Swal from "sweetalert2";
 import UseAuth from "@/app/Hooks/UseAuth";
+import axios from "axios";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { AuthContext } from "@/app/context/authContext";
+import PremiumModal from "@/app/Component/PremiumUserComponent/PremiumAlertModal";
+
 
 const UserInteractions = () => {
   const { user } = UseAuth();
   const [blogs, setBlogs] = useState([]);
   const [selectedBlog, setSelectedBlog] = useState(null);
+
   const [loading, setLoading] = useState(true);
   const [commentText, setCommentText] = useState({});
   const [editingComment, setEditingComment] = useState({});
+
+  const [showSummary, setShowSummary] = useState(false)
+  const [showPremiumAlertModal, setPremiumModalAlert] = useState(false)
+
+  console.log(showPremiumAlertModal)
+  const userId = user?.uid
 
   // Fetch blogs
   const fetchBlogs = async () => {
@@ -189,6 +203,54 @@ const UserInteractions = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+
+  const handleCheckPremiumUser = async () => {
+    try {
+      const response = await axios.get('/api/check-premium-user', {
+        params: { userId },
+      });
+      return response?.data?.premiumUserStatus ?? false;
+    } catch (error) {
+      console.error("Error checking premium user:", error);
+      return false;
+    }
+  };
+
+
+
+  const { data: isPremiumUser = false, isLoading } = useQuery({
+    queryFn: handleCheckPremiumUser,
+    queryKey: ["premiumUser", userId],
+    enabled: !!userId
+  })
+
+  const handleSummarizeText = async (content) => {
+
+
+    if (!userId) {
+      Swal.fire("Please Login First")
+      return
+    }
+
+    if (!isPremiumUser) {
+      return setPremiumModalAlert(true)
+    }
+
+    const response = await axios.post('/api/summarize-blog', { blogDetails: content })
+
+    if (response.status == 200) {
+      setShowSummary(true)
+      return response?.data?.summarizeText
+    } else {
+      Swal.fire("Oppps Someting Went Wrong")
+    }
+
+  }
+
+  const { mutate, data: summarizedText, isPending } = useMutation({
+    mutationFn: handleSummarizeText,
+  })
+
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-96">
@@ -226,19 +288,72 @@ const UserInteractions = () => {
                   </div>
                 </div>
               </div>
+              <div>
+                <div>
+                  {showPremiumAlertModal && <PremiumModal setPremiumModalAlert={setPremiumModalAlert} />}
+                  <button
+                    onClick={() => mutate(selectedBlog?.content)}
+                    disabled={isPending}
+                    className="cursor-pointer mb-5 rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed px-4 py-2.5 flex items-center gap-2 transition-all shadow-lg hover:shadow-xl"
+                  >
+                    {isPending ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        <span className="text-white font-medium">Summarizing...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles className="w-4 h-4 text-white" />
+                        <span className="text-white font-medium">Summarize Text</span>
+                      </>
+                    )}
+                  </button>
 
-              <p className="text-base leading-relaxed" style={{ color: "var(--text-color-all)" }}>
-                {selectedBlog.content}
-              </p>
+                  { }
+                </div>
+                <p className="text-base leading-relaxed" style={{ color: "var(--text-color-all)" }}>
+                  {selectedBlog.content}
+                </p>
+                {summarizedText && showSummary && (
+                  <div className="mt-6 p-6 rounded-lg bg-gradient-to-br from-purple-900/20 to-blue-900/20 border border-purple-500/30 shadow-lg backdrop-blur-sm">
+                    <div className="flex items-center justify-between gap-2 mb-3">
+                      <div className="flex gap-3 items-center ">
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center">
+                          <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                            <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                        <div className="text-lg font-semibold" style={{ color: "var(--text-color-all)" }}>
+                          AI Generated Summary
+                        </div>
+                      </div>
+
+                      <div>
+                        <button
+                          onClick={() => setShowSummary(false)}
+                          className="cursor-pointer rounded-xl bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 px-3 py-2 flex items-center gap-2 transition-all shadow-lg hover:shadow-xl"
+                        >
+                          <X className="w-4 h-4 text-white" />
+                          <span className="text-white font-medium">Hide Summary</span>
+                        </button>
+                      </div>
+                    </div>
+                    <p className="text-base leading-relaxed opacity-90" style={{ color: "var(--text-color-all)" }}>
+                      {summarizedText}
+                    </p>
+                  </div>
+                )}
+              </div>
+
 
               <div className="flex items-center gap-6 pt-4 border-t" style={{ borderColor: "var(--dashboard-border)" }}>
                 <button
                   onClick={() => handleLike(selectedBlog._id)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl font-semibold transition-all ${
-                    selectedBlog.likes?.some((l) => l.email === user?.email)
-                      ? "bg-[var(--color-primary)] text-white"
-                      : "bg-[var(--color-secondary)] text-white"
-                  }`}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl font-semibold transition-all ${selectedBlog.likes?.some((l) => l.email === user?.email)
+                    ? "bg-[var(--color-primary)] text-white"
+                    : "bg-[var(--color-secondary)] text-white"
+                    }`}
                 >
                   <Heart
                     size={18}
@@ -379,11 +494,10 @@ const UserInteractions = () => {
           {blogs.map((blog) => (
             <motion.div
               key={blog._id}
-              onClick={() => handleSelectBlog(blog)}
+              onClick={() => { handleSelectBlog(blog); setShowSummary(false) }}
               whileHover={{ scale: 1.02 }}
-              className={`cursor-pointer rounded-2xl p-4 shadow-md transition-all ${
-                selectedBlog?._id === blog._id ? "ring-2 ring-[var(--color-primary)]" : ""
-              }`}
+              className={`cursor-pointer rounded-2xl p-4 shadow-md transition-all ${selectedBlog?._id === blog._id ? "ring-2 ring-[var(--color-primary)]" : ""
+                }`}
               style={{
                 backgroundColor: "var(--dashboard-bg)",
                 border: "1px solid var(--dashboard-border)",

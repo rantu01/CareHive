@@ -14,8 +14,6 @@ const DashBoardDataProvider = ({ children }) => {
   const [appointmentData, setAppointmentData] = useState([])
 
 
-  console.log("appoinment data provider",appointmentData)
-
   const [userHealthStats, setHealthStats] = useState([])
 
   const [userToDo, setUserToDo] = useState([])
@@ -25,8 +23,6 @@ const DashBoardDataProvider = ({ children }) => {
   const { user } = useContext(AuthContext)
   const userId = user?.uid
 
-
-  console.log(userId)
 
   const [medicineData, setMedicineData] = useState([])
 
@@ -41,19 +37,19 @@ const DashBoardDataProvider = ({ children }) => {
         const healthStatsUrl = `/api/get-health-stats/${userId}`;
         const doctorListUrl = `/api/get-appointment-list/${userId}`;
         const toDoUrl = `/api/get-todo-task/${userId}`;
-        // const mealUrl = `/api/calories`
+        const mealUrl = `/api/calories`
 
         // response
-        const healthStatsResponse = await axios.get(healthStatsUrl,{params: { userId }})
+        const healthStatsResponse = await axios.get(healthStatsUrl, { params: { userId } })
         const doctorListResponse = await axios.get(doctorListUrl)
         const toDoListResponse = await axios.get(toDoUrl)
-        // const mealResponse = await axios.get(mealUrl)
+        const mealResponse = await axios.get(mealUrl, { params: { userId } })
 
         // set data in state
-        // console.log("I am meal response",mealResponse)
         setHealthStats(healthStatsResponse?.data[0]?.userStats)
         setAppointmentData(doctorListResponse?.data[0]?.appointmentDetails)
         setUserToDo(toDoListResponse?.data[0]?.todo)
+        setMealData(mealResponse?.data[0])
 
       } catch (error) {
         console.error('Error fetching health stats:', error);
@@ -79,7 +75,7 @@ const DashBoardDataProvider = ({ children }) => {
 
   // get user medicine information
   const getUserMedicine = async () => {
-    const response = await axios.get(`/api/medicine-remainder/`, {params: { userId }});
+    const response = await axios.get(`/api/medicine-remainder/`, { params: { userId } });
     return response.data
   }
 
@@ -148,7 +144,9 @@ const DashBoardDataProvider = ({ children }) => {
 
     // user to do 
 
-    userToDo, setUserToDo
+    userToDo, setUserToDo,
+
+    mealData
 
   };
 

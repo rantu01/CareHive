@@ -163,7 +163,7 @@ const Page = () => {
                     fontFamily: "var(--font-heading)",
                   }}
                 >
-                  Health Log
+                  AI Health Log
                 </h3>
               </div>
               <HealthLog />
