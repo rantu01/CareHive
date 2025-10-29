@@ -139,7 +139,7 @@ const Hero = () => {
               className="group w-full sm:w-auto bg-transparent border-2 border-white text-white hover:bg-white hover:text-[var(--color-primary)] font-semibold py-3 px-8 sm:py-4 sm:px-10 rounded-full text-sm sm:text-base transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 whitespace-nowrap relative overflow-hidden"
               style={{ fontFamily: "var(--font-primary)" }}
             >
-              <span className="relative z-10">Explore Wellness Programs</span>
+              <span className="relative z-10"><Link href="/fitness">Explore Wellness Programs</Link></span>
               <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </button>
           </div>

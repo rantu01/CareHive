@@ -4,16 +4,21 @@ import {
   Calendar,
   Pill,
   Activity,
-  User,
-  Clock,
+  ClipboardList,
+  MessageCircle,
+  HeartHandshake,
+  FileHeart,
+  Stethoscope,
   Users,
+  Clock,
+  PlusSquare,
   FileText,
   CheckCircle2,
-  PlusSquare,
+  Dumbbell,
   Clipboard,
-  MessageCircle,
-  Thermometer,
   MessageCircleCode,
+  User,
+  StretchHorizontal, 
 } from "lucide-react";
 
 export const navItems = {
@@ -23,11 +28,12 @@ export const navItems = {
     { name: "Appointments", path: "/dashboard/user/appointments", icon: <Calendar size={18} /> },
     { name: "Medications", path: "/dashboard/user/medications", icon: <Pill size={18} /> },
     { name: "Goals & Progress", path: "/dashboard/user/goals", icon: <Activity size={18} /> },
-    { name: "Report Analyzer", path: "/dashboard/user/report-analyzer", icon: <Clipboard size={24} /> },
-    { name: "Chat With doctor", path: "/dashboard/user/doctor-chat", icon: <MessageCircle size={24} /> },
-    { name: "Donate", path: "/dashboard/user/add-donor", icon: <Thermometer size={24} /> },
-    { name: "ehealth Report", path: "/dashboard/user/ehealth-report", icon: <Thermometer size={24} /> },
+    { name: "Report Analyzer", path: "/dashboard/user/report-analyzer", icon: <ClipboardList size={18} /> },
+    { name: "Chat With Doctor", path: "/dashboard/user/doctor-chat", icon: <MessageCircle size={18} /> },
+    { name: "Donate", path: "/dashboard/user/add-donor", icon: <HeartHandshake size={18} /> },
+    { name: "eHealth Report", path: "/dashboard/user/ehealth-report", icon: <FileHeart size={18} /> },
   ],
+
   doctor: [
     { name: "Overview", path: "/dashboard/doctor", icon: <Home size={18} /> },
     {
@@ -58,9 +64,10 @@ export const navItems = {
     {
       name: "Reports",
       path: "/dashboard/doctor/reports",
-      icon: <MessageCircleCode size={18} />,
+      icon: <Clipboard size={18} />,
     },
   ],
+
   admin: [
     {
       name: "Dashboard Overview",
@@ -75,7 +82,7 @@ export const navItems = {
     {
       name: "Doctors",
       path: "/dashboard/admin/doctors",
-      icon: <User size={18} />,
+      icon: <Stethoscope size={18} />,
     },
     {
       name: "Reports",
@@ -87,20 +94,15 @@ export const navItems = {
       path: "/dashboard/admin/doctor-approval",
       icon: <CheckCircle2 size={18} />,
     },
-    // {
-    //   name: "Add Fitness Info",
-    //   path: "/dashboard/admin/add-fitness-info",
-    //   icon: <CheckCircle2 size={18} />,
-    // },
     {
       name: "Add Gym Plans",
       path: "/dashboard/admin/add-gym-plans",
-      icon: <CheckCircle2 size={18} />,
+      icon: <Dumbbell size={18} />,
     },
     {
       name: "Add Yoga Technique",
       path: "/dashboard/admin/add-yoga-technique",
-      icon: <CheckCircle2 size={18} />,
+      icon: <StretchHorizontal size={18} />, // ✅ replaced Yoga
     },
   ],
 };
