@@ -182,7 +182,7 @@ export default function PatientModal({ patient, onClose }) {
                         </p>
                         <p>
                           <DollarSign size={14} className="inline-block mr-1" />
-                          Fees: {a.fees} BDT
+                          Fees: {a.doctorFee} BDT
                         </p>
                       </div>
                     </div>
