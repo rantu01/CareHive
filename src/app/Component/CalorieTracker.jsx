@@ -79,7 +79,7 @@ export default function CalorieTracker() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-6">
+    <div className="max-w-4xl mx-auto  space-y-6">
       {/* Header */}
       <h1
         className="text-xl font-medium text-center mb-2 transition-all duration-1000"
@@ -208,10 +208,7 @@ export default function CalorieTracker() {
           <button
             type="submit"
             className="col-span-2 py-3 rounded-xl font-semibold text-white shadow-lg hover:shadow-xl hover:scale-105 transition transform mb-8"
-            style={{
-              background:
-                "linear-gradient(90deg, var(--color-secondary), var(--text-color-all))",
-            }}
+            style={{ background: "var(--color-secondary)" }}
           >
             Add Meal
           </button>

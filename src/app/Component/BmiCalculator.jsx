@@ -183,9 +183,7 @@ const BmiCalculator = () => {
       <button
         onClick={calculateBMI}
         className="w-full py-3 rounded-xl font-semibold text-white shadow-lg hover:shadow-xl hover:scale-105 transition transform mb-8"
-        style={{
-          background: "linear-gradient(90deg, var(--color-secondary), var(--text-color-all))",
-        }}
+        style={{ background: "var(--color-secondary)" }}
       >
         Calculate BMI
       </button>
