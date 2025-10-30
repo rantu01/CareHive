@@ -127,7 +127,7 @@ const DailyWellnessCheckIn = () => {
             How are you feeling today?
           </h3>
           
-          <div className="grid grid-cols-5 gap-3">
+          <div className="grid grid-cols-3 md:grid-cols-5  gap-3">
             {moods.map((mood) => (
               <motion.button
                 key={mood.emoji}

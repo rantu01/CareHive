@@ -22,7 +22,7 @@ const team = [
   },
   {
     name: "Pinky Biswas",
-    role: "UI/UX Designer",
+    role: "Full-Stack Developer",
     image: "https://i.ibb.co.com/JwJRXgRf/pinky.jpg",
   },
   {
@@ -153,7 +153,7 @@ const AboutUs = () => {
             {team.map((member, index) => (
               <div
                 key={index}
-                className="rounded-3xl bg-white shadow-md overflow-hidden transition-transform duration-500 hover:-translate-y-2"
+                className="rounded-3xl shadow-md overflow-hidden transition-transform duration-500 hover:-translate-y-2"
               >
                 <img
                   src={member.image}
