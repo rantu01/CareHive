@@ -84,9 +84,9 @@ export default function FeaturesSection() {
   return (
     <div className="w-full" style={{ backgroundColor: 'var(--bg-color-all)' }}>
       {/* Hero Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="py-10 lg:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border" style={{ borderColor: 'var(--color-primary)', backgroundColor: 'rgba(25,180,180,0.1)' }}>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border mb-5" style={{ borderColor: 'var(--color-primary)', backgroundColor: 'rgba(25,180,180,0.1)' }}>
             <Sparkles className="w-4 h-4" style={{ color: 'var(--color-primary)' }} />
             <span className="text-sm font-semibold" style={{ color: 'var(--color-primary)' }}>AI-Powered Health Analysis</span>
           </div>
@@ -104,10 +104,6 @@ export default function FeaturesSection() {
               <Upload className="w-5 h-5" />
               Try It Free
             </Link>
-            <button className="px-8 py-4 rounded-xl font-bold text-lg flex items-center gap-2 transition-all duration-300 border-2" style={{ borderColor: 'var(--color-primary)', color: 'var(--text-color-all)', backgroundColor: 'var(--bg-color-all)' }}>
-              <Bot className="w-5 h-5" style={{ color: 'var(--color-primary)' }} />
-              See How It Works
-            </button>
           </div>
         </div>
       </section>
@@ -119,14 +115,14 @@ export default function FeaturesSection() {
             {mainFeatures.map((feature, index) => (
               <div
                 key={index}
-                className="group relative rounded-2xl p-8 border transition-all duration-300 hover:-translate-y-1"
+                className="group relative rounded-2xl p-8 border transition-all duration-300 hover:-translate-y-1 flex flex-col items-center"
                 style={{ borderColor: 'var(--color-primary)', backgroundColor: 'var(--bg-color-all)' }}
               >
                 <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300" style={{ background: 'linear-gradient(to bottom right, var(--color-primary), var(--color-secondary))', color: 'var(--color-white)' }}>
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-bold mb-3" style={{ color: 'var(--text-color-all)' }}>{feature.title}</h3>
-                <p style={{ color: 'var(--text-color-all)' }}>{feature.description}</p>
+                <h3 className="text-xl font-bold mb-3 " style={{ color: 'var(--text-color-all)' }}>{feature.title}</h3>
+                <p className='text-center' style={{ color: 'var(--text-color-all)' }}>{feature.description}</p>
               </div>
             ))}
           </div>
@@ -148,15 +144,15 @@ export default function FeaturesSection() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {howItWorks.map((item, index) => (
               <div key={index} className="relative">
-                <div className="rounded-2xl p-6 border transition-all duration-300 hover:shadow-lg h-full" style={{ borderColor: 'var(--color-primary)', backgroundColor: 'var(--bg-color-all)' }}>
-                  <div className="flex items-start gap-4 mb-4">
-                    <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-md flex-shrink-0" style={{ background: 'linear-gradient(to bottom right, var(--color-primary), var(--color-secondary))', color: 'var(--color-white)' }}>
+                <div className="rounded-2xl p-6 border transition-all duration-300 hover:shadow-lg h-full flex flex-col items-center" style={{ borderColor: 'var(--color-primary)', backgroundColor: 'var(--bg-color-all)' }}>
+                  {/* <div className="flex items-center justify-center gap-4 mb-4"> */}
+                    <div className="w-12 h-12 mb-6 rounded-xl flex items-center justify-center shadow-md flex-shrink-0" style={{ background: 'linear-gradient(to bottom right, var(--color-primary), var(--color-secondary))', color: 'var(--color-white)' }}>
                       {item.icon}
                     </div>
-                    <span className="text-5xl font-bold" style={{ color: 'var(--bg-color-all)' }}>{item.step}</span>
-                  </div>
-                  <h3 className="text-lg font-bold mb-2" style={{ color: 'var(--text-color-all)' }}>{item.title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: 'var(--text-color-all)' }}>{item.description}</p>
+                    {/* <span className="text-5xl font-bold" style={{ color: 'var(--bg-color-all)' }}>{item.step}</span> */}
+                  {/* </div> */}
+                  <h3 className="text-lg font-bold mb-2 text-center" style={{ color: 'var(--text-color-all)' }}>{item.title}</h3>
+                  <p className="text-sm leading-relaxed text-center" style={{ color: 'var(--text-color-all)' }}>{item.description}</p>
                 </div>
               </div>
             ))}
@@ -180,14 +176,14 @@ export default function FeaturesSection() {
             {benefits.map((benefit, index) => (
               <div
                 key={index}
-                className="group rounded-xl p-6 border transition-all duration-300 hover:shadow-lg"
+                className="group rounded-xl p-6 border transition-all duration-300 hover:shadow-lg flex flex-col items-center"
                 style={{ borderColor: 'var(--color-primary)', backgroundColor: 'var(--bg-color-all)' }}
               >
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110" style={{ backgroundColor: 'rgba(25,180,180,0.1)', color: 'var(--color-primary)' }}>
                   {benefit.icon}
                 </div>
-                <h3 className="text-lg font-bold mb-2" style={{ color: 'var(--text-color-all)' }}>{benefit.title}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: 'var(--text-color-all)' }}>{benefit.description}</p>
+                <h3 className="text-lg font-bold mb-2 text-center" style={{ color: 'var(--text-color-all)' }}>{benefit.title}</h3>
+                <p className="text-sm leading-relaxed text-center" style={{ color: 'var(--text-color-all)' }}>{benefit.description}</p>
               </div>
             ))}
           </div>
