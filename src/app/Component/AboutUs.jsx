@@ -22,7 +22,7 @@ const team = [
   },
   {
     name: "Pinky Biswas",
-    role: "UI/UX Designer",
+    role: "Full-Stack Developer",
     image: "https://i.ibb.co.com/JwJRXgRf/pinky.jpg",
   },
   {
