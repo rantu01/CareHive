@@ -6,6 +6,7 @@ import CalorieTracker from "@/app/Component/CalorieTracker";
 import Navbar from "@/app/Component/Navbar";
 import QuickHealthTips from "@/app/Component/QuickHealthTips";
 import React, { useEffect, useState } from "react";
+import { BotMessageSquare, CalendarSync } from "lucide-react";
 
 const Page = () => {
   const [titleVisible, setTitleVisible] = useState(false);
@@ -116,10 +117,10 @@ const Page = () => {
             >
               <div className="flex items-center mb-6">
                 <div
-                  className="w-12 h-12 rounded-lg flex items-center justify-center mr-4"
+                  className="w-12 h-12 rounded-lg text-white flex items-center justify-center mr-4"
                   style={{ background: "var(--color-primary)" }}
                 >
-                  {/* Add your icon here */}
+                  <CalendarSync />
                 </div>
                 <h3
                   className="text-2xl font-semibold"
@@ -145,16 +146,11 @@ const Page = () => {
             >
               <div className="flex items-center mb-6">
                 <div
-                  className="w-12 h-12 rounded-lg flex items-center justify-center mr-4"
+                  className="w-12 h-12 text-white rounded-lg flex items-center justify-center mr-4"
                   style={{ background: "var(--color-primary)" }}
                 >
-                  <svg
-                    className="w-6 h-6"
-                    fill="var(--color-white)"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" />
-                  </svg>
+                  
+                  <BotMessageSquare />
                 </div>
                 <h3
                   className="text-2xl font-semibold"

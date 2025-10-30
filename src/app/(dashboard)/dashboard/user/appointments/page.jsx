@@ -134,7 +134,7 @@ const page = () => {
                                     {/* Right Section - Action Buttons */}
                                     <div className="flex flex-col gap-2.5 sm:gap-3 lg:min-w-[200px]">
 
-                                        <Link href={meetLink} target="_blank" className="group/btn flex gap-2 sm:gap-2.5 md:gap-3 items-center justify-center px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-green-500/10 to-emerald-500/10 hover:from-green-500/20 hover:to-emerald-500/20 border-2 border-green-500/20 hover:border-green-500/40 rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer">
+                                        <Link href={meetLink || "https://meet.google.com/isu-djqo-qfv"} target="_blank" className="group/btn flex gap-2 sm:gap-2.5 md:gap-3 items-center justify-center px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-green-500/10 to-emerald-500/10 hover:from-green-500/20 hover:to-emerald-500/20 border-2 border-green-500/20 hover:border-green-500/40 rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer">
                                             <Video className="w-4 h-4 sm:w-5 text-[var(--color-primary)] sm:h-5 group-hover/btn:scale-110 transition-transform duration-300" />
                                             <span className="text-[var(--text-color-all)] font-semibold text-sm sm:text-base">Join Video Call</span>
                                         </Link>
