@@ -1,4 +1,3 @@
-import AboutUs from "../Component/AboutUs";
 import ContactSection from "../Component/ContactSection";
 import DailyWellnessCheckIn from "../Component/DailyWellnessCheckIn";
 import FeaturedServices from "../Component/FeaturedServices";
@@ -24,7 +23,6 @@ export default function Home() {
       <RecipeOfTheDay></RecipeOfTheDay>
       <NutritionAdvisor></NutritionAdvisor>
       <FeaturesSection/>
-      <AboutUs></AboutUs>
       <QuestionSection></QuestionSection>
       <ContactSection></ContactSection>
     </div>

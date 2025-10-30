@@ -30,6 +30,7 @@ const navLinks = [
     ],
   },
   { label: "Blog", href: "/userInteractions" },
+  { label: "About Us", href: "/aboutUs" },
 ];
 
 const Navbar = () => {
