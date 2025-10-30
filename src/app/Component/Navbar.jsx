@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import UseAuth from "../Hooks/UseAuth";
 import ThemeToggle from "./ThemeToggle";
-import { Crown } from "lucide-react";
+import { Crown, ChevronDown } from "lucide-react"; // ✅ added ChevronDown
 
 const navLinks = [
   {
@@ -53,15 +53,15 @@ const Navbar = () => {
   }, []);
 
   const isHome = pathname === "/";
-  const bgColor =
-    isHome && !scrolled ? "transparent" : "var(--color-secondary)";
+  const bgColor = isHome && !scrolled ? "transparent" : "var(--color-secondary)";
   const textColor = "var(--color-white)";
   const logoColor = "var(--color-white)";
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-300 ${scrolled || !isHome ? "py-3 shadow-lg" : "py-4"
-        }`}
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        scrolled || !isHome ? "py-3 shadow-lg" : "py-4"
+      }`}
       style={{
         backgroundColor: bgColor,
         fontFamily: "var(--font-primary)",
@@ -124,20 +124,28 @@ const Navbar = () => {
                         setDropdownOpen((prev) => ({ ...prev, [idx]: false }))
                       }
                     >
+                      {/* ✅ Added dropdown arrow here */}
                       <span
-                        className="relative px-3 py-2 text-sm lg:text-base font-medium cursor-pointer transition-all duration-300"
+                        className="relative px-3 py-2 text-sm lg:text-base font-medium cursor-pointer flex items-center gap-1 transition-all duration-300"
                         style={{
                           color: textColor,
                           fontWeight: isActive ? 600 : 500,
                         }}
                       >
                         {link.label}
-                      </span>
-                      <div
-                        className={`absolute top-full left-0 mt-1 w-40 bg-[var(--color-secondary)] rounded-lg shadow-lg transition-all duration-200 ${dropdownOpen[idx]
-                          ? "opacity-100 visible"
-                          : "opacity-0 invisible"
+                        <ChevronDown
+                          className={`w-4 h-4 transition-transform duration-200 ${
+                            dropdownOpen[idx] ? "rotate-180" : "rotate-0"
                           }`}
+                        />
+                      </span>
+
+                      <div
+                        className={`absolute top-full left-0 mt-1 w-40 bg-[var(--color-secondary)] rounded-lg shadow-lg transform transition-all duration-300 ease-in-out ${
+                          dropdownOpen[idx]
+                            ? "opacity-100 visible translate-y-0"
+                            : "opacity-0 invisible -translate-y-2"
+                        }`}
                       >
                         {link.dropdown.map((item, dIdx) => (
                           <Link
@@ -179,7 +187,6 @@ const Navbar = () => {
             <div className="flex items-center space-x-3 ml-6 flex-shrink-0">
               {user ? (
                 <>
-
                   <Link
                     href="/dashboard"
                     className="outline font-medium px-4 py-2 rounded-xl text-sm lg:text-base transition-all duration-300"
@@ -188,15 +195,12 @@ const Navbar = () => {
                     Dashboard
                   </Link>
 
-
                   <Link
                     href="/become-premium-user"
                     className="group relative overflow-hidden px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(251,191,36,0.4)]"
                   >
-                    {/* Shine effect */}
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-30 translate-x-[-100%] group-hover:translate-x-[100%] transition-all duration-700"></div>
 
-                    {/* Content */}
                     <div className="relative flex items-center gap-2">
                       <Crown className="w-5 h-5 text-white group-hover:rotate-12 transition-transform duration-300" />
                       <span className="font-semibold text-sm lg:text-base text-white">
@@ -339,10 +343,8 @@ const Navbar = () => {
                       href="/become-premium-user"
                       className="group relative overflow-hidden px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(251,191,36,0.4)]"
                     >
-                      {/* Shine effect */}
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-30 translate-x-[-100%] group-hover:translate-x-[100%] transition-all duration-700"></div>
 
-                      {/* Content */}
                       <div className="relative flex items-center gap-2">
                         <Crown className="w-5 h-5 text-white group-hover:rotate-12 transition-transform duration-300" />
                         <span className="font-semibold text-sm lg:text-base text-white">
