@@ -4,6 +4,7 @@ import Footer from "../Component/Footer";
 import Navbar from "../Component/Navbar";
 import Notifications from "../Component/Notifications";
 import LogoLoader from "../Component/LogoLoader";
+import ScrollToTop from "../Component/ScrollToTop";
 
 export default function PublicLayout({ children }) {
   return (
@@ -20,6 +21,7 @@ export default function PublicLayout({ children }) {
       <Navbar />
       <main className="flex-grow">{children}</main>
       <HospitalAIAssistant />
+      <ScrollToTop />
       <Footer />
     </div>
   );
