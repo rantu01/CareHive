@@ -41,7 +41,7 @@ export default function HealthLog() {
   const mainBoxShadow = { boxShadow: "0 12px 30px -5px rgba(156,163,175,0.3)" };
 
   return (
-    <div className="max-w-4xl w-full mx-auto mt-16 px-4">
+    <div className="max-w-4xl w-full mx-auto mt-16">
       {/* Title & Description */}
       <h2
         className="text-3xl md:text-4xl font-extrabold text-center mb-4 animate-fadeIn"

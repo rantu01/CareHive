@@ -142,14 +142,14 @@ export default function ProgressPage() {
         {/* Header */}
         <div className="flex justify-center items-center gap-3 mb-6">
           <HeartPulse className="text-red-500 dark:text-red-400 animate-pulse w-8 h-8" />
-          <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-emerald-500">
+          <h1 className="text-4xl font-extrabold bg-clip-text">
             Progress Tracker
           </h1>
         </div>
         <p className="text-center text-gray-700 dark:text-gray-300 mb-10 max-w-2xl mx-auto">
           Monitor your{" "}
-          <span className="text-sky-500 font-semibold">physical</span> and{" "}
-          <span className="text-emerald-500 font-semibold">mental wellness</span>.
+          <span className="text-red-500 font-semibold">physical</span> and{" "}
+          <span className="text-red-500 font-semibold">mental wellness</span>.
           Track your age, workout hours, and mindset daily.
         </p>
 
@@ -221,7 +221,7 @@ export default function ProgressPage() {
                   }
                   className={`px-4 py-1.5 rounded-full border text-sm transition ${
                     formData.mentalState === option
-                      ? "bg-gradient-to-r from-sky-500 to-emerald-500 text-white border-transparent"
+                      ? "bg-red-500 text-white border-transparent"
                       : "bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700 border-gray-300 dark:border-gray-600"
                   }`}
                 >
@@ -241,7 +241,8 @@ export default function ProgressPage() {
           <motion.button
             whileTap={{ scale: 0.97 }}
             type="submit"
-            className="md:col-span-2 bg-gradient-to-r from-sky-500 to-emerald-500 text-white py-3 rounded-xl font-semibold tracking-wide flex items-center justify-center gap-2 hover:shadow-[0_0_20px_rgba(56,189,248,0.4)] transition"
+            className="md:col-span-2  text-white py-3 rounded-xl font-semibold tracking-wide flex items-center justify-center gap-2 hover:shadow-[0_0_20px_rgba(56,189,248,0.4)] transition"
+            style={{ background: "var(--color-secondary)" }}
           >
             <RefreshCcw className="w-5 h-5" />
             {isUpdating ? "Update Progress" : "Submit Progress"}
@@ -256,7 +257,7 @@ export default function ProgressPage() {
             transition={{ delay: 0.3 }}
             className="mt-12"
           >
-            <h2 className="text-2xl font-semibold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-emerald-500">
+            <h2 className="text-2xl font-semibold mb-6 text-center bg-clip-text">
               Your Progress Overview
             </h2>
 
