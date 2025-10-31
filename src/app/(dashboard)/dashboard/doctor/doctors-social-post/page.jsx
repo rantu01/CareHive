@@ -1,10 +1,8 @@
-
 "use client";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Lottie from "lottie-react";
 import UseAuth from "@/app/Hooks/UseAuth";
-import Navbar from "@/app/Component/Navbar";
 
 const categories = ["Fitness", "Diet", "Yoga", "Mental Health"];
 
@@ -20,15 +18,12 @@ const Page = () => {
       .then(setAnimationData);
   }, []);
 
-  // Fetch current user blogs
   const fetchMyBlogs = async () => {
     if (!user?.email) return;
     const res = await fetch("/api/blogs");
     const data = await res.json();
     if (data.success) {
-      const userBlogs = data.blogs.filter(
-        (b) => b.author.email === user.email
-      );
+      const userBlogs = data.blogs.filter((b) => b.author.email === user.email);
       setMyBlogs(userBlogs);
     }
   };
@@ -37,13 +32,8 @@ const Page = () => {
     fetchMyBlogs();
   }, [user]);
 
-  // Submit new blog
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const title = e.target.title.value;
-    const category = e.target.category.value;
-    const content = e.target.content.value;
 
     if (!user) {
       alert("⚠️ Please log in to post.");
@@ -51,9 +41,9 @@ const Page = () => {
     }
 
     const blogData = {
-      title,
-      category,
-      content,
+      title: e.target.title.value,
+      category: e.target.category.value,
+      content: e.target.content.value,
       author: {
         email: user?.email,
         name: user?.displayName || "Anonymous",
@@ -67,7 +57,6 @@ const Page = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(blogData),
       });
-
       const data = await res.json();
       if (data.success) {
         alert("✅ Blog posted successfully!");
@@ -77,41 +66,36 @@ const Page = () => {
         alert("⚠️ Failed to post blog");
       }
     } catch (err) {
-      console.error("Error posting blog:", err);
+      console.error(err);
       alert("⚠️ Something went wrong.");
     }
   };
 
-  // Delete blog
   const handleDelete = async (id) => {
     if (!confirm("Are you sure you want to delete this blog?")) return;
-
     try {
-      const res = await fetch(`/api/blogs?id=${id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(`/api/blogs?id=${id}`, { method: "DELETE" });
       const data = await res.json();
       if (data.success) {
         alert("🗑️ Blog deleted!");
         fetchMyBlogs();
       }
     } catch (err) {
-      console.error("Error deleting blog:", err);
+      console.error(err);
     }
   };
 
-  // Update blog
   const handleUpdate = async (e) => {
     e.preventDefault();
-    const title = e.target.title.value;
-    const category = e.target.category.value;
-    const content = e.target.content.value;
-
     try {
       const res = await fetch(`/api/blogs?id=${editingBlog._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, category, content }),
+        body: JSON.stringify({
+          title: e.target.title.value,
+          category: e.target.category.value,
+          content: e.target.content.value,
+        }),
       });
       const data = await res.json();
       if (data.success) {
@@ -120,13 +104,13 @@ const Page = () => {
         fetchMyBlogs();
       }
     } catch (err) {
-      console.error("Error updating blog:", err);
+      console.error(err);
     }
   };
 
   return (
     <div style={{ background: "var(--dashboard-bg)", color: "var(--text-color-all)" }}>
-      <div  className="max-w-6xl mx-auto p-8 pt-28">
+      <div className="max-w-6xl mx-auto p-8 pt-28">
         {/* Heading */}
         <motion.div
           className="text-center mb-12"
@@ -138,15 +122,10 @@ const Page = () => {
             className="text-4xl md:text-5xl font-bold mb-4 tracking-tight"
             style={{ color: "var(--color-secondary)" }}
           >
-            <span className="text-gray-600">Social</span> Health Interaction
+            <span style={{ color: "var(--text-color-all)" }}>Social</span> Health Interaction
           </h1>
-          <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            A dedicated space for doctors to publish{" "}
-            <span className="font-semibold">blogs</span> and{" "}
-            <span className="font-semibold">health tips</span>, organized under{" "}
-            <span className="italic">Fitness, Diet, Yoga</span>, and{" "}
-            <span className="italic">Mental Health</span> categories, helping
-            users gain reliable insights and guidance for a healthier lifestyle.
+          <p className="text-base md:text-lg max-w-3xl mx-auto leading-relaxed">
+            A dedicated space for doctors to publish <span style={{ fontWeight: "600" }}>blogs</span> and <span style={{ fontWeight: "600" }}>health tips</span>, organized under <span style={{ fontStyle: "italic" }}>Fitness, Diet, Yoga</span>, and <span style={{ fontStyle: "italic" }}>Mental Health</span> categories.
           </p>
         </motion.div>
 
@@ -163,12 +142,9 @@ const Page = () => {
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Title + Category */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div>
-                  <label className="block mb-2 font-medium text-sm text-gray-700 dark:text-gray-200">
-                    Title
-                  </label>
+                  <label className="block mb-2 font-medium text-sm">Title</label>
                   <input
                     name="title"
                     type="text"
@@ -184,9 +160,7 @@ const Page = () => {
                 </div>
 
                 <div>
-                  <label className="block mb-2 font-medium text-sm text-gray-700 dark:text-gray-200">
-                    Category
-                  </label>
+                  <label className="block mb-2 font-medium text-sm">Category</label>
                   <select
                     name="category"
                     required
@@ -198,19 +172,14 @@ const Page = () => {
                     }}
                   >
                     {categories.map((c) => (
-                      <option key={c} value={c}>
-                        {c}
-                      </option>
+                      <option key={c} value={c}>{c}</option>
                     ))}
                   </select>
                 </div>
               </div>
 
-              {/* Content */}
               <div>
-                <label className="block mb-2 font-medium text-sm text-gray-700 dark:text-gray-200">
-                  Content
-                </label>
+                <label className="block mb-2 font-medium text-sm">Content</label>
                 <textarea
                   name="content"
                   placeholder="Write your blog or health tip..."
@@ -225,20 +194,14 @@ const Page = () => {
                 />
               </div>
 
-              {/* Button */}
-              <motion.div
-                className="pt-4"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: 0.5 }}
-              >
+              <motion.div className="pt-4">
                 <motion.button
                   type="submit"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-full py-3 rounded-lg font-semibold transition-all duration-200 hover:opacity-90"
+                  className="w-full py-3 rounded-lg font-semibold transition-all duration-200"
                   style={{
-                    backgroundColor: "var(--color-secondary)",
+                    backgroundColor: "var(--color-primary)",
                     color: "var(--color-white)",
                   }}
                 >
@@ -248,37 +211,29 @@ const Page = () => {
             </form>
           </motion.div>
 
-          {/* Lottie Animation */}
+          {/* Lottie */}
           <motion.div
             className="flex-1 flex items-center justify-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
-            {animationData && (
-              <Lottie animationData={animationData} loop={true} />
-            )}
+            {animationData && <Lottie animationData={animationData} loop />}
           </motion.div>
         </div>
 
-        {/* My Blogs Section */}
+        {/* My Blogs */}
         {user && (
           <div className="mt-16">
-            <h2
-              className="text-2xl font-bold mb-6"
-              style={{ color: "var(--color-secondary)" }}
-            >
+            <h2 className="text-2xl font-bold mb-6" style={{ color: "var(--color-secondary)" }}>
               My Blogs
             </h2>
 
-            {myBlogs.length === 0 && (
-              <p className="text-gray-500">You haven’t posted any blogs yet.</p>
-            )}
+            {myBlogs.length === 0 && <p style={{ color: "var(--text-color-all)" }}>You haven’t posted any blogs yet.</p>}
 
             <div className="space-y-6">
               {myBlogs.map((blog) =>
                 editingBlog?._id === blog._id ? (
-                  // Edit Form
                   <form
                     key={blog._id}
                     onSubmit={handleUpdate}
@@ -293,28 +248,41 @@ const Page = () => {
                       name="title"
                       defaultValue={blog.title}
                       className="w-full p-3 rounded-lg border"
+                      style={{
+                        backgroundColor: "var(--bg-color-all)",
+                        color: "var(--text-color-all)",
+                        borderColor: "var(--dashboard-border)",
+                      }}
                     />
                     <select
                       name="category"
                       defaultValue={blog.category}
                       className="w-full p-3 rounded-lg border"
+                      style={{
+                        backgroundColor: "var(--bg-color-all)",
+                        color: "var(--text-color-all)",
+                        borderColor: "var(--dashboard-border)",
+                      }}
                     >
-                      {categories.map((c) => (
-                        <option key={c}>{c}</option>
-                      ))}
+                      {categories.map((c) => <option key={c}>{c}</option>)}
                     </select>
                     <textarea
                       name="content"
                       defaultValue={blog.content}
                       rows={5}
                       className="w-full p-3 rounded-lg border"
+                      style={{
+                        backgroundColor: "var(--bg-color-all)",
+                        color: "var(--text-color-all)",
+                        borderColor: "var(--dashboard-border)",
+                      }}
                     />
                     <div className="flex gap-3">
                       <button
                         type="submit"
                         className="px-4 py-2 rounded-lg font-semibold"
                         style={{
-                          backgroundColor: "var(--color-secondary)",
+                          backgroundColor: "var(--color-primary)",
                           color: "var(--color-white)",
                         }}
                       >
@@ -323,14 +291,18 @@ const Page = () => {
                       <button
                         type="button"
                         onClick={() => setEditingBlog(null)}
-                        className="px-4 py-2 rounded-lg font-semibold bg-gray-400 text-white"
+                        className="px-4 py-2 rounded-lg font-semibold"
+                        style={{
+                          backgroundColor: "var(--bg-color-all)",
+                          color: "var(--text-color-all)",
+                          border: "1px solid var(--dashboard-border)",
+                        }}
                       >
                         Cancel
                       </button>
                     </div>
                   </form>
                 ) : (
-                  // Blog Card
                   <div
                     key={blog._id}
                     className="p-6 rounded-xl shadow-lg"
@@ -339,19 +311,17 @@ const Page = () => {
                       border: "1px solid var(--dashboard-border)",
                     }}
                   >
-                    <h3 className="text-xl font-semibold">{blog.title}</h3>
-                    <p className="text-sm text-gray-500 mb-2">
-                      Category: {blog.category}
-                    </p>
-                    <p className="text-gray-700 dark:text-gray-300 mb-4">
-                      {blog.content}
-                    </p>
+                    <h3 style={{ color: "var(--color-secondary)", fontWeight: "600", fontSize: "1.25rem" }}>
+                      {blog.title}
+                    </h3>
+                    <p style={{ color: "var(--text-color-all)", marginBottom: "0.5rem" }}>Category: {blog.category}</p>
+                    <p style={{ color: "var(--text-color-all)", marginBottom: "1rem" }}>{blog.content}</p>
                     <div className="flex gap-3">
                       <button
                         onClick={() => setEditingBlog(blog)}
                         className="px-4 py-2 rounded-lg font-semibold"
                         style={{
-                          backgroundColor: "var(--color-secondary)",
+                          backgroundColor: "var(--color-primary)",
                           color: "var(--color-white)",
                         }}
                       >
@@ -359,7 +329,12 @@ const Page = () => {
                       </button>
                       <button
                         onClick={() => handleDelete(blog._id)}
-                        className="px-4 py-2 rounded-lg font-semibold bg-red-500 text-white"
+                        className="px-4 py-2 rounded-lg font-semibold"
+                        style={{
+                          backgroundColor: "var(--bg-color-all)",
+                          color: "var(--text-color-all)",
+                          border: "1px solid var(--dashboard-border)",
+                        }}
                       >
                         Delete
                       </button>
@@ -376,5 +351,3 @@ const Page = () => {
 };
 
 export default Page;
-
-
